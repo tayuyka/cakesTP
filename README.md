@@ -21,5 +21,5 @@
 
 [Презентация](Прочее)
 
-[Видео-презентация](https://www.youtube.com/watch?v=NeRO1IqeHe8&ab_channel=LakeRunner)
+[Видео-презентация](https://www.youtube.com/watch?v=kaZGSEjs9Tw&ab_channel=LakeRunner)
 
