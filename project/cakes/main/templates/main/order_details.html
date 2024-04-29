@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+   <h1 class="order-number">
+        <span>Закакз №</span>
+        <span>&lt;order_id&gt;</span>
+      </h1>
+
+    <div class="order-details ">
+
+      <section class="order-structure">
+        <header class="order-header">
+
+          <h2 class="order-title">Состав</h2>
+        </header>
+
+        <div class="order-items">
+          <article class="order-item">
+            <div class="item-details">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf9478b3204cf57e077037bf90c23547f01030ee06dd6129afe785626f08dde6?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="Шоколадный" class="item-image" />
+              <div class="item-info">
+                <h3 class="item-name">Шоколадный</h3>
+                <div class="item-price">2400 ₽</div>
+              </div>
+            </div>
+            <div class="item-quantity">
+              <div class="quantity-divider"></div>
+              <div class="quantity-value">4 шт</div>
+            </div>
+          </article>
+
+          <article class="order-item">
+            <div class="item-details">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf9478b3204cf57e077037bf90c23547f01030ee06dd6129afe785626f08dde6?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="Шоколадный" class="item-image" />
+              <div class="item-info">
+                <h3 class="item-name">Шоколадный</h3>
+                <div class="item-price">2400 ₽</div>
+              </div>
+            </div>
+            <div class="item-quantity">
+              <div class="quantity-divider"></div>
+              <div class="quantity-value">2 шт</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <aside class="order-summary">
+        <h2 class="summary-title">Детали</h2>
+        <div class="summary-details">
+          <div class="summary-label">Дата оформления</div>
+          <div class="summary-value">14.04.2024</div>
+          <div class="summary-label summary-label-spacing">Дата получения</div>
+          <div class="summary-value">27.04.2024</div>
+          <div class="summary-label summary-label-spacing">Адрес доставки</div>
+          <div class="summary-value">ул 9 января д 14 кв 52</div>
+          <div class="summary-label summary-label-spacing">Статус</div>
+          <div class="summary-value">доставлен</div>
+        </div>
+      </aside>
+    </div>
+{% endblock %}
