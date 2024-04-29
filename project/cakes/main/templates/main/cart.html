@@ -1,0 +1,88 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+   <section class="cart-section">
+      <h1 class="cart-title">Корзина</h1>
+
+      <div class="cart-summary">
+        <div class="cart-summary-row">
+          <div class="cart-item-count">
+            <p class="cart-item-count-text">8 товаров</p>
+          </div>
+          <div class="cart-total">
+            <div class="cart-total-row">
+              <div class="cart-total-label">Итого: 6400 ₽</div>
+              <a href="{% url 'order_form' %}"><button class="cart-checkout-button">Оформить</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-items">
+        <div class="cart-item">
+          <div class="cart-item-row">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/203485ac0759e6619fd2082589b01a029351be563c020567d63efe19412dc474?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="Шоколадный" class="cart-item-image" />
+                  <div class="cart-item-text">
+                    <div class="cart-item-text-container">
+                      <h2 class="cart-item-name">Шоколадный</h2>
+                      <p class="cart-item-price">2400 ₽</p>
+                    </div>
+                  </div>
+              <div class="cart-item-actions-row">
+                  <article class="cart-item-quantity-row">
+                      <box-icon name='minus' color='#ef98ae' class="quantity-icon"></box-icon>
+                      <div class="cart-product-number">1</div>
+                      <box-icon name='plus' color='#ef98ae' class="quantity-icon"></box-icon>
+
+                  </article>
+               </div>
+                 <article class="cart-item-delete-btn"><box-icon type='solid' name='trash' color='#e6a4b4' class="logo-icon"></box-icon></article>
+                </div>
+                </div>
+
+          <div class="cart-item">
+          <div class="cart-item-row">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/203485ac0759e6619fd2082589b01a029351be563c020567d63efe19412dc474?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="Шоколадный" class="cart-item-image" />
+                  <div class="cart-item-text">
+                    <div class="cart-item-text-container">
+                      <h2 class="cart-item-name">Шоколадный</h2>
+                      <p class="cart-item-price">2400 ₽</p>
+                    </div>
+                  </div>
+              <div class="cart-item-actions-row">
+                  <article class="cart-item-quantity-row">
+                      <box-icon name='minus' color='#ef98ae' class="quantity-icon"></box-icon>
+                      <div class="cart-product-number">1</div>
+                      <box-icon name='plus' color='#ef98ae' class="quantity-icon"></box-icon>
+
+                  </article>
+               </div>
+                 <article class="cart-item-delete-btn"><box-icon type='solid' name='trash' color='#e6a4b4' class="logo-icon"></box-icon></article>
+                </div>
+                </div>
+
+          <div class="cart-item">
+          <div class="cart-item-row">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/203485ac0759e6619fd2082589b01a029351be563c020567d63efe19412dc474?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="Шоколадный" class="cart-item-image" />
+                  <div class="cart-item-text">
+                    <div class="cart-item-text-container">
+                      <h2 class="cart-item-name">Шоколадный</h2>
+                      <p class="cart-item-price">2400 ₽</p>
+                    </div>
+                  </div>
+              <div class="cart-item-actions-row">
+                  <article class="cart-item-quantity-row">
+                      <box-icon name='minus' color='#ef98ae' class="quantity-icon"></box-icon>
+                      <div class="cart-product-number">1</div>
+                      <box-icon name='plus' color='#ef98ae' class="quantity-icon"></box-icon>
+
+                  </article>
+               </div>
+                 <article class="cart-item-delete-btn"><box-icon type='solid' name='trash' color='#e6a4b4' class="logo-icon"></box-icon></article>
+                </div>
+                </div>
+                </div>
+                </section>
+{% endblock %}
