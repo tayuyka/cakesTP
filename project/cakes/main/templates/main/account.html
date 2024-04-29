@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+
+
+    <section class="account-content">
+      <h1 class="account-section-title">Личный кабинет</h1>
+
+      <section class="profile-section">
+        <div class="profile-content">
+          <div class="profile-image-column">
+            <box-icon name='user' type='solid' color='#e6a4b4' class="logo-icon"></box-icon>          </div>
+          <div class="profile-details-column">
+            <div class="profile-details">
+              <div class="profile-detail"></div>
+              <div class="profile-detail"></div>
+              <div class="profile-detail"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <h2 class="orders-section-title">Ваши заказы</h2>
+
+      <section class="orders-section">
+    <a href="{% url 'order_details' %}"><div class="order-item" onclick="handleOrderClick(1)">Заказ 1</div></a>
+    <div class="order-item" onclick="handleOrderClick(2)">Заказ 2</div>
+        <div class="order-item" onclick="handleOrderClick(1)">Заказ 1</div>
+    <div class="order-item" onclick="handleOrderClick(2)">Заказ 2</div>
+        <div class="order-item" onclick="handleOrderClick(1)">Заказ 1</div>
+    <div class="order-item" onclick="handleOrderClick(2)">Заказ 2</div>
+        <div class="order-item" onclick="handleOrderClick(1)">Заказ 1</div>
+    <div class="order-item" onclick="handleOrderClick(2)">Заказ 2</div>
+    <!-- Добавьте остальные блоки заказов здесь -->
+</section>
+    </section>
+
+{% endblock %}
