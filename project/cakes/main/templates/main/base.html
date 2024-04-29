@@ -1,0 +1,30 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/style/main.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/eye-alt.css' rel='stylesheet'>
+
+    {% block script %}{% endblock %}
+</head>
+<body>
+      <header class="header">
+         <a href="{% url 'catalog' %}" class="nav-button">Каталог</a>
+         <a href="{% url 'home' %}" class="nav-button">Создать</a>
+         <a href="{% url 'cart' %}" class="nav-button">Корзина</a>
+          <a href="{% url 'account' %}" class="logo"><box-icon name='user-circle' type='solid' color='#e6a4b4' alt=""  class="logo-icon"></box-icon></a>
+      </header>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">&lt;contact_inf&gt;</footer>
+    </div>
+</body>
+</html>
