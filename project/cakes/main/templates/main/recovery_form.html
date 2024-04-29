@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+ <main class="recovery-container">
+      <h1 class="recovery-title">Восстановить</h1>
+      <p class="recovery-description">Получите код подтверждения на электронную почту</p>
+
+      <form>
+        <label for="email" class="visually-hidden">Адрес электронной почты...</label>
+        <input type="email" id="email" class="email-input" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты...">
+        <button type="submit" class="send-button">Отправить</button>
+      </form>
+
+      <label for="code" class="code-label">Введите уникальный код</label>
+      <input type="text" id="code" class="code-input" placeholder="Код..." aria-label="Код...">
+
+      <button class="next-button">Далее</button>
+    </main>
+
+{% endblock %}
