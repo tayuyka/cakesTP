@@ -48,11 +48,11 @@ body {
       font-family: Roboto Flex, sans-serif;
       border-radius: 20px;
       display: flex;
-      mix-blend-mode: soft-light;
       background-color: #fff8e3;
       justify-content: center;
       padding: 25px 30px 30px 30px;
       text-decoration: none;
+      color: #e6a4b4;
     }
 
     .nav-button:hover {
@@ -73,6 +73,14 @@ body {
       width: 90px;
       margin: auto 0;
       margin-right: 15px;
+    }
+
+    .main-logo{
+      aspect-ratio: 1;
+      object-fit: contain;
+      width: 90px;
+      margin-right: auto;
+      margin-left: 3%;
     }
 
     .logo-icon{
@@ -382,12 +390,16 @@ body {
     .cta-button {
       border-radius: 30px;
       border: 0px solid #000;
+      display: flex;
       background-color: #f3d7ca;
       flex-grow: 1;
       color: #e6a4b4;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
       font: 900 40px Roboto Flex, sans-serif;
-      padding: 10px 30px;
+      padding: 10px 0;
+      text-decoration: dashed;
+      width: 40%;
     }
 
     .cta-button:hover{
@@ -785,17 +797,20 @@ body {
       box-sizing: border-box;
       gap: 20px;  }
   
-  .order-item {
+      .account-content .order-item {
       padding: 10px; /* Опционально: добавляем отступы вокруг блока заказа */
       cursor: pointer; /* Устанавливаем указатель при наведении для кликабельности */
       border-radius: 30px;
-
+      color: #e6a4b4;
+      font: 400 48px/42% Roboto Flex, sans-serif;;
       background-color: #fff8e3;
       width: 100%;
       max-height: 100px;
       min-height: 100px;
       aspect-ratio: 1;
       margin: 0 auto;
+      text-decoration: none;
+      padding: 20px 20px;
   }
 
   .order-item:hover{
@@ -1171,7 +1186,8 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 61px 21px 27px;
-    margin: 5% 0 0 33%;
+    margin: auto;
+    margin-top: 5%;
     color: #e6a4b4;
   }
 
