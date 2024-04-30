@@ -13,4 +13,5 @@ urlpatterns = [
     path('cart/', cart, name='cart'),
     path('order_form/', order_form, name='order_form'),
     path('order_details/', order_details, name='order_details'),
+    path('constructor/', constructor, name='constructor'),
 ]

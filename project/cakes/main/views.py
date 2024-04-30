@@ -27,3 +27,5 @@ def order_form(request):
     return render(request, 'main/order_form.html')
 def order_details(request):
     return render(request, 'main/order_details.html')
+def constructor(request):
+    return render(request, 'main/constructor.html')
