@@ -793,7 +793,7 @@ body {
       display: flex;
       margin-top: 31px;
       flex-direction: column;
-      
+      padding: 20px 0;
       box-sizing: border-box;
       gap: 20px;  }
   
@@ -1324,7 +1324,7 @@ body {
     font-size: 16px;
     font-weight: 600;
     padding: 61px 21px;
-    margin: 5% 0 0 30%;
+    margin-top: 5%;
     color: #e6a4b4;
 
   }
