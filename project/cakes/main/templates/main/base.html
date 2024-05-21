@@ -12,23 +12,7 @@
 
     {% block script %}{% endblock %}
 </head>
-        <!— Yandex.Metrika counter —>
-        <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        ym(97158230, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-        });
-        </script>
-        <noscript><div><img src="https://mc.yandex.ru/watch/97158230" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!— /Yandex.Metrika counter —>
 <body>
       <header class="header">
           <a href="{% url 'home' %}" class="main-logo"><box-icon name='cake' type='solid' color='#e6a4b4' alt=""  class="logo-icon"></box-icon></a>
@@ -39,11 +23,15 @@
           <a href="{% url 'account' %}" class="logo"><box-icon name='user-circle' type='solid' color='#e6a4b4' alt=""  class="logo-icon"></box-icon></a>
       </header>
 
-    <div class="content">
+    <div id="app" class="content">
         {% block content %}{% endblock %}
     </div>
 
-    <footer class="footer">&lt;contact_inf&gt;</footer>
-    </div>
+<footer class="footer"> contacts </footer>
+
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script src="{% static 'main/js/main.js' %}"></script>
+    {% block extra_script %}{% endblock %}
 </body>
 </html>

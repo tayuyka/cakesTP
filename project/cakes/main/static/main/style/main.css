@@ -4,7 +4,14 @@
 }
 
 body {
+  /* background: rgb(243,215,202);
+background: -moz-linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,248,227,1) 50%, rgba(243,215,202,1) 77%);
+background: -webkit-linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,248,227,1) 50%, rgba(243,215,202,1) 77%);
+background: linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,248,227,1) 50%, rgba(243,215,202,1) 77%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endColorstr="#f3d7ca",GradientType=1); */
         background-color: #fff8e3;
+    /* height: 100vh;
+    background-attachment: fixed; */
         
     }
     .container {
@@ -87,6 +94,16 @@ body {
       height: auto;
       width: 100%;
     }
+    .cart-icon{
+      border-radius: 10px;
+      height: auto;
+      width: 100%;
+    }
+
+    .cart-icon:hover{
+      border-radius: 10px;
+      background-color: var(--hover-color);
+    }
 
     .section-title {
       color: #e6a4b4;
@@ -103,7 +120,6 @@ body {
     }
 
     .product-grid {
-
       background-color: #f3d7ca;
       width: 100%;
       padding: 10px 13px;
@@ -113,7 +129,8 @@ body {
         display: flex;
         max-width: 100%;
         margin: 40px 0 0 0;
-        height: 400px;
+        height: 420px;
+        align-items: center;
 
     }
 
@@ -126,9 +143,12 @@ body {
     .product-row {
       gap: 20px;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       width: 80%;
       margin: 0;
+
+    scroll-behavior: smooth;
+    overflow-x:hidden;
     }
 
     @media (max-width: 991px) {
@@ -154,7 +174,7 @@ body {
     } */
 
     .product-card {
-    flex: 1; /* Равномерно распределяем пространство между всеми карточками */
+      flex: 1; /* Равномерно распределяем пространство между всеми карточками */
     max-width: 450px; /* Устанавливаем максимальную ширину карточки */
     border-radius: 32px;
       background-color: #fff8e3;
@@ -164,7 +184,7 @@ body {
       justify-content: space-around;
       color: #e6a4b4;
       margin: 30px 10xp;
-      padding: 6px 12px 14px;
+      padding: 9px;
     }
 
     .product-card:hover{
@@ -184,6 +204,11 @@ body {
       display: flex;
       justify-self: center;
       width: 90px;
+      height: 90px;
+    }
+
+    .tape-arrow:hover{
+      background-color: var(--hover-color);
     }
 
     .product-content {
@@ -318,10 +343,11 @@ body {
       aspect-ratio: 1;
       object-fit: contain;
       display: flex;
-    flex-direction: column; /* Позволяет элементам выравниваться по вертикальной оси */
+    flex-direction: column; 
     justify-content: end; 
       width: 76px;
     }
+
 
     .empty-product {
       border-radius: 32px;
