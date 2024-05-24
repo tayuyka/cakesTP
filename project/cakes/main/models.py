@@ -22,7 +22,6 @@ class Cake(models.Model):
     cake_addition = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'Cake'
 
 
@@ -30,9 +29,10 @@ class CakeAddition(models.Model):
     cake_addition_id = models.AutoField(db_column='cake_addition_ID', primary_key=True)  # Field name made lowercase.
     ingridient = models.TextField(unique=True)
     cost_per_gram = models.IntegerField()
+    primary_color = models.TextField()
+    secondary_color = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'Cake_addition'
 
 
@@ -41,9 +41,10 @@ class CakeCoverage(models.Model):
     ingridient = models.TextField(unique=True)
     cost_per_gram = models.IntegerField()
     density = models.IntegerField()
+    primary_color = models.TextField()
+    secondary_color = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'Cake_coverage'
 
 
@@ -53,7 +54,6 @@ class CakeShape(models.Model):
     cost = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'Cake_shape'
 
 
@@ -63,7 +63,6 @@ class CakeSize(models.Model):
     base_area = models.IntegerField(unique=True)
 
     class Meta:
-        managed = False
         db_table = 'Cake_size'
 
 
@@ -73,7 +72,6 @@ class CakeStructure(models.Model):
     cake_structure_id = models.AutoField(db_column='cake_structure_ID', primary_key=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'Cake_structure'
 
 
@@ -82,9 +80,10 @@ class CakeTopping(models.Model):
     ingridient = models.TextField(unique=True)
     cost_per_gram = models.IntegerField()
     density = models.IntegerField()
+    primary_color = models.TextField()
+    secondary_color = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'Cake_topping'
 
 
@@ -94,7 +93,6 @@ class Layer(models.Model):
     layer_base = models.ForeignKey('LayerBase', models.DO_NOTHING, db_column='layer_base_ID')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'Layer'
 
 
@@ -103,9 +101,10 @@ class LayerBase(models.Model):
     ingridient = models.TextField(unique=True)
     cost_per_gram = models.IntegerField()
     density = models.IntegerField()
+    primary_color = models.TextField()
+    secondary_color = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'Layer_base'
 
 
@@ -114,9 +113,10 @@ class LayerFilling(models.Model):
     ingridient = models.TextField(unique=True)
     cost_per_gram = models.IntegerField()
     density = models.IntegerField()
+    primary_color = models.TextField()
+    secondary_color = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'Layer_filling'
 
 
@@ -130,7 +130,6 @@ class Order(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING, db_column='user_ID')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'Order'
 
 
@@ -140,7 +139,6 @@ class OrderContent(models.Model):
     order_content_id = models.AutoField(db_column='order_content_ID', primary_key=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'Order_content'
 
 
@@ -155,5 +153,4 @@ class User(models.Model):
     is_superuser = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'User'
