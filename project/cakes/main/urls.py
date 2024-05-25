@@ -14,4 +14,5 @@ urlpatterns = [
     path('order_form/', order_form, name='order_form'),
     path('order_details/', order_details, name='order_details'),
     path('constructor/', constructor, name='constructor'),
+    path('logout/', logout_view, name='logout'),
 ]
