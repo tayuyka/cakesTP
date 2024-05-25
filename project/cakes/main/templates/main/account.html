@@ -14,9 +14,9 @@
             <box-icon name='user' type='solid' color='#e6a4b4' class="logo-icon"></box-icon>          </div>
           <div class="profile-details-column">
             <div class="profile-details">
-              <div class="profile-detail"></div>
-              <div class="profile-detail"></div>
-              <div class="profile-detail"></div>
+              <div class="profile-detail">{{ user.first_name }} {{ user.last_name }}</div>
+              <div class="profile-detail">{{ user.date_birth }}</div>
+              <div class="profile-detail">{{ user.phone_number }}</div>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
     <div class="order-item" onclick="handleOrderClick(2)">Заказ 2</div>
 
     <!-- Добавьте остальные блоки заказов здесь -->
-</section>
     </section>
-
+    </section>
+    <a href="{% url 'logout' %}">Выйти</a>
 {% endblock %}
