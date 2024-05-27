@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+<section class="login-container">
+    <h1 class="login-title">Вход</h1>
+    <form class="form_login" method="post">
+        {% csrf_token %}
+        <label for="email" class="visually-hidden">Адрес электронной почты...</label>
+        <input type="email" id="email" name="email" class="input-field" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты..." required>
+
+        <label for="password" class="visually-hidden">Пароль...</label>
+        <input type="password" id="password" name="password" class="input-field" placeholder="Пароль..." aria-label="Пароль..." required>
+
+        <a href="{% url 'recovery_form' %}" class="forgot-password">Забыли пароль?</a>
+
+        <div class="login-actions">
+            <a href="{% url 'registration_form' %}" class="signup-link">Еще нет аккаунта? Зарегистрироваться</a>
+            <button type="submit" class="login-button">Продолжить</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

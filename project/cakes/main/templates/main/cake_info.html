@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+{% load static %}
+
+{% block content %}
+<section class="main-content">
+    <h1 class="cake-name">{{ cake.name }}</h1>
+
+    <article class="cake-details">
+        <div class="cake-info">
+            <div class="cake-description">
+                <div class="cake-detail">
+                    <div class="cake-detail-divider">{{ cake.cake_shape.shape }}</div>
+                    <div class="cake-detail-divider">{{ cake.weight }}</div>
+                    <div class="cake-detail-divider">{{ cake.cake_addition.ingridient }}</div>
+                </div>
+            </div>
+            <img src="{% static cake.preview_image %}" alt="Cake" class="cake-image" loading="lazy" />
+        </div>
+    </article>
+</section>
+{% endblock %}

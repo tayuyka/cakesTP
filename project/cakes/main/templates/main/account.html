@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+<section class="account-content">
+  <h1 class="account-section-title">Личный кабинет</h1>
+
+  <section class="profile-section">
+    <div class="profile-content">
+      <div class="profile-image-column">
+        <box-icon name='user' type='solid' color='#e6a4b4' class="logo-icon"></box-icon>
+      </div>
+      <div class="profile-details-column">
+        <div class="profile-details">
+          <div class="profile-detail">{{ user.first_name }} {{ user.last_name }}</div>
+          <div class="profile-detail">{{ user.date_birth }}</div>
+          <div class="profile-detail">{{ user.phone_number }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="orders-section-title">Ваши заказы</h2>
+
+  <section class="orders-section">
+    {% for order in orders %}
+    <a href="{% url 'order_details' order.pk %}" class="order-item">Заказ №{{ order.pk }}</a>
+    {% endfor %}
+  </section>
+</section>
+<a href="{% url 'logout' %}">Выйти</a>
+{% endblock %}

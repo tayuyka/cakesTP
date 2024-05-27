@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+<form class="registration-form" method="post">
+    {% csrf_token %}
+    <div class="registration-title">
+        <h1 class="registration-heading">Регистрация</h1>
+    </div>
+    <div class="name-fields">
+        <label for="first-name" class="first-name-label">Имя*</label>
+        <label for="last-name" class="last-name-label">Фамилия*</label>
+    </div>
+    <div class="name-inputs">
+        <input type="text" id="first-name" name="first_name" class="first-name-input" placeholder="Имя..." required />
+        <input type="text" id="last-name" name="last_name" class="last-name-input" placeholder="Фамилия..." required />
+    </div>
+
+    <label for="email" class="regist-email-label">Электронная почта*</label>
+    <input type="email" id="email" name="email" class="regist-email-input" placeholder="Адрес электронной почты..." required />
+
+    <label class="birthdate-label">Дата рождения</label>
+    <div class="birthdate-inputs">
+        <input type="text" class="day-input" name="day" placeholder="День..." required />
+        <input type="text" class="month-input" name="month" placeholder="Месяц..." required />
+        <input type="text" class="year-input" name="year" placeholder="Год..." required />
+    </div>
+
+    <label for="phone" class="phone-label">Номер телефона*</label>
+    <input type="tel" id="phone" name="phone_number" class="phone-input" placeholder="Номер телефона..." required />
+
+    <div class="password-fields">
+        <div class="password-field">
+            <label for="password" class="password-label">Пароль*</label>
+            <input type="password" id="password" name="password" class="password-input" placeholder="Пароль..." required />
+        </div>
+        <input type="password" class="confirm-password-input" placeholder="Подтвердить пароль..." required />
+    </div>
+
+    <button type="submit" class="continue-button">Продолжить</button>
+</form>
+{% endblock %}
