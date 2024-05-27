@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('cost', models.TextField()),
                 ('layers_count', models.IntegerField()),
                 ('text', models.TextField(blank=True, null=True)),
-                ('image', models.TextField(blank=True, null=True)),
+                ('constructor_image', models.TextField(blank=True, null=True)),
             ],
             options={
                 'db_table': 'Cake',

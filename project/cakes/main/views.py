@@ -3,8 +3,6 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.db import connection
-from django.core.paginator import Paginator
-from . import models
 
 
 def home(request):
@@ -36,8 +34,10 @@ def registration_form(request):
         date_birth = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
 
         with connection.cursor() as cursor:
-            cursor.execute("""INSERT INTO User (first_name, last_name, email, date_birth, phone_number, password, is_superuser, is_staff)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""", [first_name, last_name, email, date_birth, phone_number, password, False, False])
+            cursor.execute("""INSERT INTO User 
+            (first_name, last_name, email, date_birth, phone_number, password, is_superuser, is_staff)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
+            [first_name, last_name, email, date_birth, phone_number, password, False, False])
             return render(request, 'main/home.html')
     return render(request, 'main/registration_form.html')
 
