@@ -8,6 +8,7 @@ class Cake(models.Model):
     cost = models.TextField()
     layers_count = models.IntegerField()
     text = models.TextField(blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
     constructor_image = models.TextField(blank=True, null=True)
     preview_image = models.TextField(blank=True, null=True)
     cake_size = models.ForeignKey('CakeSize', models.DO_NOTHING, db_column='cake_size_ID')
