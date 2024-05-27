@@ -68,7 +68,8 @@ def cake_info(request, cake_id):
 
 def account(request):
     if request.user.is_authenticated:
-        return render(request, 'main/account.html', {'user': request.user})
+        user_orders = Order.objects.filter(user=request.user)
+        return render(request, 'main/account.html', {'user': request.user, 'orders': user_orders})
     else:
         return login_form(request)
 
