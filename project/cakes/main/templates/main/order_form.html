@@ -1,34 +1,36 @@
 {% extends 'main/base.html' %}
 
 {% block title %}sweet creations{% endblock %}
+{% load static %}
 
 {% block content %}
-<form class="order-form">
+<form class="order-form" method="post" action="{% url 'order_form' %}">
+    {% csrf_token %}
     <h2 class="order-form-title">Оформление</h2>
       <div class="name-fields">
         <label for="firstName" class="first-name-label">Имя</label>
           <label for="lastName" class="first-name-label">Фамилия</label>
       </div>
       <div class="name-inputs">
-        <input type="text" id="firstName" class="first-name-input" placeholder="Имя..." aria-label="Имя" />
-        <input type="text" id="lastName" class="last-name-input" placeholder="Фамилия..." aria-label="Фамилия" />
+        <input type="text" id="firstName" name="firstName" class="first-name-input" placeholder="Имя..." aria-label="Имя" required />
+        <input type="text" id="lastName" name="lastName" class="last-name-input" placeholder="Фамилия..." aria-label="Фамилия" required />
       </div>
 
       <label for="email" class="email-label">Электронная почта</label>
-      <input type="email" id="email" class="email-input" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты" />
+      <input type="email" id="email" name="email" class="email-input" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты" required />
 
       <label for="phone" class="phone-label">Номер телефона</label>
-      <input type="tel" id="phone" class="phone-input" placeholder="Номер телефона..." aria-label="Номер телефона" />
+      <input type="tel" id="phone" name="phone" class="phone-input" placeholder="Номер телефона..." aria-label="Номер телефона" required />
 
       <label for="address" class="address-label">Адрес доставки</label>
-      <input type="text" id="address" class="address-input" placeholder="Улица, дом, квартира/офис, подъезд..." aria-label="Адрес доставки" />
+      <input type="text" id="address" name="address" class="address-input" placeholder="Улица, дом, квартира/офис, подъезд..." aria-label="Адрес доставки" required />
 
-      <p class="delivery-info">8 товаров доставят 17 апреля</p>
+      <p class="delivery-info">{{ total_items }} товаров доставят 17 апреля</p>
 
       <div class="order-summary">
         <div class="total-container">
           <span class="total-label">Сумма:</span>
-          <span class="total-amount">6400 ₽</span>
+          <span class="total-amount">{{ total_cost }} ₽</span>
         </div>
         <button type="submit" class="order-button">Заказать</button>
       </div>
