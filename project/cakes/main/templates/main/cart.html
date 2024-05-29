@@ -40,12 +40,12 @@
                     </article>
                 </div>
                 <article class="cart-item-delete-btn">
-                    <a href="{% url 'remove_from_cart' item.cake.pk %}?action=remove" class="logo-icon"><box-icon type='solid' name='trash' color='#e6a4b4'></box-icon></a>
+                    <a href="{% url 'remove_from_cart' item.cake.pk %}?action=remove" class="logo-icon"><box-icon type='solid' name='trash' color='#e6a4b4' class="logo-icon"></box-icon></a>
                 </article>
             </div>
         </div>
         {% empty %}
-        <p>Ваша корзина пуста</p>
+        <p class="cart-empty">Ваша корзина пуста</p>
         {% endfor %}
     </div>
 </section>
