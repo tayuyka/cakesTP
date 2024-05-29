@@ -1,0 +1,349 @@
+
+  .registration-form {
+    border-radius: 30px;
+    background-color: #f3d7ca;
+    display: flex;
+    margin: 5% 0 0 25%;
+    max-width: 50%;
+    flex-direction: column;
+    padding: 37px 41px;
+  }
+
+  @media (max-width: 991px) {
+    .registration-form {
+      margin-top: 40px;
+      padding: 0 20px;
+    }
+  }
+
+  .name-fields {
+    display: flex;
+    gap: 47%;
+    color: #e6a4b4;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 991px) {
+    .name-fields {
+      max-width: 100%;
+      flex-wrap: wrap;
+      white-space: initial;
+    }
+  }
+
+  .first-name-label {
+    align-self: end;
+
+    font: 600 16px Roboto Flex, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .first-name-label {
+      margin-top: 40px;
+    }
+  }
+
+  .registration-title {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    color: #e6a4b4;
+    width: fit-content;
+  }
+
+  @media (max-width: 991px) {
+    .registration-title {
+      max-width: 100%;
+      white-space: initial;
+    }
+  }
+
+  .registration-heading {
+    font: 900 64px Roboto Flex, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .registration-heading {
+      max-width: 100%;
+      font-size: 40px;
+    }
+  }
+
+  .last-name-label {
+      align-self: end;
+    font: 600 16px Roboto Flex, sans-serif;
+  }
+
+  .name-inputs {
+    display: flex;
+    margin-top: 14px;
+    gap: 20px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 991px) {
+    .name-inputs {
+      max-width: 100%;
+      flex-wrap: wrap;
+      white-space: initial;
+    }
+  }
+
+  .first-name-input,
+  .last-name-input {
+    font-family: Roboto Flex, sans-serif;
+    border-radius: 13px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    align-items: start;
+    justify-content: center;
+    flex-grow: 1;
+    width: fit-content;
+  }
+
+  .first-name-input {
+    padding: 18px 21px;
+  }
+
+  .last-name-input {
+    padding: 17px 21px;
+  }
+
+  @media (max-width: 991px) {
+    .first-name-input,
+    .last-name-input {
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+
+  .regist-email-label {
+    color: #e6a4b4;
+    margin-top: 30px;
+    font: 600 16px Roboto Flex, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .regist-email-label {
+      max-width: 100%;
+    }
+  }
+
+  .regist-email-input {
+    border-radius: 13px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    margin-top: 9px;
+    width: 426px;
+    max-width: 100%;
+    align-items: start;
+    color: rgba(0, 0, 0, 0.38);
+    justify-content: center;
+    padding: 16px 21px;
+    font: 400 16px Roboto Flex, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .regist-email-input {
+      padding: 0 20px;
+    }
+  }
+
+  .birthdate-label {
+    color: #e6a4b4;
+    margin-top: 31px;
+    font: 600 16px Roboto Flex, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .birthdate-label {
+      max-width: 100%;
+    }
+  }
+
+  .birthdate-inputs {
+    display: flex;
+    margin-top: 10px;
+    gap: 15px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 991px) {
+    .birthdate-inputs {
+      max-width: 100%;
+      flex-wrap: wrap;
+      padding-right: 20px;
+      white-space: initial;
+    }
+  }
+
+  .day-input,
+  .month-input,
+  .year-input {
+    font-family: Roboto Flex, sans-serif;
+    border-radius: 13px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    align-items: start;
+    justify-content: center;
+    padding: 17px 16px;
+    width: 30%;
+  }
+
+  @media (max-width: 991px) {
+    .day-input,
+    .month-input,
+    .year-input {
+      padding-right: 20px;
+      white-space: initial;
+    }
+  }
+
+  .phone-label {
+    color: #e6a4b4;
+    margin-top: 31px;
+    font: 600 16px Roboto Flex, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .phone-label {
+      max-width: 100%;
+    }
+  }
+
+  input{
+      border: 0px solid rgba(0, 0, 0, 1);
+      font: 400 16px Roboto Flex, sans-serif;
+  }
+  .phone-input {
+    border-radius: 13px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    margin-top: 16px;
+    width: 426px;
+    max-width: 100%;
+    align-items: start;
+    color: rgba(0, 0, 0, 0.38);
+    justify-content: center;
+    padding: 16px;
+    font: 400 16px Roboto Flex, sans-serif;
+    border: 0px solid rgba(0, 0, 0, 1);
+  }
+
+  @media (max-width: 991px) {
+    .phone-input {
+      padding-right: 20px;
+    }
+  }
+
+  .password-fields {
+    display: flex;
+    margin-top: 42px;
+    gap: 20px;
+    font-size: 16px;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 991px) {
+    .password-fields {
+      max-width: 100%;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+  }
+
+  .password-field {
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    width: 50px;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  @media (max-width: 991px) {
+    .password-field {
+      white-space: initial;
+    }
+  }
+
+  .password-label {
+    color: #e6a4b4;
+    font-family: Roboto Flex, sans-serif;
+    font-weight: 600;
+  }
+
+  .password-input {
+    font-family: Roboto Flex, sans-serif;
+    border-radius: 13px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    margin-top: 9px;
+    align-items: start;
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: 400;
+    justify-content: center;
+    padding: 16px 21px;
+  }
+
+  @media (max-width: 991px) {
+    .password-input {
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+
+  .confirm-password-input {
+    font-family: Roboto Flex, sans-serif;
+    border-radius: 13px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    align-self: end;
+    margin-top: 24px;
+    align-items: start;
+    width: 50px;
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: 400;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 16px 21px;
+  }
+
+  @media (max-width: 991px) {
+    .confirm-password-input {
+      padding: 0 20px;
+    }
+  }
+
+  .continue-button {
+    border-radius: 30px;
+    background-blend-mode: soft-light;
+    background-color: rgba(255, 248, 227, 1);
+    border: 0px solid rgba(0, 0, 0, 1);
+    align-self: end;
+    margin-top: 38px;
+    color: #e6a4b4;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 21px 14px;
+    font: 900 24px Roboto Flex, sans-serif;
+  }
+
+  .continue-button:hover{
+    background-color: var(--hover-color);
+
+    border-radius: 30px;
+}
+
+
+  @media (max-width: 991px) {
+    .continue-button {
+      white-space: initial;
+    }
+  }
