@@ -25,15 +25,24 @@
       <label for="address" class="address-label">Адрес доставки</label>
       <input type="text" id="address" name="address" class="address-input" placeholder="Улица, дом, квартира/офис, подъезд..." aria-label="Адрес доставки" required />
 
-      <p class="delivery-info">{{ total_items }} товаров доставят 17 апреля</p>
+      <p class="delivery-info">{{ total_items }} торт(ов) доставят 3 июня</p>
 
       <div class="order-summary">
         <div class="total-container">
           <span class="total-label">Сумма:</span>
           <span class="total-amount">{{ total_cost }} ₽</span>
         </div>
-        <button type="submit" class="order-button">Заказать</button>
+        <button type="submit" class="order-button" @click="showPopup">Заказать</button>
       </div>
     </form>
+  <div class="popup-overlay" :class="[[ isPopupVisible ? 'show' : '' ]]" @click="hidePopup"></div>
+
+        <div class="popup" :class="[[ isPopupVisible ? 'show' : '' ]]">
+            <p>Ваш заказ принят</p>
+            <div class="popup-buttons">
+                <button class="popup-button" @click="handleOk">OK</button>
+                <button class="popup-button" @click="handleCancel">Отмена</button>
+            </div>
+        </div>
   </main>
 {% endblock %}

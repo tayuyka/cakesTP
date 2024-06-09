@@ -1,0 +1,313 @@
+:root {
+  --hover-color: rgba(255, 255, 255, 0.4);; 
+  --hover-color2: #f8e7e0;
+}
+  .catalog-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 53px;
+    padding: 0 50px;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 991px) {
+    .catalog-container {
+      max-width: 100%;
+      margin-top: 40px;
+      padding: 0 20px;
+    }
+  }
+
+  .catalog-title {
+    color: #e6a4b4;
+    font: 900 64px/42% Roboto Flex, sans-serif;
+    margin-top: 0;
+    margin-bottom: 20px;
+    margin-left: 2%;
+
+  }
+
+  @media (max-width: 991px) {
+    .catalog-title {
+      margin-left: 10px;
+      font-size: 40px;
+    }
+  }
+
+  .filters {
+    background-color: #f3d7ca;
+    border-radius: 30px 30px 0 0;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    flex-direction: row;
+    color: #e6a4b4;
+    white-space: nowrap;
+    padding: 30px;
+    font: 400 28px/42% Roboto Flex, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .filters {
+      font-size: 40px;
+      max-width: 100%;
+      margin-right: 5px;
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+
+  .filter-title{
+    font: 900 28px/42% Roboto Flex, sans-serif;
+    color: #e6a4b4;
+    margin-top: 0px;
+  }
+
+  .filter-parameters-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .filter-parameters-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filters select{
+    background-color: #fff8e3;
+    color: #e6a4b4;
+    font-weight: bolder;
+    font-size: 14;
+    min-width: 200px;
+  }
+
+  .filters select:focus {
+    background-color: #fff8e3;
+    border-color: #c8708b;
+    outline: none;
+}
+
+.filters select:focus:hover {
+  background-color: #fff8e3;
+}
+
+
+.filters select:hover {
+    background-color: var(--hover-color);
+}
+
+
+.additions input[type="checkbox"] {
+  display: none;
+}
+
+/* Стилизация меток, чтобы они выглядели как чекбоксы */
+.additions label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font: 400 18px/42% Roboto Flex, sans-serif;
+  color: #c8708b;
+  padding-top: 8px;
+}
+
+/* Создание пользовательских чекбоксов */
+.additions label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e6a4b4;
+  border-radius: 5px;
+  background-color: #fff8e3;
+}
+
+.additions input[type="checkbox"]:checked + label::before {
+  background-color: #e6a4b4;
+  border-color: #c8708b;
+}
+
+/* Псевдоэлемент для галочки */
+.additions label::after {
+  content: "✔";
+  color: #fff8e3;
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  width: 10px;
+  height: 5px;
+
+  opacity: 0;
+}
+
+
+.additions input[type="checkbox"]:checked + label::after {
+  opacity: 1;
+}
+
+.layers {
+  max-width: 30%;
+}
+
+.parameters{
+  max-width: 30%;
+
+}
+
+
+  .parameters,
+  .layers {
+      width: 45%;
+  }
+  
+  .filter-options {
+      margin-bottom: 20px;
+  }
+  
+  .filter-options label {
+
+      margin-bottom: 5px;
+  }
+
+  .filter-options-additions{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .filter-options select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+  }
+  
+  .layer-count {
+      margin-bottom: 20px;
+  }
+  
+  .layer-options {
+      /* Layer options will be added dynamically */
+  }
+
+  .select-layers {
+    appearance: none; /* Убирает стандартное оформление */
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #e6a4b4;
+    border-radius: 5px;
+    background-color: #f3d7ca;
+    color: #e6a4b4;
+    cursor: pointer;
+}
+
+.select-layers:focus {
+    outline: none;
+    border-color: #ff8aa5;
+}
+
+.select-layers::placeholder {
+    color: #e6a4b4;
+}
+
+/* Стили для стрелки выпадающего списка */
+.select-layers-container {
+    position: relative;
+    display: inline-block;
+
+}
+
+.select-layers-container::after {
+    content: '▼';
+    font-size: 12px;
+    color: #e6a4b4;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+  .catalog-product-grid {
+    overflow:hidden;
+    background-color: #f3d7ca;
+    border-radius: 0 0 30px 30px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+    padding: 73px 76px;
+    gap: 40px;
+  }
+
+  @media (max-width: 991px) {
+  .catalog-product-grid {
+      max-width: 100%;
+      margin-right: 5px;
+      padding: 0 20px;
+    }
+  }
+
+  .catalog-product-row {
+    display: flex;
+    gap: 20px;
+  }
+
+  @media (max-width: 991px) {
+    .product-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+
+  .catalog-product-card {
+    background-color: #fff8e3;
+    border-radius: 30px;
+    mix-blend-mode: soft-light;
+    width: 319px;
+    height: 330px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 991px) {
+    .catalog-product-card {
+      margin-top: 40px;
+    }
+  }
+
+  .catalog-pagination-container{
+    display: flex;
+    justify-content: end;
+    margin: 20px 45px;
+    box-sizing: border-box;
+  }
+
+  .catalog-pagination {
+    background-color: #f3d7ca;
+    border-radius: 20px;
+    display: flex;
+    gap: 10px;
+    font-size: 35px;
+    color: #fff8e3;
+    font: 40px Roboto Flex, sans-serif;
+    font-weight: 600;
+  }
+
+  .catalog-pagination span {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 20px;
+  }
+
+  .catalog-pagination span:hover {
+    background-color: var(--hover-color);
+  }
