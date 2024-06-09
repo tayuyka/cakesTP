@@ -24,12 +24,12 @@
               <img src="{% static item.cake.preview_image %}" alt="{{ item.cake.name }}" class="item-image" />
               <div class="item-info">
                 <h3 class="item-name">{{ item.cake.name }}</h3>
-                <div class="item-price">{{ item.cake.cost }}</div>
+                <div class="item-price">{{ item.cake.cost }} ₽</div>
               </div>
             </div>
             <div class="item-quantity">
               <div class="quantity-divider"></div>
-              <div class="quantity-value">{{ item.quantity }} шт</div>
+              <div class="quantity-value">{{ item.quantity }}1 шт</div>
             </div>
           </article>
           {% endfor %}

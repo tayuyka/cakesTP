@@ -40,7 +40,7 @@
 
    .order-number {
     font: 48px/56% Roboto Flex, sans-serif;
-    margin-left: 20px;
+    margin-left: 6%;
     color: #e6a4b4;
   }
 
@@ -118,13 +118,14 @@
   }
 
   .order-details .item-image {
-    aspect-ratio: 0.89;
+    aspect-ratio: 1.43;
     object-fit: auto;
     object-position: center;
-    width: 191px;
-    max-width: 100%;
+    width: auto;
+    height: 100%;
     gap: 0;
   }
+
 
   .order-details .item-info {
     display: flex;
@@ -147,7 +148,7 @@
     font-family: Roboto Flex, sans-serif;
     gap: 0;
     margin: 0 0;
-    max-width: 40%;
+    max-width: 100%;
   }
 
   @media (max-width: 991px) {
@@ -159,7 +160,7 @@
   .order-details .item-price {
     font-family: Roboto Flex, sans-serif;
     gap: 0;
-    max-width: 40%;
+    max-width: 100%;
   }
 
   @media (max-width: 991px) {
