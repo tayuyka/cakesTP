@@ -16,7 +16,7 @@ def add_to_cart(request, cake_id):
         cart[str(cake_id)] = 1
     request.session['cart'] = cart
     messages.success(request, 'Торт добавлен в корзину.')
-    return redirect('cart')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def remove_from_cart(request, cake_id):
@@ -120,12 +120,40 @@ def recovery_form(request):
 
 
 def catalog(request):
+    size = request.GET.get('size')
+    shape = request.GET.get('shape')
+    topping = request.GET.get('topping')
+    coverage = request.GET.get('coverage')
+    additions = request.GET.getlist('additions')
+
     cakes = Cake.objects.all()
+
+    if size:
+        cakes = cakes.filter(cake_size__type=size)
+    if shape:
+        cakes = cakes.filter(cake_shape__shape=shape)
+    if topping:
+        cakes = cakes.filter(cake_topping__ingridient=topping)
+    if coverage:
+        cakes = cakes.filter(cake_coverage__ingridient=coverage)
+    if additions:
+        for addition in additions:
+            cakes = cakes.filter(cake_addition__ingridient=addition)
+
     rows = [cakes[i:i + 3] for i in range(0, len(cakes), 3)]
     paginator = Paginator(cakes, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'main/catalog.html', {'rows': rows, 'page_obj': page_obj})
+
+    return render(request, 'main/catalog.html', {
+        'rows': rows,
+        'page_obj': page_obj,
+        'selected_size': size,
+        'selected_shape': shape,
+        'selected_topping': topping,
+        'selected_coverage': coverage,
+        'selected_additions': additions,
+    })
 
 
 def order_form(request):
@@ -155,11 +183,9 @@ def order_form(request):
             cost = float(cake.cost.replace(' ₽', '').replace(',', '.'))
             total_cost += cost * quantity
 
+            # Save the cake to the order the number of times indicated by the quantity
             for _ in range(quantity):
-                OrderContent.objects.create(
-                    order=order,
-                    cake=cake
-                )
+                OrderContent.objects.create(order=order, cake=cake)
 
         # Update the order price
         order.price = total_cost
@@ -190,10 +216,23 @@ def order_form(request):
 def order_details(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     order_contents = OrderContent.objects.filter(order=order)
+
+    # Группируем торты по id и считаем количество
+    grouped_order_contents = {}
+    for item in order_contents:
+        if item.cake.pk in grouped_order_contents:
+            grouped_order_contents[item.cake.pk]['quantity'] += 1
+        else:
+            grouped_order_contents[item.cake.pk] = {
+                'cake': item.cake,
+                'quantity': 1
+            }
+
     return render(request, 'main/order_details.html', {
         'order': order,
-        'order_contents': order_contents
+        'order_contents': grouped_order_contents.values()
     })
+
 
 
 def constructor(request):

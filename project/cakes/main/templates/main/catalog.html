@@ -4,97 +4,95 @@
 {% block title %}sweet creations{% endblock %}
 
 {% block content %}
-  <section class="catalog-container">
-      <h1 class="catalog-title">Каталог</h1>
+<section class="catalog-container">
+    <h1 class="catalog-title">Каталог</h1>
 
-
-      <div class="filters">
-
-    <div class="parameters">
-        <h2 class="filter-title">Параметры</h2>
-        <div class="filter-parameters-row">
-        <div class="filter-parameters-column">
-            <div class="size">
-            <div class="filter-options">
-                <select name="size" class="select-layers">
-                    <option value="" disabled selected>Размер...</option>
-                    <option value="fondant">Маленький</option>
-                    <option value="buttercream">Средний</option>
-                    <option value="ganache">Большой</option>
-                </select>
-            </div>
-        </div>
-            <div class="shape">
-            <div class="filter-options">
-                <select name="shape" class="select-layers">
-                    <option value="" disabled selected>Форма...</option>
-                    <option value="fondant">Круглый</option>
-                    <option value="buttercream">Квадратный</option>
-                    <option value="ganache">Прямоугольный</option>
-                </select>
-            </div>
-        </div>
-        </div>
+    <div class="filters">
+        <form method="GET" action="">
+            <div class="parameters">
+                <h2 class="filter-title">Параметры</h2>
+                <div class="filter-parameters-row">
                     <div class="filter-parameters-column">
-
-        <div class="topping">
-            <div class="filter-options">
-                <select name="topping" class="select-layers">
-                    <option value="" disabled selected>Топпинг...</option>
-                    <option value="chocolate">Шоколад</option>
-                    <option value="berries">Карамель</option>
-                    <option value="caramel">Белый шоколад</option>
-                    <option value="nuts">Кленовый сироп</option>
-                </select>
+                        <div class="size">
+                            <div class="filter-options">
+                                <select name="size" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_size %}selected{% endif %}>Не выбрано...</option>
+                                    <option value="маленький" {% if selected_size == 'маленький' %}selected{% endif %}>Маленький</option>
+                                    <option value="средний" {% if selected_size == 'средний' %}selected{% endif %}>Средний</option>
+                                    <option value="большой" {% if selected_size == 'большой' %}selected{% endif %}>Большой</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="shape">
+                            <div class="filter-options">
+                                <select name="shape" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_shape %}selected{% endif %}>Не выбрано...</option>
+                                    <option value="круглый" {% if selected_shape == 'круглый' %}selected{% endif %}>Круглый</option>
+                                    <option value="квадратный" {% if selected_shape == 'квадратный' %}selected{% endif %}>Квадратный</option>
+                                    <option value="прямоугольный" {% if selected_shape == 'прямоугольный' %}selected{% endif %}>Прямоугольный</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-parameters-column">
+                        <div class="topping">
+                            <div class="filter-options">
+                                <select name="topping" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_topping %}selected{% endif %}>Не выбрано...</option>
+                                    <option value="шоколад" {% if selected_topping == 'шоколад' %}selected{% endif %}>Шоколад</option>
+                                    <option value="карамель" {% if selected_topping == 'карамель' %}selected{% endif %}>Карамель</option>
+                                    <option value="белый шоколад" {% if selected_topping == 'белый шоколад' %}selected{% endif %}>Белый шоколад</option>
+                                    <option value="кленовый сироп" {% if selected_topping == 'кленовый сироп' %}selected{% endif %}>Кленовый сироп</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="coverage">
+                            <div class="filter-options">
+                                <select name="coverage" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_coverage %}selected{% endif %}>Не выбрано...</option>
+                                    <option value="шоколадный крем" {% if selected_coverage == 'шоколадный крем' %}selected{% endif %}>Шоколадный крем</option>
+                                    <option value="белый крем" {% if selected_coverage == 'белый крем' %}selected{% endif %}>Белый крем</option>
+                                    <option value="ганаш" {% if selected_coverage == 'ганаш' %}selected{% endif %}>Ганаш</option>
+                                    <option value="крем чиз" {% if selected_coverage == 'крем чиз' %}selected{% endif %}>Крем чиз</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="coverage">
-            <div class="filter-options">
-                <select name="coverage" class="select-layers">
-                    <option value="" disabled selected>Покрытие...</option>
-                    <option value="fondant">Шоколадный крем</option>
-                    <option value="buttercream">Белый крем</option>
-                    <option value="ganache">Ганаш</option>
-                    <option value="creamcheese">Крем чиз</option>
-                </select>
-            </div>
-        </div>
-        </div>
-        </div>
-        </div>
-
-
-          <div class="additions">
-            <h3 class="filter-title">Дополнительно</h3>
-            <div class="filter-options-additions">
-                <input type="checkbox" id="sprinkles" name="additions" value="sprinkles">
-                <label for="sprinkles">Фисташки</label>
-                <input type="checkbox" id="candies" name="additions" value="candies">
-                <label for="candies">Орехи</label>
-                <input type="checkbox" id="fruit" name="additions" value="fruit">
-                <label for="fruit">Ягоды</label>
-                <input type="checkbox" id="cookies" name="additions" value="cookies">
-                <label for="cookies">Маршмеллоу</label>
+            <div class="additions">
+                <h3 class="filter-title">Дополнительно</h3>
+                <div class="filter-options-additions">
+                    <input type="checkbox" id="sprinkles" name="additions" value="фисташки" {% if 'фисташки' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="sprinkles">Фисташки</label>
+                    <input type="checkbox" id="candies" name="additions" value="орехи" {% if 'орехи' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="candies">Орехи</label>
+                    <input type="checkbox" id="fruit" name="additions" value="ягоды" {% if 'ягоды' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="fruit">Ягоды</label>
+                    <input type="checkbox" id="cookies" name="additions" value="маршмеллоу" {% if 'маршмеллоу' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="cookies">Маршмеллоу</label>
+                </div>
             </div>
 
+            <div class="layers">
+                <h2 class="filter-title">Слои</h2>
+                <div class="layer-count">
+                    <div class="select-layers-container">
+                        <select id="layer-count" name="layer_count" class="select-layers" disabled>
+                            <option value="" selected>Количество...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layer-options">
+                    <!-- Layer options will be added dynamically -->
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="layers">
-        <h2 class="filter-title">Слои</h2>
-        <div class="layer-count">
-            <div class="select-layers-container">
-                <select id="layer-count" name="layer_count" class="select-layers">
-                    <option value="" disabled selected hidden>Количество...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-            </div>
-        </div>
-        <div class="layer-options">
-        </div>
-    </div>
-</div>
 
     <div class="catalog-product-grid">
         {% for row in rows %}

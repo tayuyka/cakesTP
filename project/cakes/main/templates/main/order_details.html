@@ -1,8 +1,8 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}sweet creations{% endblock %}
-{% load static %}
 
 {% block content %}
    <h1 class="order-number">
@@ -29,7 +29,7 @@
             </div>
             <div class="item-quantity">
               <div class="quantity-divider"></div>
-              <div class="quantity-value">{{ item.quantity }}1 шт</div>
+              <div class="quantity-value">{{ item.quantity }} шт</div>
             </div>
           </article>
           {% endfor %}
@@ -40,9 +40,9 @@
         <h2 class="summary-title">Детали</h2>
         <div class="summary-details">
           <div class="summary-label">Дата оформления</div>
-          <div class="summary-value">{{ order.date }}</div>
+          <div class="summary-value">{{ order.date|format_date }}</div>
           <div class="summary-label summary-label-spacing">Дата получения</div>
-          <div class="summary-value">{{ order.delivery_date }}</div>
+          <div class="summary-value">{{ order.delivery_date|format_date }}</div>
           <div class="summary-label summary-label-spacing">Адрес доставки</div>
           <div class="summary-value">{{ order.delivery_address }}</div>
           <div class="summary-label summary-label-spacing">Статус</div>
