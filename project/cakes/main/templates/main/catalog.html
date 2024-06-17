@@ -16,8 +16,8 @@
         <div class="filter-parameters-column">
             <div class="size">
             <div class="filter-options">
-                <select name="size">
-                    <option value="" disabled selected>Выбирите размер...</option>
+                <select name="size" class="select-layers">
+                    <option value="" disabled selected>Размер...</option>
                     <option value="fondant">Маленький</option>
                     <option value="buttercream">Средний</option>
                     <option value="ganache">Большой</option>
@@ -26,8 +26,8 @@
         </div>
             <div class="shape">
             <div class="filter-options">
-                <select name="shape">
-                    <option value="" disabled selected>Выбирите форму...</option>
+                <select name="shape" class="select-layers">
+                    <option value="" disabled selected>Форма...</option>
                     <option value="fondant">Круглый</option>
                     <option value="buttercream">Квадратный</option>
                     <option value="ganache">Прямоугольный</option>
@@ -39,8 +39,8 @@
 
         <div class="topping">
             <div class="filter-options">
-                <select name="topping">
-                    <option value="" disabled selected>Выберите топпинг...</option>
+                <select name="topping" class="select-layers">
+                    <option value="" disabled selected>Топпинг...</option>
                     <option value="chocolate">Шоколад</option>
                     <option value="berries">Карамель</option>
                     <option value="caramel">Белый шоколад</option>
@@ -51,8 +51,8 @@
 
         <div class="coverage">
             <div class="filter-options">
-                <select name="coverage">
-                    <option value="" disabled selected>Выберите покрытие...</option>
+                <select name="coverage" class="select-layers">
+                    <option value="" disabled selected>Покрытие...</option>
                     <option value="fondant">Шоколадный крем</option>
                     <option value="buttercream">Белый крем</option>
                     <option value="ganache">Ганаш</option>
@@ -92,7 +92,6 @@
             </div>
         </div>
         <div class="layer-options">
-            <!-- Layer options will be added dynamically based on layer count -->
         </div>
     </div>
 </div>
@@ -145,4 +144,5 @@
         {% endif %}
     </div>
 </section>
+
 {% endblock %}
