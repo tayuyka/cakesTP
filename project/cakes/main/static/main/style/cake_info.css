@@ -18,10 +18,10 @@
 
     .cake-name {
       color: #e6a4b4;
-      font: 900 64px/42% Roboto Flex, sans-serif;
-      margin-top: 0;
+      font: 900 34px/42% Roboto Flex, sans-serif;
+      margin-top: 30px;
       margin-bottom: 20px;
-      margin-left: 14%;
+      margin-left: 25%;
     }
 
     @media (max-width: 991px) {
@@ -32,7 +32,7 @@
     }
     .cake-description-title {
       color: #e6a4b4;
-      font: 900 48px/42% Roboto Flex, sans-serif;
+      font: 900 24px/42% Roboto Flex, sans-serif;
       margin-top: 30px;
       margin-bottom: 10px;
       height: auto;
@@ -40,7 +40,7 @@
 
     .cake-description-cost {
       color: #e6a4b4;
-      font: 900 70px/42% Roboto Flex, sans-serif;
+      font: 900 40px/42% Roboto Flex, sans-serif;
       margin-top: 30px;
       height: auto;
       margin-bottom: 20px;
@@ -49,17 +49,17 @@
     .description-text{
       display: inline-block;
       color: #e6a4b4;
-      font: 400 28px/42% Roboto Flex, sans-serif;
+      font: 400 18px/42% Roboto Flex, sans-serif;
       margin-left: 10px;
     }
 
     .cake-details {
-      background-color: #f3d7ca;
+      background-color: #FFECD4;
       border: 0px solid rgba(0, 0, 0, 1);
       border-radius: 30px;
       margin-top: 15px;
-      padding: 20px 50px;
-      width: 70%;
+      padding: 20px 30px;
+      width: 50%;
       align-self: center;
     }
 
@@ -85,7 +85,7 @@
 
     .cake-description {
       display: flex;
-      font: 900 28px Roboto Flex, sans-serif;
+      font: 900 18px Roboto Flex, sans-serif;
       color: #e6a4b4;
       flex-direction: column;
       line-height: normal;
@@ -197,19 +197,20 @@
     }
 
     .to-cart-button {
-      border-radius: 30px;
+      border-radius: 20px;
       background-blend-mode: soft-light;
-      background-color: rgba(255, 248, 227, 1);
+      background-color: #e6a4b4;
       border: 0px solid rgba(0, 0, 0, 1);
       white-space: nowrap;
       margin: 14px 0 0 26px;
       padding: 8px 18px 8px;
-      font:  900 36px Roboto Flex, sans-serif;
-      color: #e6a4b4;
+      font:  900 24px Roboto Flex, sans-serif;
+      color: #fff8e3;
       text-decoration: none;
     }
 
     .to-cart-button:hover {
-      background-color: var(--hover-color);
-      border-radius: 30px;
+      background-color: #fff8e3;
+      color: #e6a4b4;
+      border-radius: 20px;
     }
