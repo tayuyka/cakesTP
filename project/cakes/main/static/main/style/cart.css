@@ -6,10 +6,9 @@
     box-sizing: border-box;
 
   }
-
   .cart-empty{
     color: #e6a4b4;
-    font: 900 48px/42% Roboto Flex, sans-serif;
+    font: 900 34px/42% Roboto Flex, sans-serif;
     align-self: center;
   }
 
@@ -23,8 +22,9 @@
 
   .cart-title {
     color: #e6a4b4;
-    font: 900 64px/42% Roboto Flex, sans-serif;
+    font: 900 34px/42% Roboto Flex, sans-serif;
     margin-left: 2%;
+    margin-top: 80px;
   }
 
   @media (max-width: 991px) {
@@ -36,10 +36,11 @@
 
   .cart-summary {
     border-radius: 30px 30px 0 0;
-    background-color: #f3d7ca;
+    background-color: #FFECD4;
     margin-top: 0px;
-    padding: 20px 30px;
+    padding: 10px 30px;
     box-sizing: border-box;
+    max-height: 100px;
   }
 
   @media (max-width: 991px) {
@@ -82,8 +83,8 @@
   .cart-item-count-text {
     margin: 0;
     max-height: 100%;
-    color: #fff8e3;
-    font: 900 48px Roboto Flex, sans-serif;
+    color: #e6a4b4;
+    font: 900 24px Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -114,8 +115,8 @@
     justify-content: space-between;
     max-height: 100%;
     gap: 20px;
-    font-size: 64px;
-    color: #fff8e3;
+    font-size: 24px;
+    color: #e6a4b4;
     font-weight: 900;
     padding: 0 2px;
   }
@@ -129,7 +130,7 @@
   }
 
   .cart-total-label {
-    font-size: 48px;
+    font-size: 24px;
     font-family: Roboto Flex, sans-serif;
     align-self: stretch;
     flex-grow: 1;
@@ -145,22 +146,23 @@
 
 
   .cart-checkout-button {
-    border-radius: 30px;
+    border-radius: 20px;
     background-blend-mode: soft-light;
-    background-color: rgba(255, 248, 227, 1);
+    background-color: #e6a4b4;
     border: 0px solid rgba(0, 0, 0, 1);
 
-    color: #e6a4b4;
+    color: #fff8e3;
     white-space: nowrap;
     justify-content: center;
-    padding: 21px 21px;
-    font: 900 36px Roboto Flex, sans-serif;
+    padding: 11px 21px;
+    font: 900 24px Roboto Flex, sans-serif;
   }
 
   .cart-checkout-button:hover{
     background-color: var(--hover-color);
-
-    border-radius: 30px;
+    background-color: #fff8e3;
+    color: #e6a4b4;
+    border-radius: 20px;
 }
 
 
@@ -172,7 +174,7 @@
 
   .cart-items {
     border-radius: 0 0 30px 30px;
-    background-color: #f3d7ca;
+    background-color: #FFECD4;
     display: flex;
     margin-top: 31px;
     flex-direction: column;
@@ -209,7 +211,7 @@
     gap: 20px;
     display: flex;
     justify-content:space-between;
-    max-height: 200px;
+    max-height: 150px;
     width: 100%;
   }
 
@@ -308,7 +310,7 @@
   }
 
   .cart-item-name {
-    font: 900 40px Roboto Flex, sans-serif;
+    font: 900 24px Roboto Flex, sans-serif;
     margin: 0;
   }
 
@@ -319,7 +321,7 @@
   }
 
   .cart-item-price {
-    font: 40px Roboto Flex, sans-serif;
+    font: 24px Roboto Flex, sans-serif;
     margin: 0;
   }
 
@@ -353,7 +355,7 @@
     align-items: start;
     gap: 20px;
     align-self: stretch;
-    font-size: 48px;
+    font-size: 24px;
     color: #e6a4b4;
     font-weight: 900;
     white-space: nowrap;
@@ -370,7 +372,7 @@
   }
 
   .cart-item-quantity-container {
-    border-radius: 30px;
+    border-radius: 20px;
     display: flex;
     gap: 10px;
     flex-grow: 1;
@@ -385,15 +387,15 @@
   }
 
   .cart-item-quantity-row {
-      border-radius: 30px;
-  background-color: #f3d7ca;
+      border-radius: 20px;
+  background-color: #FFECD4;
   display: flex;
   flex-direction: row;
   align-self: center;
   max-height: 60px;
   width: auto;
   gap: 10px;
-  font-size: 36px;
+  font-size: 24px;
   color: b4;
   font-weight: 900;
   white-space: nowrap;
@@ -408,12 +410,12 @@
   }
 
   .cart-item-delete-btn {
-    border-radius: 20px;
-background-color: #f3d7ca;
+    border-radius: 10px;
+background-color: #FFECD4;
 display: flex;
 align-self: center;
-    min-height: 50px;
-    min-width: 50px;
+    min-height: 40px;
+    min-width: 40px;
     padding: 5px;
 }
 
