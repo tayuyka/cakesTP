@@ -124,13 +124,25 @@
 
 <section class="catalog-pagination-container">
     <div class="catalog-pagination">
-        <span>&laquo;</span>
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>5</span>
-        <span>&raquo;</span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        {% else %}
+            <span>&laquo;</span>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span>{{ num }}</span>
+            {% else %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        {% else %}
+            <span>&raquo;</span>
+        {% endif %}
     </div>
 </section>
 {% endblock %}
