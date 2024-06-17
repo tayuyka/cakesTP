@@ -4,7 +4,7 @@
 }
   .login-container {
     border-radius: 30px;
-    background-color: #f3d7ca;
+    background-color: #FFECD4;
     align-self: center;
     display: flex;
     align-self: center;
@@ -12,9 +12,10 @@
     max-width: 100%;
     flex-direction: column;
     align-items: center;
-    padding: 61px 21px 27px;
+    padding: 30px 21px 27px;
     margin: auto;
-    margin-top: 5%;
+    margin-top: 10%;
+    margin-bottom: 10%;
     color: #e6a4b4;
   }
 
@@ -32,7 +33,7 @@
   }
 
   .login-title {
-    font: 900 64px Roboto Flex, sans-serif;
+    font: 900 34px Roboto Flex, sans-serif;
     text-align: center;
     margin: 0px;
   }
@@ -51,7 +52,7 @@
     width: 329px;
     max-width: 100%;
     align-items: start;
-    color: rgba(0, 0, 0, 0.38);
+    color: #e6a4b4;
     justify-content: center;
     align-self: center;
     padding: 16px;
@@ -80,7 +81,7 @@
   .login-actions {
     align-self: stretch;
     display: flex;
-    margin-top: 50px;
+    margin-top: 30px;
     gap: 20px;
     flex-direction: row;
     align-items: center;
@@ -101,22 +102,22 @@
   }
 
   .login-button {
-      border-radius: 30px;
+      border-radius: 20px;
     background-blend-mode: soft-light;
-    background-color: rgba(255, 248, 227, 1);
+    background-color: #e6a4b4;
     border: 0px solid rgba(0, 0, 0, 1);
-    color: #e6a4b4;
+    color: #fff8e3;
     white-space: nowrap;
     justify-content: center;
-    padding: 21px 14px;
-    font: 900 24px Roboto Flex, sans-serif;
+    padding: 10px 10px;
+    font: 900 18px Roboto Flex, sans-serif;
+    transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
-  .login-button:hover{
-    background-color: var(--hover-color);
+    .login-button:hover{
+      transform: scale(1.05);
+    }
 
-    border-radius: 30px;
-}
 
   @media (max-width: 991px) {
     .login-button {

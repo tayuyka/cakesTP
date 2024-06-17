@@ -1,7 +1,7 @@
   .recovery-container {
     border-radius: 30px;
-    border: 1px solid rgba(0, 0, 0, 1);
-    background-color: #f3d7ca;
+    border: 0px solid rgba(0, 0, 0, 1);
+    background-color: #FFECD4;
     align-self: center;
     display: flex;
     width: 562px;
@@ -10,8 +10,8 @@
     align-items: start;
     font-size: 16px;
     font-weight: 600;
-    padding: 61px 21px;
-    margin-top: 5%;
+    padding: 30px 21px;
+    margin-top: 7%;
     color: #e6a4b4;
 
   }
@@ -26,7 +26,7 @@
   .recovery-title {
     align-self: center;
     margin: 0;
-    font: 900 64px Roboto Flex, sans-serif;
+    font: 900 34px Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -56,7 +56,7 @@
     width: 348px;
     max-width: 100%;
     align-items: start;
-    color: rgba(0, 0, 0, 0.38);
+    color: #e6a4b4;
     font-weight: 400;
     justify-content: center;
     margin: 0 0 0 26px;
@@ -71,22 +71,23 @@
   }
 
   .send-button {
-    border-radius: 30px;
+    border-radius: 10px;
     background-blend-mode: soft-light;
-    background-color: rgba(255, 248, 227, 1);
+    background-color: #e6a4b4;
     border: 0px solid rgba(0, 0, 0, 1);
     white-space: nowrap;
     margin: 14px 0 0 26px;
-    padding: 8px 18px 8px;
-    font: 20px Roboto Flex, sans-serif;
+    padding: 7px 7px;
+    font: 400 20px Roboto Flex, sans-serif;
     width: 30%;
-    color: #e6a4b4;
+    color: #fff8e3;
+    transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
   .send-button:hover{
-    background-color: var(--hover-color);
-    border-radius: 30px;
-}
+    transform: scale(1.05);
+  }
+
 
   @media (max-width: 991px) {
     .send-button {
@@ -115,7 +116,7 @@
     width: 348px;
     max-width: 100%;
     align-items: start;
-    color: rgba(0, 0, 0, 0.38);
+    color: #e6a4b4;
     font-weight: 400;
     white-space: nowrap;
     justify-content: center;
@@ -137,30 +138,24 @@
   }
 
   .next-button {
-    border-radius: 30px;
+    border-radius: 20px;
     background-blend-mode: soft-light;
-    background-color: rgba(255, 248, 227, 1);
+    background-color: #e6a4b4;
     border: 0px solid rgba(0, 0, 0, 1);
     align-self: end;
     margin-top: 38px;
+    color: #fff8e3;
     white-space: nowrap;
     justify-content: center;
-    padding: 22px 47px;
+    padding: 10px 15px;
     font: 900 24px Roboto Flex, sans-serif;
-    color: #e6a4b4;
-  }
-
-  @media (max-width: 991px) {
-    .next-button {
-      white-space: initial;
-      padding: 0 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     }
-  }
 
-  .next-button:hover{
-    background-color: var(--hover-color);
-    border-radius: 30px;
-}
+    .next-button:hover{
+      transform: scale(1.05);
+    }
+
 
   .visually-hidden {
     position: absolute;
