@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
@@ -120,11 +121,11 @@ def recovery_form(request):
 
 def catalog(request):
     cakes = Cake.objects.all()
-    for cake in cakes:
-        cake.preview_image = cake.preview_image.replace(
-            'C:\\Users\\User\\Desktop\\cakesTP\\project\\cakes\\main\\static\\', '')
     rows = [cakes[i:i + 3] for i in range(0, len(cakes), 3)]
-    return render(request, 'main/catalog.html', {'rows': rows})
+    paginator = Paginator(cakes, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'main/catalog.html', {'rows': rows, 'page_obj': page_obj})
 
 
 def order_form(request):

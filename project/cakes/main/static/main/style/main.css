@@ -21,6 +21,9 @@ background: -webkit-linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,24
 background: linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,248,227,1) 50%, rgba(243,215,202,1) 77%);
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endColorstr="#f3d7ca",GradientType=1); */
         background-color: #fff8e3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     /* height: 100vh;
     background-attachment: fixed; */
         
@@ -37,21 +40,24 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
   padding: 0;
   height: 100%;
   width: 100%;
+
 }
     .header {
-      border-radius: 0 0 31px 31px;
       backdrop-filter: blur(2px);
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      background-color: #f3d7ca;
+      background-color: #e6a4b4;
       display: flex;
       gap: 20px;
-      font-size: 35px;
-      color: #e6a4b4;
+      font-size: 18px;
+      color: #f3d7ca;
       font-weight: 400;
       white-space: nowrap;
       padding: 0 0 0 0;
-      justify-content: flex-end;
-      max-height: 90px;
+      justify-content: center;
+      align-items: center;
+      max-height: 50px;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
     }
 
     @media (max-width: 991px) {
@@ -66,17 +72,19 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
       font-family: Roboto Flex, sans-serif;
       border-radius: 20px;
       display: flex;
-      background-color: #fff8e3;
       justify-content: center;
-      padding: 20px 30px 30px 30px;
+      align-items: center;
+      padding: 0px 10px 0px 10px;
       text-decoration: none;
-      color: #e6a4b4;
+      color: #fff8e3;
       font-weight: 900;
+      min-height: 50px;
     }
 
     .nav-button:hover {
-      background-color: var(--hover-color);
-     border-radius: 20px;
+      background-color: #fff8e3;
+     border-radius: 0px;
+     color: #e6a4b4;
 }
 
     @media (max-width: 991px) {
@@ -89,17 +97,28 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
     .logo {
       aspect-ratio: 1;
       object-fit: contain;
-      width: 90px;
+      width: 40px;
       margin: auto 0;
       margin-right: 15px;
+      color: #fff8e3;
     }
+    /* .logo:hover{
+      background-color: #fff8e3;
+      color: #e6a4b4;
+    } */
+
 
     .main-logo{
-      aspect-ratio: 1;
+      display: flex;
       object-fit: contain;
-      width: 90px;
+      min-width: 155px;
       margin-right: auto;
-      margin-left: 3%;
+      margin-left: 0%;
+      align-items: center;
+      justify-items: center;
+      max-width: 45px;
+      background-color: #fff8e3;
+      padding: 5px;
     }
 
     .logo-icon{
@@ -108,14 +127,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
     }
 
     .main-logo-sw{
-      height: 90%;
+      height: 40px;
       width: auto;
-      margin-top: 5px;
     }
 
     .footer {
-      background-color: #f3d7ca;
-      margin-top: auto;
+      background-color: #FFECD4;
       display: flex;
       width: 100%;
       max-width: 100%;
@@ -124,21 +141,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
       white-space: nowrap;
       justify-content: center;
       overflow-x: hidden;
+      overflow-y: hidden;
       padding: 52px 60px;
-      font: 400 64px/42% Roboto Flex, sans-serif;
+      font: 400 34px/42% Roboto Flex, sans-serif;
       box-sizing: border-box;
       bottom: 0;
       left: 0;
-    }
-
-    @media (max-width: 991px) {
-      .footer {
-        font-size: 40px;
-        max-width: 100%;
-        margin-top: 40px;
-        white-space: initial;
-        padding: 0 20px;
-      }
+      margin-bottom: 0px;
+      align-self: flex-end;
+      justify-self: flex-end;
     }
 
 ::-webkit-scrollbar {

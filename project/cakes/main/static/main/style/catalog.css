@@ -1,6 +1,7 @@
 :root {
   --hover-color: rgba(255, 255, 255, 0.4);; 
   --hover-color2: #f8e7e0;
+  --color2: rgb(251, 233, 223);
 }
   .catalog-container {
     display: flex;
@@ -21,9 +22,9 @@
 
   .catalog-title {
     color: #e6a4b4;
-    font: 900 64px/42% Roboto Flex, sans-serif;
-    margin-top: 0;
-    margin-bottom: 20px;
+    font: 900 34px/42% Roboto Flex, sans-serif;
+    margin-top: 30px;
+    margin-bottom: 10px;
     margin-left: 2%;
 
   }
@@ -36,17 +37,17 @@
   }
 
   .filters {
-    background-color: #f3d7ca;
+    background-color: #FFECD4;
     border-radius: 30px 30px 0 0;
     margin-top: 30px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 30px;
     flex-direction: row;
     color: #e6a4b4;
     white-space: nowrap;
-    padding: 30px;
-    font: 400 28px/42% Roboto Flex, sans-serif;
+    padding: 30px 30px 20px 30px;
+    font: 400 18px/42% Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -60,7 +61,7 @@
   }
 
   .filter-title{
-    font: 900 28px/42% Roboto Flex, sans-serif;
+    font: 900 18px/42% Roboto Flex, sans-serif;
     color: #e6a4b4;
     margin-top: 0px;
   }
@@ -81,7 +82,7 @@
     background-color: #fff8e3;
     color: #e6a4b4;
     font-weight: bolder;
-    font-size: 14;
+    font-size: 12;
     min-width: 200px;
   }
 
@@ -89,6 +90,18 @@
     background-color: #fff8e3;
     border-color: #c8708b;
     outline: none;
+}
+
+.params-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.params{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .filters select:focus:hover {
@@ -105,17 +118,15 @@
   display: none;
 }
 
-/* Стилизация меток, чтобы они выглядели как чекбоксы */
 .additions label {
   position: relative;
   padding-left: 30px;
   cursor: pointer;
-  font: 400 18px/42% Roboto Flex, sans-serif;
-  color: #c8708b;
+  font: 400 16px/42% Roboto Flex, sans-serif;
+  color: #e6a4b4;
   padding-top: 8px;
 }
 
-/* Создание пользовательских чекбоксов */
 .additions label::before {
   content: "";
   position: absolute;
@@ -133,13 +144,12 @@
   border-color: #c8708b;
 }
 
-/* Псевдоэлемент для галочки */
 .additions label::after {
   content: "✔";
   color: #fff8e3;
   position: absolute;
   left: 5px;
-  top: 8px;
+  top: 10px;
   width: 10px;
   height: 5px;
 
@@ -160,7 +170,6 @@
 
 }
 
-
   .parameters,
   .layers {
       width: 45%;
@@ -171,24 +180,27 @@
   }
   
   .filter-options label {
-
       margin-bottom: 5px;
   }
 
-  .filter-options-additions{
+  .filter-options-additions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+    grid-gap: 20px;
+
+  }
+
+  .filter-options-additions {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
   }
   
-  .filter-options select {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+  .filter-options-additions input,
+  .filter-options-additions label {
+    width: calc(33.333% - 20px);
   }
+
   
   .layer-count {
       margin-bottom: 20px;
@@ -199,12 +211,10 @@
   }
 
   .select-layers {
-    appearance: none; /* Убирает стандартное оформление */
     padding: 8px 12px;
     font-size: 16px;
     border: 2px solid #e6a4b4;
     border-radius: 5px;
-    background-color: #f3d7ca;
     color: #e6a4b4;
     cursor: pointer;
 }
@@ -218,27 +228,16 @@
     color: #e6a4b4;
 }
 
-/* Стили для стрелки выпадающего списка */
 .select-layers-container {
     position: relative;
     display: inline-block;
 
 }
 
-.select-layers-container::after {
-    content: '▼';
-    font-size: 12px;
-    color: #e6a4b4;
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
 
   .catalog-product-grid {
     overflow:hidden;
-    background-color: #f3d7ca;
+    background-color: #FFECD4;
     border-radius: 0 0 30px 30px;
     display: flex;
     flex-direction: column;
@@ -292,13 +291,12 @@
   }
 
   .catalog-pagination {
-    background-color: #f3d7ca;
+    background-color: #FFECD4;
     border-radius: 20px;
     display: flex;
     gap: 10px;
-    font-size: 35px;
-    color: #fff8e3;
-    font: 40px Roboto Flex, sans-serif;
+    color: #e6a4b4;
+    font: 34px Roboto Flex, sans-serif;
     font-weight: 600;
   }
 
@@ -309,5 +307,6 @@
   }
 
   .catalog-pagination span:hover {
-    background-color: var(--hover-color);
+    background-color: #e6a4b4;
+    color: #fff8e3;
   }

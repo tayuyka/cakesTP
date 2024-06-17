@@ -1,12 +1,15 @@
 
   .registration-form {
     border-radius: 30px;
-    background-color: #f3d7ca;
+    background-color: #FFECD4;
     display: flex;
-    margin: 5% 0 0 25%;
+    justify-self: center;
+    align-self: center;
     max-width: 50%;
     flex-direction: column;
-    padding: 37px 41px;
+    padding: 20px 30px;
+    max-width: 40%;
+    margin-top: 80px;
   }
 
   @media (max-width: 991px) {
@@ -33,8 +36,7 @@
 
   .first-name-label {
     align-self: end;
-
-    font: 600 16px Roboto Flex, sans-serif;
+    font: 600 14px Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -59,7 +61,9 @@
   }
 
   .registration-heading {
-    font: 900 64px Roboto Flex, sans-serif;
+    font: 900 34px Roboto Flex, sans-serif;
+    margin: 0px;
+    margin-bottom: 20px;
   }
 
   @media (max-width: 991px) {
@@ -71,15 +75,15 @@
 
   .last-name-label {
       align-self: end;
-    font: 600 16px Roboto Flex, sans-serif;
+    font: 600 14px Roboto Flex, sans-serif;
   }
 
   .name-inputs {
     display: flex;
     margin-top: 14px;
     gap: 20px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.38);
+    font-size: 14px;
+    color: #e6a4b4;
     font-weight: 400;
     white-space: nowrap;
   }
@@ -95,21 +99,15 @@
   .first-name-input,
   .last-name-input {
     font-family: Roboto Flex, sans-serif;
-    border-radius: 13px;
+    border-radius: 10px;
     background-blend-mode: normal;
     background-color: rgba(255, 248, 227, 1);
     align-items: start;
     justify-content: center;
     flex-grow: 1;
     width: fit-content;
-  }
-
-  .first-name-input {
-    padding: 18px 21px;
-  }
-
-  .last-name-input {
-    padding: 17px 21px;
+    color: #e6a4b4;
+    padding: 10px 21px;
   }
 
   @media (max-width: 991px) {
@@ -122,8 +120,8 @@
 
   .regist-email-label {
     color: #e6a4b4;
-    margin-top: 30px;
-    font: 600 16px Roboto Flex, sans-serif;
+    margin-top: 20px;
+    font: 600 14px Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -133,17 +131,17 @@
   }
 
   .regist-email-input {
-    border-radius: 13px;
+    border-radius: 10px;
     background-blend-mode: normal;
     background-color: rgba(255, 248, 227, 1);
     margin-top: 9px;
     width: 426px;
     max-width: 100%;
     align-items: start;
-    color: rgba(0, 0, 0, 0.38);
+    color: #e6a4b4;
     justify-content: center;
-    padding: 16px 21px;
-    font: 400 16px Roboto Flex, sans-serif;
+    padding: 10px 21px;
+    font: 400 14px Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -154,8 +152,8 @@
 
   .birthdate-label {
     color: #e6a4b4;
-    margin-top: 31px;
-    font: 600 16px Roboto Flex, sans-serif;
+    margin-top: 20px;
+    font: 600 14px Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -168,8 +166,8 @@
     display: flex;
     margin-top: 10px;
     gap: 15px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.38);
+    font-size: 14px;
+    color: #e6a4b4;
     font-weight: 400;
     white-space: nowrap;
   }
@@ -187,13 +185,14 @@
   .month-input,
   .year-input {
     font-family: Roboto Flex, sans-serif;
-    border-radius: 13px;
+    border-radius: 10px;
     background-blend-mode: normal;
     background-color: rgba(255, 248, 227, 1);
     align-items: start;
     justify-content: center;
-    padding: 17px 16px;
+    padding: 10px 21px;
     width: 30%;
+    color: #e6a4b4;
   }
 
   @media (max-width: 991px) {
@@ -207,8 +206,8 @@
 
   .phone-label {
     color: #e6a4b4;
-    margin-top: 31px;
-    font: 600 16px Roboto Flex, sans-serif;
+    margin-top: 20px;
+    font: 600 14px Roboto Flex, sans-serif;
   }
 
   @media (max-width: 991px) {
@@ -219,20 +218,20 @@
 
   input{
       border: 0px solid rgba(0, 0, 0, 1);
-      font: 400 16px Roboto Flex, sans-serif;
+      font: 400 14px Roboto Flex, sans-serif;
   }
   .phone-input {
-    border-radius: 13px;
+    border-radius: 10px;
     background-blend-mode: normal;
     background-color: rgba(255, 248, 227, 1);
-    margin-top: 16px;
+    margin-top: 14px;
     width: 426px;
     max-width: 100%;
     align-items: start;
-    color: rgba(0, 0, 0, 0.38);
+    color: #e6a4b4;
     justify-content: center;
-    padding: 16px;
-    font: 400 16px Roboto Flex, sans-serif;
+    padding: 10px 21px;
+    font: 400 14px Roboto Flex, sans-serif;
     border: 0px solid rgba(0, 0, 0, 1);
   }
 
@@ -244,9 +243,9 @@
 
   .password-fields {
     display: flex;
-    margin-top: 42px;
+    margin-top: 20px;
     gap: 20px;
-    font-size: 16px;
+    font-size: 14px;
     justify-content: space-between;
   }
 
@@ -281,15 +280,15 @@
 
   .password-input {
     font-family: Roboto Flex, sans-serif;
-    border-radius: 13px;
+    border-radius: 10px;
     background-blend-mode: normal;
     background-color: rgba(255, 248, 227, 1);
     margin-top: 9px;
     align-items: start;
-    color: rgba(0, 0, 0, 0.38);
+    color: #e6a4b4;
     font-weight: 400;
     justify-content: center;
-    padding: 16px 21px;
+    padding: 10px  21px;
   }
 
   @media (max-width: 991px) {
@@ -301,18 +300,18 @@
 
   .confirm-password-input {
     font-family: Roboto Flex, sans-serif;
-    border-radius: 13px;
+    border-radius: 10px;
     background-blend-mode: normal;
     background-color: rgba(255, 248, 227, 1);
     align-self: end;
     margin-top: 24px;
     align-items: start;
     width: 50px;
-    color: rgba(0, 0, 0, 0.38);
+    color: #e6a4b4;
     font-weight: 400;
     justify-content: center;
     flex-grow: 1;
-    padding: 16px 21px;
+    padding: 10px  21px;
   }
 
   @media (max-width: 991px) {
@@ -322,24 +321,24 @@
   }
 
   .continue-button {
-    border-radius: 30px;
+    border-radius: 20px;
     background-blend-mode: soft-light;
-    background-color: rgba(255, 248, 227, 1);
+    background-color: #e6a4b4;
     border: 0px solid rgba(0, 0, 0, 1);
     align-self: end;
     margin-top: 38px;
-    color: #e6a4b4;
+    color: #fff8e3;
     white-space: nowrap;
     justify-content: center;
-    padding: 21px 14px;
+    padding: 10px 10px;
     font: 900 24px Roboto Flex, sans-serif;
-  }
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    }
 
-  .continue-button:hover{
-    background-color: var(--hover-color);
+    .continue-button:hover{
+      transform: scale(1.05);
+    }
 
-    border-radius: 30px;
-}
 
 
   @media (max-width: 991px) {
