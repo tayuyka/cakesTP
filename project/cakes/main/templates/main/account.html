@@ -25,7 +25,9 @@
 
   <section class="orders-section">
     {% for order in orders %}
-    <a href="{% url 'order_details' order.pk %}" class="order-item">Заказ №{{ order.pk }}</a>
+    <a href="{% url 'order_details' order.pk %}" class="order-item">
+      <box-icon name='package' type='solid' color='#e6a4b4' class="order-icon"></box-icon>
+      Заказ №{{ order.pk }}</a>
     {% endfor %}
   </section>
 </section>
