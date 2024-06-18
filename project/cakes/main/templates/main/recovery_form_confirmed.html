@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+ <main class="recovery-container">
+     <h1 class="recovery-title">Восстановить</h1>
+           <p class="recovery-description">Введите новый пароль</p>
+
+   <input type="password" id="password" name="password" class="code-input" placeholder="Пароль..." required />
+   <input type="password" id="password_confirmed" name="password" class="code-input" placeholder="Подтвердите пароль..." required />
+
+      <button type="submit" class="next-button">Подтвердить</button>
+    </main>
+
+{% endblock %}

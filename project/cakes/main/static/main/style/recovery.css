@@ -4,7 +4,7 @@
     background-color: #FFECD4;
     align-self: center;
     display: flex;
-    width: 562px;
+    width: 30%;
     max-width: 100%;
     flex-direction: column;
     align-items: start;
@@ -38,7 +38,7 @@
 
   .recovery-description {
     font-family: Roboto Flex, sans-serif;
-    margin-top: 46px;
+    margin-top: 20px;
     margin-left: 26px;
   }
 
