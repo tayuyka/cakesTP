@@ -33,7 +33,7 @@
       width: 100%;
       height: auto;
       background: linear-gradient(to bottom, #fff8e3 40%, #fff8e3 40%, #FFECD4 40%, #FFECD4 100%);
-      box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.2);
       gap: 15px;
     }
 
@@ -65,17 +65,29 @@
       max-width: 37%;
       height: auto;
       align-self: flex-end;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+
+    }
+    .home-cake3:hover,
+    .home-cake2:hover,
+    .home-cake:hover{
+      transform: scale(1.05);
     }
 
+
     .home-cake2{
-      max-width: 25%;
+      max-width: 27%;
       height: auto;
       align-self: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+
     }
     .home-cake3{
       max-width: 25%;
       height: auto;
       align-self: flex-start;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      margin-right: 10px;
     }
 
 
@@ -369,8 +381,8 @@
   padding: 15px 30px;
   text-decoration: none;
   border-radius: 10px;
-  border-top: 7px  solid #aae3dc;
-  border-right: 9px  solid #aae3dc;;
+  border-top: 8px  solid #aae3dc;
+  border-right: 10px  solid #aae3dc;;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), /* Внешняя тень */
                   inset 0 2px 4px rgba(255, 255, 255, 0.2); /* Внутренняя тень */
   transition: transform 0.2s, background-color 0.2s;
