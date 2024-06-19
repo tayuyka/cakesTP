@@ -27,6 +27,9 @@ class CakeAddition(models.Model):
     cost_per_gram = models.IntegerField()
     primary_color = models.TextField()
     secondary_color = models.TextField()
+    texture_side_path = models.CharField(max_length=255, blank=True, null=True)
+    texture_top_path = models.CharField(max_length=255, blank=True, null=True)
+    amount = models.IntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'Cake_addition'
@@ -48,6 +51,7 @@ class CakeShape(models.Model):
     cake_shape_id = models.AutoField(db_column='cake_shape_ID', primary_key=True)
     shape = models.TextField(unique=True)
     cost = models.IntegerField()
+    texture_path = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'Cake_shape'
@@ -77,7 +81,7 @@ class CakeTopping(models.Model):
     cost_per_gram = models.IntegerField()
     density = models.IntegerField()
     primary_color = models.TextField()
-    secondary_color = models.TextField()
+    texture_path = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'Cake_topping'
