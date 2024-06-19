@@ -8,6 +8,7 @@
 @import url('catalog.css');
 @import url('cart.css');
 @import url('cake_info.css');
+@import url('constructor.css');
 
 :root {
   --hover-color: rgba(255, 255, 255, 0.4);; 

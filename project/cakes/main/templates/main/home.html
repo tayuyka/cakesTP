@@ -3,6 +3,11 @@
 
 {% block title %}sweet creations{% endblock %}
 
+{% block script %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+{% endblock %}
+
+
 {% block content %}
 <div class="home-cake-container">
 
@@ -19,7 +24,8 @@
 </div>
 <h2 class="section-title">Выбрали для вас</h2>
 
-<section class="product-grid">
+
+<section id="ad" class="product-grid">
     <a class="tape-arrow" @click="scrollLeft">
         <box-icon name='chevron-left' color='#e6a4b4' class="logo-icon"></box-icon>
     </a>
@@ -110,5 +116,9 @@
     <a href="{% url 'constructor' %}" class="cta-button">Создать</a>
     <a href="{% url 'catalog' %}" class="cta-button">Посмотреть все</a>
 </section>
+{% endblock %}
+
+{% block extra_script %}
+    <script src="{% static 'main/js/main.js' %}"></script>
 {% endblock %}
 

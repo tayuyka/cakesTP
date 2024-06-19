@@ -22,15 +22,12 @@
           <a href="{% url 'account' %}" class="logo"><box-icon name='user-circle' type='solid' color='#fff8e3' alt=""  class="logo-icon"></box-icon></a>
       </header>
 
-    <div id="app" class="content">
+    <div  class="content">
         {% block content %}{% endblock %}
     </div>
 
 <footer class="footer"> contacts </footer>
 
-      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
-<script src="{% static 'main/js/main.js' %}"></script>
     {% block extra_script %}{% endblock %}
 </body>
 </html>
