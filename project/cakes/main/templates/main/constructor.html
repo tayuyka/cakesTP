@@ -90,6 +90,12 @@
 
       <label for="text-color">Text Color:</label>
       <input type="color" id="text-color" v-model="textColor" @input="updateTextColor">
+            <label for="font-select">Font:</label>
+      <select id="font-select" v-model="currentFont" @change="updateFont">
+        <option value="Miama">Miama</option>
+        <option value="Per">Per</option>
+        <option value="Shlapak">Shlapak</option>
+      </select>
 </div>
           </div>
       <button @click="saveScreenshot">Save Screenshot</button>
