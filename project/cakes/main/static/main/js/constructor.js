@@ -7,6 +7,8 @@ const { TGALoader } = THREE;
 const { FontLoader } = THREE;
 const { TextGeometry } = THREE;
 
+const CDN_BASE_URL = '/static/main/assets/';
+
 createApp({
 delimiters: ['[[', ']]'],
     data() {
@@ -15,7 +17,7 @@ delimiters: ['[[', ']]'],
           trinketModel: null,
           currentTopping: 'none',
           currentCover: 'none',
-          currentShape: 'CIRCLE',
+          currentShape: 'круглый',
           currentTrinket: 'none', // добавлено
           cakeLayers: [],
           cakeCovers: [],
@@ -129,11 +131,11 @@ delimiters: ['[[', ']]'],
 
             this.cakeLayers.forEach((layer, index) => {
               const quantity = trinketQuantities[index];
-              const radius = this.getShapeRadius(layer) * (trinketQuantity === 'single' ? 1 : this.currentShape === 'HEART' ? 0.85 : 0.85);
+              const radius = this.getShapeRadius(layer) * (trinketQuantity === 'single' ? 1 : this.currentShape === 'сердце' ? 0.85 : 0.85);
 
-              if (this.currentShape === 'STAR') {
+              if (this.currentShape === 'звезда') {
                 this.addStarTrinkets(layer, radius, quantity);
-              } else if (this.currentShape === 'HEART') {
+              } else if (this.currentShape === 'сердце') {
                 this.addHeartTrinkets(layer, radius, quantity);
               } else {
                 this.addCircularTrinkets(layer, radius, quantity);
@@ -315,7 +317,7 @@ delimiters: ['[[', ']]'],
 
             model.position.y += modelHeight / 2;
 
-            if (this.currentShape === 'HEART') {
+            if (this.currentShape === 'сердце') {
               model.position.y += modelHeight * 0.1;
             }
 
@@ -328,20 +330,20 @@ delimiters: ['[[', ']]'],
             for (let i = 0; i < 5; i++) {
               let geometry;
               switch (shape) {
-                case 'CIRCLE':
+                case 'круглый':
                   geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 32);
                   break;
-                case 'SQUARE':
+                case 'квадратный':
                   geometry = new THREE.BoxGeometry(radius * 2, segmentHeight, radius * 2);
                   break;
-                case 'HEXAGON':
+                case 'шестиугольный':
                   geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 6);
                   break;
-                case 'STAR':
+                case 'звезда':
                   geometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), segmentHeight);
                   geometry.rotateX(Math.PI / 2);
                   break;
-                case 'HEART':
+                case 'сердце':
                   geometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius), segmentHeight);
                   geometry.rotateX(Math.PI / 2);
                   break;
@@ -351,7 +353,7 @@ delimiters: ['[[', ']]'],
               const material = new THREE.MeshBasicMaterial({ color: (i % 2 === 0) ? baseColor : fillingColor });
               const mesh = new THREE.Mesh(geometry, material);
 
-              if (shape === 'HEART') {
+              if (shape === 'сердце') {
                 const boundingBox = new THREE.Box3().setFromObject(mesh);
                 const center = boundingBox.getCenter(new THREE.Vector3());
                 mesh.position.set(-center.x, i * segmentHeight - height / 2 + segmentHeight / 2, -center.z);
@@ -427,8 +429,8 @@ delimiters: ['[[', ']]'],
             pointLight.position.set(10, 10, 10);
             this.scene.add(pointLight);
 
-            const layerHeight = (shape === 'HEART' || shape === 'STAR') ? 1.5 : 1;
-            const radii = shape === 'HEART' ? [3.5, 2.5, 1.5] : shape === 'STAR' ? [2.5, 2, 1.5] : [2, 1.5, 1];
+            const layerHeight = (shape === 'сердце' || shape === 'звезда') ? 1.5 : 1;
+            const radii = shape === 'сердце' ? [3.5, 2.5, 1.5] : shape === 'звезда' ? [2.5, 2, 1.5] : [2, 1.5, 1];
 
             for (let i = 0; i < layers; i++) {
               const baseColor = bases[i];
@@ -521,7 +523,8 @@ delimiters: ['[[', ']]'],
             }
 
             const dripColor = `${topping.primary_color}`;
-            const texturePath = topping.texture_path;
+            //const texturePath = topping.texture_path;
+            const texturePath = `${CDN_BASE_URL}${topping.texture_path}`;
             const dripTexture = new THREE.TextureLoader().load(texturePath);
             const dripNormalMap = new THREE.TextureLoader().load(texturePath.replace('.png', '_norm.png'));
 
@@ -530,21 +533,21 @@ delimiters: ['[[', ']]'],
               const height = 0.5;
               let dripGeometry;
 
-              if (this.currentShape === 'CIRCLE') {
+              if (this.currentShape === 'круглый') {
                 radius *= 1.015;
                 dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 32, 1, true);
-              } else if (this.currentShape === 'SQUARE') {
+              } else if (this.currentShape === 'квадратный') {
                 radius *= 1.015;
                 dripGeometry = new THREE.BoxGeometry(radius * 2, height, radius * 2);
-              } else if (this.currentShape === 'HEXAGON') {
+              } else if (this.currentShape === 'шестиугольный') {
                 radius *= 1.165;
                 dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 6, 1, true);
-              } else if (this.currentShape === 'STAR') {
+              } else if (this.currentShape === 'звезда') {
                 radius *= 1.035;
                 dripGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), height);
                 dripGeometry.rotateX(Math.PI / 2);
                 this.adjustStarUVs(dripGeometry);
-              } else if (this.currentShape === 'HEART') {
+              } else if (this.currentShape === 'сердце') {
                 radius *= 1.77;
                 const newradius = radius * 1.09;
                 dripGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(newradius), height);
@@ -556,9 +559,9 @@ delimiters: ['[[', ']]'],
               const repeatCount = repeats[index % repeats.length];
               dripTexture.wrapS = THREE.RepeatWrapping;
               dripTexture.wrapT = THREE.RepeatWrapping;
-              if (this.currentShape === 'STAR') {
+              if (this.currentShape === 'звезда') {
                 dripTexture.repeat.set(repeatCount * 0.23, 1); // Уменьшаем количество повторений
-              } else if (this.currentShape === 'HEART') {
+              } else if (this.currentShape === 'сердце') {
                 dripTexture.repeat.set(repeatCount * 0.35, 1); // Уменьшаем количество повторений для сердца
               } else {
                 dripTexture.repeat.set(repeatCount, 1);
@@ -575,14 +578,14 @@ delimiters: ['[[', ']]'],
               });
               const drip = new THREE.Mesh(dripGeometry, dripMaterial);
               drip.position.y = layer.position.y + layer.children[layer.children.length - 1].position.y - height / 3.5;
-              if (this.currentShape === 'STAR') {
+              if (this.currentShape === 'звезда') {
                 drip.position.y += 0.15; // Корректировка смещения по оси Z для формы сердца
               }
-              if (this.currentShape === 'HEART') {
+              if (this.currentShape === 'сердце') {
                 drip.position.y += 0.15; // Корректировка смещения по оси Z для формы сердца
               }
 
-              if (this.currentShape === 'HEART') {
+              if (this.currentShape === 'сердце') {
                 drip.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
               }
 
@@ -590,29 +593,29 @@ delimiters: ['[[', ']]'],
               this.scene.add(drip);
 
               let topGeometry;
-              if (this.currentShape === 'CIRCLE') {
+              if (this.currentShape === 'круглый') {
                 topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 32);
-              } else if (this.currentShape === 'SQUARE') {
+              } else if (this.currentShape === 'квадратный') {
                 topGeometry = new THREE.BoxGeometry(radius * 2, 0.05, radius * 2);
-              } else if (this.currentShape === 'HEXAGON') {
+              } else if (this.currentShape === 'шестиугольный') {
                 topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 6);
-              } else if (this.currentShape === 'STAR') {
+              } else if (this.currentShape === 'звезда') {
                 topGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius * 1.01), 0.05);
                 topGeometry.rotateX(Math.PI / 2);
-              } else if (this.currentShape === 'HEART') {
+              } else if (this.currentShape === 'сердце') {
                 topGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius * 1.08), 0.05);
                 topGeometry.rotateX(Math.PI / 2);
               }
               const topMaterial = new THREE.MeshStandardMaterial({ color: dripColor });
               const top = new THREE.Mesh(topGeometry, topMaterial);
               top.position.set(layer.position.x, layer.position.y + 0.50, layer.position.z);
-              if (this.currentShape === 'STAR') {
+              if (this.currentShape === 'звезда') {
                 top.position.y += 0.13; // Корректировка смещения по оси Z для формы сердца
               }
-              if (this.currentShape === 'HEART') {
+              if (this.currentShape === 'сердце') {
                 top.position.y += 0.13; // Корректировка смещения по оси Z для формы сердца
               }
-              if (this.currentShape === 'HEART') {
+              if (this.currentShape === 'сердце') {
                 top.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
               }
               this.scene.add(top);
@@ -718,11 +721,11 @@ delimiters: ['[[', ']]'],
 
           this.cakeLayers.forEach((layer, index) => {
             const quantity = trinketQuantities[index];
-            const radius = this.getShapeRadius(layer) * (trinketQuantity === 'single' ? 1 : this.currentShape === 'HEART' ? 0.85 : 0.85);
+            const radius = this.getShapeRadius(layer) * (trinketQuantity === 'single' ? 1 : this.currentShape === 'сердце' ? 0.85 : 0.85);
 
-            if (this.currentShape === 'STAR') {
+            if (this.currentShape === 'звезда') {
               this.addStarTrinkets(layer, radius, quantity);
-            } else if (this.currentShape === 'HEART') {
+            } else if (this.currentShape === 'сердце') {
               this.addHeartTrinkets(layer, radius, quantity);
             } else {
               this.addCircularTrinkets(layer, radius, quantity);
@@ -764,9 +767,9 @@ delimiters: ['[[', ']]'],
             const quantity = trinketQuantities[index];
             const radius = this.getShapeRadius(layer) * 0.85;
 
-            if (this.currentShape === 'STAR') {
+            if (this.currentShape === 'звезда') {
               this.addStarTrinkets(layer, radius, quantity);
-            } else if (this.currentShape === 'HEART') {
+            } else if (this.currentShape === 'сердце') {
               this.addHeartTrinkets(layer, radius, quantity);
             } else {
               this.addCircularTrinkets(layer, radius, quantity);
@@ -864,8 +867,8 @@ delimiters: ['[[', ']]'],
           addImageToCake(texture, position = null, rotation = null) {
             const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
             const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-            const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
-            const sizeFactor = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 1.5 : 2;
+            const additionalOffset = (this.currentShape === 'звезда' || this.currentShape === 'звезда') ? 0.05 : 0;
+            const sizeFactor = (this.currentShape === 'звезда' || this.currentShape === 'звезда') ? 1.5 : 2;
             const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
             const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
@@ -913,7 +916,7 @@ delimiters: ['[[', ']]'],
 
               const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
               const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-              const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+              const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
               group.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset, 0);
               group.rotation.x = -Math.PI / 2;
 
@@ -931,7 +934,7 @@ delimiters: ['[[', ']]'],
           adjustPositionAfterDrag(object) {
             const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
             const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-            const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
             const radius = this.getShapeRadius(topLayer);
             const pos = object.position;
             const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
