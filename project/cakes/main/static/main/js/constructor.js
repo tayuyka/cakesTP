@@ -19,6 +19,7 @@ delimiters: ['[[', ']]'],
           currentCover: 'none',
           currentShape: 'круглый',
           currentTrinket: 'none', // добавлено
+          currentFont: 'Miama',
           cakeLayers: [],
           cakeCovers: [],
           cakeDrips: [],
@@ -889,50 +890,76 @@ delimiters: ['[[', ']]'],
             this.imageObject = plane;
             this.updateHandlesVisibility();
           },
-          addTextToCake(text, position = null, rotation = null) {
-            if (this.textObject) {
-              this.scene.remove(this.textObject);
-              this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
-              this.textObject = null;
-            }
+ addTextToCake(text, position = null, rotation = null) {
+  if (this.textObject) {
+    this.scene.remove(this.textObject);
+    this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
+    this.textObject = null;
+  }
 
-            const loader = new FontLoader();
-            loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
-              const textGeometry = new TextGeometry(text, {
-                font: font,
-                size: this.textSize,
-                height: 0.05,
-                curveSegments: 12,
-                bevelEnabled: false
-              });
+  const loader = new FontLoader();
+  loader.load(`${CDN_BASE_URL}fonts/${this.currentFont}.json`, (font) => {
+    const textGeometry = new TextGeometry(text, {
+      font: font,
+      size: 1, // устанавливаем единичный размер для базовой геометрии
+      depth: 0.05, // обновлено на depth вместо height
+      curveSegments: 12,
+      bevelEnabled: false
+    });
 
-              const textMaterial = new THREE.MeshBasicMaterial({
-                color: this.textColor,
-                side: THREE.DoubleSide
-              });
+    const textMaterial = new THREE.MeshBasicMaterial({
+      color: this.textColor,
+      side: THREE.DoubleSide
+    });
 
-              const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    textMesh.scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
 
-              const group = new THREE.Group();
-              group.add(textMesh);
+    const group = new THREE.Group();
+    group.add(textMesh);
 
-              const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-              const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-              const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
-              group.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset, 0);
-              group.rotation.x = -Math.PI / 2;
+    const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+    const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+    const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+    group.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset, 0);
+    group.rotation.x = -Math.PI / 2;
 
-              if (position) group.position.copy(position);
-              if (rotation) group.rotation.copy(rotation);
+    if (position) group.position.copy(position);
+    if (rotation) group.rotation.copy(rotation);
 
-              this.scene.add(group);
-              this.objectsToDrag.push(group);
-              this.dragControls.objects = this.objectsToDrag;
+    this.scene.add(group);
+    this.objectsToDrag.push(group);
+    this.dragControls.objects = this.objectsToDrag;
 
-              this.textObject = group;
-              this.updateHandlesVisibility();
-            });
-          },
+    this.textObject = group;
+    this.updateHandlesVisibility();
+  });
+},
+
+updateFont(event) {
+  this.currentFont = event.target.value;
+  if (this.textObject) {
+    this.updateTextFont();
+  }
+},
+
+updateTextFont() {
+  const loader = new FontLoader();
+  loader.load(`${CDN_BASE_URL}fonts/${this.currentFont}.json`, (font) => {
+    const newGeometry = new TextGeometry(this.textContent, {
+      font: font,
+      size: 1, // устанавливаем единичный размер для базовой геометрии
+      depth: 0.05, // обновлено на depth вместо height
+      curveSegments: 12,
+      bevelEnabled: false
+    });
+
+    this.textObject.children[0].geometry.dispose(); // Удаляем старую геометрию
+    this.textObject.children[0].geometry = newGeometry; // Присваиваем новую геометрию
+    this.textObject.children[0].scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
+  });
+},
+
           adjustPositionAfterDrag(object) {
             const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
             const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
@@ -1115,12 +1142,12 @@ delimiters: ['[[', ']]'],
             this.addTextToCake(this.textContent);
           },
           updateTextSize() {
-            if (this.textObject) {
-              this.textObject.children.forEach(child => {
-                child.scale.set(this.textSize, this.textSize, this.textSize);
-              });
-            }
-          },
+  if (this.textObject) {
+    this.textObject.children.forEach(child => {
+      child.scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
+    });
+  }
+},
           updateTextColor() {
             if (this.textObject) {
               this.textObject.children.forEach(child => {
