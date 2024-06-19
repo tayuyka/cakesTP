@@ -12,4 +12,4 @@ const { createApp } = Vue;
                 this.productRow.scrollBy({ left: this.productRow.clientWidth, behavior: 'smooth' });
             }
         }
-    }).mount('#app');
+    }).mount('#ad');
