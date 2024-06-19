@@ -107,8 +107,9 @@ delimiters: ['[[', ']]'],
           }
 
           const textureLoader = new THREE.TextureLoader();
-          const isGLTF = trinketData.texture_top_path.endsWith('.gltf') || trinketData.texture_top_path.endsWith('.glb');
-          const isOBJ = trinketData.texture_top_path.endsWith('.obj');
+          const modelPath = `${CDN_BASE_URL}${trinketData.texture_top_path}`;
+          const isGLTF = modelPath.endsWith('.gltf') || modelPath.endsWith('.glb');
+          const isOBJ = modelPath.endsWith('.obj');
 
           const loadModelCallback = (model) => {
             this.trinketModel = model;
@@ -144,9 +145,9 @@ delimiters: ['[[', ']]'],
           };
 
           if (isGLTF) {
-            this.loadGLTFModel(trinketData.texture_top_path, loadModelCallback);
+            this.loadGLTFModel(modelPath, loadModelCallback);
           } else if (isOBJ) {
-            this.loadOBJModel(trinketData.texture_top_path, (obj) => {
+            this.loadOBJModel(modelPath, (obj) => {
               textureLoader.load(trinketData.texture_side_path, (texture) => {
                 obj.traverse((child) => {
                   if (child.isMesh) {
@@ -709,8 +710,9 @@ delimiters: ['[[', ']]'],
         }
 
         const textureLoader = new THREE.TextureLoader();
-        const isGLTF = trinketData.texture_top_path.endsWith('.gltf') || trinketData.texture_top_path.endsWith('.glb');
-        const isOBJ = trinketData.texture_top_path.endsWith('.obj');
+        const modelPath = `${CDN_BASE_URL}${trinketData.texture_top_path}`;
+        const isGLTF = modelPath.endsWith('.gltf') || modelPath.endsWith('.glb');
+        const isOBJ = modelPath.endsWith('.obj');
 
         const loadModelCallback = (model) => {
           this.trinketModel = model;
@@ -734,9 +736,9 @@ delimiters: ['[[', ']]'],
         };
 
         if (isGLTF) {
-          this.loadGLTFModel(trinketData.texture_top_path, loadModelCallback);
+          this.loadGLTFModel(modelPath, loadModelCallback);
         } else if (isOBJ) {
-          this.loadOBJModel(trinketData.texture_top_path, (obj) => {
+          this.loadOBJModel(modelPath, (obj) => {
             textureLoader.load(trinketData.texture_side_path, (texture) => {
               obj.traverse((child) => {
                 if (child.isMesh) {
