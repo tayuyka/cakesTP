@@ -1,11 +1,69 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
+{% block script %}<script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@0.27.2/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/controls/DragControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/OBJLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/TGALoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/FontLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/geometries/TextGeometry.js"></script>{% endblock %}
 {% block title %}sweet creations{% endblock %}
 
 {% block content %}
-<form class="order-form">
-  <h2 class="order-form-title">В разработке</h2>
-  <h2 class="order-form-title"></h2>
+<div id="constructor" class="cake-builder">
+    <div id="controls">
+      <label for="layers">Number of layers:</label>
+      <select id="layers" v-model="numberOfLayers" @change="updateLayerControls">
+        <option v-for="n in [1, 2, 3]" :key="n" :value="n">[[ n ]]</option>
+      </select>
+      <div id="layer-controls"></div>
 
-</form>
+      <label for="shape">Shape:</label>
+      <select id="shape" v-model="currentShape" @change="updateShape">
+        <option v-for="shape in shapes" :key="shape.shape" :value="shape.shape">[[ shape.shape ]]</option>
+      </select>
+
+      <label for="topping">Topping: </label>
+      <select id="topping" v-model="currentTopping" @change="updateTopping">
+        <option value="none">None</option>
+        <option v-for="topping in toppings" :key="topping.ingridient" :value="topping.ingridient">[[ topping.ingridient ]]</option>
+      </select>
+
+      <label for="cover">Cover:</label>
+      <select id="cover" v-model="currentCover" @change="updateCover">
+        <option value="none">None</option>
+        <option v-for="cover in covers" :key="cover.ingridient" :value="cover.ingridient">[[ cover.ingridient ]]</option>
+      </select>
+
+      <label for="trinket">Trinket:</label>
+      <select id="trinket" v-model="currentTrinket" @change="updateTrinket">
+        <option value="none">None</option>
+        <option v-for="trinket in decorations" :key="trinket.ingridient" :value="trinket.ingridient">[[ trinket.ingridient ]]</option>
+      </select>
+
+      <label for="image-upload">Upload Image:</label>
+      <input type="file" id="image-upload" @change="uploadImage" accept="image/*">
+
+      <label for="text-input">Add Text:</label>
+      <input type="text" id="text-input" v-model="textContent">
+      <button @click="addText">Add Text</button>
+
+      <label for="text-size">Text Size:</label>
+      <input type="range" id="text-size" v-model="textSize" min="0.1" max="1.5" step="0.1" @input="updateTextSize">
+
+      <label for="text-color">Text Color:</label>
+      <input type="color" id="text-color" v-model="textColor" @input="updateTextColor">
+
+      <button @click="saveScreenshot">Save Screenshot</button>
+    </div>
+    <div id="threejs-container"></div>
+  </div>
+{% endblock %}
+
+{% block extra_script %}
+  <script src="{% static 'main/js/constructor.js' %}"></script>
 {% endblock %}
