@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="manage-title">Управление тортами</h2>
+<div class="table-container">
+<table class="manage-table">
+    <tr>
+        <th>Название</th>
+        <th>Вес</th>
+        <th>Размер</th>
+        <th>Слоев</th>
+        <th>Цена</th>
+        <th>Действия</th>
+    </tr>
+    {% for cake in cakes %}
+    <tr>
+        <td>{{ cake.name }}</td>
+        <td>{{ cake.weight }}</td>
+        <td>{{ cake.cake_size }}</td>
+        <td>{{ cake.layers_count }}</td>
+        <td>{{ cake.cost }}</td>
+        <td class="action-td">
+            <a class="manage-action-button" href="{% url 'edit_cake' cake.cake_id %}">Изменить</a>
+            <a class="manage-action-button" href="{% url 'delete_cake' cake.cake_id %}">Удалить</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<a class="add-new-button" href="{% url 'add_cake' %}">Добавить</a>
+{% endblock %}

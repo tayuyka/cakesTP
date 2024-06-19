@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Edit Order</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status" value="{{ order.status }}"><br>
+    <label for="delivery_address">Delivery Address:</label>
+    <input type="text" id="delivery_address" name="delivery_address" value="{{ order.delivery_address }}"><br>
+    <label for="delivery_date">Delivery Date:</label>
+    <input type="text" id="delivery_date" name="delivery_date" value="{{ order.delivery_date }}"><br>
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}

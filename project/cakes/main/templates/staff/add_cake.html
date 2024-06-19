@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Add New Cake</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="weight">Weight:</label>
+    <input type="number" id="weight" name="weight"><br>
+    <label for="cost">Cost:</label>
+    <input type="text" id="cost" name="cost"><br>
+    <label for="layers_count">Layers Count:</label>
+    <input type="number" id="layers_count" name="layers_count"><br>
+    <label for="text">Text:</label>
+    <input type="text" id="text" name="text"><br>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br>
+    <label for="constructor_image">Constructor Image:</label>
+    <input type="text" id="constructor_image" name="constructor_image"><br>
+    <label for="preview_image">Preview Image:</label>
+    <input type="text" id="preview_image" name="preview_image"><br>
+    <label for="cake_size">Cake Size:</label>
+    <select id="cake_size" name="cake_size">
+        {% for size in cake_sizes %}
+        <option value="{{ size.cake_size_id }}">{{ size.type }}</option>
+        {% endfor %}
+    </select><br>
+    <label for="cake_shape">Cake Shape:</label>
+    <select id="cake_shape" name="cake_shape">
+        {% for shape in cake_shapes %}
+        <option value="{{ shape.cake_shape_id }}">{{ shape.shape }}</option>
+        {% endfor %}
+    </select><br>
+    <label for="cake_coverage">Cake Coverage:</label>
+    <select id="cake_coverage" name="cake_coverage">
+        {% for coverage in cake_coverages %}
+        <option value="{{ coverage.cake_coverage_id }}">{{ coverage.ingridient }}</option>
+        {% endfor %}
+    </select><br>
+    <label for="cake_topping">Cake Topping:</label>
+    <select id="cake_topping" name="cake_topping">
+        {% for topping in cake_toppings %}
+        <option value="{{ topping.cake_topping_id }}">{{ topping.ingridient }}</option>
+        {% endfor %}
+    </select><br>
+    <label for="cake_addition">Cake Addition:</label>
+    <select id="cake_addition" name="cake_addition">
+        {% for addition in cake_additions %}
+        <option value="{{ addition.cake_addition_id }}">{{ addition.ingridient }}</option>
+        {% endfor %}
+    </select><br>
+    <button type="submit">Add Cake</button>
+</form>
+{% endblock %}
