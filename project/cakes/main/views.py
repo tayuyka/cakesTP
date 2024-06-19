@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.db import connection
 from .models import *
 from django.utils import timezone
+from rest_framework import viewsets, generics
+from rest_framework.response import Response
 
 
 def add_to_cart(request, cake_id):
@@ -200,3 +202,24 @@ def order_details(request, order_id):
 
 def constructor(request):
     return render(request, 'main/constructor.html')
+
+
+from .models import LayerBase, LayerFilling, CakeSize, CakeShape, CakeTopping, CakeAddition, CakeCoverage, Cake
+from .serializers import LayerBaseSerializer, LayerFillingSerializer, CakeSizeSerializer, CakeShapeSerializer, CakeToppingSerializer, CakeAdditionSerializer, CakeCoverageSerializer, CakeSerializer
+
+class CakeViewSet(viewsets.ViewSet):
+    def list(self, request):
+        data = {
+            'bases': LayerBaseSerializer(LayerBase.objects.all(), many=True).data,
+            'fillings': LayerFillingSerializer(LayerFilling.objects.all(), many=True).data,
+            'sizes': CakeSizeSerializer(CakeSize.objects.all(), many=True).data,
+            'shapes': CakeShapeSerializer(CakeShape.objects.all(), many=True).data,
+            'toppings': CakeToppingSerializer(CakeTopping.objects.all(), many=True).data,
+            'trinkets': CakeAdditionSerializer(CakeAddition.objects.all(), many=True).data,
+            'covers': CakeCoverageSerializer(CakeCoverage.objects.all(), many=True).data,
+        }
+        return Response(data)
+
+class CakeDetailView(generics.RetrieveAPIView):
+    queryset = Cake.objects.all()
+    serializer_class = CakeSerializer
