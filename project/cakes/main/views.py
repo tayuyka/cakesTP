@@ -6,6 +6,10 @@ from django.contrib import messages
 from django.db import connection
 from .models import *
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Count, Avg
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 
 def add_to_cart(request, cake_id):
@@ -200,3 +204,141 @@ def order_details(request, order_id):
 
 def constructor(request):
     return render(request, 'main/constructor.html')
+
+
+def staff_required(user):
+    return user.is_staff
+@login_required
+@user_passes_test(staff_required)
+def manage_cakes(request):
+    if not request.user.is_authenticated:
+        print("User is not authenticated")
+    if not request.user.is_staff:
+        print("User is not staff")
+
+    cakes = Cake.objects.all()
+    return render(request, 'staff/manage_cakes.html', {'cakes': cakes})
+
+@login_required
+@user_passes_test(staff_required)
+def manage_orders(request):
+    orders = Order.objects.all()
+    return render(request, 'staff/manage_orders.html', {'orders': orders})
+
+@login_required
+@user_passes_test(staff_required)
+def edit_order(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    if request.method == 'POST':
+        order.status = request.POST.get('status', order.status)
+        order.delivery_address = request.POST.get('delivery_address', order.delivery_address)
+        order.delivery_date = request.POST.get('delivery_date', order.delivery_date)
+        order.save()
+        return redirect('manage_orders')
+    return render(request, 'staff/edit_order.html', {'order': order})
+
+@login_required
+@user_passes_test(staff_required)
+def add_cake(request):
+    if request.method == 'POST':
+        cake = Cake(
+            weight=request.POST['weight'],
+            cost=request.POST['cost'],
+            layers_count=request.POST['layers_count'],
+            text=request.POST.get('text', ''),
+            name=request.POST.get('name', ''),
+            constructor_image=request.POST.get('constructor_image', ''),
+            preview_image=request.POST.get('preview_image', ''),
+            cake_size_id=request.POST['cake_size'],
+            cake_shape_id=request.POST['cake_shape'],
+            cake_coverage_id=request.POST['cake_coverage'],
+            cake_topping_id=request.POST['cake_topping'],
+            cake_addition_id=request.POST['cake_addition'],
+        )
+        cake.save()
+        return redirect('manage_cakes')
+    cake_sizes = CakeSize.objects.all()
+    cake_shapes = CakeShape.objects.all()
+    cake_coverages = CakeCoverage.objects.all()
+    cake_toppings = CakeTopping.objects.all()
+    cake_additions = CakeAddition.objects.all()
+    return render(request, 'staff/add_cake.html', {
+        'cake_sizes': cake_sizes,
+        'cake_shapes': cake_shapes,
+        'cake_coverages': cake_coverages,
+        'cake_toppings': cake_toppings,
+        'cake_additions': cake_additions,
+    })
+
+@login_required
+@user_passes_test(staff_required)
+def edit_cake(request, cake_id):
+    cake = get_object_or_404(Cake, pk=cake_id)
+    if request.method == 'POST':
+        cake.weight = request.POST.get('weight', cake.weight)
+        cake.cost = request.POST.get('cost', cake.cost)
+        cake.layers_count = request.POST.get('layers_count', cake.layers_count)
+        cake.text = request.POST.get('text', cake.text)
+        cake.name = request.POST.get('name', cake.name)
+        cake.constructor_image = request.POST.get('constructor_image', cake.constructor_image)
+        cake.preview_image = request.POST.get('preview_image', cake.preview_image)
+        cake.cake_size_id = request.POST.get('cake_size', cake.cake_size_id)
+        cake.cake_shape_id = request.POST.get('cake_shape', cake.cake_shape_id)
+        cake.cake_coverage_id = request.POST.get('cake_coverage', cake.cake_coverage_id)
+        cake.cake_topping_id = request.POST.get('cake_topping', cake.cake_topping_id)
+        cake.cake_addition_id = request.POST.get('cake_addition', cake.cake_addition_id)
+        cake.save()
+        return redirect('manage_cakes')
+    cake_sizes = CakeSize.objects.all()
+    cake_shapes = CakeShape.objects.all()
+    cake_coverages = CakeCoverage.objects.all()
+    cake_toppings = CakeTopping.objects.all()
+    cake_additions = CakeAddition.objects.all()
+    return render(request, 'staff/edit_cake.html', {
+        'cake': cake,
+        'cake_sizes': cake_sizes,
+        'cake_shapes': cake_shapes,
+        'cake_coverages': cake_coverages,
+        'cake_toppings': cake_toppings,
+        'cake_additions': cake_additions,
+    })
+
+@login_required
+@user_passes_test(staff_required)
+def delete_cake(request, cake_id):
+    cake = get_object_or_404(Cake, pk=cake_id)
+    if request.method == 'POST':
+        cake.delete()
+        return redirect('manage_cakes')
+    return render(request, 'staff/confirm_delete.html', {'cake': cake})
+
+@login_required
+@user_passes_test(staff_required)
+def delete_order(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    order.delete()
+    return redirect('manage_orders')
+
+@login_required
+@user_passes_test(staff_required)
+def statistics_view(request):
+    additions = Cake.objects.values('cake_addition__ingridient').annotate(count=Count('cake_addition')).order_by(
+        '-count')
+    coverages = Cake.objects.values('cake_coverage__ingridient').annotate(count=Count('cake_coverage')).order_by(
+        '-count')
+    toppings = Cake.objects.values('cake_topping__ingridient').annotate(count=Count('cake_topping')).order_by('-count')
+    avg_order_price = OrderContent.objects.aggregate(avg_price=Avg('order__price'))['avg_price']
+
+    # Преобразование данных в JSON-формат
+    additions_data = json.dumps(list(additions), cls=DjangoJSONEncoder)
+    coverages_data = json.dumps(list(coverages), cls=DjangoJSONEncoder)
+    toppings_data = json.dumps(list(toppings), cls=DjangoJSONEncoder)
+
+    context = {
+        'additions': additions_data,
+        'coverages': coverages_data,
+        'toppings': toppings_data,
+        'avg_order_price': avg_order_price,
+    }
+
+    return render(request, 'staff/statistics.html', context)
