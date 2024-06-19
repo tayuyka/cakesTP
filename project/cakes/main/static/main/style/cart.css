@@ -112,7 +112,7 @@
     display: flex;
     flex-grow: 1;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     max-height: 100%;
     gap: 20px;
     font-size: 24px;
@@ -156,15 +156,12 @@
     justify-content: center;
     padding: 11px 21px;
     font: 900 24px Roboto Flex, sans-serif;
+    transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
   .cart-checkout-button:hover{
-    background-color: var(--hover-color);
-    background-color: #fff8e3;
-    color: #e6a4b4;
-    border-radius: 20px;
-}
-
+    transform: scale(1.05);
+  }
 
   @media (max-width: 991px) {
     .cart-checkout-button {
@@ -269,6 +266,7 @@
     object-fit: contain;
     flex-grow: 1;
     max-width: 25%;
+    border-radius: 20px;
   }
 
   @media (max-width: 991px) {

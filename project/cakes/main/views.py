@@ -62,8 +62,6 @@ def home(request):
 
 def cake_info(request, cake_id):
     cake = get_object_or_404(Cake, pk=cake_id)
-    cake.preview_image = cake.preview_image.replace(
-        'C:\\Users\\User\\Desktop\\cakesTP\\project\\cakes\\main\\static\\', '')
     return render(request, 'main/cake_info.html', {'cake': cake})
 
 
@@ -117,6 +115,10 @@ def logout_view(request):
 
 def recovery_form(request):
     return render(request, 'main/recovery_form.html')
+
+
+def recovery_form_confirmed(request):
+    return render(request, 'main/recovery_form_confirmed.html')
 
 
 def catalog(request):
