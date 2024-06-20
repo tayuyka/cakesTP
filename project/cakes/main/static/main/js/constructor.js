@@ -82,6 +82,51 @@ delimiters: ['[[', ']]'],
           cancelAnimationFrame(this.animationFrameId);
         },
         methods: {
+        getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        },
+         addToCart() {
+    const cake = {
+      weight: 666,
+      cost: 999,
+      layers_count: this.cakeLayers.length,
+      text: this.textContent,
+      name: this.cakeName,
+      constructor_image: this.constructorImage,
+      preview_image: this.previewImage,
+      cake_size: this.currentSize,
+      cake_shape: this.currentShape,
+      cake_coverage: this.currentCover,
+      cake_topping: this.currentTopping,
+      cake_addition: this.currentTrinket,
+    };
+
+    axios.post('/cart/add/', cake, {
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': this.getCookie('csrftoken')
+  }
+})
+.then(response => {
+  console.log(response.data);
+  alert('Торт добавлен в корзину');
+})
+.catch(error => {
+  console.error(error);
+  alert('Произошла ошибка при добавлении торта в корзину');
+});
+  },
             async fetchCakeData() {
     try {
       const response = await axios.get('/api/cake-components/');

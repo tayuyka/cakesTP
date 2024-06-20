@@ -4,10 +4,13 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from django.utils import timezone
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
+import json
+from django.http import JsonResponse
 
 
 def add_to_cart(request, cake_id):
@@ -223,3 +226,45 @@ class CakeViewSet(viewsets.ViewSet):
 class CakeDetailView(generics.RetrieveAPIView):
     queryset = Cake.objects.all()
     serializer_class = CakeSerializer
+
+
+@csrf_exempt
+def add_to_cart_from_constructor(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            cake = Cake.objects.create(
+                weight=data['weight'],
+                cost=data['cost'],
+                layers_count=data['layers_count'],
+                text=data['text'],
+                name=data['name'],
+                constructor_image=data['constructor_image'],
+                preview_image=data['preview_image'],
+                cake_size_id=data['cake_size'],
+                cake_shape_id=data['cake_shape'],
+                cake_coverage_id=data['cake_coverage'],
+                cake_topping_id=data['cake_topping'],
+                cake_addition_id=data['cake_addition']
+            )
+
+            cart = request.session.get('cart', {})
+            if str(cake.id) in cart:
+                cart[str(cake.id)] += 1
+            else:
+                cart[str(cake.id)] = 1
+            request.session['cart'] = cart
+
+            messages.success(request, 'Торт добавлен в корзину.')
+            return JsonResponse({'message': 'Торт добавлен в корзину'}, status=200)
+
+        except KeyError as e:
+            return JsonResponse({'error': f'Missing parameter: {e}'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            # Логирование ошибки и возврат общего сообщения об ошибке
+            print(f'Error: {e}')
+            return JsonResponse({'error': 'Internal Server Error'}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
