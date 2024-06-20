@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block title %}sweet creations{% endblock %}
+
+{% block content %}
+<main class="recovery-container">
+    <h1 class="recovery-title">Восстановить</h1>
+    <p class="recovery-description">Введите уникальный код, отправленный на вашу электронную почту</p>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" id="code" name="code" class="code-input" placeholder="Код..." aria-label="Код..." required>
+        <button type="submit" class="next-button">Далее</button>
+    </form>
+</main>
+{% endblock %}

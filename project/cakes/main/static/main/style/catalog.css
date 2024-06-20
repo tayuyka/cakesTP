@@ -174,11 +174,11 @@
   .layers {
       width: 45%;
   }
-  
+
   .filter-options {
       margin-bottom: 20px;
   }
-  
+
   .filter-options label {
       margin-bottom: 5px;
   }
@@ -195,17 +195,17 @@
     flex-wrap: wrap;
     gap: 20px;
   }
-  
+
   .filter-options-additions input,
   .filter-options-additions label {
     width: calc(33.333% - 20px);
   }
 
-  
+
   .layer-count {
       margin-bottom: 20px;
   }
-  
+
   .layer-options {
       /* Layer options will be added dynamically */
   }

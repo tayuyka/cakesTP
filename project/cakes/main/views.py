@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
@@ -6,30 +7,80 @@ from django.contrib import messages
 from django.db import connection
 from .models import *
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
+
+
+def recovery_form(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        code = get_random_string(length=6, allowed_chars='1234567890')
+        request.session['recovery_code'] = code
+        request.session['recovery_email'] = email
+
+        send_mail(
+            'Код восстановления пароля',
+            f'Ваш код для восстановления пароля: {code}',
+            'popckov.deniz@yandex.ru',
+            [email],
+            fail_silently=False,
+        )
+        return redirect('recovery_form_confirm_code')
+
+    return render(request, 'main/recovery_form.html')
+
+
+def confirm_recovery_code(request):
+    if request.method == 'POST':
+        input_code = request.POST['code']
+        session_code = request.session.get('recovery_code')
+
+        if input_code == session_code:
+            return redirect('recovery_form_reset_password')
+        else:
+            messages.error(request, 'Неверный код.')
+    return render(request, 'main/recovery_form_confirm_code.html')
+
+
+def reset_password(request):
+    if request.method == 'POST':
+        password = request.POST['password']
+        password_confirmed = request.POST['password_confirmed']
+
+        if password == password_confirmed:
+            email = request.session.get('recovery_email')
+            user = get_object_or_404(User, email=email)
+            user.set_password(password)
+            user.save()
+            messages.success(request, 'Пароль успешно изменен.')
+            return redirect('login_form')
+        else:
+            messages.error(request, 'Пароли не совпадают.')
+    return render(request, 'main/recovery_form_reset_password.html')
 
 
 def add_to_cart(request, cake_id):
-    cart = request.session.get('cart', {})
-    if str(cake_id) in cart:
-        cart[str(cake_id)] += 1
+    cart_in = request.session.get('cart_in', {})
+    if str(cake_id) in cart_in:
+        cart_in[str(cake_id)] += 1
     else:
-        cart[str(cake_id)] = 1
-    request.session['cart'] = cart
+        cart_in[str(cake_id)] = 1
+    request.session['cart_in'] = cart_in
     messages.success(request, 'Торт добавлен в корзину.')
-    return redirect('cart')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def remove_from_cart(request, cake_id):
-    cart = request.session.get('cart', {})
+    cart_in = request.session.get('cart', {})
     action = request.GET.get('action', 'remove')
-    if str(cake_id) in cart:
+    if str(cake_id) in cart_in:
         if action == 'decrease':
-            cart[str(cake_id)] -= 1
-            if cart[str(cake_id)] == 0:
-                del cart[str(cake_id)]
+            cart_in[str(cake_id)] -= 1
+            if cart_in[str(cake_id)] == 0:
+                del cart_in[str(cake_id)]
         else:
-            del cart[str(cake_id)]
-    request.session['cart'] = cart
+            del cart_in[str(cake_id)]
+    request.session['cart'] = cart_in
     messages.success(request, 'Торт удален из корзины.')
     return redirect('cart')
 
@@ -113,21 +164,46 @@ def logout_view(request):
     return redirect('home')
 
 
-def recovery_form(request):
-    return render(request, 'main/recovery_form.html')
-
-
-def recovery_form_confirmed(request):
-    return render(request, 'main/recovery_form_confirmed.html')
-
-
 def catalog(request):
+    size = request.GET.get('size')
+    shape = request.GET.get('shape')
+    topping = request.GET.get('topping')
+    coverage = request.GET.get('coverage')
+    layer_count = request.GET.get('layer_count')
+    additions = request.GET.getlist('additions')
+
     cakes = Cake.objects.all()
+
+    if size:
+        cakes = cakes.filter(cake_size__type=size)
+    if shape:
+        cakes = cakes.filter(cake_shape__shape=shape)
+    if topping:
+        cakes = cakes.filter(cake_topping__ingridient=topping)
+    if coverage:
+        cakes = cakes.filter(cake_coverage__ingridient=coverage)
+    if layer_count:
+        cakes = cakes.filter(layers_count=layer_count)
+    if additions:
+        for addition in additions:
+            cakes = cakes.filter(cake_addition__ingridient=addition)
+
     rows = [cakes[i:i + 3] for i in range(0, len(cakes), 3)]
     paginator = Paginator(cakes, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'main/catalog.html', {'rows': rows, 'page_obj': page_obj})
+
+    return render(request, 'main/catalog.html', {
+        'rows': rows,
+        'page_obj': page_obj,
+        'selected_size': size,
+        'selected_shape': shape,
+        'selected_topping': topping,
+        'selected_coverage': coverage,
+        'selected_layer_count': layer_count,
+        'selected_additions': additions,
+    })
+
 
 
 def order_form(request):
@@ -157,11 +233,9 @@ def order_form(request):
             cost = float(cake.cost.replace(' ₽', '').replace(',', '.'))
             total_cost += cost * quantity
 
+            # Save the cake to the order the number of times indicated by the quantity
             for _ in range(quantity):
-                OrderContent.objects.create(
-                    order=order,
-                    cake=cake
-                )
+                OrderContent.objects.create(order=order, cake=cake)
 
         # Update the order price
         order.price = total_cost
@@ -192,9 +266,21 @@ def order_form(request):
 def order_details(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     order_contents = OrderContent.objects.filter(order=order)
+
+    # Группируем торты по id и считаем количество
+    grouped_order_contents = {}
+    for item in order_contents:
+        if item.cake.pk in grouped_order_contents:
+            grouped_order_contents[item.cake.pk]['quantity'] += 1
+        else:
+            grouped_order_contents[item.cake.pk] = {
+                'cake': item.cake,
+                'quantity': 1
+            }
+
     return render(request, 'main/order_details.html', {
         'order': order,
-        'order_contents': order_contents
+        'order_contents': grouped_order_contents.values()
     })
 
 
