@@ -65,31 +65,30 @@ delimiters: ['[[', ']]'],
           cancelAnimationFrame(this.animationFrameId);
         },
         methods: {
-          async fetchCakeData() {
-        try {
-          const response = await axios.get('/api/cake-components/');
-          const data = response.data;
+            async fetchCakeData() {
+    try {
+      const response = await axios.get('/api/cake-components/');
+      const data = response.data;
 
-          if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
-            throw new Error('Invalid data structure received from API.');
-          }
+      if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+        throw new Error('Invalid data structure received from API.');
+      }
 
-          this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
-          this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
-          this.shapes = data.shapes;
-          this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
-          this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
-          this.decorations = data.trinkets.map(trinket => ({ ...trinket, primary_color: this.addSharpIfNeeded(trinket.primary_color) }));
-          console.log('lld', data.fillings.map);
+      this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+      this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+      this.shapes = data.shapes;
+      this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+      this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+      this.decorations = data.trinkets.map(trinket => ({ ...trinket, primary_color: this.addSharpIfNeeded(trinket.primary_color) }));
 
-          nextTick(() => {
-            this.initThreeJS();
-            this.startAnimation();
-          });
-        } catch (error) {
-          console.error('There was an error fetching the cake data!', error);
-        }
-      },
+      nextTick(() => {
+        this.initThreeJS();
+        this.startAnimation();
+      });
+    } catch (error) {
+      console.error('There was an error fetching the cake data!', error);
+    }
+  },
 
 
 
@@ -164,18 +163,18 @@ delimiters: ['[[', ']]'],
           }
         },
 
-          initThreeJS() {
-            this.initScene();
-            this.initCamera();
-            this.initRenderer();
-            this.initLights();
-            this.initControls();
-            this.initDragControls();
-            this.setupHandles();
+     initThreeJS() {
+    this.initScene();
+    this.initCamera();
+    this.initRenderer();
+    this.initLights();
+    this.initControls();
+    this.initDragControls();
+    this.setupHandles();
 
-            this.updateLayerControls();
-            this.updateCake();
-          },
+    this.updateLayerControls();
+    this.updateCake();
+  },
           initScene() {
             this.scene = new THREE.Scene();
             this.scene.background = new THREE.Color(0xffffff);
@@ -867,49 +866,24 @@ delimiters: ['[[', ']]'],
               y: -(vector.y * heightHalf) + heightHalf
             };
           },
-         addImageToCake(texture, position = null, rotation = null) {
-            const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-            const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
-            const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
-            const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
-
-            const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
-            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-
-            plane.position.set(0, topLayer.position.y + 0.55 + toppingOffset + additionalOffset, 0);
-            plane.rotation.x = -Math.PI / 2;
-
-            if (position) plane.position.copy(position);
-            if (rotation) plane.rotation.copy(rotation);
-
-            this.scene.add(plane);
-            this.objectsToDrag.push(plane);
-            this.dragControls.objects = this.objectsToDrag;
-
-            this.imageObject = plane;
-            this.updateHandlesVisibility();
-          },
- async addTextToCake(text, position = null, rotation = null) {
-  if (this.textObject) {
-    this.scene.remove(this.textObject);
-    this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
-    this.textObject = null;
-  }
-
-  const fontUrl = `${CDN_BASE_URL}fonts/${this.currentFont}.ttf`;
-  try {
-    const texture = await this.createTextTexture(text, this.textSize, this.textColor, fontUrl);
-    const aspectRatio = texture.image.width / texture.image.height;
-    const planeGeometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
-    const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+          addImageToCake(texture, position = null, rotation = null) {
+    this.removeImage();  // Удаляем старую картинку
 
     const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+    if (!topLayer) {
+      console.error('Top layer is undefined');
+      return;
+    }
+
     const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-    const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
-    const textYOffset = 0.2; // Увеличиваем смещение по оси Y
-    plane.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+    const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+    const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
+    const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
+
+    const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+    plane.position.set(0, topLayer.position.y + 0.55 + toppingOffset + additionalOffset, 0);
     plane.rotation.x = -Math.PI / 2;
 
     if (position) plane.position.copy(position);
@@ -919,71 +893,121 @@ delimiters: ['[[', ']]'],
     this.objectsToDrag.push(plane);
     this.dragControls.objects = this.objectsToDrag;
 
-    this.textObject = plane;
+    this.imageObject = plane;
     this.updateHandlesVisibility();
-  } catch (error) {
-    console.error('Error adding text to cake:', error);
-  }
-},
+  },
 
-createTextTexture(text, size, color, fontUrl) {
-  return new Promise((resolve, reject) => {
-    const fontFace = new FontFace('customFont', `url(${fontUrl})`);
-    fontFace.load().then((loadedFace) => {
-      document.fonts.add(loadedFace);
+     async addTextToCake(text, position = null, rotation = null) {
+    this.removeText();  // Удаляем старый текст
 
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      const fontSize = 100; // Базовый размер шрифта
-      context.font = `${fontSize}px customFont`;
-      const textWidth = context.measureText(text).width;
+    const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+    if (!topLayer) {
+      console.error('Top layer is undefined');
+      return;
+    }
 
-      canvas.width = textWidth;
-      canvas.height = fontSize * 1.2; // Высота с учетом отступов
-
-      // Установка конечного размера шрифта
-      context.font = `${fontSize}px customFont`;
-      context.fillStyle = color;
-      context.fillText(text, 0, fontSize);
-
-      const texture = new THREE.CanvasTexture(canvas);
-      resolve(texture);
-    }).catch((error) => {
-      console.error('Font loading error:', error);
-      reject(error);
-    });
-  });
-},
-
-updateFont(event) {
-  this.currentFont = event.target.value;
-  if (this.textObject) {
-    this.updateTextFont();
-  }
-},
-
-async updateTextFont() {
-  if (this.textObject) {
     const fontUrl = `${CDN_BASE_URL}fonts/${this.currentFont}.ttf`;
     try {
-      const texture = await this.createTextTexture(this.textContent, this.textSize, this.textColor, fontUrl);
+      const texture = await this.createTextTexture(text, this.textSize, this.textColor, fontUrl);
       const aspectRatio = texture.image.width / texture.image.height;
-      this.textObject.geometry.dispose();
-      this.textObject.geometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
-      this.textObject.material.map = texture;
-      this.textObject.material.needsUpdate = true;
+      const planeGeometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
+      const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-      // Обновляем позицию текста с учетом смещения по оси Y
-      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
       const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
       const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
       const textYOffset = 0.2; // Увеличиваем смещение по оси Y
-      this.textObject.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+      plane.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+      plane.rotation.x = -Math.PI / 2;
+
+      if (position) plane.position.copy(position);
+      if (rotation) plane.rotation.copy(rotation);
+
+      this.scene.add(plane);
+      this.objectsToDrag.push(plane);
+      this.dragControls.objects = this.objectsToDrag;
+
+      this.textObject = plane;
+      this.updateHandlesVisibility();
     } catch (error) {
-      console.error('Error updating text font:', error);
+      console.error('Error adding text to cake:', error);
     }
-  }
-},
+  },
+
+
+async createTextTexture(text, size, color, fontUrl) {
+    return new Promise((resolve, reject) => {
+      const fontFace = new FontFace('customFont', `url(${fontUrl})`);
+      fontFace.load().then((loadedFace) => {
+        document.fonts.add(loadedFace);
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const fontSize = 100; // Базовый размер шрифта
+        context.font = `${fontSize}px customFont`;
+        const textWidth = context.measureText(text).width;
+
+        canvas.width = textWidth;
+        canvas.height = fontSize * 1.2; // Высота с учетом отступов
+
+        // Установка конечного размера шрифта
+        context.font = `${fontSize}px customFont`;
+        context.fillStyle = color;
+        context.fillText(text, 0, fontSize);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        resolve(texture);
+      }).catch((error) => {
+        console.error('Font loading error:', error);
+        reject(error);
+      });
+    });
+  },
+
+
+updateFont(event) {
+    this.currentFont = event.target.value;
+    if (this.textObject) {
+      this.updateTextFont();
+    }
+  },
+
+async updateTextFont() {
+    if (this.textObject) {
+      await this.removeText(); // Удаляем старый текст
+      await this.addTextToCake(this.textContent); // Добавляем новый текст
+    }
+  },
+
+  removeImage() {
+    if (this.imageObject) {
+      this.scene.remove(this.imageObject);
+      this.imageObject.geometry.dispose();
+      this.imageObject.material.map.dispose();
+      this.imageObject.material.dispose();
+      this.imageObject = null;
+      this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.imageObject);
+      this.dragControls.objects = this.objectsToDrag;
+      this.updateHandlesVisibility();
+      this.updateCake();
+    }
+  },
+
+  removeText() {
+    if (this.textObject) {
+      this.scene.remove(this.textObject);
+      this.textObject.geometry.dispose();
+      this.textObject.material.map.dispose();
+      this.textObject.material.dispose();
+      this.textObject = null;
+      this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
+      this.dragControls.objects = this.objectsToDrag;
+      this.updateHandlesVisibility();
+      this.updateCake();
+    }
+  },
+
+
 
           adjustPositionAfterDrag(object) {
   const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
@@ -1173,37 +1197,18 @@ async updateTextFont() {
           addText() {
             this.addTextToCake(this.textContent);
           },
-        async updateTextSize() {
-  if (this.textObject) {
-    const fontUrl = `${CDN_BASE_URL}fonts/${this.currentFont}.ttf`;
-    try {
-      const texture = await this.createTextTexture(this.textContent, this.textSize, this.textColor, fontUrl);
-      const aspectRatio = texture.image.width / texture.image.height;
-      this.textObject.geometry.dispose();
-      this.textObject.geometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
-      this.textObject.material.map = texture;
-      this.textObject.material.needsUpdate = true;
-
-      // Обновляем позицию текста с учетом смещения по оси Y
-      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-      const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-      const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
-      const textYOffset = 0.2; // Увеличиваем смещение по оси Y
-      this.textObject.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
-    } catch (error) {
-      console.error('Error updating text size:', error);
+async updateTextSize() {
+    if (this.textObject) {
+      await this.removeText(); // Удаляем старый текст
+      await this.addTextToCake(this.textContent); // Добавляем новый текст с новым размером
     }
-  }
-},
-          updateTextColor() {
-            if (this.textObject) {
-              this.textObject.children.forEach(child => {
-                if (child.isMesh && child.material) {
-                  child.material.color.set(this.textColor);
-                }
-              });
-            }
-          },
+  },
+          async updateTextColor() {
+    if (this.textObject) {
+      await this.removeText(); // Удаляем старый текст
+      await this.addTextToCake(this.textContent); // Добавляем новый текст с новым цветом
+    }
+  },
           uploadTrinket(event) {
             const file = event.target.files[0];
             const decoration = this.decorations.find(d => d.ingridient === this.currentDecoration);
