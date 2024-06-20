@@ -21,7 +21,7 @@ def recovery_form(request):
         send_mail(
             'Код восстановления пароля',
             f'Ваш код для восстановления пароля: {code}',
-            'popckov.deniz@yandex.ru',
+            'sweetcr3ations@yandex.ru',
             [email],
             fail_silently=False,
         )
