@@ -867,36 +867,37 @@ delimiters: ['[[', ']]'],
             };
           },
           addImageToCake(texture, position = null, rotation = null) {
-    this.removeImage();  // Удаляем старую картинку
+    this.removeImage();  // Удаляем старую картинку перед добавлением новой
 
-    const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-    if (!topLayer) {
-      console.error('Top layer is undefined');
-      return;
-    }
+    nextTick(() => {
+      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+      if (!topLayer) {
+        console.error('Top layer is undefined');
+        return;
+      }
 
-    const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-    const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
-    const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
-    const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
+      const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+      const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+      const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
+      const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
-    const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
-    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-    plane.position.set(0, topLayer.position.y + 0.55 + toppingOffset + additionalOffset, 0);
-    plane.rotation.x = -Math.PI / 2;
+      plane.position.set(0, topLayer.position.y + 0.55 + toppingOffset + additionalOffset, 0);
+      plane.rotation.x = -Math.PI / 2;
 
-    if (position) plane.position.copy(position);
-    if (rotation) plane.rotation.copy(rotation);
+      if (position) plane.position.copy(position);
+      if (rotation) plane.rotation.copy(rotation);
 
-    this.scene.add(plane);
-    this.objectsToDrag.push(plane);
-    this.dragControls.objects = this.objectsToDrag;
+      this.scene.add(plane);
+      this.objectsToDrag.push(plane);
+      this.dragControls.objects = this.objectsToDrag;
 
-    this.imageObject = plane;
-    this.updateHandlesVisibility();
+      this.imageObject = plane;
+      this.updateHandlesVisibility();
+    });
   },
-
      async addTextToCake(text, position = null, rotation = null) {
     this.removeText();  // Удаляем старый текст
 
@@ -979,7 +980,7 @@ async updateTextFont() {
     }
   },
 
-  removeImage() {
+   removeImage() {
     if (this.imageObject) {
       this.scene.remove(this.imageObject);
       this.imageObject.geometry.dispose();
@@ -989,7 +990,7 @@ async updateTextFont() {
       this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.imageObject);
       this.dragControls.objects = this.objectsToDrag;
       this.updateHandlesVisibility();
-      this.updateCake();
+      this.updateCake();  // Перерисовываем торт
     }
   },
 
@@ -1003,8 +1004,12 @@ async updateTextFont() {
       this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
       this.dragControls.objects = this.objectsToDrag;
       this.updateHandlesVisibility();
-      this.updateCake();
+      this.updateCake();  // Перерисовываем торт
     }
+  },
+
+  renderScene() {
+    this.renderer.render(this.scene, this.camera);
   },
 
 
