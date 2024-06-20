@@ -989,63 +989,67 @@ updateTextFont() {
     layerControlsDiv.innerHTML = '';
 
     for (let i = 1; i <= this.numberOfLayers; i++) {
+//      const layerDivCont = document.createElement('div');
       const layerDiv = document.createElement('div');
-layerDiv.className = 'layer-select';
+      const layerHeader = document.createElement('div');
+
+        layerDiv.className = 'layer-select';
+        layerHeader.className = 'layer-header';
+
+        const addLayerButton = document.createElement('button');
+        addLayerButton.type = 'button';
+        addLayerButton.textContent = '+';
+        addLayerButton.className = 'add-button';
+        addLayerButton.addEventListener('click', this.addLayer);
+
+        const removeLayerButton = document.createElement('button');
+        removeLayerButton.type = 'button';
+        removeLayerButton.textContent = '-';
+        removeLayerButton.className = 'remove-button';
+        removeLayerButton.addEventListener('click', this.removeLayer);
+
+        const layerLabel = document.createElement('label');
+        layerLabel.textContent = `Cлой ${i}`;
+        const baseSelect = document.createElement('select');
+        const basePlaceholderOption = document.createElement('option');
+        basePlaceholderOption.value = '';
+        basePlaceholderOption.disabled = true;
+        basePlaceholderOption.textContent = 'Выберите начинку';
+        baseSelect.appendChild(basePlaceholderOption);
+        baseSelect.id = `base${i}`;
+        baseSelect.innerHTML = this.bases.map(base => `<option value="${base.primary_color}" placeholder="Выберите начинку">${base.ingridient}</option>`).join('');
 
 
-const layerLabel = document.createElement('label');
-layerLabel.textContent = `Layer ${i}`;
-const baseSelect = document.createElement('select');
-const basePlaceholderOption = document.createElement('option');
-basePlaceholderOption.value = '';
-basePlaceholderOption.disabled = true;
-basePlaceholderOption.textContent = 'Выберите начинку';
-baseSelect.appendChild(basePlaceholderOption);
-baseSelect.id = `base${i}`;
-baseSelect.innerHTML = this.bases.map(base => `<option value="${base.primary_color}" placeholder="Выберите начинку">${base.ingridient}</option>`).join('');
+        const fillingSelect = document.createElement('select');
+        fillingSelect.id = `filling${i}`;
+        fillingSelect.innerHTML = this.fillings.map(filling => `<option value="${filling.primary_color}">${filling.ingridient}</option>`).join('');
+
+        baseSelect.addEventListener('change', this.updateCake);
+        fillingSelect.addEventListener('change', this.updateCake);
 
 
-const fillingSelect = document.createElement('select');
-fillingSelect.id = `filling${i}`;
-fillingSelect.innerHTML = this.fillings.map(filling => `<option value="${filling.primary_color}">${filling.ingridient}</option>`).join('');
+        layerHeader.appendChild(layerLabel);
 
-baseSelect.addEventListener('change', this.updateCake);
-fillingSelect.addEventListener('change', this.updateCake);
+        if (this.numberOfLayers > 1 && i != 1) {
+          layerHeader.appendChild(removeLayerButton);
+        }
 
-layerDiv.appendChild(layerLabel);
-layerDiv.appendChild(baseSelect);
+        layerDiv.appendChild(layerHeader);
+        layerDiv.appendChild(baseSelect);
 
 
-layerDiv.appendChild(fillingSelect);
+        layerDiv.appendChild(fillingSelect);
 
-const layerButtonsDiv = document.createElement('div');
-layerButtonsDiv.className = 'layer-buttons';
-
-const addLayerButton = document.createElement('button');
-addLayerButton.type = 'button';
-addLayerButton.textContent = '+';
-addLayerButton.className = 'add-button';
-addLayerButton.addEventListener('click', this.addLayer);
-
-const removeLayerButton = document.createElement('button');
-removeLayerButton.type = 'button';
-removeLayerButton.textContent = '-';
-removeLayerButton.className = 'remove-button';
-removeLayerButton.addEventListener('click', this.removeLayer);
-
-if (this.numberOfLayers < 3) {
-  layerButtonsDiv.appendChild(addLayerButton);
-}
-
-if (this.numberOfLayers > 1) {
-  layerButtonsDiv.appendChild(removeLayerButton);
-}
-
-layerDiv.appendChild(layerButtonsDiv);
-
-layerControlsDiv.appendChild(layerDiv);
-
-    }
+        layerControlsDiv.appendChild(layerDiv);
+        if (this.numberOfLayers < 3) {
+            if (i == 1 && this.numberOfLayers != 2){
+           layerControlsDiv.appendChild(addLayerButton);
+          }
+          if (i == 2){
+          layerControlsDiv.appendChild(addLayerButton);
+          }
+        }
+       }
 
     this.updateCake();
   },
