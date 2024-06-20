@@ -114,11 +114,11 @@
 }
 
 
-.additions input[type="checkbox"] {
+.additions-catalog input[type="checkbox"] {
   display: none;
 }
 
-.additions label {
+.additions-catalog label {
   position: relative;
   padding-left: 30px;
   cursor: pointer;
@@ -127,7 +127,7 @@
   padding-top: 8px;
 }
 
-.additions label::before {
+.additions-catalog label::before {
   content: "";
   position: absolute;
   left: 0;
@@ -139,12 +139,12 @@
   background-color: #fff8e3;
 }
 
-.additions input[type="checkbox"]:checked + label::before {
+.additions-catalog input[type="checkbox"]:checked + label::before {
   background-color: #e6a4b4;
   border-color: #c8708b;
 }
 
-.additions label::after {
+.additions-catalog label::after {
   content: "✔";
   color: #fff8e3;
   position: absolute;
@@ -157,7 +157,7 @@
 }
 
 
-.additions input[type="checkbox"]:checked + label::after {
+.additions-catalog input[type="checkbox"]:checked + label::after {
   opacity: 1;
 }
 
@@ -183,21 +183,21 @@
       margin-bottom: 5px;
   }
 
-  .filter-options-additions {
+  .filter-options-additions-catalog {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
     grid-gap: 20px;
 
   }
 
-  .filter-options-additions {
+  .filter-options-additions-catalog {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
   }
 
-  .filter-options-additions input,
-  .filter-options-additions label {
+  .filter-options-additions-catalog input,
+  .filter-options-additions-catalog label {
     width: calc(33.333% - 20px);
   }
 
