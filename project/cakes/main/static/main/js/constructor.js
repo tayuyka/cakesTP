@@ -867,11 +867,11 @@ delimiters: ['[[', ']]'],
               y: -(vector.y * heightHalf) + heightHalf
             };
           },
-          addImageToCake(texture, position = null, rotation = null) {
+         addImageToCake(texture, position = null, rotation = null) {
             const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
             const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-            const additionalOffset = (this.currentShape === 'звезда' || this.currentShape === 'звезда') ? 0.05 : 0;
-            const sizeFactor = (this.currentShape === 'звезда' || this.currentShape === 'звезда') ? 1.5 : 2;
+            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+            const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
             const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
             const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
@@ -890,49 +890,68 @@ delimiters: ['[[', ']]'],
             this.imageObject = plane;
             this.updateHandlesVisibility();
           },
- addTextToCake(text, position = null, rotation = null) {
+ async addTextToCake(text, position = null, rotation = null) {
   if (this.textObject) {
     this.scene.remove(this.textObject);
     this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
     this.textObject = null;
   }
 
-  const loader = new FontLoader();
-  loader.load(`${CDN_BASE_URL}fonts/${this.currentFont}.json`, (font) => {
-    const textGeometry = new TextGeometry(text, {
-      font: font,
-      size: 1, // устанавливаем единичный размер для базовой геометрии
-      depth: 0.05, // обновлено на depth вместо height
-      curveSegments: 12,
-      bevelEnabled: false
-    });
-
-    const textMaterial = new THREE.MeshBasicMaterial({
-      color: this.textColor,
-      side: THREE.DoubleSide
-    });
-
-    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-    textMesh.scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
-
-    const group = new THREE.Group();
-    group.add(textMesh);
+  const fontUrl = `${CDN_BASE_URL}fonts/${this.currentFont}.ttf`;
+  try {
+    const texture = await this.createTextTexture(text, this.textSize, this.textColor, fontUrl);
+    const aspectRatio = texture.image.width / texture.image.height;
+    const planeGeometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
+    const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
     const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
     const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
     const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
-    group.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset, 0);
-    group.rotation.x = -Math.PI / 2;
+    const textYOffset = 0.2; // Увеличиваем смещение по оси Y
+    plane.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+    plane.rotation.x = -Math.PI / 2;
 
-    if (position) group.position.copy(position);
-    if (rotation) group.rotation.copy(rotation);
+    if (position) plane.position.copy(position);
+    if (rotation) plane.rotation.copy(rotation);
 
-    this.scene.add(group);
-    this.objectsToDrag.push(group);
+    this.scene.add(plane);
+    this.objectsToDrag.push(plane);
     this.dragControls.objects = this.objectsToDrag;
 
-    this.textObject = group;
+    this.textObject = plane;
     this.updateHandlesVisibility();
+  } catch (error) {
+    console.error('Error adding text to cake:', error);
+  }
+},
+
+createTextTexture(text, size, color, fontUrl) {
+  return new Promise((resolve, reject) => {
+    const fontFace = new FontFace('customFont', `url(${fontUrl})`);
+    fontFace.load().then((loadedFace) => {
+      document.fonts.add(loadedFace);
+
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      const fontSize = 100; // Базовый размер шрифта
+      context.font = `${fontSize}px customFont`;
+      const textWidth = context.measureText(text).width;
+
+      canvas.width = textWidth;
+      canvas.height = fontSize * 1.2; // Высота с учетом отступов
+
+      // Установка конечного размера шрифта
+      context.font = `${fontSize}px customFont`;
+      context.fillStyle = color;
+      context.fillText(text, 0, fontSize);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      resolve(texture);
+    }).catch((error) => {
+      console.error('Font loading error:', error);
+      reject(error);
+    });
   });
 },
 
@@ -943,37 +962,50 @@ updateFont(event) {
   }
 },
 
-updateTextFont() {
-  const loader = new FontLoader();
-  loader.load(`${CDN_BASE_URL}fonts/${this.currentFont}.json`, (font) => {
-    const newGeometry = new TextGeometry(this.textContent, {
-      font: font,
-      size: 1, // устанавливаем единичный размер для базовой геометрии
-      depth: 0.05, // обновлено на depth вместо height
-      curveSegments: 12,
-      bevelEnabled: false
-    });
+async updateTextFont() {
+  if (this.textObject) {
+    const fontUrl = `${CDN_BASE_URL}fonts/${this.currentFont}.ttf`;
+    try {
+      const texture = await this.createTextTexture(this.textContent, this.textSize, this.textColor, fontUrl);
+      const aspectRatio = texture.image.width / texture.image.height;
+      this.textObject.geometry.dispose();
+      this.textObject.geometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
+      this.textObject.material.map = texture;
+      this.textObject.material.needsUpdate = true;
 
-    this.textObject.children[0].geometry.dispose(); // Удаляем старую геометрию
-    this.textObject.children[0].geometry = newGeometry; // Присваиваем новую геометрию
-    this.textObject.children[0].scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
-  });
+      // Обновляем позицию текста с учетом смещения по оси Y
+      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+      const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+      const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+      const textYOffset = 0.2; // Увеличиваем смещение по оси Y
+      this.textObject.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+    } catch (error) {
+      console.error('Error updating text font:', error);
+    }
+  }
 },
 
           adjustPositionAfterDrag(object) {
-            const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-            const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
-            const radius = this.getShapeRadius(topLayer);
-            const pos = object.position;
-            const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
-            if (distance > radius) {
-              object.position.set(0, topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset, 0);
-            } else {
-              object.position.y = topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset;
-            }
-            this.updateHandlesVisibility();
-          },
+  const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+  const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+  const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+  const textYOffset = 0.2; // Увеличиваем смещение по оси Y для текста
+  const radius = this.getShapeRadius(topLayer);
+  const pos = object.position;
+  const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
+
+  if (distance > radius) {
+    object.position.set(0, topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset, 0);
+  } else {
+    object.position.y = topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset;
+  }
+
+  if (object === this.textObject) {
+    object.position.y += textYOffset;
+  }
+
+  this.updateHandlesVisibility();
+},
           updateLayerControls() {
             const layers = parseInt(this.numberOfLayers);
             const layerControlsDiv = document.getElementById('layer-controls');
@@ -1141,11 +1173,26 @@ updateTextFont() {
           addText() {
             this.addTextToCake(this.textContent);
           },
-          updateTextSize() {
+        async updateTextSize() {
   if (this.textObject) {
-    this.textObject.children.forEach(child => {
-      child.scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
-    });
+    const fontUrl = `${CDN_BASE_URL}fonts/${this.currentFont}.ttf`;
+    try {
+      const texture = await this.createTextTexture(this.textContent, this.textSize, this.textColor, fontUrl);
+      const aspectRatio = texture.image.width / texture.image.height;
+      this.textObject.geometry.dispose();
+      this.textObject.geometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
+      this.textObject.material.map = texture;
+      this.textObject.material.needsUpdate = true;
+
+      // Обновляем позицию текста с учетом смещения по оси Y
+      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+      const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+      const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+      const textYOffset = 0.2; // Увеличиваем смещение по оси Y
+      this.textObject.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+    } catch (error) {
+      console.error('Error updating text size:', error);
+    }
   }
 },
           updateTextColor() {
