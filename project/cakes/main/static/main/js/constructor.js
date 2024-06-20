@@ -65,31 +65,30 @@ delimiters: ['[[', ']]'],
           cancelAnimationFrame(this.animationFrameId);
         },
         methods: {
-          async fetchCakeData() {
-        try {
-          const response = await axios.get('/api/cake-components/');
-          const data = response.data;
+            async fetchCakeData() {
+    try {
+      const response = await axios.get('/api/cake-components/');
+      const data = response.data;
 
-          if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
-            throw new Error('Invalid data structure received from API.');
-          }
+      if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+        throw new Error('Invalid data structure received from API.');
+      }
 
-          this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
-          this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
-          this.shapes = data.shapes;
-          this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
-          this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
-          this.decorations = data.trinkets.map(trinket => ({ ...trinket, primary_color: this.addSharpIfNeeded(trinket.primary_color) }));
-          console.log('lld', data.fillings.map);
+      this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+      this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+      this.shapes = data.shapes;
+      this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+      this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+      this.decorations = data.trinkets.map(trinket => ({ ...trinket, primary_color: this.addSharpIfNeeded(trinket.primary_color) }));
 
-          nextTick(() => {
-            this.initThreeJS();
-            this.startAnimation();
-          });
-        } catch (error) {
-          console.error('There was an error fetching the cake data!', error);
-        }
-      },
+      nextTick(() => {
+        this.initThreeJS();
+        this.startAnimation();
+      });
+    } catch (error) {
+      console.error('There was an error fetching the cake data!', error);
+    }
+  },
 
 
 
@@ -164,18 +163,18 @@ delimiters: ['[[', ']]'],
           }
         },
 
-          initThreeJS() {
-            this.initScene();
-            this.initCamera();
-            this.initRenderer();
-            this.initLights();
-            this.initControls();
-            this.initDragControls();
-            this.setupHandles();
+     initThreeJS() {
+    this.initScene();
+    this.initCamera();
+    this.initRenderer();
+    this.initLights();
+    this.initControls();
+    this.initDragControls();
+    this.setupHandles();
 
-            this.updateLayerControls();
-            this.updateCake();
-          },
+    this.updateLayerControls();
+    this.updateCake();
+  },
           initScene() {
             this.scene = new THREE.Scene();
             this.scene.background = new THREE.Color(0xfff8e3);
@@ -431,7 +430,7 @@ delimiters: ['[[', ']]'],
             pointLight.position.set(10, 10, 10);
             this.scene.add(pointLight);
 
-            const layerHeight = (shape === 'сердце' || shape === 'звезда') ? 1.5 : 1;
+            const layerHeight = (shape === 'сердце' || shape === 'звезда') ? 1 : 1;    // ВЫСОТА УРОВНЯ
             const radii = shape === 'сердце' ? [3.5, 2.5, 1.5] : shape === 'звезда' ? [2.5, 2, 1.5] : [2, 1.5, 1];
 
             for (let i = 0; i < layers; i++) {
@@ -663,7 +662,7 @@ delimiters: ['[[', ']]'],
             if (quantity === 1) {
               const trinketClone = this.trinketModel.clone();
               const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true);
-              trinketGroup.position.set(0, layer.position.y + 0, 0);
+              trinketGroup.position.set(0, layer.position.y + 0.2, 0);
               this.scene.add(trinketGroup);
               this.trinkets.push(trinketGroup);
             } else {
@@ -689,7 +688,7 @@ delimiters: ['[[', ']]'],
               points.forEach(point => {
                 const trinketClone = this.trinketModel.clone();
                 const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false);
-                trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
+                trinketGroup.position.set(point.x, layer.position.y - 0.2, point.y);
                 this.scene.add(trinketGroup);
                 this.trinkets.push(trinketGroup);
               });
@@ -868,97 +867,194 @@ delimiters: ['[[', ']]'],
             };
           },
           addImageToCake(texture, position = null, rotation = null) {
-            const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-            const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
-            const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
-            const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
-            const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
-            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    this.removeImage();  // Удаляем старую картинку перед добавлением новой
 
-            plane.position.set(0, topLayer.position.y + 0.55 + toppingOffset + additionalOffset, 0);
-            plane.rotation.x = -Math.PI / 2;
+//             const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+//             const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+//             const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+//             const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
+//             const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
-            if (position) plane.position.copy(position);
-            if (rotation) plane.rotation.copy(rotation);
+    nextTick(() => {
+      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+      if (!topLayer) {
+        console.error('Top layer is undefined');
+        return;
+      }
 
-            this.scene.add(plane);
-            this.objectsToDrag.push(plane);
-            this.dragControls.objects = this.objectsToDrag;
+      const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+      const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+      const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
+      const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
-            this.imageObject = plane;
-            this.updateHandlesVisibility();
-          },
-          addTextToCake(text, position = null, rotation = null) {
-  if (this.textObject) {
-    this.scene.remove(this.textObject);
-    this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
-    this.textObject = null;
-  }
+      const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true });
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-  const loader = new FontLoader();
-  loader.load(`${CDN_BASE_URL}fonts/${this.currentFont}.json`, (font) => {
-    const textGeometry = new TextGeometry(text, {
-      font: font,
-      size: 1, // устанавливаем единичный размер для базовой геометрии
-      depth: 0.05, // обновлено на depth вместо height
-      curveSegments: 12,
-      bevelEnabled: false
+      plane.position.set(0, topLayer.position.y + 0.55 + toppingOffset + additionalOffset, 0);
+      plane.rotation.x = -Math.PI / 2;
+
+
+      if (position) plane.position.copy(position);
+      if (rotation) plane.rotation.copy(rotation);
+
+//             this.imageObject = plane;
+//             this.updateHandlesVisibility();
+//           },
+//           addTextToCake(text, position = null, rotation = null) {
+//   if (this.textObject) {
+//     this.scene.remove(this.textObject);
+//     this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
+//     this.textObject = null;
+//   }
+
+
+      this.scene.add(plane);
+      this.objectsToDrag.push(plane);
+      this.dragControls.objects = this.objectsToDrag;
+
+      this.imageObject = plane;
+      this.updateHandlesVisibility();
     });
-
-    const textMaterial = new THREE.MeshBasicMaterial({
-      color: this.textColor,
-      side: THREE.DoubleSide
-    });
-
-    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-    textMesh.scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
-
-    const group = new THREE.Group();
-    group.add(textMesh);
+  },
+     async addTextToCake(text, position = null, rotation = null) {
+    this.removeText();  // Удаляем старый текст
 
     const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-    const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-    const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
-    group.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset, 0);
-    group.rotation.x = -Math.PI / 2;
+    if (!topLayer) {
+      console.error('Top layer is undefined');
+      return;
+    }
 
-    if (position) group.position.copy(position);
-    if (rotation) group.rotation.copy(rotation);
+    const fontUrl = `${CDN_BASE_URL}fonts/${this.currentFont}.ttf`;
+    try {
+      const texture = await this.createTextTexture(text, this.textSize, this.textColor, fontUrl);
+      const aspectRatio = texture.image.width / texture.image.height;
+      const planeGeometry = new THREE.PlaneGeometry(this.textSize * aspectRatio, this.textSize);
+      const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-    this.scene.add(group);
-    this.objectsToDrag.push(group);
-    this.dragControls.objects = this.objectsToDrag;
+      const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+      const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+      const textYOffset = 0.2; // Увеличиваем смещение по оси Y
+      plane.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+      plane.rotation.x = -Math.PI / 2;
 
-    this.textObject = group;
-    this.updateHandlesVisibility();
-  });
-},
+      if (position) plane.position.copy(position);
+      if (rotation) plane.rotation.copy(rotation);
+
+      this.scene.add(plane);
+      this.objectsToDrag.push(plane);
+      this.dragControls.objects = this.objectsToDrag;
+
+      this.textObject = plane;
+      this.updateHandlesVisibility();
+    } catch (error) {
+      console.error('Error adding text to cake:', error);
+    }
+  },
+
+
+async createTextTexture(text, size, color, fontUrl) {
+    return new Promise((resolve, reject) => {
+      const fontFace = new FontFace('customFont', `url(${fontUrl})`);
+      fontFace.load().then((loadedFace) => {
+        document.fonts.add(loadedFace);
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const fontSize = 100; // Базовый размер шрифта
+        context.font = `${fontSize}px customFont`;
+        const textWidth = context.measureText(text).width;
+
+        canvas.width = textWidth;
+        canvas.height = fontSize * 1.2; // Высота с учетом отступов
+
+        // Установка конечного размера шрифта
+        context.font = `${fontSize}px customFont`;
+        context.fillStyle = color;
+        context.fillText(text, 0, fontSize);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        resolve(texture);
+      }).catch((error) => {
+        console.error('Font loading error:', error);
+        reject(error);
+      });
+    });
+  },
+
 
 updateFont(event) {
-  this.currentFont = event.target.value;
-  if (this.textObject) {
-    this.updateTextFont();
+    this.currentFont = event.target.value;
+    if (this.textObject) {
+      this.updateTextFont();
+    }
+  },
+
+async updateTextFont() {
+    if (this.textObject) {
+      await this.removeText(); // Удаляем старый текст
+      await this.addTextToCake(this.textContent); // Добавляем новый текст
+    }
+  },
+
+   removeImage() {
+    if (this.imageObject) {
+      this.scene.remove(this.imageObject);
+      this.imageObject.geometry.dispose();
+      this.imageObject.material.map.dispose();
+      this.imageObject.material.dispose();
+      this.imageObject = null;
+      this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.imageObject);
+      this.dragControls.objects = this.objectsToDrag;
+      this.updateHandlesVisibility();
+      this.updateCake();  // Перерисовываем торт
+    }
+  },
+
+  removeText() {
+    if (this.textObject) {
+      this.scene.remove(this.textObject);
+      this.textObject.geometry.dispose();
+      this.textObject.material.map.dispose();
+      this.textObject.material.dispose();
+      this.textObject = null;
+      this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
+      this.dragControls.objects = this.objectsToDrag;
+      this.updateHandlesVisibility();
+      this.updateCake();  // Перерисовываем торт
+    }
+  },
+
+  renderScene() {
+    this.renderer.render(this.scene, this.camera);
+  },
+
+
+
+          adjustPositionAfterDrag(object) {
+  const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+  const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+  const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
+  const textYOffset = 0.2; // Увеличиваем смещение по оси Y для текста
+  const radius = this.getShapeRadius(topLayer);
+  const pos = object.position;
+  const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
+
+  if (distance > radius) {
+    object.position.set(0, topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset, 0);
+  } else {
+    object.position.y = topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset;
   }
+
+  if (object === this.textObject) {
+    object.position.y += textYOffset;
+  }
+
+  this.updateHandlesVisibility();
 },
 
-updateTextFont() {
-  const loader = new FontLoader();
-  loader.load(`${CDN_BASE_URL}fonts/${this.currentFont}.json`, (font) => {
-    const newGeometry = new TextGeometry(this.textContent, {
-      font: font,
-      size: 1, // устанавливаем единичный размер для базовой геометрии
-      depth: 0.05, // обновлено на depth вместо height
-      curveSegments: 12,
-      bevelEnabled: false
-    });
-
-    this.textObject.children[0].geometry.dispose(); // Удаляем старую геометрию
-    this.textObject.children[0].geometry = newGeometry; // Присваиваем новую геометрию
-    this.textObject.children[0].scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
-  });
-},
 
           adjustPositionAfterDrag(object) {
             const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
@@ -985,7 +1081,13 @@ updateTextFont() {
   },
 
   updateLayerControls() {
+    const layers = parseInt(this.numberOfLayers);
     const layerControlsDiv = document.getElementById('layer-controls');
+    const layerControlsDiv = document.getElementById('layer-controls');
+            if (!layerControlsDiv) {
+              console.error('Layer controls element not found.');
+              return;
+            }
     layerControlsDiv.innerHTML = '';
 
     for (let i = 1; i <= this.numberOfLayers; i++) {
@@ -1184,22 +1286,20 @@ updateTextFont() {
           addText() {
             this.addTextToCake(this.textContent);
           },
-          updateTextSize() {
-            if (this.textObject) {
-    this.textObject.children.forEach(child => {
-      child.scale.set(this.textSize, this.textSize, 1); // масштабируем по X и Z
-    });
-  }
-},
-          updateTextColor() {
-            if (this.textObject) {
-              this.textObject.children.forEach(child => {
-                if (child.isMesh && child.material) {
-                  child.material.color.set(this.textColor);
-                }
-              });
-            }
-          },
+
+async updateTextSize() {
+    if (this.textObject) {
+      await this.removeText(); // Удаляем старый текст
+      await this.addTextToCake(this.textContent); // Добавляем новый текст с новым размером
+    }
+  },
+          async updateTextColor() {
+    if (this.textObject) {
+      await this.removeText(); // Удаляем старый текст
+      await this.addTextToCake(this.textContent); // Добавляем новый текст с новым цветом
+    }
+  },
+
           uploadTrinket(event) {
             const file = event.target.files[0];
             const decoration = this.decorations.find(d => d.ingridient === this.currentDecoration);

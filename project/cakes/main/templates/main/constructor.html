@@ -89,10 +89,15 @@
               <input type="range" id="text-size" v-model="textSize" min="0.1" max="1.5" step="0.1" @input="updateTextSize" class="range" oninput="range()">
 
           </div>
+      
+
+      <button @click="saveScreenshot">Save Screenshot</button>
 
       <div class="file-input-container">
       <label class="add-text-button"  for="image-upload">Ваше изображение</label>
       <input type="file" id="image-upload" @change="uploadImage" accept="image/*">
+	      <button @click="removeImage">Убрать картинку</button>
+      <button @click="removeText">Убрать текст</button>
       </div>
 
       <button class="add-text-button" @click="saveScreenshot">Save Screenshot</button>
@@ -102,6 +107,7 @@
         <p>Цена (₽): </p>
       </div>
       <button type="submit" class="save-button">В корзину</button>
+
     </div>
   </div>
 
