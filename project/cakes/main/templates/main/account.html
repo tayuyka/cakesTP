@@ -6,22 +6,24 @@
 <section class="account-content">
   <h1 class="account-section-title">Личный кабинет</h1>
 
-      <section class="profile-section">
-        <div class="profile-content">
-          <div class="profile-image-column">
-            <box-icon name='user' type='solid' color='#e6a4b4' class="user-icon"></box-icon>          </div>
-          <div class="profile-details-column">
-            <div class="profile-details">
-              <div class="profile-detail">Имя: {{ user.first_name }} {{ user.last_name }}</div>
-              <div class="profile-detail">Дата рождения: {{ user.date_birth }}</div>
-              <div class="profile-detail">Номер телефона: {{ user.phone_number }}</div>
-            </div>
-          </div>
-            <a href="{% url 'logout' %}" class="logout-button">Выйти</a>
+  <section class="profile-section">
+    <div class="profile-content">
+      <div class="profile-image-column">
+        <box-icon name='user' type='solid' color='#e6a4b4' class="user-icon"></box-icon>
+      </div>
+      <div class="profile-details-column">
+        <div class="profile-details">
+          <div class="profile-detail">Имя: {{ user.first_name }} {{ user.last_name }}</div>
+          <div class="profile-detail">Дата рождения: {{ user.date_birth }}</div>
+          <div class="profile-detail">Номер телефона: {{ user.phone_number }}</div>
+          <div class="profile-detail">Email: {{ user.email }}</div> <!-- Добавьте эту строку -->
         </div>
-      </section>
+      </div>
+      <a href="{% url 'logout' %}" class="logout-button">Выйти</a>
+    </div>
+  </section>
 
-      <h2 class="orders-section-title">Ваши заказы</h2>
+  <h2 class="orders-section-title">Ваши заказы</h2>
 
   <section class="orders-section">
     {% for order in orders %}
