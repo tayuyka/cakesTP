@@ -344,11 +344,13 @@ def manage_cakes(request):
     cakes = Cake.objects.all()
     return render(request, 'staff/manage_cakes.html', {'cakes': cakes})
 
+
 @login_required
 @user_passes_test(staff_required)
 def manage_orders(request):
     orders = Order.objects.all()
     return render(request, 'staff/manage_orders.html', {'orders': orders})
+
 
 @login_required
 @user_passes_test(staff_required)
@@ -362,63 +364,169 @@ def edit_order(request, order_id):
         return redirect('manage_orders')
     return render(request, 'staff/edit_order.html', {'order': order})
 
+
+def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, cake_layers):
+    # Define the standard volumes for each component in cubic centimeters
+    Vc = cake_size.base_area  # Adjusted to use base area directly
+    Vt = Vc * 0.1
+    Vl = Vc * 0.5
+    Vb = Vc * 0.05
+
+    # Define the densities in grams per cubic centimeter
+    pc = float(cake_coverage.density) / 1000  # Convert density from grams per cubic centimeter to grams per cubic meter
+    pt = float(cake_topping.density) / 1000
+
+    # Calculate the masses for each component in grams
+    Mc = pc * Vc
+    Mt = pt * Vt
+
+    Ml = 0
+    for layer in cake_layers:
+        pf = float(layer.layer_filling.density) / 1000
+        pb = float(layer.layer_base.density) / 1000
+        Ml += (pf * Vl + pb * Vb)
+
+    Ml *= layers_count
+
+    M_add = sum(float(addition.cost_per_gram) / 100 for addition in cake_additions)
+
+    # Calculate the total weight in grams
+    total_weight = Mc + Mt + Ml + M_add
+
+    # Define the costs per gram for each component
+    dc = float(cake_coverage.cost_per_gram)
+    dt = float(cake_topping.cost_per_gram)
+    df = float(cake_layers[0].layer_filling.cost_per_gram)
+    db = float(cake_layers[0].layer_base.cost_per_gram)
+    d_add = sum(float(addition.cost_per_gram) for addition in cake_additions) / len(cake_additions)
+
+    # Calculate the costs for each component in currency units
+    Sl = 0
+    for layer in cake_layers:
+        pf = float(layer.layer_filling.density) / 1000
+        pb = float(layer.layer_base.density) / 1000
+        Sl += (pf * Vl * df + pb * Vb * db)
+
+    Sl *= layers_count
+
+    S = Mc * dc + Mt * dt + Sl + M_add * d_add
+
+    # Calculate the total cost in currency units
+    total_cost = S
+
+    return total_weight, total_cost
+
+
 @login_required
 @user_passes_test(staff_required)
 def add_cake(request):
     if request.method == 'POST':
+        layers_count = int(request.POST['layers_count'])
+        cake_size = get_object_or_404(CakeSize, pk=request.POST['cake_size'])
+        cake_shape = get_object_or_404(CakeShape, pk=request.POST['cake_shape'])
+        cake_coverage = get_object_or_404(CakeCoverage, pk=request.POST['cake_coverage'])
+        cake_topping = get_object_or_404(CakeTopping, pk=request.POST['cake_topping'])
+        cake_additions = CakeAddition.objects.filter(pk__in=request.POST.getlist('cake_addition'))
+
+        layer_ids = request.POST.getlist('layers')
+        layers = Layer.objects.filter(pk__in=layer_ids)
+
+        if not layers:
+            messages.error(request, "Выберите слои для торта.")
+            return redirect('add_cake')
+
+        weight, cost = calculate_cake_weight_and_cost(
+            layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, layers
+        )
+
         cake = Cake(
-            weight=request.POST['weight'],
-            cost=request.POST['cost'],
-            layers_count=request.POST['layers_count'],
+            weight=weight,
+            cost=f"{cost:.2f} ₽",
+            layers_count=layers_count,
             text=request.POST.get('text', ''),
             name=request.POST.get('name', ''),
             constructor_image=request.POST.get('constructor_image', ''),
             preview_image=request.POST.get('preview_image', ''),
-            cake_size_id=request.POST['cake_size'],
-            cake_shape_id=request.POST['cake_shape'],
-            cake_coverage_id=request.POST['cake_coverage'],
-            cake_topping_id=request.POST['cake_topping'],
-            cake_addition_id=request.POST['cake_addition'],
+            cake_size=cake_size,
+            cake_shape=cake_shape,
+            cake_coverage=cake_coverage,
+            cake_topping=cake_topping,
+            cake_addition=cake_additions.first() if cake_additions.exists() else None,
         )
         cake.save()
+
+        for layer in layers:
+            CakeStructure.objects.create(cake=cake, layer=layer)
+
         return redirect('manage_cakes')
+
     cake_sizes = CakeSize.objects.all()
     cake_shapes = CakeShape.objects.all()
     cake_coverages = CakeCoverage.objects.all()
     cake_toppings = CakeTopping.objects.all()
     cake_additions = CakeAddition.objects.all()
+    layers = Layer.objects.all()
     return render(request, 'staff/add_cake.html', {
         'cake_sizes': cake_sizes,
         'cake_shapes': cake_shapes,
         'cake_coverages': cake_coverages,
         'cake_toppings': cake_toppings,
         'cake_additions': cake_additions,
+        'layers': layers,
     })
+
 
 @login_required
 @user_passes_test(staff_required)
 def edit_cake(request, cake_id):
     cake = get_object_or_404(Cake, pk=cake_id)
     if request.method == 'POST':
-        cake.weight = request.POST.get('weight', cake.weight)
-        cake.cost = request.POST.get('cost', cake.cost)
-        cake.layers_count = request.POST.get('layers_count', cake.layers_count)
+        layers_count = int(request.POST['layers_count'])
+        cake_size = get_object_or_404(CakeSize, pk=request.POST['cake_size'])
+        cake_shape = get_object_or_404(CakeShape, pk=request.POST['cake_shape'])
+        cake_coverage = get_object_or_404(CakeCoverage, pk=request.POST['cake_coverage'])
+        cake_topping = get_object_or_404(CakeTopping, pk=request.POST['cake_topping'])
+        cake_additions = CakeAddition.objects.filter(pk__in=request.POST.getlist('cake_addition'))
+
+        layer_ids = request.POST.getlist('layers')
+        layers = Layer.objects.filter(pk__in=layer_ids)
+
+        if not layers:
+            messages.error(request, "Выберите слои для торта.")
+            return redirect('edit_cake', cake_id=cake_id)
+
+        weight, cost = calculate_cake_weight_and_cost(
+            layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, layers
+        )
+
+        cake.weight = weight
+        cake.cost = f"{cost:.2f} ₽"
+        cake.layers_count = layers_count
         cake.text = request.POST.get('text', cake.text)
         cake.name = request.POST.get('name', cake.name)
         cake.constructor_image = request.POST.get('constructor_image', cake.constructor_image)
         cake.preview_image = request.POST.get('preview_image', cake.preview_image)
-        cake.cake_size_id = request.POST.get('cake_size', cake.cake_size_id)
-        cake.cake_shape_id = request.POST.get('cake_shape', cake.cake_shape_id)
-        cake.cake_coverage_id = request.POST.get('cake_coverage', cake.cake_coverage_id)
-        cake.cake_topping_id = request.POST.get('cake_topping', cake.cake_topping_id)
-        cake.cake_addition_id = request.POST.get('cake_addition', cake.cake_addition_id)
+        cake.cake_size = cake_size
+        cake.cake_shape = cake_shape
+        cake.cake_coverage = cake_coverage
+        cake.cake_topping = cake_topping
+        cake.cake_addition = cake_additions.first() if cake_additions.exists() else None
         cake.save()
+
+        CakeStructure.objects.filter(cake=cake).delete()
+        for layer in layers:
+            CakeStructure.objects.create(cake=cake, layer=layer)
+
         return redirect('manage_cakes')
+
+    cake_structure_layers = CakeStructure.objects.filter(cake=cake).values_list('layer_id', flat=True)
     cake_sizes = CakeSize.objects.all()
     cake_shapes = CakeShape.objects.all()
     cake_coverages = CakeCoverage.objects.all()
     cake_toppings = CakeTopping.objects.all()
     cake_additions = CakeAddition.objects.all()
+    layers = Layer.objects.all()
+    layer_range = list(range(1, cake.layers_count + 1))
     return render(request, 'staff/edit_cake.html', {
         'cake': cake,
         'cake_sizes': cake_sizes,
@@ -426,6 +534,10 @@ def edit_cake(request, cake_id):
         'cake_coverages': cake_coverages,
         'cake_toppings': cake_toppings,
         'cake_additions': cake_additions,
+        'layers': layers,
+        'cake_structure_layers': cake_structure_layers,
+        'layer_range': layer_range,
+        'max_layers': range(1, 4),
     })
 
 
