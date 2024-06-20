@@ -11,6 +11,8 @@
 @import url('manage.css');
 @import url('statictics.css');
 @import url('manage_edit.css');
+@import url('constructor.css');
+
 
 :root {
   --hover-color: rgba(255, 255, 255, 0.4);; 
@@ -43,7 +45,7 @@ body {
       display: flex;
       gap: 20px;
       font-size: 18px;
-      color: #f3d7ca;
+      color: #fff8e3;
       font-weight: 400;
       white-space: nowrap;
       padding: 0 0 0 0;

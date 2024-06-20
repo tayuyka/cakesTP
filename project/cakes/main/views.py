@@ -1,18 +1,61 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Count, Avg
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 from django.utils import timezone
+from rest_framework import viewsets, generics
+from rest_framework.response import Response
+import json
+from django.http import JsonResponse
+
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
+from collections import Counter
+
+
+def get_recommendations(user):
+    if user.is_authenticated:
+        user_orders = Order.objects.filter(user=user)
+        if user_orders.exists():
+            # Получаем все торты, которые пользователь заказывал
+            ordered_cakes = OrderContent.objects.filter(order__in=user_orders).values_list('cake', flat=True)
+            cakes = Cake.objects.filter(pk__in=ordered_cakes)
+
+            # Собираем параметры заказанных тортов
+            layer_counts = cakes.values_list('layers_count', flat=True)
+            sizes = cakes.values_list('cake_size__type', flat=True)
+            shapes = cakes.values_list('cake_shape__shape', flat=True)
+            toppings = cakes.values_list('cake_topping__ingridient', flat=True)
+            coverages = cakes.values_list('cake_coverage__ingridient', flat=True)
+
+            # Считаем наиболее часто встречающиеся параметры
+            most_common_layer_count = Counter(layer_counts).most_common(1)[0][0]
+            most_common_size = Counter(sizes).most_common(1)[0][0]
+            most_common_shape = Counter(shapes).most_common(1)[0][0]
+            most_common_topping = Counter(toppings).most_common(1)[0][0]
+            most_common_coverage = Counter(coverages).most_common(1)[0][0]
+
+            # Получаем рекомендации на основе наиболее часто встречающихся параметров
+            recommended_cakes = set()
+            recommended_cakes.update(Cake.objects.filter(layers_count=most_common_layer_count)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_size__type=most_common_size)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_shape__shape=most_common_shape)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_topping__ingridient=most_common_topping)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_coverage__ingridient=most_common_coverage)[:5])
+
+            # Ограничиваем количество рекомендаций до 5 и удаляем дубликаты
+            return list(recommended_cakes)[:5]
+
+    # Если пользователь не авторизован или у него нет заказов, возвращаем любые 5 тортов
+    return list(Cake.objects.all()[:5])
 
 
 def recovery_form(request):
@@ -63,28 +106,29 @@ def reset_password(request):
     return render(request, 'main/recovery_form_reset_password.html')
 
 
+
 def add_to_cart(request, cake_id):
-    cart_in = request.session.get('cart_in', {})
-    if str(cake_id) in cart_in:
-        cart_in[str(cake_id)] += 1
+    cart = request.session.get('cart', {})
+    if str(cake_id) in cart:
+        cart[str(cake_id)] += 1
     else:
-        cart_in[str(cake_id)] = 1
-    request.session['cart_in'] = cart_in
+        cart[str(cake_id)] = 1
+    request.session['cart'] = cart
     messages.success(request, 'Торт добавлен в корзину.')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def remove_from_cart(request, cake_id):
-    cart_in = request.session.get('cart', {})
+    cart = request.session.get('cart', {})
     action = request.GET.get('action', 'remove')
-    if str(cake_id) in cart_in:
+    if str(cake_id) in cart:
         if action == 'decrease':
-            cart_in[str(cake_id)] -= 1
-            if cart_in[str(cake_id)] == 0:
-                del cart_in[str(cake_id)]
+            cart[str(cake_id)] -= 1
+            if cart[str(cake_id)] == 0:
+                del cart[str(cake_id)]
         else:
-            del cart_in[str(cake_id)]
-    request.session['cart'] = cart_in
+            del cart[str(cake_id)]
+    request.session['cart'] = cart
     messages.success(request, 'Торт удален из корзины.')
     return redirect('cart')
 
@@ -112,7 +156,8 @@ def cart(request):
 
 
 def home(request):
-    return render(request, 'main/home.html')
+    recommended_cakes = get_recommendations(request.user)
+    return render(request, 'main/home.html', {'recommended_cakes': recommended_cakes})
 
 
 def cake_info(request, cake_id):
@@ -209,7 +254,6 @@ def catalog(request):
     })
 
 
-
 def order_form(request):
     if request.method == 'POST':
         first_name = request.POST['firstName']
@@ -292,8 +336,11 @@ def constructor(request):
     return render(request, 'main/constructor.html')
 
 
+
 def staff_required(user):
     return user.is_staff
+
+
 @login_required
 @user_passes_test(staff_required)
 def manage_cakes(request):
@@ -305,11 +352,13 @@ def manage_cakes(request):
     cakes = Cake.objects.all()
     return render(request, 'staff/manage_cakes.html', {'cakes': cakes})
 
+
 @login_required
 @user_passes_test(staff_required)
 def manage_orders(request):
     orders = Order.objects.all()
     return render(request, 'staff/manage_orders.html', {'orders': orders})
+
 
 @login_required
 @user_passes_test(staff_required)
@@ -323,63 +372,169 @@ def edit_order(request, order_id):
         return redirect('manage_orders')
     return render(request, 'staff/edit_order.html', {'order': order})
 
+
+def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, cake_layers):
+    # Define the standard volumes for each component in cubic centimeters
+    Vc = cake_size.base_area  # Adjusted to use base area directly
+    Vt = Vc * 0.1
+    Vl = Vc * 0.5
+    Vb = Vc * 0.05
+
+    # Define the densities in grams per cubic centimeter
+    pc = float(cake_coverage.density) / 1000  # Convert density from grams per cubic centimeter to grams per cubic meter
+    pt = float(cake_topping.density) / 1000
+
+    # Calculate the masses for each component in grams
+    Mc = pc * Vc
+    Mt = pt * Vt
+
+    Ml = 0
+    for layer in cake_layers:
+        pf = float(layer.layer_filling.density) / 1000
+        pb = float(layer.layer_base.density) / 1000
+        Ml += (pf * Vl + pb * Vb)
+
+    Ml *= layers_count
+
+    M_add = sum(float(addition.cost_per_gram) / 100 for addition in cake_additions)
+
+    # Calculate the total weight in grams
+    total_weight = Mc + Mt + Ml + M_add
+
+    # Define the costs per gram for each component
+    dc = float(cake_coverage.cost_per_gram)
+    dt = float(cake_topping.cost_per_gram)
+    df = float(cake_layers[0].layer_filling.cost_per_gram)
+    db = float(cake_layers[0].layer_base.cost_per_gram)
+    d_add = sum(float(addition.cost_per_gram) for addition in cake_additions) / len(cake_additions)
+
+    # Calculate the costs for each component in currency units
+    Sl = 0
+    for layer in cake_layers:
+        pf = float(layer.layer_filling.density) / 1000
+        pb = float(layer.layer_base.density) / 1000
+        Sl += (pf * Vl * df + pb * Vb * db)
+
+    Sl *= layers_count
+
+    S = Mc * dc + Mt * dt + Sl + M_add * d_add
+
+    # Calculate the total cost in currency units
+    total_cost = S
+
+    return total_weight, total_cost
+
+
 @login_required
 @user_passes_test(staff_required)
 def add_cake(request):
     if request.method == 'POST':
+        layers_count = int(request.POST['layers_count'])
+        cake_size = get_object_or_404(CakeSize, pk=request.POST['cake_size'])
+        cake_shape = get_object_or_404(CakeShape, pk=request.POST['cake_shape'])
+        cake_coverage = get_object_or_404(CakeCoverage, pk=request.POST['cake_coverage'])
+        cake_topping = get_object_or_404(CakeTopping, pk=request.POST['cake_topping'])
+        cake_additions = CakeAddition.objects.filter(pk__in=request.POST.getlist('cake_addition'))
+
+        layer_ids = request.POST.getlist('layers')
+        layers = Layer.objects.filter(pk__in=layer_ids)
+
+        if not layers:
+            messages.error(request, "Выберите слои для торта.")
+            return redirect('add_cake')
+
+        weight, cost = calculate_cake_weight_and_cost(
+            layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, layers
+        )
+
         cake = Cake(
-            weight=request.POST['weight'],
-            cost=request.POST['cost'],
-            layers_count=request.POST['layers_count'],
+            weight=weight,
+            cost=f"{cost:.2f} ₽",
+            layers_count=layers_count,
             text=request.POST.get('text', ''),
             name=request.POST.get('name', ''),
             constructor_image=request.POST.get('constructor_image', ''),
             preview_image=request.POST.get('preview_image', ''),
-            cake_size_id=request.POST['cake_size'],
-            cake_shape_id=request.POST['cake_shape'],
-            cake_coverage_id=request.POST['cake_coverage'],
-            cake_topping_id=request.POST['cake_topping'],
-            cake_addition_id=request.POST['cake_addition'],
+            cake_size=cake_size,
+            cake_shape=cake_shape,
+            cake_coverage=cake_coverage,
+            cake_topping=cake_topping,
+            cake_addition=cake_additions.first() if cake_additions.exists() else None,
         )
         cake.save()
+
+        for layer in layers:
+            CakeStructure.objects.create(cake=cake, layer=layer)
+
         return redirect('manage_cakes')
+
     cake_sizes = CakeSize.objects.all()
     cake_shapes = CakeShape.objects.all()
     cake_coverages = CakeCoverage.objects.all()
     cake_toppings = CakeTopping.objects.all()
     cake_additions = CakeAddition.objects.all()
+    layers = Layer.objects.all()
     return render(request, 'staff/add_cake.html', {
         'cake_sizes': cake_sizes,
         'cake_shapes': cake_shapes,
         'cake_coverages': cake_coverages,
         'cake_toppings': cake_toppings,
         'cake_additions': cake_additions,
+        'layers': layers,
     })
+
 
 @login_required
 @user_passes_test(staff_required)
 def edit_cake(request, cake_id):
     cake = get_object_or_404(Cake, pk=cake_id)
     if request.method == 'POST':
-        cake.weight = request.POST.get('weight', cake.weight)
-        cake.cost = request.POST.get('cost', cake.cost)
-        cake.layers_count = request.POST.get('layers_count', cake.layers_count)
+        layers_count = int(request.POST['layers_count'])
+        cake_size = get_object_or_404(CakeSize, pk=request.POST['cake_size'])
+        cake_shape = get_object_or_404(CakeShape, pk=request.POST['cake_shape'])
+        cake_coverage = get_object_or_404(CakeCoverage, pk=request.POST['cake_coverage'])
+        cake_topping = get_object_or_404(CakeTopping, pk=request.POST['cake_topping'])
+        cake_additions = CakeAddition.objects.filter(pk__in=request.POST.getlist('cake_addition'))
+
+        layer_ids = request.POST.getlist('layers')
+        layers = Layer.objects.filter(pk__in=layer_ids)
+
+        if not layers:
+            messages.error(request, "Выберите слои для торта.")
+            return redirect('edit_cake', cake_id=cake_id)
+
+        weight, cost = calculate_cake_weight_and_cost(
+            layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, layers
+        )
+
+        cake.weight = weight
+        cake.cost = f"{cost:.2f} ₽"
+        cake.layers_count = layers_count
         cake.text = request.POST.get('text', cake.text)
         cake.name = request.POST.get('name', cake.name)
         cake.constructor_image = request.POST.get('constructor_image', cake.constructor_image)
         cake.preview_image = request.POST.get('preview_image', cake.preview_image)
-        cake.cake_size_id = request.POST.get('cake_size', cake.cake_size_id)
-        cake.cake_shape_id = request.POST.get('cake_shape', cake.cake_shape_id)
-        cake.cake_coverage_id = request.POST.get('cake_coverage', cake.cake_coverage_id)
-        cake.cake_topping_id = request.POST.get('cake_topping', cake.cake_topping_id)
-        cake.cake_addition_id = request.POST.get('cake_addition', cake.cake_addition_id)
+        cake.cake_size = cake_size
+        cake.cake_shape = cake_shape
+        cake.cake_coverage = cake_coverage
+        cake.cake_topping = cake_topping
+        cake.cake_addition = cake_additions.first() if cake_additions.exists() else None
         cake.save()
+
+        CakeStructure.objects.filter(cake=cake).delete()
+        for layer in layers:
+            CakeStructure.objects.create(cake=cake, layer=layer)
+
         return redirect('manage_cakes')
+
+    cake_structure_layers = CakeStructure.objects.filter(cake=cake).values_list('layer_id', flat=True)
     cake_sizes = CakeSize.objects.all()
     cake_shapes = CakeShape.objects.all()
     cake_coverages = CakeCoverage.objects.all()
     cake_toppings = CakeTopping.objects.all()
     cake_additions = CakeAddition.objects.all()
+    layers = Layer.objects.all()
+    layer_range = list(range(1, cake.layers_count + 1))
     return render(request, 'staff/edit_cake.html', {
         'cake': cake,
         'cake_sizes': cake_sizes,
@@ -387,7 +542,12 @@ def edit_cake(request, cake_id):
         'cake_coverages': cake_coverages,
         'cake_toppings': cake_toppings,
         'cake_additions': cake_additions,
+        'layers': layers,
+        'cake_structure_layers': cake_structure_layers,
+        'layer_range': layer_range,
+        'max_layers': range(1, 4),
     })
+
 
 @login_required
 @user_passes_test(staff_required)
@@ -398,12 +558,14 @@ def delete_cake(request, cake_id):
         return redirect('manage_cakes')
     return render(request, 'staff/confirm_delete.html', {'cake': cake})
 
+
 @login_required
 @user_passes_test(staff_required)
 def delete_order(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     order.delete()
     return redirect('manage_orders')
+
 
 @login_required
 @user_passes_test(staff_required)
@@ -428,3 +590,66 @@ def statistics_view(request):
     }
 
     return render(request, 'staff/statistics.html', context)
+
+from .models import LayerBase, LayerFilling, CakeSize, CakeShape, CakeTopping, CakeAddition, CakeCoverage, Cake
+from .serializers import LayerBaseSerializer, LayerFillingSerializer, CakeSizeSerializer, CakeShapeSerializer, CakeToppingSerializer, CakeAdditionSerializer, CakeCoverageSerializer, CakeSerializer
+
+class CakeViewSet(viewsets.ViewSet):
+    def list(self, request):
+        data = {
+            'bases': LayerBaseSerializer(LayerBase.objects.all(), many=True).data,
+            'fillings': LayerFillingSerializer(LayerFilling.objects.all(), many=True).data,
+            'sizes': CakeSizeSerializer(CakeSize.objects.all(), many=True).data,
+            'shapes': CakeShapeSerializer(CakeShape.objects.all(), many=True).data,
+            'toppings': CakeToppingSerializer(CakeTopping.objects.all(), many=True).data,
+            'trinkets': CakeAdditionSerializer(CakeAddition.objects.all(), many=True).data,
+            'covers': CakeCoverageSerializer(CakeCoverage.objects.all(), many=True).data,
+        }
+        return Response(data)
+
+class CakeDetailView(generics.RetrieveAPIView):
+    queryset = Cake.objects.all()
+    serializer_class = CakeSerializer
+
+
+@csrf_exempt
+def add_to_cart_from_constructor(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            cake = Cake.objects.create(
+                weight=data['weight'],
+                cost=data['cost'],
+                layers_count=data['layers_count'],
+                text=data['text'],
+                name=data['name'],
+                constructor_image=data['constructor_image'],
+                preview_image=data['preview_image'],
+                cake_size_id=data['cake_size'],
+                cake_shape_id=data['cake_shape'],
+                cake_coverage_id=data['cake_coverage'],
+                cake_topping_id=data['cake_topping'],
+                cake_addition_id=data['cake_addition']
+            )
+
+            cart = request.session.get('cart', {})
+            if str(cake.id) in cart:
+                cart[str(cake.id)] += 1
+            else:
+                cart[str(cake.id)] = 1
+            request.session['cart'] = cart
+
+            messages.success(request, 'Торт добавлен в корзину.')
+            return JsonResponse({'message': 'Торт добавлен в корзину'}, status=200)
+
+        except KeyError as e:
+            return JsonResponse({'error': f'Missing parameter: {e}'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            # Логирование ошибки и возврат общего сообщения об ошибке
+            print(f'Error: {e}')
+            return JsonResponse({'error': 'Internal Server Error'}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+

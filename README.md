@@ -15,11 +15,14 @@
 # Документация:
 [Техническое задание](ТЗ)
 
+[Курсовой проект](Прочее/Kursovoy_Proekt.docx)
+
 [Сопроводительное письмо](https://clck.ru/39QxaJ)
 
 [Оформительские задачи](https://clck.ru/39QxkH)
 
-[Презентация](Прочее)
+[Презентации](Прочее)
 
 [Видео-презентация](https://www.youtube.com/watch?v=kaZGSEjs9Tw&ab_channel=LakeRunner)
 
+[Видео-презентация №2](https://youtu.be/iP0_Ti23WqM)

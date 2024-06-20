@@ -2,110 +2,121 @@
 {% load static %}
 
 {% block content %}
+<h2>Редактирование торта</h2>
 <form method="post" class="edit-cake-form">
-    <h2 class="edit-heading">Редактирование торта</h2>
-
-
+    {% csrf_token %}
     <div class="labels-between1">
-    <label for="Name" class="atributes-label">Наименование:</label>
-    <label for="weight" class="atributes-label">Вес:</label>
+        <label for="name" class="atributes-label">Наименование:</label>
     </div>
-
 
     <div class="input-between">
-    <input type="text" id="name" name="name" value="{{ cake.name }}" class ="input-field">
-    <br>
-    <input type="text" id="weight" name="weight" value="{{ cake.weight }}" class ="input-field">
-    <br>
-    </div>
-
-    <br>
+        <input type="text" id="name" name="name" value="{{ cake.name }}" class="input-field"><br>
+    </div><br>
 
     <div class="labels-between2">
-    <label for="cost" class="atributes-label">Цена:</label>
-    <label for="layers_count" class="atributes-label">Количество слоёв:</label>
+        <label for="layers_count" class="atributes-label">Количество слоёв:</label>
     </div>
-
 
     <div class="input-between">
-    <input type="text" id="cost" name="cost" value="{{ cake.cost }}" class ="input-field">
-    <br>
-    <input type="text" id="layers_count" name="layers_count" value="{{ cake.layers_count }}" class ="input-field">
-    <br>
-    </div>
+        <input type="number" id="layers_count" name="layers_count" min="1" max="3" value="{{ cake.layers_count }}" class="input-field" onchange="updateLayers()" onkeydown="return false;"><br>
+    </div><br>
 
-    <br>
-
-    <div class="labels-between3">
-    <label for="constructor_image" class="atributes-label">Фотография пользователя:</label>
-    <label for="preview_image" class="atributes-label">Предварительный просмотр:</label>
-    </div>
-
-     <div class="input-between">
-    <input type="text" id="constructor_image" name="constructor_image" value="{{ cake.constructor_image }}" class ="input-field">
-    <br>
-     <input type="text" id="preview_image" name="preview_image" value="{{ cake.preview_image }}" class ="input-field">
-    <br>
-    </div>
-
-    <br>
-
-    <label for="text" class="atributes-label">Текст на торте:</label>
-    <textarea id="text" name="text" class ="input-field">{{ cake.text }}</textarea>
-    <br>
-
-
-
-    <div class="form-container">
-        <div class="form-group">
-            <label for="cake_size" class="atributes-label">Размер торта:</label>
-            <select id="cake_size" name="cake_size" class="select-layers">
-                {% for size in cake_sizes %}
-                    <option value="{{ size.id }}" {% if size.id == cake.cake_size_id %}selected{% endif %}>{{ size }}</option>
+    <div id="layer-selection-container">
+        {% for i in layer_range %}
+        <div class="layer-group" id="layer_group_{{ i }}">
+            <label for="layer_{{ i }}">Слой {{ i }}:</label><br>
+            <select id="layer_{{ i }}" name="layers" required>
+                {% for layer in layers %}
+                <option value="{{ layer.layer_id }}" {% if layer.layer_id in cake_structure_layers %}selected{% endif %}>
+                    {{ layer.layer_base.ingridient }} - {{ layer.layer_filling.ingridient }}
+                </option>
                 {% endfor %}
-            </select>
+            </select><br>
         </div>
+        {% endfor %}
+    </div><br>
 
-        <div class="form-group">
-            <label for="cake_shape" class="atributes-label">Фигура торта:</label>
-            <select id="cake_shape" name="cake_shape" class="select-layers">
-                {% for shape in cake_shapes %}
-                    <option value="{{ shape.id }}" {% if shape.id == cake.cake_shape_id %}selected{% endif %}>{{ shape }}</option>
-                {% endfor %}
-            </select>
+    <label for="constructor_image">Изображение конструктора:</label>
+    <input type="text" id="constructor_image" name="constructor_image" value="{{ cake.constructor_image }}" class="input-field"><br>
 
+    <label for="preview_image">Изображение предпросмотра:</label>
+    <input type="text" id="preview_image" name="preview_image" value="{{ cake.preview_image }}" class="input-field"><br>
 
-        <div class="form-group">
-            <label for="cake_coverage" class="atributes-label">Покрытие торта:</label>
-            <select id="cake_coverage" name="cake_coverage" class="select-layers">
-                {% for coverage in cake_coverages %}
-                    <option value="{{ coverage.id }}" {% if coverage.id == cake.cake_coverage_id %}selected{% endif %}>{{ coverage }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <label for="cake_size">Размер торта:</label>
+    <select id="cake_size" name="cake_size" required class="select-layers">
+        {% for size in cake_sizes %}
+        <option value="{{ size.cake_size_id }}" {% if size.cake_size_id == cake.cake_size_id %}selected{% endif %}>
+            {{ size.type }}
+        </option>
+        {% endfor %}
+    </select><br>
 
-        <div class="form-group">
-            <label for="cake_topping" class="atributes-label">Топпинг торта:</label>
-            <select id="cake_topping" name="cake_topping" class="select-layers">
-                {% for topping in cake_toppings %}
-                    <option value="{{ topping.id }}" {% if topping.id == cake.cake_topping_id %}selected{% endif %}>{{ topping }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <label for="cake_shape">Форма торта:</label>
+    <select id="cake_shape" name="cake_shape" required class="select-layers">
+        {% for shape in cake_shapes %}
+        <option value="{{ shape.cake_shape_id }}" {% if shape.cake_shape_id == cake.cake_shape_id %}selected{% endif %}>
+            {{ shape.shape }}
+        </option>
+        {% endfor %}
+    </select><br>
 
-        <div class="form-group">
-            <label for="cake_addition" class="atributes-label">Добавки к торту:</label>
-            <select id="cake_addition" name="cake_addition" class="select-layers">
-                {% for addition in cake_additions %}
-                    <option value="{{ addition.id }}" {% if addition.id == cake.cake_addition_id %}selected{% endif %}>{{ addition }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
+    <label for="cake_coverage">Покрытие торта:</label>
+    <select id="cake_coverage" name="cake_coverage" required class="select-layers">
+        {% for coverage in cake_coverages %}
+        <option value="{{ coverage.cake_coverage_id }}" {% if coverage.cake_coverage_id == cake.cake_coverage_id %}selected{% endif %}>
+            {{ coverage.ingridient }}
+        </option>
+        {% endfor %}
+    </select><br>
+
+    <label for="cake_topping">Топпинг торта:</label>
+    <select id="cake_topping" name="cake_topping" required class="select-layers">
+        {% for topping in cake_toppings %}
+        <option value="{{ topping.cake_topping_id }}" {% if topping.cake_topping_id == cake.cake_topping_id %}selected{% endif %}>
+            {{ topping.ingridient }}
+        </option>
+        {% endfor %}
+    </select><br>
+
+    <label for="cake_addition">Добавки к торту:</label>
+    <select id="cake_addition" name="cake_addition" class="select-layers">
+        {% for addition in cake_additions %}
+        <option value="{{ addition.cake_addition_id }}" {% if addition.cake_addition_id in cake_structure_layers %}selected{% endif %}>
+            {{ addition.ingridient }}
+        </option>
+        {% endfor %}
+    </select><br>
 
     <button type="submit" class="save-changes-button">Сохранить изменения</button>
-
-        </div>
 </form>
 
+<script>
+let initialLayerCount = {{ cake.layers_count }};
+updateLayers();
+
+function updateLayers() {
+    const container = document.getElementById('layer-selection-container');
+    const newLayerCount = parseInt(document.getElementById('layers_count').value);
+    const currentLayers = container.getElementsByClassName('layer-group');
+
+    // Remove extra layers
+    while (currentLayers.length > newLayerCount) {
+        container.removeChild(container.lastChild);
+    }
+
+    // Add missing layers
+    while (currentLayers.length < newLayerCount) {
+        const currentCount = currentLayers.length + 1;
+        const layerGroup = document.createElement('div');
+        layerGroup.classList.add('layer-group');
+        layerGroup.innerHTML = `<label for="layer_${currentCount}">Слой ${currentCount}:</label><br>
+                                <select id="layer_${currentCount}" name="layers" required>
+                                    {% for layer in layers %}
+                                    <option value="{{ layer.layer_id }}">{{ layer.layer_base.ingridient }} - {{ layer.layer_filling.ingridient }}</option>
+                                    {% endfor %}
+                                </select><br>`;
+        container.appendChild(layerGroup);
+    }
+}
+</script>
 {% endblock %}
