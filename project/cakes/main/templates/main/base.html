@@ -16,13 +16,16 @@
       <header class="header">
           <a href="{% url 'home' %}" class="main-logo"><img src="{% static 'main/img/main_logo.png' %}" alt="" class="main-logo-sw" /></a>
 
+          {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'statistics' %}" class="nav-button manage">Менеджмент</a>
+    {% endif %}
          <a href="{% url 'catalog' %}" class="nav-button">Каталог</a>
          <a href="{% url 'constructor' %}" class="nav-button">Создать</a>
          <a href="{% url 'cart' %}" class="nav-button">Корзина</a>
           <a href="{% url 'account' %}" class="logo"><box-icon name='user-circle' type='solid' color='#fff8e3' alt=""  class="logo-icon"></box-icon></a>
       </header>
 
-    <div id="app" class="content">
+    <div class="content">
         {% block content %}{% endblock %}
     </div>
 

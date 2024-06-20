@@ -19,4 +19,12 @@ urlpatterns = [
     path('order_details/<int:order_id>/', order_details, name='order_details'),
     path('constructor/', constructor, name='constructor'),
     path('logout/', logout_view, name='logout'),
+    path('staff/cakes/', manage_cakes, name='manage_cakes'),
+    path('staff/orders/', manage_orders, name='manage_orders'),
+    path('staff/orders/edit/<int:order_id>/', edit_order, name='edit_order'),
+    path('staff/orders/delete/<int:order_id>/', views.delete_order, name='delete_order'),
+    path('staff/cakes/add/', add_cake, name='add_cake'),
+    path('staff/cakes/edit/<int:cake_id>/', edit_cake, name='edit_cake'),
+    path('staff/cakes/delete/<int:cake_id>/', delete_cake, name='delete_cake'),
+    path('staff/statistics/', statistics_view, name='statistics'),
 ]

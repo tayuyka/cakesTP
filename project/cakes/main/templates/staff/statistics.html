@@ -1,0 +1,111 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="stats-container">
+<div class="statistics-grid">
+  <div>
+    <h3>Popular Additions</h3>
+    <canvas id="additionsChart"></canvas>
+  </div>
+
+  <div>
+    <h3>Popular Coverages</h3>
+    <canvas id="coveragesChart"></canvas>
+  </div>
+
+  <div>
+    <h3>Popular Toppings</h3>
+    <canvas id="toppingsChart"></canvas>
+  </div>
+</div>
+
+
+<h3>Средняя стоимость заказа: {{ avg_order_price }} ₽</h3>
+</div>
+<div class="stats-btn-container">
+<a href="{% url 'manage_cakes' %}" class="stats-button">Торты</a>
+<a href="{% url 'manage_orders' %}" class="stats-button">Заказы</a>
+    </div>
+{% endblock %}
+
+
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const additions = JSON.parse('{{ additions|safe }}');
+        const coverages = JSON.parse('{{ coverages|safe }}');
+        const toppings = JSON.parse('{{ toppings|safe }}');
+
+        // Additions chart
+        const additionsCtx = document.getElementById('additionsChart').getContext('2d');
+        new Chart(additionsCtx, {
+            type: 'bar',
+            data: {
+                labels: additions.map(item => item.cake_addition__ingridient),
+                datasets: [{
+                    label: 'Popularity',
+                    data: additions.map(item => item.count),
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Coverages chart
+        const coveragesCtx = document.getElementById('coveragesChart').getContext('2d');
+        new Chart(coveragesCtx, {
+            type: 'bar',
+            data: {
+                labels: coverages.map(item => item.cake_coverage__ingridient),
+                datasets: [{
+                    label: 'Popularity',
+                    data: coverages.map(item => item.count),
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Toppings chart
+        const toppingsCtx = document.getElementById('toppingsChart').getContext('2d');
+        new Chart(toppingsCtx, {
+            type: 'bar',
+            data: {
+                labels: toppings.map(item => item.cake_topping__ingridient),
+                datasets: [{
+                    label: 'Popularity',
+                    data: toppings.map(item => item.count),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

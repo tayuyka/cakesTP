@@ -8,6 +8,9 @@
 @import url('catalog.css');
 @import url('cart.css');
 @import url('cake_info.css');
+@import url('manage.css');
+@import url('statictics.css');
+@import url('manage_edit.css');
 
 :root {
   --hover-color: rgba(255, 255, 255, 0.4);; 
@@ -15,18 +18,10 @@
 }
 
 body {
-  /* background: rgb(243,215,202);
-background: -moz-linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,248,227,1) 50%, rgba(243,215,202,1) 77%);
-background: -webkit-linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,248,227,1) 50%, rgba(243,215,202,1) 77%);
-background: linear-gradient(119deg, rgba(243,215,202,1) 22%, rgba(255,248,227,1) 50%, rgba(243,215,202,1) 77%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endColorstr="#f3d7ca",GradientType=1); */
         background-color: #fff8e3;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-    /* height: 100vh;
-    background-attachment: fixed; */
-        
     }
     .container {
       background-color: #fff8e3;
@@ -70,7 +65,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
 
     .nav-button {
       font-family: Roboto Flex, sans-serif;
-      border-radius: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -85,7 +79,17 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
       background-color: #fff8e3;
      border-radius: 0px;
      color: #e6a4b4;
-}
+    }
+
+    .nav-button.manage{
+      background-color: #aae3dc;
+      color: black;
+    }
+
+    .nav-button.manage:hover{
+      color: #aae3dc;
+      background-color: black;
+    }
 
     @media (max-width: 991px) {
       .nav-item {
