@@ -1,6 +1,15 @@
 from django.urls import path
 from . import views
 from .views import *
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'cake-components', CakeViewSet, basename='cake-components')
+
+cake_list = CakeViewSet.as_view({
+    'get': 'list'
+})
 
 urlpatterns = [
     path('', home, name='home'),
@@ -27,4 +36,9 @@ urlpatterns = [
     path('staff/cakes/edit/<int:cake_id>/', edit_cake, name='edit_cake'),
     path('staff/cakes/delete/<int:cake_id>/', delete_cake, name='delete_cake'),
     path('staff/statistics/', statistics_view, name='statistics'),
+    path('api/cake/<int:pk>/', CakeDetailView.as_view(), name='cake-detail'),
+    path('api/cakes/', CakeViewSet.as_view({'get': 'list'}), name='cake-list'),
+    path('api/', include(router.urls)),
+    path('cart/add/', views.add_to_cart_from_constructor, name='add_to_cart_from_constructor'),
+
 ]

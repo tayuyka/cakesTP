@@ -3,6 +3,11 @@
 
 {% block title %}sweet creations{% endblock %}
 
+{% block script %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+{% endblock %}
+
+
 {% block content %}
 <div class="home-cake-container">
     <h2 class="section-title-slogan">СОЗДАЙТЕ СОБСТВЕННЫЙ ТОРТ</h2>
@@ -49,3 +54,10 @@
     <a href="{% url 'catalog' %}" class="cta-button">Посмотреть все</a>
 </section>
 {% endblock %}
+
+
+
+{% block extra_script %}
+    <script src="{% static 'main/js/main.js' %}"></script>
+{% endblock %}
+

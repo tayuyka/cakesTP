@@ -341,16 +341,17 @@
     }
 
     .cta-button {
-      border-radius: 20px;
+      border-radius: 10px;
       display: flex;
       background-color: #e6a4b4;
       color: #fff8e3;
       font: 900 24px Roboto Flex, sans-serif;
       padding: 10px 20px;
       text-decoration: dashed;
+      justify-content: center;
       max-height: 40px;
       transition: transform 0.3s ease, background-color 0.3s ease;
-
+      width: 255px;
     }
 
     .cta-button:hover{
