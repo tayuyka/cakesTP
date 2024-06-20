@@ -127,6 +127,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom User Model
 AUTH_USER_MODEL = 'main.User'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.com'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'sweetcr3ations@yandex.ru'
+EMAIL_HOST_PASSWORD = 'chnqtnegtsgjgnxe'
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMINS = EMAIL_HOST_USER
+
 LOGIN_URL = 'login_form'  # Обновите, если ваш URL для входа отличается
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
