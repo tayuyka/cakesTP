@@ -92,7 +92,6 @@ class CakeTopping(models.Model):
     cost_per_gram = models.IntegerField()
     density = models.IntegerField()
     primary_color = models.TextField()
-    secondary_color = models.TextField()
 
     class Meta:
         db_table = 'Cake_topping'
