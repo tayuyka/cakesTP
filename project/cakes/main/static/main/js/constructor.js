@@ -1083,7 +1083,7 @@ async updateTextFont() {
   updateLayerControls() {
     const layers = parseInt(this.numberOfLayers);
     const layerControlsDiv = document.getElementById('layer-controls');
-    const layerControlsDiv = document.getElementById('layer-controls');
+
             if (!layerControlsDiv) {
               console.error('Layer controls element not found.');
               return;
