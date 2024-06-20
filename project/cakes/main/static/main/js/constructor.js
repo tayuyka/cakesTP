@@ -430,7 +430,7 @@ delimiters: ['[[', ']]'],
             pointLight.position.set(10, 10, 10);
             this.scene.add(pointLight);
 
-            const layerHeight = (shape === 'сердце' || shape === 'звезда') ? 1.5 : 1;
+            const layerHeight = (shape === 'сердце' || shape === 'звезда') ? 1 : 1;    // ВЫСОТА УРОВНЯ
             const radii = shape === 'сердце' ? [3.5, 2.5, 1.5] : shape === 'звезда' ? [2.5, 2, 1.5] : [2, 1.5, 1];
 
             for (let i = 0; i < layers; i++) {
@@ -662,7 +662,7 @@ delimiters: ['[[', ']]'],
             if (quantity === 1) {
               const trinketClone = this.trinketModel.clone();
               const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true);
-              trinketGroup.position.set(0, layer.position.y + 0, 0);
+              trinketGroup.position.set(0, layer.position.y + 0.2, 0);
               this.scene.add(trinketGroup);
               this.trinkets.push(trinketGroup);
             } else {
@@ -688,7 +688,7 @@ delimiters: ['[[', ']]'],
               points.forEach(point => {
                 const trinketClone = this.trinketModel.clone();
                 const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false);
-                trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
+                trinketGroup.position.set(point.x, layer.position.y - 0.2, point.y);
                 this.scene.add(trinketGroup);
                 this.trinkets.push(trinketGroup);
               });
