@@ -73,35 +73,42 @@
       </div>
       </div>
 
+    <hr width="100%" size="3" color="#e6a4b4">
     <div class="text-column constrct">
       <input type="text" id="text-input" v-model="textContent" placeholder="Ваш текст..." class="text-input">
         <div class="text-row">
-                <div class="text-column1 constrct">
-                </div>
-            <button class="add-text-button" @click="addText" >Добавить</button>
-      <input class="color-input" type="color" id="text-color" v-model="textColor" @input="updateTextColor">
+
+      <input type="range" id="text-size" v-model="textSize" min="0.1" max="1.5" step="0.1" @input="updateTextSize" class="range" oninput="range()">
+
       <select id="font-select" v-model="currentFont" @change="updateFont">
         <option value="Miama">Miama</option>
         <option value="Per">Per</option>
         <option value="Shlapak">Shlapak</option>
       </select>
-</div>
-              <input type="range" id="text-size" v-model="textSize" min="0.1" max="1.5" step="0.1" @input="updateTextSize" class="range" oninput="range()">
+        </div>
+        <div class="text-row">
+            <button class="add-text-button" @click="addText" >Добавить</button>
+            <button class="add-text-button" @click="removeText">Удалить</button>
+            <input class="color-input" type="color" id="text-color" v-model="textColor" @input="updateTextColor">
+            </div>
 
           </div>
-      
-
-      <button @click="saveScreenshot">Save Screenshot</button>
-
+      <div class="const-column">
+      <div class="params-title img">Ваше изображение</div>
       <div class="file-input-container">
-      <label class="add-text-button"  for="image-upload">Ваше изображение</label>
+      <label class="add-img-button"  for="image-upload">Загрузить</label>
       <input type="file" id="image-upload" @change="uploadImage" accept="image/*">
-	      <button @click="removeImage">Убрать картинку</button>
-      <button @click="removeText">Убрать текст</button>
-      </div>
+	      <button class="add-img-button remove" @click="removeImage">Удалить</button>
 
-      <button class="add-text-button" @click="saveScreenshot">Save Screenshot</button>
+      </div>
+          </div>
+
+<!--      <button class="add-text-button" @click="saveScreenshot">Save Screenshot</button>-->
+          <hr width="100%" size="3" color="#e6a4b4">
+
     <div class="cake-info">
+                <div class="params-title">О торте</div>
+
         <p>Диаметр слоев (см): </p>
         <p>Масса (г): </p>
         <p>Цена (₽): </p>

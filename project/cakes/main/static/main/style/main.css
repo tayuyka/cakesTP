@@ -27,7 +27,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
         justify-content: space-between;
     /* height: 100vh;
     background-attachment: fixed; */
-        
     }
     .container {
       background-color: #fff8e3;
@@ -49,7 +48,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f3d7ca",endCo
       display: flex;
       gap: 20px;
       font-size: 18px;
-      color: #f3d7ca;
+      color: #fff8e3;
       font-weight: 400;
       white-space: nowrap;
       padding: 0 0 0 0;

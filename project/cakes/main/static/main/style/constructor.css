@@ -5,6 +5,7 @@
 .left-panel{
     display: flex;
     flex-direction: column;
+    min-width: 20%;
   }
 
   .invisible{
@@ -28,6 +29,20 @@
 
   #threejs-container {
     max-height: 90%;
+  }
+
+  .params-title{
+    font: 900 24px Roboto Flex, sans-serif;
+  }
+
+  .params-title.img{
+    font: 900 18px Roboto Flex, sans-serif;
+  }
+
+  .const-column{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   
   
@@ -62,7 +77,7 @@
   .left-panel,
   .right-panel {  
     background-color: #FFECD4;
-    padding: 20px 20px 0 20px;
+    padding: 20px;
     border-radius: 8px;
   }
   
@@ -82,13 +97,7 @@
   max-height: 200px;
   }
   
-  .layer-select,
-  .select-group,
-  .text-group,
-  .image-group,
-  .comment-group {
-    margin-bottom: 10px;
-  }
+
   
   .text-group {
     display: flex;
@@ -142,21 +151,21 @@
   .cake-info{
     display: flex;
     flex-direction: column;
-    max-height: 10%;
+    max-height: 20%;
     gap: 0px;
   }
   
   .cake-info p {
     margin: 0px 0;
   }
+
   
   .save-button {
-    border-radius: 20px;
+    border-radius: 10px;
     background-blend-mode: soft-light;
     background-color: #e6a4b4;
     border: 0px solid rgba(0, 0, 0, 1);
     align-self: end;
-    margin: 20px 0;
     color: #fff8e3;
     white-space: nowrap;
     justify-content: center;
@@ -220,7 +229,7 @@
   }
 
   .add-text-button{
-        border-radius: 10px;
+        border-radius: 5px;
         background-blend-mode: soft-light;
         background-color: #e6a4b4;
         border: 0px solid rgba(0, 0, 0, 1);
@@ -234,6 +243,30 @@
     
     .add-text-button:hover{
           transform: scale(1.05);
+
+  }
+
+  .add-img-button{
+    border-radius: 5px;
+        background-blend-mode: soft-light;
+        background-color: #e6a4b4;
+        border: 0px solid rgba(0, 0, 0, 1);
+        color: #fff8e3;
+        white-space: nowrap;
+        justify-content: center;
+        padding: 5px 10px;
+        font: 900 18px Roboto Flex, sans-serif;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        
+    }
+    
+    .add-img-button:hover{
+          transform: scale(1.05);
+
+  }
+
+  .add-img-button.remove{
+    font: 900 18px Roboto Flex, sans-serif;
 
   }
 
@@ -402,7 +435,7 @@
     cursor: pointer;
   }
   
-  .file-input-container label {
+  /* .file-input-container label {
     display: inline-block;
     background-color: #e6a4b4;
     color: #fff8e3;
@@ -418,7 +451,7 @@
   .select-group {
     margin-bottom: 0px;
   }
-  
+   */
   .range{
       -webkit-appearance: none;
       margin-top: 10px;
