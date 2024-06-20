@@ -44,6 +44,16 @@
         <option v-for="shape in shapes" :key="shape.shape" :value="shape.shape">[[ shape.shape ]]</option>
       </select>
         </div>
+
+        <div class="select-group constrct">
+        <select v-model="currentSize" placeholder="Выберите размер:">
+          <option disabled selected>Размер...</option>
+          <option v-for="size in sizes" :key="size.type" :value="size.type">[[ size.type ]] ([[ size.base_area ]])</option>
+        </select>
+      </div>
+         </div>
+
+        <div class="params-row">
 <div class="select-group constrct">
       <select id="topping" v-model="currentTopping" @change="updateTopping">
         <option value="none" disabled selected>Топпинг...</option>
@@ -51,9 +61,9 @@
       </select>
 
       </div>
-      </div>
 
-       <div class="params-row">
+
+
           <div class="select-group constrct">
 
       <select id="cover" v-model="currentCover" @change="updateCover">
@@ -61,16 +71,27 @@
         <option v-for="cover in covers" :key="cover.ingridient" :value="cover.ingridient">[[ cover.ingridient ]]</option>
       </select>
             </div>
-
+            </div>
+<div class="params-row">
           <div class="select-group constrct">
 
-      <select id="trinket" v-model="currentTrinket" @change="updateTrinket">
-        <option value="none" disabled selected>Дополнительно...</option>
-        <option v-for="trinket in decorations" :key="trinket.ingridient" :value="trinket.ingridient">[[ trinket.ingridient ]]</option>
-      </select>
-
+      <select id="center-decoration" v-model="currentCenterTrinket" @change="updateCenterTrinket">
+        <option value="none" disabled selected>В центре...</option>
+        <option v-for="decoration in centerDecorations" :key="decoration.ingridient" :value="decoration.ingridient">[[ decoration.ingridient ]]</option>
+    </select>
             </div>
+
+
+
+<div class="select-group constrct">
+        <select id="perimeter-decoration" v-model="currentPerimeterTrinket" @change="updatePerimeterTrinket">
+        <option value="none" disabled selected>По краю...</option>
+        <option v-for="decoration in perimeterDecorations" :key="decoration.ingridient" :value="decoration.ingridient">[[ decoration.ingridient ]]</option>
+    </select>
       </div>
+    </div>
+
+
       </div>
 
     <hr width="100%" size="3" color="#e6a4b4">
@@ -105,6 +126,8 @@
 
 <!--      <button class="add-text-button" @click="saveScreenshot">Save Screenshot</button>-->
           <hr width="100%" size="3" color="#e6a4b4">
+
+
 
     <div class="cake-info">
                 <div class="params-title">О торте</div>
