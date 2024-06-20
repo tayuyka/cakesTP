@@ -9,6 +9,8 @@
 @import url('cart.css');
 @import url('cake_info.css');
 @import url('manage.css');
+@import url('statictics.css');
+@import url('manage_edit.css');
 
 :root {
   --hover-color: rgba(255, 255, 255, 0.4);; 

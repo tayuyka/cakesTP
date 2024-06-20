@@ -2,20 +2,35 @@
 {% load static %}
 
 {% block content %}
-<h2>Statistics</h2>
+<div class="stats-container">
+<div class="statistics-grid">
+  <div>
+    <h3>Popular Additions</h3>
+    <canvas id="additionsChart"></canvas>
+  </div>
 
-<h3>Popular Additions</h3>
-<canvas id="additionsChart"></canvas>
+  <div>
+    <h3>Popular Coverages</h3>
+    <canvas id="coveragesChart"></canvas>
+  </div>
 
-<h3>Popular Coverages</h3>
-<canvas id="coveragesChart"></canvas>
+  <div>
+    <h3>Popular Toppings</h3>
+    <canvas id="toppingsChart"></canvas>
+  </div>
+</div>
 
-<h3>Popular Toppings</h3>
-<canvas id="toppingsChart"></canvas>
 
-<h3>Average Order Price</h3>
-<p>{{ avg_order_price }}</p>
+<h3>Средняя стоимость заказа: {{ avg_order_price }} ₽</h3>
+</div>
+<div class="stats-btn-container">
+<a href="{% url 'manage_cakes' %}" class="stats-button">Торты</a>
+<a href="{% url 'manage_orders' %}" class="stats-button">Заказы</a>
+    </div>
+{% endblock %}
 
+
+{% block extra_script %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

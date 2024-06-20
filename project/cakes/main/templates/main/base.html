@@ -17,9 +17,7 @@
           <a href="{% url 'home' %}" class="main-logo"><img src="{% static 'main/img/main_logo.png' %}" alt="" class="main-logo-sw" /></a>
 
           {% if user.is_authenticated and user.is_staff %}
-        <a href="{% url 'manage_cakes' %}" class="nav-button manage">Manage Cakes</a>
-        <a href="{% url 'manage_orders' %}" class="nav-button manage">Manage Orders</a>
-        <a href="{% url 'statistics' %}" class="nav-button manage">statistics</a>
+        <a href="{% url 'statistics' %}" class="nav-button manage">Менеджмент</a>
     {% endif %}
          <a href="{% url 'catalog' %}" class="nav-button">Каталог</a>
          <a href="{% url 'constructor' %}" class="nav-button">Создать</a>
