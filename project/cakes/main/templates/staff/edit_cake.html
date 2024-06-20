@@ -2,53 +2,110 @@
 {% load static %}
 
 {% block content %}
-<h2>Edit Cake</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="{{ cake.name }}"><br>
-    <label for="weight">Weight:</label>
-    <input type="text" id="weight" name="weight" value="{{ cake.weight }}"><br>
-    <label for="cost">Cost:</label>
-    <input type="text" id="cost" name="cost" value="{{ cake.cost }}"><br>
-    <label for="layers_count">Layers Count:</label>
-    <input type="text" id="layers_count" name="layers_count" value="{{ cake.layers_count }}"><br>
-    <label for="text">Text:</label>
-    <textarea id="text" name="text">{{ cake.text }}</textarea><br>
-    <label for="constructor_image">Constructor Image:</label>
-    <input type="text" id="constructor_image" name="constructor_image" value="{{ cake.constructor_image }}"><br>
-    <label for="preview_image">Preview Image:</label>
-    <input type="text" id="preview_image" name="preview_image" value="{{ cake.preview_image }}"><br>
-    <label for="cake_size">Cake Size:</label>
-    <select id="cake_size" name="cake_size">
-        {% for size in cake_sizes %}
-            <option value="{{ size.id }}" {% if size.id == cake.cake_size_id %}selected{% endif %}>{{ size }}</option>
-        {% endfor %}
-    </select><br>
-    <label for="cake_shape">Cake Shape:</label>
-    <select id="cake_shape" name="cake_shape">
-        {% for shape in cake_shapes %}
-            <option value="{{ shape.id }}" {% if shape.id == cake.cake_shape_id %}selected{% endif %}>{{ shape }}</option>
-        {% endfor %}
-    </select><br>
-    <label for="cake_coverage">Cake Coverage:</label>
-    <select id="cake_coverage" name="cake_coverage">
-        {% for coverage in cake_coverages %}
-            <option value="{{ coverage.id }}" {% if coverage.id == cake.cake_coverage_id %}selected{% endif %}>{{ coverage }}</option>
-        {% endfor %}
-    </select><br>
-    <label for="cake_topping">Cake Topping:</label>
-    <select id="cake_topping" name="cake_topping">
-        {% for topping in cake_toppings %}
-            <option value="{{ topping.id }}" {% if topping.id == cake.cake_topping_id %}selected{% endif %}>{{ topping }}</option>
-        {% endfor %}
-    </select><br>
-    <label for="cake_addition">Cake Addition:</label>
-    <select id="cake_addition" name="cake_addition">
-        {% for addition in cake_additions %}
-            <option value="{{ addition.id }}" {% if addition.id == cake.cake_addition_id %}selected{% endif %}>{{ addition }}</option>
-        {% endfor %}
-    </select><br>
-    <button type="submit">Save Changes</button>
+<form method="post" class="edit-cake-form">
+    <h2 class="edit-heading">Редактирование торта</h2>
+
+
+    <div class="labels-between1">
+    <label for="Name" class="atributes-label">Наименование:</label>
+    <label for="weight" class="atributes-label">Вес:</label>
+    </div>
+
+
+    <div class="input-between">
+    <input type="text" id="name" name="name" value="{{ cake.name }}" class ="input-field">
+    <br>
+    <input type="text" id="weight" name="weight" value="{{ cake.weight }}" class ="input-field">
+    <br>
+    </div>
+
+    <br>
+
+    <div class="labels-between2">
+    <label for="cost" class="atributes-label">Цена:</label>
+    <label for="layers_count" class="atributes-label">Количество слоёв:</label>
+    </div>
+
+
+    <div class="input-between">
+    <input type="text" id="cost" name="cost" value="{{ cake.cost }}" class ="input-field">
+    <br>
+    <input type="text" id="layers_count" name="layers_count" value="{{ cake.layers_count }}" class ="input-field">
+    <br>
+    </div>
+
+    <br>
+
+    <div class="labels-between3">
+    <label for="constructor_image" class="atributes-label">Фотография пользователя:</label>
+    <label for="preview_image" class="atributes-label">Предварительный просмотр:</label>
+    </div>
+
+     <div class="input-between">
+    <input type="text" id="constructor_image" name="constructor_image" value="{{ cake.constructor_image }}" class ="input-field">
+    <br>
+     <input type="text" id="preview_image" name="preview_image" value="{{ cake.preview_image }}" class ="input-field">
+    <br>
+    </div>
+
+    <br>
+
+    <label for="text" class="atributes-label">Текст на торте:</label>
+    <textarea id="text" name="text" class ="input-field">{{ cake.text }}</textarea>
+    <br>
+
+
+
+    <div class="form-container">
+        <div class="form-group">
+            <label for="cake_size" class="atributes-label">Размер торта:</label>
+            <select id="cake_size" name="cake_size" class="select-layers">
+                {% for size in cake_sizes %}
+                    <option value="{{ size.id }}" {% if size.id == cake.cake_size_id %}selected{% endif %}>{{ size }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cake_shape" class="atributes-label">Фигура торта:</label>
+            <select id="cake_shape" name="cake_shape" class="select-layers">
+                {% for shape in cake_shapes %}
+                    <option value="{{ shape.id }}" {% if shape.id == cake.cake_shape_id %}selected{% endif %}>{{ shape }}</option>
+                {% endfor %}
+            </select>
+
+
+        <div class="form-group">
+            <label for="cake_coverage" class="atributes-label">Покрытие торта:</label>
+            <select id="cake_coverage" name="cake_coverage" class="select-layers">
+                {% for coverage in cake_coverages %}
+                    <option value="{{ coverage.id }}" {% if coverage.id == cake.cake_coverage_id %}selected{% endif %}>{{ coverage }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cake_topping" class="atributes-label">Топпинг торта:</label>
+            <select id="cake_topping" name="cake_topping" class="select-layers">
+                {% for topping in cake_toppings %}
+                    <option value="{{ topping.id }}" {% if topping.id == cake.cake_topping_id %}selected{% endif %}>{{ topping }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cake_addition" class="atributes-label">Добавки к торту:</label>
+            <select id="cake_addition" name="cake_addition" class="select-layers">
+                {% for addition in cake_additions %}
+                    <option value="{{ addition.id }}" {% if addition.id == cake.cake_addition_id %}selected{% endif %}>{{ addition }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="save-changes-button">Сохранить изменения</button>
+
+        </div>
 </form>
+
 {% endblock %}
