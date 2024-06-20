@@ -18,7 +18,7 @@ delimiters: ['[[', ']]'],
           currentTopping: 'none',
           currentCover: 'none',
           currentShape: 'круглый',
-          currentTrinket: 'none', // добавлено
+          currentTrinket: 'none',
           currentFont: 'Miama',
           cakeLayers: [],
           cakeCovers: [],
@@ -32,7 +32,7 @@ delimiters: ['[[', ']]'],
           imageObject: null,
           textObject: null,
           textContent: '',
-          textSize: 0.5,
+          textSize: 0.4,
           textColor: '#000000',
           textOutlineColor: '#ffffff',
           initialTrinketScale: null,
@@ -177,15 +177,15 @@ delimiters: ['[[', ']]'],
   },
           initScene() {
             this.scene = new THREE.Scene();
-            this.scene.background = new THREE.Color(0xffffff);
+            this.scene.background = new THREE.Color(0xfff8e3);
           },
           initCamera() {
-            this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            this.camera.position.set(0, 5, 10);
+            this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight * 0.5, 0.1, 1000);
+            this.camera.position.set(0, 5, 5);
           },
           initRenderer() {
             this.renderer = new THREE.WebGLRenderer({ alpha: true });
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            this.renderer.setSize(window.innerWidth , window.innerHeight * 0.91);
             document.getElementById('threejs-container').appendChild(this.renderer.domElement);
           },
           initLights() {
@@ -738,8 +738,8 @@ delimiters: ['[[', ']]'],
         if (isGLTF) {
           this.loadGLTFModel(modelPath, loadModelCallback);
         } else if (isOBJ) {
-          this.loadOBJModel(modelPath, (obj) => {
-            textureLoader.load(trinketData.texture_side_path, (texture) => {
+          this.loadOBJModel(trinketData.texture_top_path, (obj) => {
+             this.loadOBJModel(modelPath, (obj) => {
               obj.traverse((child) => {
                 if (child.isMesh) {
                   child.material.map = texture;
@@ -867,7 +867,14 @@ delimiters: ['[[', ']]'],
             };
           },
           addImageToCake(texture, position = null, rotation = null) {
+
     this.removeImage();  // Удаляем старую картинку перед добавлением новой
+
+//             const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+//             const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+//             const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+//             const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
+//             const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
     nextTick(() => {
       const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
@@ -887,8 +894,20 @@ delimiters: ['[[', ']]'],
       plane.position.set(0, topLayer.position.y + 0.55 + toppingOffset + additionalOffset, 0);
       plane.rotation.x = -Math.PI / 2;
 
+
       if (position) plane.position.copy(position);
       if (rotation) plane.rotation.copy(rotation);
+
+//             this.imageObject = plane;
+//             this.updateHandlesVisibility();
+//           },
+//           addTextToCake(text, position = null, rotation = null) {
+//   if (this.textObject) {
+//     this.scene.remove(this.textObject);
+//     this.objectsToDrag = this.objectsToDrag.filter(obj => obj !== this.textObject);
+//     this.textObject = null;
+//   }
+
 
       this.scene.add(plane);
       this.objectsToDrag.push(plane);
@@ -1035,42 +1054,107 @@ async updateTextFont() {
 
   this.updateHandlesVisibility();
 },
-          updateLayerControls() {
-            const layers = parseInt(this.numberOfLayers);
-            const layerControlsDiv = document.getElementById('layer-controls');
+
+
+          adjustPositionAfterDrag(object) {
+            const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+            const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+            const radius = this.getShapeRadius(topLayer);
+            const pos = object.position;
+            const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
+            if (distance > radius) {
+              object.position.set(0, topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset, 0);
+            } else {
+              object.position.y = topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset;
+            }
+            this.updateHandlesVisibility();
+          },
+          addLayer() {
+    this.numberOfLayers++;
+    this.updateLayerControls();
+  },
+
+  removeLayer() {
+    this.numberOfLayers--;
+    this.updateLayerControls();
+  },
+
+  updateLayerControls() {
+    const layers = parseInt(this.numberOfLayers);
+    const layerControlsDiv = document.getElementById('layer-controls');
+    const layerControlsDiv = document.getElementById('layer-controls');
             if (!layerControlsDiv) {
               console.error('Layer controls element not found.');
               return;
             }
-            layerControlsDiv.innerHTML = '';
+    layerControlsDiv.innerHTML = '';
 
-            for (let i = 1; i <= layers; i++) {
-              const baseLabel = document.createElement('label');
-              baseLabel.textContent = `Base ${i}:`;
-              const baseSelect = document.createElement('select');
-              baseSelect.id = `base${i}`;
-              baseSelect.innerHTML = this.bases.map(base => `<option value="${base.primary_color}">${base.ingridient}</option>`).join('');
+    for (let i = 1; i <= this.numberOfLayers; i++) {
+//      const layerDivCont = document.createElement('div');
+      const layerDiv = document.createElement('div');
+      const layerHeader = document.createElement('div');
 
-              const fillingLabel = document.createElement('label');
-              fillingLabel.textContent = `Filling ${i}:`;
-              const fillingSelect = document.createElement('select');
-              fillingSelect.id = `filling${i}`;
-              fillingSelect.innerHTML = this.fillings.map(filling => `<option value="${filling.primary_color}">${filling.ingridient}</option>`).join('');
+        layerDiv.className = 'layer-select';
+        layerHeader.className = 'layer-header';
 
-              baseSelect.addEventListener('change', this.updateCake);
-              fillingSelect.addEventListener('change', this.updateCake);
+        const addLayerButton = document.createElement('button');
+        addLayerButton.type = 'button';
+        addLayerButton.textContent = '+';
+        addLayerButton.className = 'add-button';
+        addLayerButton.addEventListener('click', this.addLayer);
 
-              layerControlsDiv.appendChild(baseLabel);
-              layerControlsDiv.appendChild(baseSelect);
-              layerControlsDiv.appendChild(document.createElement('br'));
-              layerControlsDiv.appendChild(fillingLabel);
-              layerControlsDiv.appendChild(fillingSelect);
-              layerControlsDiv.appendChild(document.createElement('br'));
-              layerControlsDiv.appendChild(document.createElement('br'));
-            }
+        const removeLayerButton = document.createElement('button');
+        removeLayerButton.type = 'button';
+        removeLayerButton.textContent = '-';
+        removeLayerButton.className = 'remove-button';
+        removeLayerButton.addEventListener('click', this.removeLayer);
 
-            this.updateCake();
-          },
+        const layerLabel = document.createElement('label');
+        layerLabel.textContent = `Cлой ${i}`;
+        const baseSelect = document.createElement('select');
+        const basePlaceholderOption = document.createElement('option');
+        basePlaceholderOption.value = '';
+        basePlaceholderOption.disabled = true;
+        basePlaceholderOption.textContent = 'Выберите начинку';
+        baseSelect.appendChild(basePlaceholderOption);
+        baseSelect.id = `base${i}`;
+        baseSelect.innerHTML = this.bases.map(base => `<option value="${base.primary_color}" placeholder="Выберите начинку">${base.ingridient}</option>`).join('');
+
+
+        const fillingSelect = document.createElement('select');
+        fillingSelect.id = `filling${i}`;
+        fillingSelect.innerHTML = this.fillings.map(filling => `<option value="${filling.primary_color}">${filling.ingridient}</option>`).join('');
+
+        baseSelect.addEventListener('change', this.updateCake);
+        fillingSelect.addEventListener('change', this.updateCake);
+
+
+        layerHeader.appendChild(layerLabel);
+
+        if (this.numberOfLayers > 1 && i != 1) {
+          layerHeader.appendChild(removeLayerButton);
+        }
+
+        layerDiv.appendChild(layerHeader);
+        layerDiv.appendChild(baseSelect);
+
+
+        layerDiv.appendChild(fillingSelect);
+
+        layerControlsDiv.appendChild(layerDiv);
+        if (this.numberOfLayers < 3) {
+            if (i == 1 && this.numberOfLayers != 2){
+           layerControlsDiv.appendChild(addLayerButton);
+          }
+          if (i == 2){
+          layerControlsDiv.appendChild(addLayerButton);
+          }
+        }
+       }
+
+    this.updateCake();
+  },
           updateCake() {
         const layers = parseInt(this.numberOfLayers);
 
@@ -1202,6 +1286,7 @@ async updateTextFont() {
           addText() {
             this.addTextToCake(this.textContent);
           },
+
 async updateTextSize() {
     if (this.textObject) {
       await this.removeText(); // Удаляем старый текст
@@ -1214,6 +1299,7 @@ async updateTextSize() {
       await this.addTextToCake(this.textContent); // Добавляем новый текст с новым цветом
     }
   },
+
           uploadTrinket(event) {
             const file = event.target.files[0];
             const decoration = this.decorations.find(d => d.ingridient === this.currentDecoration);

@@ -10,69 +10,115 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/OBJLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/TGALoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/FontLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/geometries/TextGeometry.js"></script>{% endblock %}
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/geometries/TextGeometry.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
 {% block title %}sweet creations{% endblock %}
 
 {% block content %}
+<script>
+  function range(){
+    var val = $( '#text-size' ).val();
+    var perc = (val - 0.1) / (1.5 - 0.1) * 100;
+    $( '#text-size' ).css({ 'background': '-webkit-linear-gradient(left, #e6a4b4 0%, #e6a4b4 ' + perc + '%, #fff8e3 ' + perc + '%, #fff8e3 100%)' });
+  }
+</script>
 <div id="constructor" class="cake-builder">
+  <form @submit.prevent="saveAsImage" class="left-panel constrct">
     <div id="controls">
-      <label for="layers">Number of layers:</label>
-      <select id="layers" v-model="numberOfLayers" @change="updateLayerControls">
-        <option v-for="n in [1, 2, 3]" :key="n" :value="n">[[ n ]]</option>
-      </select>
       <div id="layer-controls"></div>
+      </div>
+  </form>
 
-      <label for="shape">Shape:</label>
+<div class="visualization">
+  <div id="threejs-container"></div>
+</div>
+
+  <div class="right-panel">
+    <div class="params">
+    <div class="params-row">
+      <div class="select-group constrct">
       <select id="shape" v-model="currentShape" @change="updateShape">
+          <option disabled selected>Форма...</option>
         <option v-for="shape in shapes" :key="shape.shape" :value="shape.shape">[[ shape.shape ]]</option>
       </select>
-
-      <label for="topping">Topping: </label>
+        </div>
+<div class="select-group constrct">
       <select id="topping" v-model="currentTopping" @change="updateTopping">
-        <option value="none">None</option>
+        <option value="none" disabled selected>Топпинг...</option>
         <option v-for="topping in toppings" :key="topping.ingridient" :value="topping.ingridient">[[ topping.ingridient ]]</option>
       </select>
 
-      <label for="cover">Cover:</label>
+      </div>
+      </div>
+
+       <div class="params-row">
+          <div class="select-group constrct">
+
       <select id="cover" v-model="currentCover" @change="updateCover">
-        <option value="none">None</option>
+        <option value="none" disabled selected>Покрытие...</option>
         <option v-for="cover in covers" :key="cover.ingridient" :value="cover.ingridient">[[ cover.ingridient ]]</option>
       </select>
+            </div>
 
-      <label for="trinket">Trinket:</label>
+          <div class="select-group constrct">
+
       <select id="trinket" v-model="currentTrinket" @change="updateTrinket">
-        <option value="none">None</option>
+        <option value="none" disabled selected>Дополнительно...</option>
         <option v-for="trinket in decorations" :key="trinket.ingridient" :value="trinket.ingridient">[[ trinket.ingridient ]]</option>
       </select>
 
-      <label for="image-upload">Upload Image:</label>
-      <input type="file" id="image-upload" @change="uploadImage" accept="image/*">
+            </div>
+      </div>
+      </div>
 
-      <label for="text-input">Add Text:</label>
-      <input type="text" id="text-input" v-model="textContent">
-      <button @click="addText">Add Text</button>
-
-      <label for="text-size">Text Size:</label>
-      <input type="range" id="text-size" v-model="textSize" min="0.1" max="1.5" step="0.1" @input="updateTextSize">
-
-      <label for="text-color">Text Color:</label>
-      <input type="color" id="text-color" v-model="textColor" @input="updateTextColor">
-      <label for="font-select">Font:</label>
+    <div class="text-column constrct">
+      <input type="text" id="text-input" v-model="textContent" placeholder="Ваш текст..." class="text-input">
+        <div class="text-row">
+                <div class="text-column1 constrct">
+                </div>
+            <button class="add-text-button" @click="addText" >Добавить</button>
+      <input class="color-input" type="color" id="text-color" v-model="textColor" @input="updateTextColor">
       <select id="font-select" v-model="currentFont" @change="updateFont">
         <option value="Miama">Miama</option>
         <option value="Per">Per</option>
         <option value="Shlapak">Shlapak</option>
       </select>
+</div>
+              <input type="range" id="text-size" v-model="textSize" min="0.1" max="1.5" step="0.1" @input="updateTextSize" class="range" oninput="range()">
 
-      <button @click="removeImage">Убрать картинку</button>
-      <button @click="removeText">Убрать текст</button>
+          </div>
+      
 
       <button @click="saveScreenshot">Save Screenshot</button>
+
+      <div class="file-input-container">
+      <label class="add-text-button"  for="image-upload">Ваше изображение</label>
+      <input type="file" id="image-upload" @change="uploadImage" accept="image/*">
+	      <button @click="removeImage">Убрать картинку</button>
+      <button @click="removeText">Убрать текст</button>
+      </div>
+
+      <button class="add-text-button" @click="saveScreenshot">Save Screenshot</button>
+    <div class="cake-info">
+        <p>Диаметр слоев (см): </p>
+        <p>Масса (г): </p>
+        <p>Цена (₽): </p>
+      </div>
+      <button type="submit" class="save-button">В корзину</button>
+
     </div>
-    <div id="threejs-container"></div>
   </div>
+
 {% endblock %}
 
 {% block extra_script %}
   <script src="{% static 'main/js/constructor.js' %}"></script>
+<script>
+    $(document).ready(function() {
+      $('footer').hide();
+      $('.content').css('padding-bottom', '0');
+    });
+  </script>
 {% endblock %}
