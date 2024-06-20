@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
@@ -13,6 +12,44 @@ import json
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
+from collections import Counter
+
+
+def get_recommendations(user):
+    if user.is_authenticated:
+        user_orders = Order.objects.filter(user=user)
+        if user_orders.exists():
+            # Получаем все торты, которые пользователь заказывал
+            ordered_cakes = OrderContent.objects.filter(order__in=user_orders).values_list('cake', flat=True)
+            cakes = Cake.objects.filter(pk__in=ordered_cakes)
+
+            # Собираем параметры заказанных тортов
+            layer_counts = cakes.values_list('layers_count', flat=True)
+            sizes = cakes.values_list('cake_size__type', flat=True)
+            shapes = cakes.values_list('cake_shape__shape', flat=True)
+            toppings = cakes.values_list('cake_topping__ingridient', flat=True)
+            coverages = cakes.values_list('cake_coverage__ingridient', flat=True)
+
+            # Считаем наиболее часто встречающиеся параметры
+            most_common_layer_count = Counter(layer_counts).most_common(1)[0][0]
+            most_common_size = Counter(sizes).most_common(1)[0][0]
+            most_common_shape = Counter(shapes).most_common(1)[0][0]
+            most_common_topping = Counter(toppings).most_common(1)[0][0]
+            most_common_coverage = Counter(coverages).most_common(1)[0][0]
+
+            # Получаем рекомендации на основе наиболее часто встречающихся параметров
+            recommended_cakes = set()
+            recommended_cakes.update(Cake.objects.filter(layers_count=most_common_layer_count)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_size__type=most_common_size)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_shape__shape=most_common_shape)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_topping__ingridient=most_common_topping)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_coverage__ingridient=most_common_coverage)[:5])
+
+            # Ограничиваем количество рекомендаций до 5 и удаляем дубликаты
+            return list(recommended_cakes)[:5]
+
+    # Если пользователь не авторизован или у него нет заказов, возвращаем любые 5 тортов
+    return list(Cake.objects.all()[:5])
 
 
 def recovery_form(request):
@@ -64,27 +101,27 @@ def reset_password(request):
 
 
 def add_to_cart(request, cake_id):
-    cart_in = request.session.get('cart_in', {})
-    if str(cake_id) in cart_in:
-        cart_in[str(cake_id)] += 1
+    cart = request.session.get('cart', {})
+    if str(cake_id) in cart:
+        cart[str(cake_id)] += 1
     else:
-        cart_in[str(cake_id)] = 1
-    request.session['cart_in'] = cart_in
+        cart[str(cake_id)] = 1
+    request.session['cart'] = cart
     messages.success(request, 'Торт добавлен в корзину.')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def remove_from_cart(request, cake_id):
-    cart_in = request.session.get('cart', {})
+    cart = request.session.get('cart', {})
     action = request.GET.get('action', 'remove')
-    if str(cake_id) in cart_in:
+    if str(cake_id) in cart:
         if action == 'decrease':
-            cart_in[str(cake_id)] -= 1
-            if cart_in[str(cake_id)] == 0:
-                del cart_in[str(cake_id)]
+            cart[str(cake_id)] -= 1
+            if cart[str(cake_id)] == 0:
+                del cart[str(cake_id)]
         else:
-            del cart_in[str(cake_id)]
-    request.session['cart'] = cart_in
+            del cart[str(cake_id)]
+    request.session['cart'] = cart
     messages.success(request, 'Торт удален из корзины.')
     return redirect('cart')
 
@@ -112,7 +149,8 @@ def cart(request):
 
 
 def home(request):
-    return render(request, 'main/home.html')
+    recommended_cakes = get_recommendations(request.user)
+    return render(request, 'main/home.html', {'recommended_cakes': recommended_cakes})
 
 
 def cake_info(request, cake_id):
@@ -209,7 +247,6 @@ def catalog(request):
     })
 
 
-
 def order_form(request):
     if request.method == 'POST':
         first_name = request.POST['firstName']
@@ -294,6 +331,8 @@ def constructor(request):
 
 def staff_required(user):
     return user.is_staff
+
+
 @login_required
 @user_passes_test(staff_required)
 def manage_cakes(request):
@@ -389,6 +428,7 @@ def edit_cake(request, cake_id):
         'cake_additions': cake_additions,
     })
 
+
 @login_required
 @user_passes_test(staff_required)
 def delete_cake(request, cake_id):
@@ -398,12 +438,14 @@ def delete_cake(request, cake_id):
         return redirect('manage_cakes')
     return render(request, 'staff/confirm_delete.html', {'cake': cake})
 
+
 @login_required
 @user_passes_test(staff_required)
 def delete_order(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     order.delete()
     return redirect('manage_orders')
+
 
 @login_required
 @user_passes_test(staff_required)
