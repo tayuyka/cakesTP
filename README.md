@@ -15,7 +15,9 @@
 # Документация:
 [Техническое задание](ТЗ)
 
-[Курсовой проект](Прочее/Kursovoy_Proekt.docx)
+[Курсовой проект](Прочее/Курсовая_работа.pdf)
+
+[Презентация к защите](Прочее/ПрезентацияТП.защита.pptx)
 
 [Сопроводительное письмо](https://clck.ru/39QxaJ)
 
@@ -23,6 +25,22 @@
 
 [Презентации](Прочее)
 
-[Видео-презентация](https://www.youtube.com/watch?v=kaZGSEjs9Tw&ab_channel=LakeRunner)
+# Видео:
+[Обзор проекта](https://www.youtube.com/watch?v=hVsSnD4oxSU&ab_channel=plaxar)
+
+[Видео по беку](https://www.youtube.com/watch?v=ElVZ3PgVwcY&ab_channel=LakeRunner)
+
+[Видео по фронту](https://www.youtube.com/watch?v=cVvdpPO7uAE&ab_channel=plaxa)
+
+[Видео-презентация №1](https://www.youtube.com/watch?v=kaZGSEjs9Tw&ab_channel=LakeRunner)
 
 [Видео-презентация №2](https://youtu.be/iP0_Ti23WqM)
+
+# Данные для приложения:
+**Администратор:**
+- Почта: lol@gmail.com
+- Пароль: 1337
+
+**Клиент с заказами:**
+- Почта: popckov.deniz@yandex.ru
+- Пароль: aboba
