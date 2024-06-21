@@ -374,17 +374,15 @@ def edit_order(request, order_id):
 
 
 def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, cake_layers):
-    # Define the standard volumes for each component in cubic centimeters
-    Vc = cake_size.base_area  # Adjusted to use base area directly
+
+    Vc = cake_size.base_area
     Vt = Vc * 0.1
     Vl = Vc * 0.5
     Vb = Vc * 0.05
 
-    # Define the densities in grams per cubic centimeter
-    pc = float(cake_coverage.density) / 1000  # Convert density from grams per cubic centimeter to grams per cubic meter
+    pc = float(cake_coverage.density) / 1000
     pt = float(cake_topping.density) / 1000
 
-    # Calculate the masses for each component in grams
     Mc = pc * Vc
     Mt = pt * Vt
 
@@ -398,17 +396,17 @@ def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_cov
 
     M_add = sum(float(addition.cost_per_gram) / 100 for addition in cake_additions)
 
-    # Calculate the total weight in grams
+
     total_weight = Mc + Mt + Ml + M_add
 
-    # Define the costs per gram for each component
+
     dc = float(cake_coverage.cost_per_gram)
     dt = float(cake_topping.cost_per_gram)
     df = float(cake_layers[0].layer_filling.cost_per_gram)
     db = float(cake_layers[0].layer_base.cost_per_gram)
     d_add = sum(float(addition.cost_per_gram) for addition in cake_additions) / len(cake_additions)
 
-    # Calculate the costs for each component in currency units
+
     Sl = 0
     for layer in cake_layers:
         pf = float(layer.layer_filling.density) / 1000
@@ -419,7 +417,6 @@ def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_cov
 
     S = Mc * dc + Mt * dt + Sl + M_add * d_add
 
-    # Calculate the total cost in currency units
     total_cost = S
 
     return total_weight, total_cost

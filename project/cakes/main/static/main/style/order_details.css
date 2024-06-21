@@ -1,11 +1,12 @@
 .order-details {
     align-self: center;
+    justify-self: center;
+    
     display: flex;
-    width: 100%;
-    max-width: 1357px;
-    gap: 20px;
+    justify-content: space-around;
+    width: 80%;
+
     justify-content: space-between;
-    margin-left: 20px;
     color: #e6a4b4;
     mix-blend-mode: normal;
   }
@@ -26,7 +27,7 @@
 
    .order-number {
     font: 34px/56% Roboto Flex, sans-serif;
-    margin-left: 6%;
+    margin-left: 10%;
     margin-top: 80px;
     color: #e6a4b4;
   }
@@ -70,6 +71,12 @@
     flex-grow: 1;
     flex-basis: auto;
 
+  }
+
+  .order-details .item-details img{
+    width: 35%;
+    height: 100%;
+    border-radius: 10px;
   }
 
   .order-details .item-image {
@@ -156,6 +163,7 @@
     font-size: 24px;
     font-weight: 700;
     padding: 30px;
+    min-width: 100%;
   }
 
   .order-details .summary-label {

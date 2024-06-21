@@ -47,7 +47,34 @@
         {% block content %}{% endblock %}
     </div>
 
-<footer class="footer"> contacts </footer>
+    <footer class="footer">
+
+        <div class="container-footer">
+            <a href="{% url 'home' %}" class="main-logo"><img src="{% static 'main/img/main_logo.png' %}" alt="" class="main-logo-sw" /></a>
+            <div class="name">
+                SWEET CREATIONS
+            </div>
+
+        </div>
+
+        <div class="container-footer">
+            <box-icon name='map' color='#e6a4b4' class="logo-icon"></box-icon>
+            <a> ул. Театральная, 24
+                 </a>
+        </div>
+
+        <div class="container-footer">
+            <box-icon name='phone-call' color='#e6a4b4' class="logo-icon"></box-icon>
+            <a href="tel:+79802447155">
+                +79802447155 </a>
+        </div>
+
+         <div class="container-footer">
+            <box-icon name='envelope' color='#e6a4b4' class="logo-icon"></box-icon>
+            <a href="mailto:sweetcr3ations@yandex.ru"> sweetcr3ations@yandex.ru </a>
+         </div>
+
+    </footer>
 
     {% block extra_script %}{% endblock %}
 </body>
