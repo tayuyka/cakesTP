@@ -38,7 +38,7 @@
     margin-bottom: 20px;
 }
 
-.delivery-form .save-changes-button {
+.save-changes-button {
     display: flex;
     border-radius: 20px;
     background-blend-mode: soft-light;
@@ -54,7 +54,7 @@
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.delivery-form  .save-changes-button:hover{
+.save-changes-button:hover{
     transform: scale(1.05);
   }
 
@@ -64,7 +64,7 @@
     display: flex;
     justify-self: center;
     align-self: center;
-    max-width: 100%;
+    width: 50%;
     flex-direction: column;
     padding: 20px 30px;
     max-width: 40%;
@@ -121,6 +121,7 @@
     border-radius: 5px;
     color: #e6a4b4;
     cursor: pointer;
+    background-color: #fff8e3;
 }
 
 .edit-cake-form .select-layers:focus {

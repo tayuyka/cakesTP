@@ -60,7 +60,10 @@ delimiters: ['[[', ']]'],
         currentPerimeterTrinket: 'none',
         decorations: [], // Украшения, полученные из API
         centerTrinketObject: null,  // Объект для центра
-        perimeterTrinketObjects: []  // Объекты для периметра
+        perimeterTrinketObjects: [],  // Объекты для периметра
+        cakeWeight: 0,
+        cakeCost: 0,
+        layerDiameter: 0,
         };
       },
 
@@ -127,6 +130,69 @@ delimiters: ['[[', ']]'],
   alert('Произошла ошибка при добавлении торта в корзину');
 });
   },
+  calculateCakeWeightAndCost() {
+  const cake_size = this.sizes.find(size => size.name === this.currentSize);
+  const cake_coverage = this.covers.find(cover => cover.name === this.currentCover);
+  const cake_topping = this.toppings.find(topping => topping.name === this.currentTopping);
+  const cake_layers = this.cakeLayers;
+  const cake_additions = this.decorations;
+  const layers_count = this.numberOfLayers;
+
+  const Vc = cake_size.base_area;
+  const Vt = Vc * 0.1;
+  const Vl = Vc * 0.5;
+  const Vb = Vc * 0.05;
+
+  const pc = parseFloat(cake_coverage.density) / 1000;
+  const pt = parseFloat(cake_topping.density) / 1000;
+
+  const Mc = pc * Vc;
+  const Mt = pt * Vt;
+
+  let Ml = 0;
+  for (let layer of cake_layers) {
+    const pf = parseFloat(layer.filling.density) / 1000;
+    const pb = parseFloat(layer.base.density) / 1000;
+    Ml += (pf * Vl + pb * Vb);
+  }
+
+  Ml *= layers_count;
+
+  const M_add = cake_additions.reduce((sum, addition) => {
+    return sum + parseFloat(addition.cost_per_gram) / 100;
+  }, 0);
+
+  const total_weight = Mc + Mt + Ml + M_add;
+
+  const dc = parseFloat(cake_coverage.cost_per_gram);
+  const dt = parseFloat(cake_topping.cost_per_gram);
+  const df = parseFloat(cake_layers[0].filling.cost_per_gram);
+  const db = parseFloat(cake_layers[0].base.cost_per_gram);
+  const d_add = cake_additions.reduce((sum, addition) => {
+    return sum + parseFloat(addition.cost_per_gram);
+  }, 0) / cake_additions.length;
+
+  let Sl = 0;
+  for (let layer of cake_layers) {
+    const pf = parseFloat(layer.filling.density) / 1000;
+    const pb = parseFloat(layer.base.density) / 1000;
+    Sl += (pf * Vl * df + pb * Vb * db);
+  }
+
+  Sl *= layers_count;
+
+  const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+
+  const total_cost = S;
+
+  // Обновляем значения cakeWeight и cakeCost
+  this.cakeWeight = total_weight.toFixed(2);
+  this.cakeCost = total_cost.toFixed(2);
+
+  // Возвращаем объект с результатами, если это необходимо
+  return { total_weight, total_cost };
+},
+
             async fetchCakeData() {
     try {
       const response = await axios.get('/api/cake-components/');

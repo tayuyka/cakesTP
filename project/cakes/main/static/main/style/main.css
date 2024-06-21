@@ -145,17 +145,41 @@ body {
       align-items: center;
       color: #e6a4b4;
       white-space: nowrap;
-      justify-content: center;
       overflow-x: hidden;
       overflow-y: hidden;
-      padding: 52px 60px;
-      font: 400 34px/42% Roboto Flex, sans-serif;
+      font: 900 34px/42% Roboto Flex, sans-serif;
       box-sizing: border-box;
       bottom: 0;
       left: 0;
       margin-bottom: 0px;
       align-self: flex-end;
       justify-self: flex-end;
+      min-height: 10%;
+      justify-content: space-evenly;
+      padding: 10px 20px;
+    }
+    
+    .container-footer .name{
+      font: 900 24px/42% Roboto Flex, sans-serif;
+      font-weight: 900;
+      align-items: center;
+      justify-content: center;
+      justify-self: center;
+      align-self: center;
+    
+    }
+    
+    .container-footer{
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+    }
+    
+    .container-footer a{
+      align-content: center;
+      justify-content: center;
+      color: #e6a4b4;
+      font: 900 18px/42% Roboto Flex, sans-serif;
     }
 
 ::-webkit-scrollbar {

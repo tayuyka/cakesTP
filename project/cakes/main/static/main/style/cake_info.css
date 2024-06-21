@@ -15,7 +15,7 @@
         padding: 0 20px;
       }
     }
-
+    
     .cake-name {
       color: #e6a4b4;
       font: 900 34px/42% Roboto Flex, sans-serif;
@@ -70,9 +70,11 @@
       }
     }
 
-    .cake-info {
+    .cake-details .cake-info {
       display: flex;
       gap: 20px;
+      flex-direction: row;
+      max-height: 100%;
     }
 
     @media (max-width: 991px) {
@@ -207,10 +209,9 @@
       font:  900 24px Roboto Flex, sans-serif;
       color: #fff8e3;
       text-decoration: none;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
-    .to-cart-button:hover {
-      background-color: #fff8e3;
-      color: #e6a4b4;
-      border-radius: 20px;
+    .to-cart-button:hover{
+      transform: scale(1.05);
     }

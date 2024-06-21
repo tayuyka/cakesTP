@@ -21,7 +21,7 @@
           {% for item in order_contents %}
           <article class="order-item">
             <div class="item-details">
-              <img src="{% static item.cake.preview_image %}" alt="{{ item.cake.name }}" class="item-image" />
+              <img src="{% static item.cake.preview_image %}" alt="{{ item.cake.name }}"  />
               <div class="item-info">
                 <h3 class="item-name">{{ item.cake.name }}</h3>
                 <div class="item-price">{{ item.cake.cost }} ₽</div>
