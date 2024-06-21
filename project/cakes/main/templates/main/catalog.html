@@ -6,7 +6,93 @@
 {% block content %}
 <section class="catalog-container">
     <h1 class="catalog-title">Каталог</h1>
-    <div class="filters">&lt;фильтры&gt;</div>
+
+    <form method="GET" action="">
+        <div class="filters">
+            <div class="parameters">
+                <h2 class="filter-title">Параметры</h2>
+                <div class="filter-parameters-row">
+                    <div class="filter-parameters-column">
+                        <div class="size">
+                            <div class="filter-options">
+                                <select name="size" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_size %}selected{% endif %}>Размер...</option>
+                                    <option value="маленький" {% if selected_size == 'маленький' %}selected{% endif %}>Маленький</option>
+                                    <option value="средний" {% if selected_size == 'средний' %}selected{% endif %}>Средний</option>
+                                    <option value="большой" {% if selected_size == 'большой' %}selected{% endif %}>Большой</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="shape">
+                            <div class="filter-options">
+                                <select name="shape" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_shape %}selected{% endif %}>Форма...</option>
+                                    <option value="круглый" {% if selected_shape == 'круглый' %}selected{% endif %}>Круглый</option>
+                                    <option value="квадратный" {% if selected_shape == 'квадратный' %}selected{% endif %}>Квадратный</option>
+                                    <option value="прямоугольный" {% if selected_shape == 'прямоугольный' %}selected{% endif %}>Прямоугольный</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-parameters-column">
+                        <div class="topping">
+                            <div class="filter-options">
+                                <select name="topping" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_topping %}selected{% endif %}>Топпинг...</option>
+                                    <option value="шоколад" {% if selected_topping == 'шоколад' %}selected{% endif %}>Шоколад</option>
+                                    <option value="карамель" {% if selected_topping == 'карамель' %}selected{% endif %}>Карамель</option>
+                                    <option value="белый шоколад" {% if selected_topping == 'белый шоколад' %}selected{% endif %}>Белый шоколад</option>
+                                    <option value="кленовый сироп" {% if selected_topping == 'кленовый сироп' %}selected{% endif %}>Кленовый сироп</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="coverage">
+                            <div class="filter-options">
+                                <select name="coverage" class="select-layers" onchange="this.form.submit()">
+                                    <option value="" {% if not selected_coverage %}selected{% endif %}>Покрытие...</option>
+                                    <option value="шоколадный крем" {% if selected_coverage == 'шоколадный крем' %}selected{% endif %}>Шоколадный крем</option>
+                                    <option value="белый крем" {% if selected_coverage == 'белый крем' %}selected{% endif %}>Белый крем</option>
+                                    <option value="ганаш" {% if selected_coverage == 'ганаш' %}selected{% endif %}>Ганаш</option>
+                                    <option value="крем чиз" {% if selected_coverage == 'крем чиз' %}selected{% endif %}>Крем чиз</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="additions-catalog">
+                <h3 class="filter-title">Дополнительно</h3>
+                <div class="filter-options-additions-catalog">
+                    <input type="checkbox" id="sprinkles" name="additions" value="вишня" {% if 'вишня' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="sprinkles">Вишня</label>
+                    <input type="checkbox" id="candies" name="additions" value="клубника" {% if 'клубника' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="candies">Клубника</label>
+                    <input type="checkbox" id="fruit" name="additions" value="леденец" {% if 'леденец' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="fruit">Леденец</label>
+                    <input type="checkbox" id="cookies" name="additions" value="мороженное" {% if 'мороженное' in selected_additions %}checked{% endif %} onchange="this.form.submit()">
+                    <label for="cookies">Мороженное</label>
+                </div>
+            </div>
+
+            <div class="layers">
+                <h2 class="filter-title">Слои</h2>
+                <div class="layer-count">
+                    <div class="select-layers-container">
+                        <select id="layer-count" name="layer_count" class="select-layers" onchange="this.form.submit()">
+                            <option value="" {% if not selected_layer_count %}selected{% endif %}>Количество...</option>
+                            <option value="1" {% if selected_layer_count == '1' %}selected{% endif %}>1</option>
+                            <option value="2" {% if selected_layer_count == '2' %}selected{% endif %}>2</option>
+                            <option value="3" {% if selected_layer_count == '3' %}selected{% endif %}>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layer-options">
+                    <!-- Layer options will be added dynamically -->
+                </div>
+            </div>
+        </div>
+    </form>
 
     <div class="catalog-product-grid">
         {% for row in rows %}
@@ -35,13 +121,26 @@
 
 <section class="catalog-pagination-container">
     <div class="catalog-pagination">
-        <span>&laquo;</span>
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>5</span>
-        <span>&raquo;</span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        {% else %}
+            <span>&laquo;</span>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span>{{ num }}</span>
+            {% else %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        {% else %}
+            <span>&raquo;</span>
+        {% endif %}
     </div>
 </section>
+
 {% endblock %}

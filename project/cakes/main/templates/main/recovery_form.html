@@ -3,20 +3,15 @@
 {% block title %}sweet creations{% endblock %}
 
 {% block content %}
- <main class="recovery-container">
-      <h1 class="recovery-title">Восстановить</h1>
-      <p class="recovery-description">Получите код подтверждения на электронную почту</p>
+<main class="recovery-container">
+    <h1 class="recovery-title">Восстановить</h1>
+    <p class="recovery-description">Получите код подтверждения на электронную почту</p>
 
-      <form>
+    <form method="POST" action="">
+        {% csrf_token %}
         <label for="email" class="visually-hidden">Адрес электронной почты...</label>
-        <input type="email" id="email" class="email-input" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты...">
+        <input type="email" id="email" name="email" class="email-input" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты..." required>
         <button type="submit" class="send-button">Отправить</button>
-      </form>
-
-      <label for="code" class="code-label">Введите уникальный код</label>
-      <input type="text" id="code" class="code-input" placeholder="Код..." aria-label="Код...">
-
-      <button class="next-button">Далее</button>
-    </main>
-
+    </form>
+</main>
 {% endblock %}

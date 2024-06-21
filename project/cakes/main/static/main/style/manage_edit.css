@@ -1,0 +1,181 @@
+.delivery-form{
+    border-radius: 20px;
+    background-color: #FFECD4;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    max-width: 100%;
+    flex-direction: column;
+    padding: 20px 30px;
+    max-width: 35%;
+    margin-top: 60px;
+}
+.delivery-form .input-field.manage {
+    font-family: Roboto Flex, sans-serif;
+    border-radius: 10px;
+    border: 0px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    align-items: start;
+    justify-content: center;
+    flex-grow: 1;
+    width: fit-content;
+    padding: 10px 15px;
+    width: 95%;
+    margin-top: 10px;
+}
+
+.delivery-form .atributes-label{
+    color: #e6a4b4;
+    font: 600 14px Roboto Flex, sans-serif;
+}
+
+.delivery-form .delivery-heading {
+    color: #e6a4b4;
+    align-self: center;
+    font: 900 34px Roboto Flex, sans-serif;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+.save-changes-button {
+    display: flex;
+    border-radius: 20px;
+    background-blend-mode: soft-light;
+    background-color: #e6a4b4;
+    border: 0px solid rgba(0, 0, 0, 1);
+    align-self: end;
+    margin-top: 10px;
+    color: #fff8e3;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 10px 10px;
+    font: 900 24px Roboto Flex, sans-serif;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.save-changes-button:hover{
+    transform: scale(1.05);
+  }
+
+  .edit-cake-form{
+    border-radius: 30px;
+    background-color: #FFECD4;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    flex-direction: column;
+    padding: 20px 30px;
+    max-width: 40%;
+    margin-top: 60px;
+}
+
+.edit-cake-form .input-field {
+    font-family: Roboto Flex, sans-serif;
+    border-radius: 10px;
+    border: 0px;
+    background-blend-mode: normal;
+    background-color: rgba(255, 248, 227, 1);
+    align-items: start;
+    justify-content: center;
+    flex-grow: 1;
+    width: fit-content;
+    padding: 10px 15px;
+    margin-top: 10px;
+    align-self: start;
+}
+
+.edit-cake-form .atributes-label{
+    color: #e6a4b4;
+    font: 600 14px Roboto Flex, sans-serif;
+}
+
+.edit-cake-form .edit-heading {
+    color: #e6a4b4;
+    align-self: center;
+    font: 900 34px Roboto Flex, sans-serif;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+.edit-cake-form .save-changes-button {
+    display: flex;
+    border-radius: 20px;
+    background-blend-mode: soft-light;
+    background-color: #e6a4b4;
+    border: 0px solid rgba(0, 0, 0, 1);
+    align-self: center;
+    margin-top: 10px;
+    color: #fff8e3;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 10px 10px;
+    font: 900 24px Roboto Flex, sans-serif;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.edit-cake-form .select-layers {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #e6a4b4;
+    border-radius: 5px;
+    color: #e6a4b4;
+    cursor: pointer;
+    background-color: #fff8e3;
+}
+
+.edit-cake-form .select-layers:focus {
+    outline: none;
+    border-color: #ff8aa5;
+}
+
+.edit-cake-form .select-layers::placeholder {
+    color: #e6a4b4;
+}
+
+.edit-cake-form .select-layers-container {
+    position: relative;
+    display: inline-block;
+}
+
+.edit-cake-form .labels-between1{
+    display: flex;
+    gap: 29%;
+    color: #e6a4b4;
+    white-space: nowrap;
+}
+
+.edit-cake-form .labels-between2{
+    display: flex;
+    gap: 44%;
+    color: #e6a4b4;
+    white-space: nowrap;
+}
+
+.edit-cake-form .labels-between3{
+    display: flex;
+    gap: 10%;
+    color: #e6a4b4;
+    white-space: nowrap;
+}
+
+.edit-cake-form .input-between{
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #e6a4b4;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+
+.edit-cake-form .form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+}
+
+.edit-cake-form .form-group {
+    display: flex;
+    flex-direction: column;
+}

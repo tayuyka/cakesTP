@@ -1,0 +1,217 @@
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 50px;
+      width: 100%;
+      padding: 0 47px;
+      box-sizing: border-box;
+
+    }
+
+    @media (max-width: 991px) {
+      .main-content {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+    }
+    
+    .cake-name {
+      color: #e6a4b4;
+      font: 900 34px/42% Roboto Flex, sans-serif;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      margin-left: 25%;
+    }
+
+    @media (max-width: 991px) {
+      .cake-name {
+        margin-left: 10px;
+        font-size: 40px;
+      }
+    }
+    .cake-description-title {
+      color: #e6a4b4;
+      font: 900 24px/42% Roboto Flex, sans-serif;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      height: auto;
+    }
+
+    .cake-description-cost {
+      color: #e6a4b4;
+      font: 900 40px/42% Roboto Flex, sans-serif;
+      margin-top: 30px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .description-text{
+      display: inline-block;
+      color: #e6a4b4;
+      font: 400 18px/42% Roboto Flex, sans-serif;
+      margin-left: 10px;
+    }
+
+    .cake-details {
+      background-color: #FFECD4;
+      border: 0px solid rgba(0, 0, 0, 1);
+      border-radius: 30px;
+      margin-top: 15px;
+      padding: 20px 30px;
+      width: 50%;
+      align-self: center;
+    }
+
+    @media (max-width: 991px) {
+      .cake-details {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+
+    .cake-details .cake-info {
+      display: flex;
+      gap: 20px;
+      flex-direction: row;
+      max-height: 100%;
+    }
+
+    @media (max-width: 991px) {
+      .cake-info {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+    }
+
+    .cake-description {
+      display: flex;
+      font: 900 18px Roboto Flex, sans-serif;
+      color: #e6a4b4;
+      flex-direction: column;
+      line-height: normal;
+      width: 80%;
+      margin-left: 0;
+
+    }
+
+    .cake-description-right {
+      display: flex;
+      font: 900 28px Roboto Flex, sans-serif;
+      color: #e6a4b4;
+      flex-direction: column;
+      line-height: normal;
+      align-items: end;
+      justify-content: space-between;
+      width: 80%;
+      margin-right: 0;
+      gap: 50px;
+    }
+
+    .no-bullets{
+      list-style-type: none;
+      margin-top: 0;
+      padding-left: 0%;
+      gap: 10px;
+    }
+
+    .no-bullets li {
+      margin-bottom: 20px;
+  }
+
+    @media (max-width: 991px) {
+      .cake-description {
+        width: 100%;
+      }
+    }
+
+    .cake-detail {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 991px) {
+      .cake-detail {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+
+    .cake-detail-divider {
+      background-color: #e6a4b4;
+      border: 4px solid rgba(230, 164, 180, 1);
+      height: 4px;
+    }
+
+    @media (max-width: 991px) {
+      .cake-detail-divider {
+        max-width: 100%;
+      }
+    }
+
+    .cake-detail-divider:nth-of-type(2) {
+      margin-top: 70px;
+    }
+
+    @media (max-width: 991px) {
+      .cake-detail-divider:nth-of-type(2) {
+        margin-top: 40px;
+      }
+    }
+
+    .cake-detail-divider:nth-of-type(3) {
+      margin-top: 76px;
+    }
+
+    @media (max-width: 991px) {
+      .cake-detail-divider:nth-of-type(3) {
+        margin-top: 40px;
+      }
+    }
+
+    .cake-image-container {
+      display: flex;
+      flex-direction: row;
+      width: 20%;
+      margin-left: 20px;
+      padding-right: 0px;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 991px) {
+      .cake-image-container {
+        width: 100%;
+      }
+    }
+
+    .cake-image {
+      width: 100%;
+      height: auto;
+      margin-right: 0;
+      border-radius: 21px;
+    }
+
+    @media (max-width: 991px) {
+      .cake-image {
+        max-width: 100%;
+      }
+    }
+
+    .to-cart-button {
+      border-radius: 20px;
+      background-blend-mode: soft-light;
+      background-color: #e6a4b4;
+      border: 0px solid rgba(0, 0, 0, 1);
+      white-space: nowrap;
+      margin: 14px 0 0 26px;
+      padding: 8px 18px 8px;
+      font:  900 24px Roboto Flex, sans-serif;
+      color: #fff8e3;
+      text-decoration: none;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .to-cart-button:hover{
+      transform: scale(1.05);
+    }

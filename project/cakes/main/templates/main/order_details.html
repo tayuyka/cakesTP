@@ -1,7 +1,8 @@
 {% extends 'main/base.html' %}
+{% load static %}
+{% load custom_filters %}
 
 {% block title %}sweet creations{% endblock %}
-{% load static %}
 
 {% block content %}
    <h1 class="order-number">
@@ -20,10 +21,10 @@
           {% for item in order_contents %}
           <article class="order-item">
             <div class="item-details">
-              <img src="{% static item.cake.preview_image %}" alt="{{ item.cake.name }}" class="item-image" />
+              <img src="{% static item.cake.preview_image %}" alt="{{ item.cake.name }}"  />
               <div class="item-info">
                 <h3 class="item-name">{{ item.cake.name }}</h3>
-                <div class="item-price">{{ item.cake.cost }}</div>
+                <div class="item-price">{{ item.cake.cost }} ₽</div>
               </div>
             </div>
             <div class="item-quantity">
@@ -39,9 +40,9 @@
         <h2 class="summary-title">Детали</h2>
         <div class="summary-details">
           <div class="summary-label">Дата оформления</div>
-          <div class="summary-value">{{ order.date }}</div>
+          <div class="summary-value">{{ order.date|format_date }}</div>
           <div class="summary-label summary-label-spacing">Дата получения</div>
-          <div class="summary-value">{{ order.delivery_date }}</div>
+          <div class="summary-value">{{ order.delivery_date|format_date }}</div>
           <div class="summary-label summary-label-spacing">Адрес доставки</div>
           <div class="summary-value">{{ order.delivery_address }}</div>
           <div class="summary-label summary-label-spacing">Статус</div>

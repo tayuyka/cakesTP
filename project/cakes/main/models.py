@@ -20,6 +20,9 @@ class Cake(models.Model):
     class Meta:
         db_table = 'Cake'
 
+    def __str__(self):
+        return self.name
+
 
 class CakeAddition(models.Model):
     cake_addition_id = models.AutoField(db_column='cake_addition_ID', primary_key=True)
@@ -27,9 +30,15 @@ class CakeAddition(models.Model):
     cost_per_gram = models.IntegerField()
     primary_color = models.TextField()
     secondary_color = models.TextField()
+    texture_side_path = models.CharField(max_length=255, blank=True, null=True)
+    texture_top_path = models.CharField(max_length=255, blank=True, null=True)
+    amount = models.IntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'Cake_addition'
+
+    def __str__(self):
+        return self.ingridient
 
 
 class CakeCoverage(models.Model):
@@ -43,14 +52,21 @@ class CakeCoverage(models.Model):
     class Meta:
         db_table = 'Cake_coverage'
 
+    def __str__(self):
+        return self.ingridient
+
 
 class CakeShape(models.Model):
     cake_shape_id = models.AutoField(db_column='cake_shape_ID', primary_key=True)
     shape = models.TextField(unique=True)
     cost = models.IntegerField()
+    texture_path = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'Cake_shape'
+
+    def __str__(self):
+        return self.shape
 
 
 class CakeSize(models.Model):
@@ -60,6 +76,9 @@ class CakeSize(models.Model):
 
     class Meta:
         db_table = 'Cake_size'
+
+    def __str__(self):
+        return self.type
 
 
 class CakeStructure(models.Model):
@@ -77,10 +96,13 @@ class CakeTopping(models.Model):
     cost_per_gram = models.IntegerField()
     density = models.IntegerField()
     primary_color = models.TextField()
-    secondary_color = models.TextField()
+    texture_path = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'Cake_topping'
+
+    def __str__(self):
+        return self.ingridient
 
 
 class Layer(models.Model):
@@ -103,6 +125,9 @@ class LayerBase(models.Model):
     class Meta:
         db_table = 'Layer_base'
 
+    def __str__(self):
+        return self.ingridient
+
 
 class LayerFilling(models.Model):
     layer_filling_id = models.AutoField(db_column='layer_filling_ID', primary_key=True)
@@ -114,6 +139,9 @@ class LayerFilling(models.Model):
 
     class Meta:
         db_table = 'Layer_filling'
+
+    def __str__(self):
+        return self.ingridient
 
 
 class Order(models.Model):
@@ -182,3 +210,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"

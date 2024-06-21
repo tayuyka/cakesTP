@@ -9,15 +9,17 @@
   <section class="profile-section">
     <div class="profile-content">
       <div class="profile-image-column">
-        <box-icon name='user' type='solid' color='#e6a4b4' class="logo-icon"></box-icon>
+        <box-icon name='user' type='solid' color='#e6a4b4' class="user-icon"></box-icon>
       </div>
       <div class="profile-details-column">
         <div class="profile-details">
-          <div class="profile-detail">{{ user.first_name }} {{ user.last_name }}</div>
-          <div class="profile-detail">{{ user.date_birth }}</div>
-          <div class="profile-detail">{{ user.phone_number }}</div>
+          <div class="profile-detail">Имя: {{ user.first_name }} {{ user.last_name }}</div>
+          <div class="profile-detail">Дата рождения: {{ user.date_birth }}</div>
+          <div class="profile-detail">Номер телефона: {{ user.phone_number }}</div>
+          <div class="profile-detail">Email: {{ user.email }}</div> <!-- Добавьте эту строку -->
         </div>
       </div>
+      <a href="{% url 'logout' %}" class="logout-button">Выйти</a>
     </div>
   </section>
 
@@ -25,9 +27,10 @@
 
   <section class="orders-section">
     {% for order in orders %}
-    <a href="{% url 'order_details' order.pk %}" class="order-item">Заказ №{{ order.pk }}</a>
+    <a href="{% url 'order_details' order.pk %}" class="order-item">
+      <box-icon name='package' type='solid' color='#e6a4b4' class="order-icon"></box-icon>
+      Заказ №{{ order.pk }}</a>
     {% endfor %}
   </section>
 </section>
-<a href="{% url 'logout' %}">Выйти</a>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Edit Order</h2>
+<form method="post" class="delivery-form">
+    {% csrf_token %}
+     <h2 class="delivery-heading">Редактирование заказа</h2>
+    <label for="status" class="atributes-label">Статус:</label>
+    <input type="text" id="status" name="status" value="{{ order.status }}" class="input-field manage"><br>
+    <label for="delivery_address" class="atributes-label">Адрес доставки:</label>
+    <input type="text" id="delivery_address" name="delivery_address" value="{{ order.delivery_address }}" class="input-field manage"><br>
+    <label for="delivery_date" class="atributes-label">Дата доставки:</label>
+    <input type="text" id="delivery_date" name="delivery_date" value="{{ order.delivery_date }}" class="input-field manage"><br>
+    <button type="submit" class="save-changes-button">Сохранить</button>
+</form>
+{% endblock %}

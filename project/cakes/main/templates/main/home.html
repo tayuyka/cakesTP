@@ -1,91 +1,48 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block title %}sweet creations{% endblock %}
 
+{% block script %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+{% endblock %}
+
+
 {% block content %}
+<div class="home-cake-container">
+    <h2 class="section-title-slogan">СОЗДАЙТЕ СОБСТВЕННЫЙ ТОРТ</h2>
+    <a href="{% url 'constructor' %}" class="cake-striped-button">Создать</a>
+
+    <div class="home-cake-row">
+        <img src="{% static 'main/img/home_cake22.png' %}" class="home-cake3"/>
+        <img src="{% static 'main/img/home_cake1.png' %}" class="home-cake"/>
+        <img src="{% static 'main/img/home_cake33.png' %}" class="home-cake2"/>
+    </div>
+</div>
 <h2 class="section-title">Выбрали для вас</h2>
 
-<section class="product-grid">
+<section id="ad" class="product-grid">
     <a class="tape-arrow" @click="scrollLeft">
         <box-icon name='chevron-left' color='#e6a4b4' class="logo-icon"></box-icon>
     </a>
     <div class="product-row" ref="productRow">
-        <a href="{% url 'home' %}" class="product-link">
+        {% for cake in recommended_cakes %}
+        <a href="{% url 'cake_info' cake.pk %}" class="product-link">
             <article class="product-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c756131a607220a5394b60a23c1f71bb5bc1d69abafd92035ad2e679a9513353?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="" class="product-preview" />
+                <img src="{% static cake.preview_image %}" alt="" class="product-preview" />
                 <div class="product-info">
                     <div class="product-meta">
-                        <div class="product-name">Шоколадный</div>
-                        <div class="product-price">2400 ₽</div>
-                        <div class="product-weight">480 г</div>
+                        <div class="product-name">{{ cake.name }}</div>
+                        <div class="product-price">{{ cake.cost }} ₽</div>
+                        <div class="product-weight">{{ cake.weight }} г</div>
                     </div>
-                    <a href="{% url 'cart' %}" class="product-icon">
+                    <a href="{% url 'add_to_cart' cake.pk %}" class="product-icon">
                         <box-icon name='basket' type='solid' color='#e6a4b4' class="cart-icon"></box-icon>
                     </a>
                 </div>
             </article>
         </a>
-        <a href="{% url 'home' %}" class="product-link">
-            <article class="product-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/41b8fc84ead207bafc110bd3fb84f6695fdc636143f0116d1476aff0a986cff9?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="" class="product-preview" />
-                <div class="product-info">
-                    <div class="product-meta">
-                        <div class="product-name">Розовый</div>
-                        <div class="product-price">3200 ₽</div>
-                        <div class="product-weight">540 г</div>
-                    </div>
-                    <a href="{% url 'cart' %}" class="product-icon">
-                        <box-icon name='basket' type='solid' color='#e6a4b4' class="cart-icon"></box-icon>
-                    </a>
-                </div>
-            </article>
-        </a>
-        <a href="{% url 'home' %}" class="product-link">
-            <article class="product-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c756131a607220a5394b60a23c1f71bb5bc1d69abafd92035ad2e679a9513353?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="" class="product-preview" />
-                <div class="product-info">
-                    <div class="product-meta">
-                        <div class="product-name">Шоколадный</div>
-                        <div class="product-price">2400 ₽</div>
-                        <div class="product-weight">480 г</div>
-                    </div>
-                    <a href="{% url 'cart' %}" class="product-icon">
-                        <box-icon name='basket' type='solid' color='#e6a4b4' class="cart-icon"></box-icon>
-                    </a>
-                </div>
-            </article>
-        </a>
-        <a href="{% url 'home' %}" class="product-link">
-            <article class="product-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c756131a607220a5394b60a23c1f71bb5bc1d69abafd92035ad2e679a9513353?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="" class="product-preview" />
-                <div class="product-info">
-                    <div class="product-meta">
-                        <div class="product-name">Шоколадный</div>
-                        <div class="product-price">2400 ₽</div>
-                        <div class="product-weight">480 г</div>
-                    </div>
-                    <a href="{% url 'cart' %}" class="product-icon">
-                        <box-icon name='basket' type='solid' color='#e6a4b4' class="cart-icon"></box-icon>
-                    </a>
-                </div>
-            </article>
-        </a>
-        <a href="{% url 'home' %}" class="product-link">
-            <article class="product-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c756131a607220a5394b60a23c1f71bb5bc1d69abafd92035ad2e679a9513353?apiKey=b4045879ceea4014969d7d61d55a1155&" alt="" class="product-preview" />
-                <div class="product-info">
-                    <div class="product-meta">
-                        <div class="product-name">Шоколадный</div>
-                        <div class="product-price">2400 ₽</div>
-                        <div class="product-weight">480 г</div>
-                    </div>
-                    <a href="{% url 'cart' %}" class="product-icon">
-                        <box-icon name='basket' type='solid' color='#e6a4b4' class="cart-icon"></box-icon>
-                    </a>
-                </div>
-            </article>
-        </a>
-        <!-- Дополнительные карточки -->
+        {% endfor %}
     </div>
     <a class="tape-arrow" @click="scrollRight">
         <box-icon name='chevron-right' color='#e6a4b4' class="logo-icon"></box-icon>
@@ -96,5 +53,11 @@
     <a href="{% url 'constructor' %}" class="cta-button">Создать</a>
     <a href="{% url 'catalog' %}" class="cta-button">Посмотреть все</a>
 </section>
+{% endblock %}
+
+
+
+{% block extra_script %}
+    <script src="{% static 'main/js/main.js' %}"></script>
 {% endblock %}
 
