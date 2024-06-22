@@ -626,7 +626,7 @@ delimiters: ['[[', ']]'],
                 radius *= 1.015;
                 dripGeometry = new THREE.BoxGeometry(radius * 2, height, radius * 2);
               } else if (this.currentShape === 'шестиугольный') {
-                radius *= 1.165;
+                radius *= 1.168;
                 dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 6, 1, true);
               } else if (this.currentShape === 'звезда') {
                 radius *= 1.135;
@@ -635,7 +635,7 @@ delimiters: ['[[', ']]'],
                 this.adjustStarUVs(dripGeometry);
               } else if (this.currentShape === 'сердце') {
                 radius *= 1.77;
-                const newradius = radius * 1.09;
+                const newradius = radius * 1.07;
                 dripGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(newradius), height);
                 dripGeometry.rotateX(Math.PI / 2);
                 this.adjustHeartUVs(dripGeometry);
@@ -1354,7 +1354,7 @@ async updateTextFont() {
             for (let i = 0; i < uvAttribute.count; i++) {
               const u = uvAttribute.getX(i);
               const v = uvAttribute.getY(i);
-              uvAttribute.setXY(i, u, v * 2);
+              uvAttribute.setXY(i, u, v * 2 + 0.05);
             }
             uvAttribute.needsUpdate = true;
           },
@@ -1369,7 +1369,7 @@ async updateTextFont() {
               const v = uvAttribute.getY(i);
               const newV = (v - boundingBox.min.y) / height * 0.9;
               const newU = (u - boundingBox.min.x) / width;
-              uvAttribute.setXY(i, newU, newV + 0.63); //0.25
+              uvAttribute.setXY(i, newU, newV + 0.7); //0.25
             }
             uvAttribute.needsUpdate = true;
           },
