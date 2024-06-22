@@ -682,10 +682,10 @@ delimiters: ['[[', ']]'],
               const top = new THREE.Mesh(topGeometry, topMaterial);
               top.position.set(layer.position.x, layer.position.y + 0.50, layer.position.z);
               if (this.currentShape === 'звезда') {
-                top.position.y += 0.13; // Корректировка смещения по оси Z для формы сердца
+                top.position.y -= 0.07; // Корректировка смещения по оси Z для формы сердца
               }
               if (this.currentShape === 'сердце') {
-                top.position.y += 0.13; // Корректировка смещения по оси Z для формы сердца
+                top.position.y -= 0.07; // Корректировка смещения по оси Z для формы сердца
               }
               if (this.currentShape === 'сердце') {
                 top.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
@@ -1056,7 +1056,7 @@ delimiters: ['[[', ']]'],
       }
 
       const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-      const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+      const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0; //CHANGED HERE
       const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
       const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
