@@ -64,6 +64,7 @@ delimiters: ['[[', ']]'],
         cakeWeight: 0,
         cakeCost: 0,
         layerDiameter: 0,
+        cakeJson: ''
         };
       },
 
@@ -1329,6 +1330,8 @@ async updateTextFont() {
 
     this.createCake(layers, this.currentShape, bases, fillings);
     await this.loadDecoration();
+    this.cakeJson = this.serializeCake();
+    console.log(this.cakeJson);
   },
 
                async loadDecoration() {
@@ -1527,6 +1530,54 @@ async updateTextSize() {
           addSharpIfNeeded(color) {
         if (!color) return '';
         return color.startsWith('#') ? color : `#${color}`;
-      }
+      },
+
+        // Сериализация данных торта в JSON
+  serializeCake() {
+    const cakeData = {
+      currentTopping: this.currentTopping,
+      currentCover: this.currentCover,
+      currentShape: this.currentShape,
+      currentFont: this.currentFont,
+      currentSize: this.currentSize,
+      numberOfLayers: this.numberOfLayers,
+      cakeLayers: this.cakeLayers.map(layer => ({
+        shape: layer.shape,
+        radius: layer.radius,
+        height: layer.height,
+        baseColor: layer.baseColor,
+        fillingColor: layer.fillingColor
+      })),
+      currentCenterTrinket: this.currentCenterTrinket,
+      currentPerimeterTrinket: this.currentPerimeterTrinket,
+      textContent: this.textContent,
+      textSize: this.textSize,
+      textColor: this.textColor,
+      textOutlineColor: this.textOutlineColor
+    };
+
+    return JSON.stringify(cakeData);
+  },
+
+  // Десериализация данных торта из JSON
+  deserializeCake(jsonString) {
+    const cakeData = JSON.parse(jsonString);
+
+    this.currentTopping = cakeData.currentTopping;
+    this.currentCover = cakeData.currentCover;
+    this.currentShape = cakeData.currentShape;
+    this.currentFont = cakeData.currentFont;
+    this.currentSize = cakeData.currentSize;
+    this.numberOfLayers = cakeData.numberOfLayers;
+    this.cakeLayers = cakeData.cakeLayers.map(layer => this.createLayer(layer.shape, layer.radius, layer.height, layer.baseColor, layer.fillingColor));
+    this.currentCenterTrinket = cakeData.currentCenterTrinket;
+    this.currentPerimeterTrinket = cakeData.currentPerimeterTrinket;
+    this.textContent = cakeData.textContent;
+    this.textSize = cakeData.textSize;
+    this.textColor = cakeData.textColor;
+    this.textOutlineColor = cakeData.textOutlineColor;
+
+    this.updateCake();
+  }
 }
     }).mount('#constructor');
