@@ -1369,7 +1369,7 @@ async updateTextFont() {
               const v = uvAttribute.getY(i);
               const newV = (v - boundingBox.min.y) / height * 0.9;
               const newU = (u - boundingBox.min.x) / width;
-              uvAttribute.setXY(i, newU, newV + 0.25);
+              uvAttribute.setXY(i, newU, newV + 0.63); //0.25
             }
             uvAttribute.needsUpdate = true;
           },
