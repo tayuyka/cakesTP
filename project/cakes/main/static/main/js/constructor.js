@@ -806,7 +806,7 @@ delimiters: ['[[', ']]'],
     this.currentPerimeterTrinket = event.target.value;
     this.updateCake();
   },
-
+/*
       async addCenterTrinket() {
     const trinketData = this.centerDecorations.find(t => t.ingridient === this.currentCenterTrinket);
     if (!trinketData) {
@@ -848,9 +848,59 @@ delimiters: ['[[', ']]'],
     } else {
         console.error('Unsupported model format');
     }
+},*/
+
+async addCenterTrinket() {
+    const trinketData = this.centerDecorations.find(t => t.ingridient === this.currentCenterTrinket);
+    if (!trinketData) {
+        console.error('Decoration not found');
+        return;
+    }
+
+    const textureLoader = new THREE.TextureLoader();
+    const modelPath = `${CDN_BASE_URL}${trinketData.texture_top_path}`;
+    const isGLTF = modelPath.endsWith('.gltf') || modelPath.endsWith('.glb');
+    const isOBJ = modelPath.endsWith('.obj');
+
+    const loadModelCallback = (model) => {
+        this.trinketModel = model;
+        this.initialTrinketScale = null;
+
+        const trinketGroup = this.adjustModelScaleAndPosition(model, true, trinketData.positionOffset); // Передаем смещение
+        const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+
+        if (this.currentShape === 'звезда') {
+            trinketGroup.position.set(-0.25, topLayer.position.y + 0.5, 0); // Смещение влево для звезды
+            trinketGroup.rotation.y = Math.PI / 2.5; // Поворот по часовой стрелке на 45 градусов для звезды
+        } else {
+            trinketGroup.position.set(0, topLayer.position.y + 0.5, 0);
+        }
+
+        this.scene.add(trinketGroup);
+        this.trinkets.push(trinketGroup);
+    };
+
+    if (isGLTF) {
+        this.loadGLTFModel(modelPath, loadModelCallback);
+    } else if (isOBJ) {
+        this.loadOBJModel(modelPath, (obj) => {
+            textureLoader.load(trinketData.texture_side_path, (texture) => {
+                obj.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.map = texture;
+                        child.material.needsUpdate = true;
+                    }
+                });
+                loadModelCallback(obj);
+            });
+        });
+    } else {
+        console.error('Unsupported model format');
+    }
 },
 
 
+/*
          addStarTrinkets(layer, radius, quantity, positionOffset) {
     if (quantity === 1) {
         const trinketClone = this.trinketModel.clone();
@@ -864,6 +914,37 @@ delimiters: ['[[', ']]'],
             const trinketClone = this.trinketModel.clone();
             const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false, positionOffset);
             trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
+            this.scene.add(trinketGroup);
+            this.trinkets.push(trinketGroup);
+        });
+    }
+},*/
+
+addStarTrinkets(layer, radius, quantity, positionOffset) {
+    if (quantity === 1) {
+        const trinketClone = this.trinketModel.clone();
+        const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true, positionOffset);
+
+        if (this.currentShape === 'звезда') {
+            trinketGroup.position.set(-0.25, layer.position.y + 0.25, 0); // Смещение влево для звезды
+        } else {
+            trinketGroup.position.set(0, layer.position.y + 0.25, 0);
+        }
+
+        this.scene.add(trinketGroup);
+        this.trinkets.push(trinketGroup);
+    } else {
+        const points = this.createStarShape(radius).getPoints();
+        points.forEach(point => {
+            const trinketClone = this.trinketModel.clone();
+            const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false, positionOffset);
+
+            if (this.currentShape === 'звезда') {
+                trinketGroup.position.set(point.x - 0.25, layer.position.y + 0, point.y); // Смещение влево для звезды
+            } else {
+                trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
+            }
+
             this.scene.add(trinketGroup);
             this.trinkets.push(trinketGroup);
         });
