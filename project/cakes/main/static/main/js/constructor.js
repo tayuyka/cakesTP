@@ -196,28 +196,33 @@ delimiters: ['[[', ']]'],
 
             async fetchCakeData() {
     try {
-      const response = await axios.get('/api/cake-components/');
-      const data = response.data;
+        const response = await axios.get('/api/cake-components/');
+        const data = response.data;
 
-      if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
-        throw new Error('Invalid data structure received from API.');
-      }
-      this.sizes = data.sizes;
-      this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
-      this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
-      this.shapes = data.shapes;
-      this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
-      this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
-      this.decorations = data.trinkets.map(trinket => ({ ...trinket, primary_color: this.addSharpIfNeeded(trinket.primary_color) }));
+        if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+            throw new Error('Invalid data structure received from API.');
+        }
 
-      nextTick(() => {
-        this.initThreeJS();
-        this.startAnimation();
-      });
+        this.sizes = data.sizes;
+        this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+        this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+        this.shapes = data.shapes;
+        this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+        this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+        this.decorations = data.trinkets.map(trinket => ({
+            ...trinket,
+            primary_color: this.addSharpIfNeeded(trinket.primary_color),
+            positionOffset: parseFloat(trinket.texture_side_path) || 0  // Добавляем смещение
+        }));
+
+        nextTick(() => {
+            this.initThreeJS();
+            this.startAnimation();
+        });
     } catch (error) {
-      console.error('There was an error fetching the cake data!', error);
+        console.error('There was an error fetching the cake data!', error);
     }
-  },
+},
 
 
 
@@ -372,29 +377,25 @@ delimiters: ['[[', ']]'],
             console.error('Error loading OBJ model:', error);
           });
         },
-          adjustModelScaleAndPosition(model, isSingle) {
-            const boundingBox = new THREE.Box3().setFromObject(model);
-            const size = boundingBox.getSize(new THREE.Vector3());
-            const maxDimension = Math.max(size.x, size.y, size.z);
-            const scaleFactor = 1 / maxDimension;
-            model.scale.set(scaleFactor, scaleFactor, scaleFactor);
-            const desiredSize = isSingle ? 1.25 : 0.75;
-            model.scale.multiplyScalar(desiredSize);
+         adjustModelScaleAndPosition(model, isSingle, positionOffset = 0) {
+    const boundingBox = new THREE.Box3().setFromObject(model);
+    const size = boundingBox.getSize(new THREE.Vector3());
+    const maxDimension = Math.max(size.x, size.y, size.z);
+    const scaleFactor = 1 / maxDimension;
+    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+    const desiredSize = isSingle ? 1.25 : 0.75;
+    model.scale.multiplyScalar(desiredSize);
 
-            boundingBox.setFromObject(model);
-            const modelHeight = boundingBox.getSize(new THREE.Vector3()).y;
+    boundingBox.setFromObject(model);
+    const modelHeight = boundingBox.getSize(new THREE.Vector3()).y;
 
-            const group = new THREE.Group();
-            group.add(model);
+    const group = new THREE.Group();
+    group.add(model);
 
-            model.position.y += modelHeight / 2;
+    model.position.y += modelHeight / 2 + positionOffset; // Используем смещение
 
-            if (this.currentShape === 'сердце') {
-              model.position.y += modelHeight * 0.1;
-            }
-
-            return group;
-          },
+    return group;
+},
           createLayer(shape, radius, height, baseColor, fillingColor) {
             const group = new THREE.Group();
             const segmentHeight = height / 5;
@@ -432,7 +433,9 @@ delimiters: ['[[', ']]'],
               } else {
                 mesh.position.y = i * segmentHeight - height / 2 + segmentHeight / 2;
               }
-
+              if (shape === 'сердце' || shape === 'звезда') {
+                  group.position.y += 0.0; // ПОДНИМАЕМ ТОРТ ВВЕРХ ТОЛЬКО ДЛЯ СЕРДЦА И ЗВЕЗДЫ
+              }
               group.add(mesh);
             }
 
@@ -509,6 +512,7 @@ delimiters: ['[[', ']]'],
               const fillingColor = fillings[i];
               const layer = this.createLayer(shape, radii[i], layerHeight, baseColor, fillingColor);
               layer.position.y = i * layerHeight;
+
               this.cakeLayers.push(layer);
               this.scene.add(layer);
             }
@@ -707,48 +711,34 @@ delimiters: ['[[', ']]'],
             const topping = this.toppings.find(t => t.ingridient === ingredient);
             return topping ? topping.texture_path : null;
           },
-          addCircularTrinkets(layer, radius, quantity) {
-  if (quantity === 1) {
-    const trinketClone = this.trinketModel.clone();
-    const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true);
-    trinketGroup.position.set(0, layer.position.y + 0.25, 0);
-    // ПОДНИМАЕМ ВВЕРХ И ИЗМЕНЯЕМ МАСШТАБ УКРАШЕНИЯ
-    trinketGroup.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-    trinketGroup.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
+         addCircularTrinkets(layer, radius, quantity, positionOffset) {
+    if (quantity === 1) {
+        const trinketClone = this.trinketModel.clone();
+        const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true, positionOffset);
+        trinketGroup.position.set(0, layer.position.y + 0.25, 0);
+        this.scene.add(trinketGroup);
+        this.trinkets.push(trinketGroup);
+    } else {
+        const angleStep = (2 * Math.PI) / quantity;
+        for (let i = 0; i < quantity; i++) {
+            const trinketClone = this.trinketModel.clone();
+            const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false, positionOffset);
+            const angle = i * angleStep;
+            const x = radius * Math.cos(angle);
+            const z = radius * Math.sin(angle);
 
-    this.scene.add(trinketGroup);
-    this.trinkets.push(trinketGroup);
-  } else {
-    const angleStep = (2 * Math.PI) / quantity;
-    for (let i = 0; i < quantity; i++) {
-      const trinketClone = this.trinketModel.clone();
-      const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false);
-      const angle = i * angleStep;
-      const x = radius * Math.cos(angle);
-      const z = radius * Math.sin(angle);
-
-      trinketGroup.position.set(x, layer.position.y + 0, z);
-      // ПОДНИМАЕМ ВВЕРХ И ИЗМЕНЯЕМ МАСШТАБ УКРАШЕНИЯ
-      trinketGroup.position.y -= 0.1; // ПОДНЯТИЕ ВВЕРХ
-      trinketGroup.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
-
-      this.scene.add(trinketGroup);
-      this.trinkets.push(trinketGroup);
+            trinketGroup.position.set(x, layer.position.y + 0, z);
+            this.scene.add(trinketGroup);
+            this.trinkets.push(trinketGroup);
+        }
     }
-  }
-  // ПРИМЕР ДЛЯ ОТДЕЛЬНОГО УКРАШЕНИЯ
-  // const specificTrinket = this.trinkets.find(trinket => trinket.name === 'имя_украшения');
-  // if (specificTrinket) {
-  //   specificTrinket.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-  //   specificTrinket.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
-  // }
 },
 
-               async addPerimeterTrinkets() {
+              async addPerimeterTrinkets() {
     const trinketData = this.perimeterDecorations.find(t => t.ingridient === this.currentPerimeterTrinket);
     if (!trinketData) {
-      console.error('Decoration not found');
-      return;
+        console.error('Decoration not found');
+        return;
     }
 
     const textureLoader = new THREE.TextureLoader();
@@ -757,44 +747,44 @@ delimiters: ['[[', ']]'],
     const isOBJ = modelPath.endsWith('.obj');
 
     const loadModelCallback = (model) => {
-      this.trinketModel = model;
-      this.initialTrinketScale = null;
+        this.trinketModel = model;
+        this.initialTrinketScale = null;
 
-      const trinketQuantity = trinketData.amount === 1 ? 'single' : 'multiple';
-      const trinketQuantities = trinketQuantity === 'single' ? [1, 1, 1] : [10, 8, 6];
+        const trinketQuantity = trinketData.amount === 1 ? 'single' : 'multiple';
+        const trinketQuantities = trinketQuantity === 'single' ? [1, 1, 1] : [10, 8, 6];
 
-      this.cakeLayers.forEach((layer, index) => {
-        const quantity = trinketQuantities[index];
-        const radius = this.getShapeRadius(layer) * (trinketQuantity === 'single' ? 1 : this.currentShape === 'сердце' ? 0.85 : 0.85);
+        this.cakeLayers.forEach((layer, index) => {
+            const quantity = trinketQuantities[index];
+            const radius = this.getShapeRadius(layer) * (trinketQuantity === 'single' ? 1 : this.currentShape === 'сердце' ? 0.85 : 0.85);
 
-        if (this.currentShape === 'звезда') {
-          this.addStarTrinkets(layer, radius, quantity);
-        } else if (this.currentShape === 'сердце') {
-          this.addHeartTrinkets(layer, radius, quantity);
-        } else {
-          this.addCircularTrinkets(layer, radius, quantity);
-        }
-      });
+            if (this.currentShape === 'звезда') {
+                this.addStarTrinkets(layer, radius, quantity, trinketData.positionOffset);
+            } else if (this.currentShape === 'сердце') {
+                this.addHeartTrinkets(layer, radius, quantity, trinketData.positionOffset);
+            } else {
+                this.addCircularTrinkets(layer, radius, quantity, trinketData.positionOffset);
+            }
+        });
     };
 
     if (isGLTF) {
-      this.loadGLTFModel(modelPath, loadModelCallback);
+        this.loadGLTFModel(modelPath, loadModelCallback);
     } else if (isOBJ) {
-      this.loadOBJModel(modelPath, (obj) => {
-        textureLoader.load(trinketData.texture_side_path, (texture) => {
-          obj.traverse((child) => {
-            if (child.isMesh) {
-              child.material.map = texture;
-              child.material.needsUpdate = true;
-            }
-          });
-          loadModelCallback(obj);
+        this.loadOBJModel(modelPath, (obj) => {
+            textureLoader.load(trinketData.texture_side_path, (texture) => {
+                obj.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.map = texture;
+                        child.material.needsUpdate = true;
+                    }
+                });
+                loadModelCallback(obj);
+            });
         });
-      });
     } else {
-      console.error('Unsupported model format');
+        console.error('Unsupported model format');
     }
-  },
+},
 
 
        updateCenterTrinket(event) {
@@ -809,8 +799,8 @@ delimiters: ['[[', ']]'],
       async addCenterTrinket() {
     const trinketData = this.centerDecorations.find(t => t.ingridient === this.currentCenterTrinket);
     if (!trinketData) {
-      console.error('Decoration not found');
-      return;
+        console.error('Decoration not found');
+        return;
     }
 
     const textureLoader = new THREE.TextureLoader();
@@ -819,113 +809,85 @@ delimiters: ['[[', ']]'],
     const isOBJ = modelPath.endsWith('.obj');
 
     const loadModelCallback = (model) => {
-      this.trinketModel = model;
-      this.initialTrinketScale = null;
+        this.trinketModel = model;
+        this.initialTrinketScale = null;
 
-      const trinketGroup = this.adjustModelScaleAndPosition(model, true);
-      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-      trinketGroup.position.set(0, topLayer.position.y + 0.5, 0);
+        const trinketGroup = this.adjustModelScaleAndPosition(model, true, trinketData.positionOffset); // Передаем смещение
+        const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+        trinketGroup.position.set(0, topLayer.position.y + 0.5, 0);
 
-      this.scene.add(trinketGroup);
-      this.trinkets.push(trinketGroup);
+        this.scene.add(trinketGroup);
+        this.trinkets.push(trinketGroup);
     };
 
     if (isGLTF) {
-      this.loadGLTFModel(modelPath, loadModelCallback);
+        this.loadGLTFModel(modelPath, loadModelCallback);
     } else if (isOBJ) {
-      this.loadOBJModel(modelPath, (obj) => {
-        textureLoader.load(trinketData.texture_side_path, (texture) => {
-          obj.traverse((child) => {
-            if (child.isMesh) {
-              child.material.map = texture;
-              child.material.needsUpdate = true;
-            }
-          });
-          loadModelCallback(obj);
+        this.loadOBJModel(modelPath, (obj) => {
+            textureLoader.load(trinketData.texture_side_path, (texture) => {
+                obj.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.map = texture;
+                        child.material.needsUpdate = true;
+                    }
+                });
+                loadModelCallback(obj);
+            });
         });
-      });
     } else {
-      console.error('Unsupported model format');
+        console.error('Unsupported model format');
     }
-  },
-
-
-          addStarTrinkets(layer, radius, quantity) {
-  if (quantity === 1) {
-    const trinketClone = this.trinketModel.clone();
-    const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true);
-    trinketGroup.position.set(0, layer.position.y + 0.25, 0);
-    // ПОДНИМАЕМ ВВЕРХ И ИЗМЕНЯЕМ МАСШТАБ УКРАШЕНИЯ
-    trinketGroup.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-    trinketGroup.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
-
-    this.scene.add(trinketGroup);
-    this.trinkets.push(trinketGroup);
-  } else {
-    const points = this.createStarShape(radius).getPoints();
-    points.forEach(point => {
-      const trinketClone = this.trinketModel.clone();
-      const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false);
-      trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
-      // ПОДНИМАЕМ ВВЕРХ И ИЗМЕНЯЕМ МАСШТАБ УКРАШЕНИЯ
-      trinketGroup.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-      trinketGroup.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
-
-      this.scene.add(trinketGroup);
-      this.trinkets.push(trinketGroup);
-    });
-  }
-  // ПРИМЕР ДЛЯ ОТДЕЛЬНОГО УКРАШЕНИЯ
-  // const specificTrinket = this.trinkets.find(trinket => trinket.name === 'имя_украшения');
-  // if (specificTrinket) {
-  //   specificTrinket.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-  //   specificTrinket.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
-  // }
 },
-          addHeartTrinkets(layer, radius, quantity) {
-  if (quantity === 1) {
-    const trinketClone = this.trinketModel.clone();
-    const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true);
-    trinketGroup.position.set(0, layer.position.y + 0.25, 0);
-    // ПОДНИМАЕМ ВВЕРХ И ИЗМЕНЯЕМ МАСШТАБ УКРАШЕНИЯ
-    trinketGroup.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-    trinketGroup.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
 
-    this.scene.add(trinketGroup);
-    this.trinkets.push(trinketGroup);
-  } else {
-    const points = this.createHeartPerimeter(radius, quantity);
-    points.forEach(point => {
-      const trinketClone = this.trinketModel.clone();
-      const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false);
-      trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
-      // ПОДНИМАЕМ ВВЕРХ И ИЗМЕНЯЕМ МАСШТАБ УКРАШЕНИЯ
-      trinketGroup.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-      trinketGroup.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
 
-      this.scene.add(trinketGroup);
-      this.trinkets.push(trinketGroup);
-    });
-  }
-  // ПРИМЕР ДЛЯ ОТДЕЛЬНОГО УКРАШЕНИЯ
-  // const specificTrinket = this.trinkets.find(trinket => trinket.name === 'имя_украшения');
-  // if (specificTrinket) {
-  //   specificTrinket.position.y += 0.2; // ПОДНЯТИЕ ВВЕРХ
-  //   specificTrinket.scale.multiplyScalar(1.2); // ИЗМЕНЕНИЕ МАСШТАБА
-  // }
+         addStarTrinkets(layer, radius, quantity, positionOffset) {
+    if (quantity === 1) {
+        const trinketClone = this.trinketModel.clone();
+        const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true, positionOffset);
+        trinketGroup.position.set(0, layer.position.y + 0.25, 0);
+        this.scene.add(trinketGroup);
+        this.trinkets.push(trinketGroup);
+    } else {
+        const points = this.createStarShape(radius).getPoints();
+        points.forEach(point => {
+            const trinketClone = this.trinketModel.clone();
+            const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false, positionOffset);
+            trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
+            this.scene.add(trinketGroup);
+            this.trinkets.push(trinketGroup);
+        });
+    }
 },
+          addHeartTrinkets(layer, radius, quantity, positionOffset) {
+    if (quantity === 1) {
+        const trinketClone = this.trinketModel.clone();
+        const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, true, positionOffset);
+        trinketGroup.position.set(0, layer.position.y + 0.25, 0);
+        this.scene.add(trinketGroup);
+        this.trinkets.push(trinketGroup);
+    } else {
+        const points = this.createHeartPerimeter(radius, quantity);
+        points.forEach(point => {
+            const trinketClone = this.trinketModel.clone();
+            const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false, positionOffset);
+            trinketGroup.position.set(point.x, layer.position.y + 0, point.y);
+            this.scene.add(trinketGroup);
+            this.trinkets.push(trinketGroup);
+        });
+    }
+    },
                      async addTrinkets() {
     this.removeCenterTrinket();
     this.removePerimeterTrinkets();
 
     if (this.currentCenterTrinket !== 'none') {
-      await this.addCenterTrinket();
+        await this.addCenterTrinket();
     }
+
     if (this.currentPerimeterTrinket !== 'none') {
-      await this.addPerimeterTrinkets();
+        await this.addPerimeterTrinkets();
     }
-    //this.updateCake(); // Вызываем updateCake после всех изменений
-  },
+},
 
 
         addSingleTrinket() {
@@ -1056,7 +1018,7 @@ delimiters: ['[[', ']]'],
       }
 
       const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-      const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0; //CHANGED HERE
+      const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.00 : 0;
       const sizeFactor = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 1.5 : 2;
       const planeGeometry = new THREE.PlaneGeometry(this.getShapeRadius(topLayer) * sizeFactor, this.getShapeRadius(topLayer) * sizeFactor);
 
@@ -1095,9 +1057,9 @@ delimiters: ['[[', ']]'],
       const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
       const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-      const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
-      const textYOffset = 0.2; // Увеличиваем смещение по оси Y
-      plane.position.set(0, topLayer.position.y + 0.58 + toppingOffset + additionalOffset + textYOffset, 0);
+      const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.0 : 0;  //here
+      const textYOffset = 0.04; // Увеличиваем смещение по оси Y // again to put text above pic
+      plane.position.set(0, topLayer.position.y + 0.51 + toppingOffset + additionalOffset + textYOffset, 0);
       plane.rotation.x = -Math.PI / 2;
 
       if (position) plane.position.copy(position);
@@ -1196,8 +1158,8 @@ async updateTextFont() {
           adjustPositionAfterDrag(object) {
   const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
   const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-  const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.05 : 0;
-  const textYOffset = 0.2; // Увеличиваем смещение по оси Y для текста
+  const additionalOffset = (this.currentShape === 'HEART' || this.currentShape === 'STAR') ? 0.00 : 0; //
+  const textYOffset = 0.01; // Увеличиваем смещение по оси Y для текста // here to put text above pic
   const radius = this.getShapeRadius(topLayer);
   const pos = object.position;
   const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
@@ -1215,21 +1177,21 @@ async updateTextFont() {
   this.updateHandlesVisibility();
 },
 
-
-          adjustPositionAfterDrag(object) {
-            const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-            const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
-            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
-            const radius = this.getShapeRadius(topLayer);
-            const pos = object.position;
-            const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
-            if (distance > radius) {
-              object.position.set(0, topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset, 0);
-            } else {
-              object.position.y = topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset;
-            }
-            this.updateHandlesVisibility();
-          },
+//
+//          adjustPositionAfterDrag(object) {
+//            const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+//            const toppingOffset = (this.currentTopping !== 'none') ? 0.05 : 0;
+//            const additionalOffset = (this.currentShape === 'сердце' || this.currentShape === 'звезда') ? 0.05 : 0;
+//            const radius = this.getShapeRadius(topLayer);
+//            const pos = object.position;
+//            const distance = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
+//           if (distance > radius) {
+//              object.position.set(0, topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset, 0);
+//            } else {
+//              object.position.y = topLayer.position.y + 0.51 + 0.03 + toppingOffset + additionalOffset;
+//            }
+//            this.updateHandlesVisibility();
+//          },
           addLayer() {
     this.numberOfLayers++;
     this.updateLayerControls();
