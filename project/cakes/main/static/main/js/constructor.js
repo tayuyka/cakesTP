@@ -629,7 +629,7 @@ delimiters: ['[[', ']]'],
                 radius *= 1.168;
                 dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 6, 1, true);
               } else if (this.currentShape === 'звезда') {
-                radius *= 1.135;
+                radius *= 1.12;
                 dripGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), height);
                 dripGeometry.rotateX(Math.PI / 2);
                 this.adjustStarUVs(dripGeometry);
@@ -686,7 +686,7 @@ delimiters: ['[[', ']]'],
               } else if (this.currentShape === 'шестиугольный') {
                 topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 6);
               } else if (this.currentShape === 'звезда') {
-                topGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius * 1.03), 0.05);
+                topGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius * 1.00), 0.05);
                 topGeometry.rotateX(Math.PI / 2);
               } else if (this.currentShape === 'сердце') {
                 topGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius * 1.08), 0.05);
