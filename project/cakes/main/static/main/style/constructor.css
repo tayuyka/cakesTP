@@ -29,7 +29,10 @@
   }
 
   #threejs-container {
-    max-height: 90%;
+    /*max-height: 90%;*/
+     width: 100%;
+    height: 91vh; /* 91% высоты окна */
+    overflow: hidden;
   }
 
   .params-title{

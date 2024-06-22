@@ -468,10 +468,20 @@ delimiters: ['[[', ']]'],
             shape.bezierCurveTo(x + 70 * scaleFactor, y + 20 * scaleFactor, x + 25 * scaleFactor, y - 40 * scaleFactor, x, y);
 
             return shape;
-          },
+          },/*
           createExtrudedShapeGeometry(shape, height) {
             return new THREE.ExtrudeGeometry(shape, { depth: height, bevelEnabled: false });
-          },
+          },*/
+          createExtrudedShapeGeometry(shape, height) {
+    const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth: height,
+        bevelEnabled: false
+    });
+
+    geometry.center(); // Центруем геометрию
+
+    return geometry;
+},
           createHeartPerimeter(radius, pointsCount) {
             const scaleFactor = 1.65;
             const shape = this.createHeartShape(radius * scaleFactor);
@@ -619,7 +629,7 @@ delimiters: ['[[', ']]'],
                 radius *= 1.165;
                 dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 6, 1, true);
               } else if (this.currentShape === 'звезда') {
-                radius *= 1.035;
+                radius *= 1.135;
                 dripGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), height);
                 dripGeometry.rotateX(Math.PI / 2);
                 this.adjustStarUVs(dripGeometry);
@@ -655,14 +665,14 @@ delimiters: ['[[', ']]'],
               const drip = new THREE.Mesh(dripGeometry, dripMaterial);
               drip.position.y = layer.position.y + layer.children[layer.children.length - 1].position.y - height / 3.5;
               if (this.currentShape === 'звезда') {
-                drip.position.y += 0.15; // Корректировка смещения по оси Z для формы сердца
+                drip.position.y += 0.0; // Корректировка смещения по оси Z для формы сердца
               }
               if (this.currentShape === 'сердце') {
-                drip.position.y += 0.15; // Корректировка смещения по оси Z для формы сердца
+                drip.position.y += 0.0; // Корректировка смещения по оси Z для формы сердца
               }
 
               if (this.currentShape === 'сердце') {
-                drip.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
+                //drip.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
               }
 
               this.cakeDrips.push(drip);
@@ -676,7 +686,7 @@ delimiters: ['[[', ']]'],
               } else if (this.currentShape === 'шестиугольный') {
                 topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 6);
               } else if (this.currentShape === 'звезда') {
-                topGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius * 1.01), 0.05);
+                topGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius * 1.03), 0.05);
                 topGeometry.rotateX(Math.PI / 2);
               } else if (this.currentShape === 'сердце') {
                 topGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius * 1.08), 0.05);
@@ -686,13 +696,14 @@ delimiters: ['[[', ']]'],
               const top = new THREE.Mesh(topGeometry, topMaterial);
               top.position.set(layer.position.x, layer.position.y + 0.50, layer.position.z);
               if (this.currentShape === 'звезда') {
-                top.position.y -= 0.07; // Корректировка смещения по оси Z для формы сердца
+                top.position.y += 0.01; // Корректировка смещения по оси Z для формы сердца
               }
               if (this.currentShape === 'сердце') {
-                top.position.y -= 0.07; // Корректировка смещения по оси Z для формы сердца
+                top.position.y += 0.01; // Корректировка смещения по оси Z для формы сердца
               }
               if (this.currentShape === 'сердце') {
-                top.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
+                //top.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
+                top.position.z -= 0; // Корректировка смещения по оси Z для формы сердца
               }
               this.scene.add(top);
             });
