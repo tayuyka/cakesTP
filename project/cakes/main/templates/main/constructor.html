@@ -76,7 +76,7 @@
           <div class="select-group constrct">
 
       <select id="center-decoration" v-model="currentCenterTrinket" @change="updateCenterTrinket">
-        <option value="none" disabled selected>В центре...</option>
+        <option value="none" >В центре...</option>
         <option v-for="decoration in centerDecorations" :key="decoration.ingridient" :value="decoration.ingridient">[[ decoration.ingridient ]]</option>
     </select>
             </div>
@@ -85,7 +85,7 @@
 
 <div class="select-group constrct">
         <select id="perimeter-decoration" v-model="currentPerimeterTrinket" @change="updatePerimeterTrinket">
-        <option value="none" disabled selected>По краю...</option>
+        <option value="none" >По краю...</option>
         <option v-for="decoration in perimeterDecorations" :key="decoration.ingridient" :value="decoration.ingridient">[[ decoration.ingridient ]]</option>
     </select>
       </div>
