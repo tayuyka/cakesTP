@@ -1,3 +1,5 @@
+import random
+
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
@@ -22,10 +24,11 @@ from collections import Counter
 
 
 def get_recommendations(user):
+    recommended_cakes = set()
+
     if user.is_authenticated:
         user_orders = Order.objects.filter(user=user)
         if user_orders.exists():
-            # Получаем все торты, которые пользователь заказывал
             ordered_cakes = OrderContent.objects.filter(order__in=user_orders).values_list('cake', flat=True)
             cakes = Cake.objects.filter(pk__in=ordered_cakes)
 
@@ -35,27 +38,33 @@ def get_recommendations(user):
             shapes = cakes.values_list('cake_shape__shape', flat=True)
             toppings = cakes.values_list('cake_topping__ingridient', flat=True)
             coverages = cakes.values_list('cake_coverage__ingridient', flat=True)
+            additions = cakes.values_list('cake_addition__ingridient', flat=True)
 
             # Считаем наиболее часто встречающиеся параметры
             most_common_layer_count = Counter(layer_counts).most_common(1)[0][0]
-            most_common_size = Counter(sizes).most_common(1)[0][0]
             most_common_shape = Counter(shapes).most_common(1)[0][0]
             most_common_topping = Counter(toppings).most_common(1)[0][0]
             most_common_coverage = Counter(coverages).most_common(1)[0][0]
+            most_common_addition = Counter(additions).most_common(1)[0][0]
 
             # Получаем рекомендации на основе наиболее часто встречающихся параметров
-            recommended_cakes = set()
-            recommended_cakes.update(Cake.objects.filter(layers_count=most_common_layer_count)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_size__type=most_common_size)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_shape__shape=most_common_shape)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_topping__ingridient=most_common_topping)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_coverage__ingridient=most_common_coverage)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_topping__ingridient=most_common_topping)[:1])
+            recommended_cakes.update(Cake.objects.filter(cake_shape__shape=most_common_shape)[:1])
+            recommended_cakes.update(Cake.objects.filter(cake_coverage__ingridient=most_common_coverage)[:1])
+            recommended_cakes.update(Cake.objects.filter(cake_addition__ingridient=most_common_addition)[:1])
+            recommended_cakes.update(Cake.objects.filter(layers_count=most_common_layer_count)[:1])
 
-            # Ограничиваем количество рекомендаций до 5 и удаляем дубликаты
-            return list(recommended_cakes)[:5]
+            # Дополняем до 5 тортов, если есть повторения
+            if len(recommended_cakes) < 5:
+                remaining_cakes = Cake.objects.exclude(pk__in=[cake.pk for cake in recommended_cakes])
+                additional_cakes = random.sample(list(remaining_cakes), 5 - len(recommended_cakes))
+                recommended_cakes.update(additional_cakes)
 
     # Если пользователь не авторизован или у него нет заказов, возвращаем любые 5 тортов
-    return list(Cake.objects.all()[:5])
+    if len(recommended_cakes) < 5:
+        recommended_cakes.update(Cake.objects.all()[:5 - len(recommended_cakes)])
+
+    return list(recommended_cakes)
 
 
 def recovery_form(request):
@@ -104,7 +113,6 @@ def reset_password(request):
         else:
             messages.error(request, 'Пароли не совпадают.')
     return render(request, 'main/recovery_form_reset_password.html')
-
 
 
 def add_to_cart(request, cake_id):
@@ -256,10 +264,7 @@ def catalog(request):
 
 def order_form(request):
     if request.method == 'POST':
-        first_name = request.POST['firstName']
-        last_name = request.POST['lastName']
         email = request.POST['email']
-        phone = request.POST['phone']
         address = request.POST['address']
 
         # Save the order
@@ -289,6 +294,14 @@ def order_form(request):
         order.price = total_cost
         order.save()
 
+        send_mail(
+            'Оформление заказа',
+            f'Благодарим Вас за сделанный заказ!\nПо всем вопросам просим Вас связаться с нами и уточнить номер заказа: {order.pk}',
+            'sweetcr3ations@yandex.ru',
+            [email],
+            fail_silently=False,
+        )
+
         # Clear the cart
         request.session['cart'] = {}
 
@@ -305,12 +318,16 @@ def order_form(request):
         total_cost += cost * quantity
         total_items += quantity
 
-    return render(request, 'main/order_form.html', {
+    context = {
         'total_cost': total_cost,
-        'total_items': total_items
-    })
+        'total_items': total_items,
+        'user': request.user
+    }
+
+    return render(request, 'main/order_form.html', context)
 
 
+@login_required
 def order_details(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     order_contents = OrderContent.objects.filter(order=order)
@@ -334,7 +351,6 @@ def order_details(request, order_id):
 
 def constructor(request):
     return render(request, 'main/constructor.html')
-
 
 
 def staff_required(user):
@@ -373,7 +389,7 @@ def edit_order(request, order_id):
     return render(request, 'staff/edit_order.html', {'order': order})
 
 
-def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, cake_layers):
+def calculate_cake_weight_and_cost(layers_count, cake_size, cake_coverage, cake_topping, cake_additions, cake_layers):
 
     Vc = cake_size.base_area
     Vt = Vc * 0.1
@@ -396,16 +412,13 @@ def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_cov
 
     M_add = sum(float(addition.cost_per_gram) / 100 for addition in cake_additions)
 
-
     total_weight = Mc + Mt + Ml + M_add
-
 
     dc = float(cake_coverage.cost_per_gram)
     dt = float(cake_topping.cost_per_gram)
     df = float(cake_layers[0].layer_filling.cost_per_gram)
     db = float(cake_layers[0].layer_base.cost_per_gram)
     d_add = sum(float(addition.cost_per_gram) for addition in cake_additions) / len(cake_additions)
-
 
     Sl = 0
     for layer in cake_layers:
@@ -588,8 +601,10 @@ def statistics_view(request):
 
     return render(request, 'staff/statistics.html', context)
 
+
 from .models import LayerBase, LayerFilling, CakeSize, CakeShape, CakeTopping, CakeAddition, CakeCoverage, Cake
 from .serializers import LayerBaseSerializer, LayerFillingSerializer, CakeSizeSerializer, CakeShapeSerializer, CakeToppingSerializer, CakeAdditionSerializer, CakeCoverageSerializer, CakeSerializer
+
 
 class CakeViewSet(viewsets.ViewSet):
     def list(self, request):
@@ -603,6 +618,7 @@ class CakeViewSet(viewsets.ViewSet):
             'covers': CakeCoverageSerializer(CakeCoverage.objects.all(), many=True).data,
         }
         return Response(data)
+
 
 class CakeDetailView(generics.RetrieveAPIView):
     queryset = Cake.objects.all()
@@ -649,4 +665,3 @@ def add_to_cart_from_constructor(request):
             return JsonResponse({'error': 'Internal Server Error'}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
-
