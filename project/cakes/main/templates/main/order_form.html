@@ -7,42 +7,33 @@
 <form class="order-form" method="post" action="{% url 'order_form' %}">
     {% csrf_token %}
     <h2 class="order-form-title">Оформление</h2>
-      <div class="name-fields">
+    <div class="name-fields">
         <label for="firstName" class="first-name-label">Имя</label>
-          <label for="lastName" class="first-name-label">Фамилия</label>
-      </div>
-      <div class="name-inputs">
-        <input type="text" id="firstName" name="firstName" class="first-name-input" placeholder="Имя..." aria-label="Имя" required />
-        <input type="text" id="lastName" name="lastName" class="last-name-input" placeholder="Фамилия..." aria-label="Фамилия" required />
-      </div>
+        <label for="lastName" class="first-name-label">Фамилия</label>
+    </div>
+    <div class="name-inputs">
+        <input type="text" id="firstName" name="firstName" class="first-name-input" placeholder="Имя..." aria-label="Имя" value="{{ user.first_name }}" required />
+        <input type="text" id="lastName" name="lastName" class="last-name-input" placeholder="Фамилия..." aria-label="Фамилия" value="{{ user.last_name }}" required />
+    </div>
 
-      <label for="email" class="email-label">Электронная почта</label>
-      <input type="email" id="email" name="email" class="email-input" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты" required />
+    <label for="email" class="email-label">Электронная почта</label>
+    <input type="email" id="email" name="email" class="email-input" placeholder="Адрес электронной почты..." aria-label="Адрес электронной почты" value="{{ user.email }}" required />
 
-      <label for="phone" class="phone-label">Номер телефона</label>
-      <input type="tel" id="phone" name="phone" class="phone-input" placeholder="Номер телефона..." aria-label="Номер телефона" required />
+    <label for="phone" class="phone-label">Номер телефона</label>
+    <input type="tel" id="phone" name="phone" class="phone-input" placeholder="Номер телефона..." aria-label="Номер телефона" value="{{ user.phone_number }}" required />
 
-      <label for="address" class="address-label">Адрес доставки</label>
-      <input type="text" id="address" name="address" class="address-input" placeholder="Улица, дом, квартира/офис, подъезд..." aria-label="Адрес доставки" required />
+    <label for="address" class="address-label">Адрес доставки</label>
+    <input type="text" id="address" name="address" class="address-input" placeholder="Улица, дом, квартира/офис, подъезд..." aria-label="Адрес доставки" required />
 
-      <p class="delivery-info">{{ total_items }} торт(ов) доставят 3 июня</p>
+    <p class="delivery-info">{{ total_items }} торт(ов) доставят 3 июня</p>
 
-      <div class="order-summary">
+    <div class="order-summary">
         <div class="total-container">
-          <span class="total-label">Сумма:</span>
-          <span class="total-amount">{{ total_cost }} ₽</span>
+            <span class="total-label">Сумма:</span>
+            <span class="total-amount">{{ total_cost }} ₽</span>
         </div>
         <button type="submit" class="order-button" @click="showPopup">Заказать</button>
-      </div>
-    </form>
-  <div class="popup-overlay" :class="[[ isPopupVisible ? 'show' : '' ]]" @click="hidePopup"></div>
-
-<!--        <div class="popup" :class="[[ isPopupVisible ? 'show' : '' ]]">-->
-<!--            <p>Ваш заказ принят</p>-->
-<!--            <div class="popup-buttons">-->
-<!--                <button class="popup-button" @click="handleOk">OK</button>-->
-<!--                <button class="popup-button" @click="handleCancel">Отмена</button>-->
-<!--            </div>-->
-<!--        </div>-->
-  </main>
+    </div>
+</form>
+<div class="popup-overlay" :class="[[ isPopupVisible ? 'show' : '' ]]" @click="hidePopup"></div>
 {% endblock %}
