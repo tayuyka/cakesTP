@@ -397,50 +397,53 @@ delimiters: ['[[', ']]'],
     return group;
 },
           createLayer(shape, radius, height, baseColor, fillingColor) {
-            const group = new THREE.Group();
-            const segmentHeight = height / 5;
+    const group = new THREE.Group();
+    const segmentHeight = height / 5;
 
-            for (let i = 0; i < 5; i++) {
-              let geometry;
-              switch (shape) {
-                case 'круглый':
-                  geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 32);
-                  break;
-                case 'квадратный':
-                  geometry = new THREE.BoxGeometry(radius * 2, segmentHeight, radius * 2);
-                  break;
-                case 'шестиугольный':
-                  geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 6);
-                  break;
-                case 'звезда':
-                  geometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), segmentHeight);
-                  geometry.rotateX(Math.PI / 2);
-                  break;
-                case 'сердце':
-                  geometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius), segmentHeight);
-                  geometry.rotateX(Math.PI / 2);
-                  break;
-                default:
-                  geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 32);
-              }
-              const material = new THREE.MeshBasicMaterial({ color: (i % 2 === 0) ? baseColor : fillingColor });
-              const mesh = new THREE.Mesh(geometry, material);
+    for (let i = 0; i < 5; i++) {
+        let geometry;
+        switch (shape) {
+            case 'круглый':
+                geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 32);
+                break;
+            case 'квадратный':
+                geometry = new THREE.BoxGeometry(radius * 2, segmentHeight, radius * 2);
+                break;
+            case 'шестиугольный':
+                geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 6);
+                break;
+            case 'звезда':
+                geometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), segmentHeight);
+                geometry.rotateX(Math.PI / 2);
+                break;
+            case 'сердце':
+                geometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius), segmentHeight);
+                geometry.rotateX(Math.PI / 2);
+                break;
+            case 'прямоугольный': // новый случай
+                geometry = new THREE.BoxGeometry(radius * 2, segmentHeight, radius * 3);
+                break;
+            default:
+                geometry = new THREE.CylinderGeometry(radius, radius, segmentHeight, 32);
+        }
+        const material = new THREE.MeshBasicMaterial({ color: (i % 2 === 0) ? baseColor : fillingColor });
+        const mesh = new THREE.Mesh(geometry, material);
 
-              if (shape === 'сердце') {
-                const boundingBox = new THREE.Box3().setFromObject(mesh);
-                const center = boundingBox.getCenter(new THREE.Vector3());
-                mesh.position.set(-center.x, i * segmentHeight - height / 2 + segmentHeight / 2, -center.z);
-              } else {
-                mesh.position.y = i * segmentHeight - height / 2 + segmentHeight / 2;
-              }
-              if (shape === 'сердце' || shape === 'звезда') {
-                  group.position.y += 0.0; // ПОДНИМАЕМ ТОРТ ВВЕРХ ТОЛЬКО ДЛЯ СЕРДЦА И ЗВЕЗДЫ
-              }
-              group.add(mesh);
-            }
+        if (shape === 'сердце') {
+            const boundingBox = new THREE.Box3().setFromObject(mesh);
+            const center = boundingBox.getCenter(new THREE.Vector3());
+            mesh.position.set(-center.x, i * segmentHeight - height / 2 + segmentHeight / 2, -center.z);
+        } else {
+            mesh.position.y = i * segmentHeight - height / 2 + segmentHeight / 2;
+        }
+        if (shape === 'сердце' || shape === 'звезда') {
+            group.position.y += 0.0; // ПОДНИМАЕМ ТОРТ ВВЕРХ ТОЛЬКО ДЛЯ СЕРДЦА И ЗВЕЗДЫ
+        }
+        group.add(mesh);
+    }
 
-            return group;
-          },
+    return group;
+},
           createStarShape(radius) {
             const shape = new THREE.Shape();
             const outerRadius = radius;
@@ -494,221 +497,225 @@ delimiters: ['[[', ']]'],
             return spacedPoints;
           },
           createCake(layers, shape, bases, fillings) {
-            this.cakeLayers = [];
-            this.cakeCovers = [];
-            this.cakeDrips = [];
-            this.objectsToDrag = [];
+    this.cakeLayers = [];
+    this.cakeCovers = [];
+    this.cakeDrips = [];
+    this.objectsToDrag = [];
 
-            while (this.scene.children.length > 0) {
-              this.scene.remove(this.scene.children[0]);
-            }
+    while (this.scene.children.length > 0) {
+        this.scene.remove(this.scene.children[0]);
+    }
 
-            const ambientLight = new THREE.AmbientLight(0x404040);
-            this.scene.add(ambientLight);
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    this.scene.add(ambientLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-            directionalLight.position.set(5, 5, 5).normalize();
-            this.scene.add(directionalLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5).normalize();
+    this.scene.add(directionalLight);
 
-            const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-            pointLight.position.set(10, 10, 10);
-            this.scene.add(pointLight);
+    const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+    pointLight.position.set(10, 10, 10);
+    this.scene.add(pointLight);
 
-            const layerHeight = (shape === 'сердце' || shape === 'звезда') ? 1 : 1;    // ВЫСОТА УРОВНЯ
-            const radii = shape === 'сердце' ? [3.5, 2.5, 1.5] : shape === 'звезда' ? [2.5, 2, 1.5] : [2, 1.5, 1];
+    const layerHeight = (shape === 'сердце' || shape === 'звезда') ? 1 : 1;    // ВЫСОТА УРОВНЯ
+    const radii = shape === 'сердце' ? [3.5, 2.5, 1.5] : shape === 'звезда' ? [2.5, 2, 1.5] : shape === 'прямоугольный' ? [2.5, 2, 1.5] : [2, 1.5, 1];
 
-            for (let i = 0; i < layers; i++) {
-              const baseColor = bases[i];
-              const fillingColor = fillings[i];
-              const layer = this.createLayer(shape, radii[i], layerHeight, baseColor, fillingColor);
-              layer.position.y = i * layerHeight;
+    for (let i = 0; i < layers; i++) {
+        const baseColor = bases[i];
+        const fillingColor = fillings[i];
+        const layer = this.createLayer(shape, radii[i], layerHeight, baseColor, fillingColor);
+        layer.position.y = i * layerHeight;
 
-              this.cakeLayers.push(layer);
-              this.scene.add(layer);
-            }
+        this.cakeLayers.push(layer);
+        this.scene.add(layer);
+    }
 
-            nextTick(() => {
-              this.applyCover();
-              this.addTopping();
-              this.reapplyDecorations();
-              this.addTrinkets();
+    nextTick(() => {
+        this.applyCover();
+        this.addTopping();
+        this.reapplyDecorations();
+        this.addTrinkets();
 
-              this.dragControls = new DragControls(this.objectsToDrag, this.camera, this.renderer.domElement);
-              this.dragControls.addEventListener('dragstart', (event) => {
-                this.controls.enabled = false;
-                this.selectedObject = event.object;
-                this.updateHandlesVisibility();
-              });
-              this.dragControls.addEventListener('dragend', (event) => {
-                this.controls.enabled = true;
-                this.adjustPositionAfterDrag(event.object);
-                this.selectedObject = null;
-                this.updateHandlesVisibility();
-              });
-            });
-          },
+        this.dragControls = new DragControls(this.objectsToDrag, this.camera, this.renderer.domElement);
+        this.dragControls.addEventListener('dragstart', (event) => {
+            this.controls.enabled = false;
+            this.selectedObject = event.object;
+            this.updateHandlesVisibility();
+        });
+        this.dragControls.addEventListener('dragend', (event) => {
+            this.controls.enabled = true;
+            this.adjustPositionAfterDrag(event.object);
+            this.selectedObject = null;
+            this.updateHandlesVisibility();
+        });
+    });
+},
           getShapeRadius(layer) {
             const boundingBox = new THREE.Box3().setFromObject(layer);
             return boundingBox.max.x;
           },
           applyCover() {
-            this.cakeCovers.forEach(cover => {
-              this.scene.remove(cover);
-            });
-            this.cakeCovers = [];
+    this.cakeCovers.forEach(cover => {
+        this.scene.remove(cover);
+    });
+    this.cakeCovers = [];
 
-            if (this.currentCover === 'none') {
-              return;
-            }
+    if (this.currentCover === 'none') {
+        return;
+    }
 
-            const cover = this.covers.find(c => c.ingridient === this.currentCover);
-            if (!cover) {
-              return;
-            }
+    const cover = this.covers.find(c => c.ingridient === this.currentCover);
+    if (!cover) {
+        return;
+    }
 
-            const coverColor = `${cover.primary_color}`;
+    const coverColor = `${cover.primary_color}`;
 
-            this.cakeLayers.forEach((layer, index) => {
-              const coverLayer = layer.clone();
-              coverLayer.scale.set(1.010, 1.010, 1.010);
+    this.cakeLayers.forEach((layer, index) => {
+        const coverLayer = layer.clone();
+        coverLayer.scale.set(1.010, 1.010, 1.010);
 
-              coverLayer.children.forEach(child => {
-                if (child.material) {
-                  child.material = new THREE.MeshBasicMaterial({
+        coverLayer.children.forEach(child => {
+            if (child.material) {
+                child.material = new THREE.MeshBasicMaterial({
                     color: coverColor,
                     transparent: true,
                     opacity: 0.8
-                  });
-                }
-              });
+                });
+            }
+        });
 
-              coverLayer.visible = true;
-              this.scene.add(coverLayer);
-              this.cakeCovers.push(coverLayer);
-            });
-          },
+        coverLayer.visible = true;
+        this.scene.add(coverLayer);
+        this.cakeCovers.push(coverLayer);
+    });
+},
           findCoverColor(ingredient) {
             const cover = this.covers.find(c => c.ingridient === ingredient);
             return cover ? cover.primary_color : null;
           },
           async addTopping() {
-            this.cakeDrips.forEach(drip => {
-              this.scene.remove(drip);
-            });
-            this.cakeDrips = [];
+    this.cakeDrips.forEach(drip => {
+        this.scene.remove(drip);
+    });
+    this.cakeDrips = [];
 
-            const generalZOffset = 0.57; // Общее смещение по оси Z для всей конструкции
+    const generalZOffset = 0.57; // Общее смещение по оси Z для всей конструкции
 
-            if (this.currentTopping === 'none') {
-              return;
-            }
+    if (this.currentTopping === 'none') {
+        return;
+    }
 
-            const topping = this.toppings.find(t => t.ingridient === this.currentTopping);
-            if (!topping) {
-              return;
-            }
+    const topping = this.toppings.find(t => t.ingridient === this.currentTopping);
+    if (!topping) {
+        return;
+    }
 
-            const dripColor = `${topping.primary_color}`;
-            //const texturePath = topping.texture_path;
-            const texturePath = `${CDN_BASE_URL}${topping.texture_path}`;
-            const dripTexture = new THREE.TextureLoader().load(texturePath);
-            const dripNormalMap = new THREE.TextureLoader().load(texturePath.replace('.png', '_norm.png'));
+    const dripColor = `${topping.primary_color}`;
+    const texturePath = `${CDN_BASE_URL}${topping.texture_path}`;
+    const dripTexture = new THREE.TextureLoader().load(texturePath);
+    const dripNormalMap = new THREE.TextureLoader().load(texturePath.replace('.png', '_norm.png'));
 
-            this.cakeLayers.forEach((layer, index) => {
-              let radius = this.getShapeRadius(layer);
-              const height = 0.5;
-              let dripGeometry;
+    this.cakeLayers.forEach((layer, index) => {
+        let radius = this.getShapeRadius(layer);
+        const height = 0.5;
+        let dripGeometry;
 
-              if (this.currentShape === 'круглый') {
-                radius *= 1.015;
-                dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 32, 1, true);
-              } else if (this.currentShape === 'квадратный') {
-                radius *= 1.015;
-                dripGeometry = new THREE.BoxGeometry(radius * 2, height, radius * 2);
-              } else if (this.currentShape === 'шестиугольный') {
-                radius *= 1.168;
-                dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 6, 1, true);
-              } else if (this.currentShape === 'звезда') {
-                radius *= 1.12;
-                dripGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), height);
-                dripGeometry.rotateX(Math.PI / 2);
-                this.adjustStarUVs(dripGeometry);
-              } else if (this.currentShape === 'сердце') {
-                radius *= 1.77;
-                const newradius = radius * 1.07;
-                dripGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(newradius), height);
-                dripGeometry.rotateX(Math.PI / 2);
-                this.adjustHeartUVs(dripGeometry);
-              }
+        if (this.currentShape === 'круглый') {
+            radius *= 1.015;
+            dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 32, 1, true);
+        } else if (this.currentShape === 'квадратный') {
+            radius *= 1.015;
+            dripGeometry = new THREE.BoxGeometry(radius * 2, height, radius * 2);
+        } else if (this.currentShape === 'шестиугольный') {
+            radius *= 1.168;
+            dripGeometry = new THREE.CylinderGeometry(radius, radius, height, 6, 1, true);
+        } else if (this.currentShape === 'звезда') {
+            radius *= 1.12;
+            dripGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius), height);
+            dripGeometry.rotateX(Math.PI / 2);
+            this.adjustStarUVs(dripGeometry);
+        } else if (this.currentShape === 'сердце') {
+            radius *= 1.77;
+            const newradius = radius * 1.07;
+            dripGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(newradius), height);
+            dripGeometry.rotateX(Math.PI / 2);
+            this.adjustHeartUVs(dripGeometry);
+        } else if (this.currentShape === 'прямоугольный') { // новый случай
+            radius *= 1.015;
+            dripGeometry = new THREE.BoxGeometry(radius * 2, height, radius * 3);
+        }
 
-              const repeats = [3, 3, 2];
-              const repeatCount = repeats[index % repeats.length];
-              dripTexture.wrapS = THREE.RepeatWrapping;
-              dripTexture.wrapT = THREE.RepeatWrapping;
-              if (this.currentShape === 'звезда') {
-                dripTexture.repeat.set(repeatCount * 0.23, 1); // Уменьшаем количество повторений
-              } else if (this.currentShape === 'сердце') {
-                dripTexture.repeat.set(repeatCount * 0.35, 1); // Уменьшаем количество повторений для сердца
-              } else {
-                dripTexture.repeat.set(repeatCount, 1);
-              }
+        const repeats = [3, 3, 2];
+        const repeatCount = repeats[index % repeats.length];
+        dripTexture.wrapS = THREE.RepeatWrapping;
+        dripTexture.wrapT = THREE.RepeatWrapping;
+        if (this.currentShape === 'звезда') {
+            dripTexture.repeat.set(repeatCount * 0.23, 1); // Уменьшаем количество повторений
+        } else if (this.currentShape === 'сердце') {
+            dripTexture.repeat.set(repeatCount * 0.35, 1); // Уменьшаем количество повторений для сердца
+        } else {
+            dripTexture.repeat.set(repeatCount, 1);
+        }
 
-              const dripMaterial = new THREE.MeshStandardMaterial({
-                map: dripTexture,
-                normalMap: dripNormalMap,
-                color: dripColor,
-                roughness: 0.5,
-                metalness: 0.3,
-                transparent: true, // Включаем прозрачность
-                opacity: 0.95 // Устанавливаем значение прозрачности
-              });
-              const drip = new THREE.Mesh(dripGeometry, dripMaterial);
-              drip.position.y = layer.position.y + layer.children[layer.children.length - 1].position.y - height / 3.5;
-              if (this.currentShape === 'звезда') {
-                drip.position.y += 0.0; // Корректировка смещения по оси Z для формы сердца
-              }
-              if (this.currentShape === 'сердце') {
-                drip.position.y += 0.0; // Корректировка смещения по оси Z для формы сердца
-              }
+        const dripMaterial = new THREE.MeshStandardMaterial({
+            map: dripTexture,
+            normalMap: dripNormalMap,
+            color: dripColor,
+            roughness: 0.5,
+            metalness: 0.3,
+            transparent: true, // Включаем прозрачность
+            opacity: 0.95 // Устанавливаем значение прозрачности
+        });
+        const drip = new THREE.Mesh(dripGeometry, dripMaterial);
+        drip.position.y = layer.position.y + layer.children[layer.children.length - 1].position.y - height / 3.5;
+        if (this.currentShape === 'звезда') {
+            drip.position.y += 0.0; // Корректировка смещения по оси Z для формы сердца
+        }
+        if (this.currentShape === 'сердце') {
+            drip.position.y += 0.0; // Корректировка смещения по оси Z для формы сердца
+        }
 
-              if (this.currentShape === 'сердце') {
-                //drip.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
-              }
+        if (this.currentShape === 'сердце') {
+            //drip.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
+        }
 
-              this.cakeDrips.push(drip);
-              this.scene.add(drip);
+        this.cakeDrips.push(drip);
+        this.scene.add(drip);
 
-              let topGeometry;
-              if (this.currentShape === 'круглый') {
-                topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 32);
-              } else if (this.currentShape === 'квадратный') {
-                topGeometry = new THREE.BoxGeometry(radius * 2, 0.05, radius * 2);
-              } else if (this.currentShape === 'шестиугольный') {
-                topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 6);
-              } else if (this.currentShape === 'звезда') {
-                topGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius * 1.00), 0.05);
-                topGeometry.rotateX(Math.PI / 2);
-              } else if (this.currentShape === 'сердце') {
-                topGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius * 1.08), 0.05);
-                topGeometry.rotateX(Math.PI / 2);
-              }
-              const topMaterial = new THREE.MeshStandardMaterial({ color: dripColor });
-              const top = new THREE.Mesh(topGeometry, topMaterial);
-              top.position.set(layer.position.x, layer.position.y + 0.50, layer.position.z);
-              if (this.currentShape === 'звезда') {
-                top.position.y += 0.01; // Корректировка смещения по оси Z для формы сердца
-              }
-              if (this.currentShape === 'сердце') {
-                top.position.y += 0.01; // Корректировка смещения по оси Z для формы сердца
-              }
-              if (this.currentShape === 'сердце') {
-                //top.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
-                top.position.z -= 0; // Корректировка смещения по оси Z для формы сердца
-              }
-              this.scene.add(top);
-            });
+        let topGeometry;
+        if (this.currentShape === 'круглый') {
+            topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 32);
+        } else if (this.currentShape === 'квадратный') {
+            topGeometry = new THREE.BoxGeometry(radius * 2, 0.05, radius * 2);
+        } else if (this.currentShape === 'шестиугольный') {
+            topGeometry = new THREE.CylinderGeometry(radius, radius, 0.05, 6);
+        } else if (this.currentShape === 'звезда') {
+            topGeometry = this.createExtrudedShapeGeometry(this.createStarShape(radius * 1.00), 0.05);
+            topGeometry.rotateX(Math.PI / 2);
+        } else if (this.currentShape === 'сердце') {
+            topGeometry = this.createExtrudedShapeGeometry(this.createHeartShape(radius * 1.08), 0.05);
+            topGeometry.rotateX(Math.PI / 2);
+        } else if (this.currentShape === 'прямоугольный') { // новый случай
+            topGeometry = new THREE.BoxGeometry(radius * 2, 0.05, radius * 3);
+        }
+        const topMaterial = new THREE.MeshStandardMaterial({ color: dripColor });
+        const top = new THREE.Mesh(topGeometry, topMaterial);
+        top.position.set(layer.position.x, layer.position.y + 0.50, layer.position.z);
+        if (this.currentShape === 'звезда') {
+            top.position.y += 0.01; // Корректировка смещения по оси Z для формы сердца
+        }
+        if (this.currentShape === 'сердце') {
+            top.position.y += 0.01; // Корректировка смещения по оси Z для формы сердца
+        }
+        if (this.currentShape === 'сердце') {
+            //top.position.z -= (this.calculateHeartYOffset(index) + generalZOffset); // Корректировка смещения по оси Z для формы сердца
+            top.position.z -= 0; // Корректировка смещения по оси Z для формы сердца
+        }
+        this.scene.add(top);
+    });
 
-          },
+},
           calculateHeartYOffset(layerIndex) {
             const baseOffset = 0.5;
             const layerFactor = 0.3;
@@ -745,7 +752,7 @@ delimiters: ['[[', ']]'],
     }
 },
 
-              async addPerimeterTrinkets() {
+              addPerimeterTrinkets() {
     const trinketData = this.perimeterDecorations.find(t => t.ingridient === this.currentPerimeterTrinket);
     if (!trinketData) {
         console.error('Decoration not found');
@@ -772,6 +779,8 @@ delimiters: ['[[', ']]'],
                 this.addStarTrinkets(layer, radius, quantity, trinketData.positionOffset);
             } else if (this.currentShape === 'сердце') {
                 this.addHeartTrinkets(layer, radius, quantity, trinketData.positionOffset);
+            } else if (this.currentShape === 'прямоугольный') { // новый случай
+                this.addRectangularTrinkets(layer, radius, quantity, trinketData.positionOffset);
             } else {
                 this.addCircularTrinkets(layer, radius, quantity, trinketData.positionOffset);
             }
@@ -1369,24 +1378,25 @@ async updateTextFont() {
 
     this.updateCake();
   },
-          async updateCake() {
+         async updateCake() {
     const layers = parseInt(this.numberOfLayers);
 
     const bases = [];
     const fillings = [];
 
     for (let i = 1; i <= layers; i++) {
-      const base = document.getElementById(`base${i}`).value;
-      const filling = document.getElementById(`filling${i}`).value;
-      bases.push(base);
-      fillings.push(filling);
+        const base = document.getElementById(`base${i}`).value;
+        const filling = document.getElementById(`filling${i}`).value;
+        bases.push(base);
+        fillings.push(filling);
     }
 
     this.createCake(layers, this.currentShape, bases, fillings);
     await this.loadDecoration();
     this.cakeJson = this.serializeCake();
     console.log(this.cakeJson);
-  },
+},
+
 
                async loadDecoration() {
     this.removeCenterTrinket();
@@ -1526,6 +1536,58 @@ async updateTextSize() {
   });
   this.trinkets = [];
 },
+/*
+addRectangularTrinkets(layer, radius, quantity, positionOffset) {
+    const trinketCountX = Math.ceil(quantity / 2);
+    const trinketCountZ = Math.floor(quantity / 2);
+    const stepX = (radius * 2) / trinketCountX;
+    const stepZ = (radius * 3) / trinketCountZ;
+
+    for (let i = 0; i < trinketCountX; i++) {
+        for (let j = 0; j < trinketCountZ; j++) {
+            const trinketClone = this.trinketModel.clone();
+            const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false, positionOffset);
+            const x = -radius + i * stepX;
+            const z = -radius * 1.5 + j * stepZ;
+
+            trinketGroup.position.set(x, layer.position.y + 0, z);
+            this.scene.add(trinketGroup);
+            this.trinkets.push(trinketGroup);
+        }
+    }
+},
+*/
+
+addRectangularTrinkets(layer, radius, quantity, positionOffset, layerIndex) {
+    const trinketCountX = Math.ceil(quantity / 2);
+    const trinketCountZ = Math.floor(quantity / 2);
+    const stepX = (radius * 2.5) / trinketCountX;
+    const stepZ = (radius * 3.8) / trinketCountZ;
+    const layerOffsetX = 0.1; // РЕГУЛИРУЙТЕ ЗНАЧЕНИЕ, ЧТОБЫ ИЗМЕНИТЬ СМЕЩЕНИЕ
+    x = 0;
+    z = 0;
+
+    for (let i = 0; i < trinketCountX; i++) {
+        for (let j = 0; j < trinketCountZ; j++) {
+
+            const trinketClone = this.trinketModel.clone();
+            const trinketGroup = this.adjustModelScaleAndPosition(trinketClone, false, positionOffset);
+
+            // РАСПОЛОЖЕНИЕ МОДЕЛЕЙ УКРАШЕНИЙ ПО ПЕРИМЕТРУ
+            if (layerIndex != 0)
+            x = -radius + i * stepX + layerOffsetX; // УСТАНОВКА ПОЗИЦИИ ПО ПЕРИМЕТРУ
+            else x = -radius + i * stepX;
+            z = -radius * 1.5 + j * stepZ; // УСТАНОВКА ПОЗИЦИИ ПО ПЕРИМЕТРУ
+
+            trinketGroup.position.set(x, layer.position.y + 0, z);
+            if ((i==0) || (j==0) || (i==(trinketCountX-1)) || (j==(trinketCountZ-1))){
+            this.scene.add(trinketGroup);
+            }
+            this.trinkets.push(trinketGroup);
+        }
+    }
+},
+
 
    removePerimeterTrinkets() {
     if (this.trinkets.length > 0) {
