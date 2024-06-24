@@ -123,7 +123,7 @@ createApp({
     },
 
     sendTestCakeToCart() {
-      const testCakeJson = {
+    const testCakeJson = {
         weight: 1500,
         cost: 500,
         layers_count: 3,
@@ -135,41 +135,42 @@ createApp({
         cake_shape: 1,
         cake_coverage: 1,
         cake_topping: 1,
-        cake_addition: 1,
+        cake_addition: none,
+        cake_addition_perimeter: None,  // Указываем null для украшений по периметру, если по умолчанию
         layers: [
-          {
-            base: 1,
-            filling: 1
-          },
-          {
-            base: 2,
-            filling: 2
-          },
-          {
-            base: 3,
-            filling: 3
-          }
+            {
+                base: 1,
+                filling: 1
+            },
+            {
+                base: 2,
+                filling: 2
+            },
+            {
+                base: 3,
+                filling: 3
+            }
         ]
-      };
+    };
 
-      axios.post('/cart/add/', testCakeJson, {
+    axios.post('/cart/add/', testCakeJson, {
         headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': this.getCookie('csrftoken')
+            'Content-Type': 'application/json',
+            'X-CSRFToken': this.getCookie('csrftoken')
         }
-      })
-      .then(response => {
+    })
+    .then(response => {
         console.log(response.data);
         alert('Тестовый торт добавлен в корзину');
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.error(error);
         if (error.response) {
-          console.error("Ответ сервера: ", error.response.data);
+            console.error("Ответ сервера: ", error.response.data);
         }
         alert('Произошла ошибка при добавлении тестового торта в корзину');
-      });
-    },
+    });
+},
 
     addToCart() {
       const cakeData = JSON.parse(this.cakeJson);

@@ -777,7 +777,8 @@ def add_to_cart_from_constructor(request):
                 cake_shape_id=data['cake_shape'],
                 cake_coverage_id=data['cake_coverage'],
                 cake_topping_id=data['cake_topping'],
-                cake_addition_id=data['cake_addition']
+                cake_addition_id=data['cake_addition'],
+                cake_addition_perimeter_id=data.get('cake_addition_perimeter')
             )
 
             print(f"Created cake ID: {cake.cake_id}")
