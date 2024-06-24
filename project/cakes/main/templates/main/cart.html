@@ -26,21 +26,22 @@
         <div class="cart-item">
             <div class="cart-item-row">
                 <img src="{% static item.cake.preview_image %}" alt="{{ item.cake.name }}" />
-                <div class="cart-item-text">
+
                     <div class="cart-item-text-container">
                         <h2 class="cart-item-name">{{ item.cake.name }}</h2>
                         <p class="cart-item-price">{{ item.cake.cost }} ₽</p>
+                        <p class="cart-item-price">{{ item.cake.weight }} г</p>
                     </div>
-                </div>
+
                 <div class="cart-item-actions-row">
                     <article class="cart-item-quantity-row">
-                        <a href="{% url 'remove_from_cart' item.cake.pk %}?action=decrease" class="quantity-icon"><box-icon name='minus' color='#ef98ae'></box-icon></a>
+                        <a href="{% url 'remove_from_cart' item.cake.pk %}?action=decrease" class="quantity-icon"><box-icon name='minus' color='#fff8e3'></box-icon></a>
                         <div class="cart-product-number">{{ item.quantity }}</div>
-                        <a href="{% url 'add_to_cart' item.cake.pk %}" class="quantity-icon"><box-icon name='plus' color='#ef98ae'></box-icon></a>
+                        <a href="{% url 'add_to_cart' item.cake.pk %}" class="quantity-icon"><box-icon name='plus' color='#fff8e3'></box-icon></a>
                     </article>
                 </div>
                 <article class="cart-item-delete-btn">
-                    <a href="{% url 'remove_from_cart' item.cake.pk %}?action=remove" class="logo-icon"><box-icon type='solid' name='trash' color='#e6a4b4' class="logo-icon"></box-icon></a>
+                    <a href="{% url 'remove_from_cart' item.cake.pk %}?action=remove" class="logo-icon"><box-icon type='solid' name='trash' color='#fff8e3' class="logo-icon"></box-icon></a>
                 </article>
             </div>
         </div>

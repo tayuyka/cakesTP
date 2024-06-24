@@ -88,8 +88,16 @@
                     </div>
                 </div>
                 <div class="layer-options">
-                    <!-- Layer options will be added dynamically -->
                 </div>
+            </div>
+            <div class="layers">
+                <h2 class="filter-title">Поиск</h2>
+                <form method="GET" action="">
+                    <div class="search">
+                        <input type="text" name="search" placeholder="Название..." value="{{ request.GET.search }}" class="input-field">
+                        <button type="submit"><box-icon name='search-alt-2' color='#fff8e3' ></box-icon></button>
+                    </div>
+                </form>
             </div>
         </div>
     </form>

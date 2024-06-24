@@ -1,180 +1,182 @@
 .order-details {
-    align-self: center;
-    justify-self: center;
-    
-    display: flex;
-    justify-content: space-around;
-    width: 80%;
+  align-self: center;
+  justify-self: center;
+  
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
 
-    justify-content: space-between;
-    color: #e6a4b4;
-    mix-blend-mode: normal;
-  }
+  justify-content: space-between;
+  color: #e6a4b4;
+  mix-blend-mode: normal;
+}
 
-  .order-details .order-structure {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    font-weight: 900;
-  }
+.order-details .order-structure {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-weight: 900;
+}
 
-  .order-details .order-header {
-    align-self: start;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+.order-details .order-header {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-   .order-number {
-    font: 34px/56% Roboto Flex, sans-serif;
-    margin-left: 10%;
-    margin-top: 80px;
-    color: #e6a4b4;
-  }
+ .order-number {
+  font: 34px/56% Roboto Flex, sans-serif;
+  margin-left: 10%;
+  margin-top: 80px;
+  color: #e6a4b4;
+}
 
-  .order-details .order-title {
-    margin-top: 35px;
-    margin-left: 15%;
+.order-details .order-title {
+  margin-top: 35px;
+  margin-left: 15%;
+  margin-bottom: 0;
+  gap: 0;
+  font: 900 34px/42% Roboto Flex, sans-serif;
+}
+
+.order-details .order-items {
+  border-radius: 30px;
+  background-color: #FFECD4;
+  display: flex;
+  margin-top: 20px;
+  width: 850px;
+  max-width: 100%;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 0px;
+}
+
+.order-details .order-item {
+  border-radius: 30px;
+  background-color: #fff8e3;
+  display: flex;
+  max-height: 200px;
+  gap: 20px;
+  padding: 0 20px 0 20px;
+  max-width: 95%;
+  max-height: 150px;
+  justify-content: space-between;
+}
+
+.order-details .item-details {
+  display: flex;
+  gap: 17px;
+  font-size: 34px;
+  flex-grow: 1;
+  flex-basis: auto;
+
+}
+
+.order-details .item-details img{
+  width: 35%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.order-details .item-image {
+  border-radius: 20px;
+  object-fit: auto;
+  object-position: center;
+  width: auto;
+  height: 100%;
+  gap: 0;
+}
+
+
+.order-details .item-info {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-grow: 1;
+  flex-basis: 0;
+  width: fit-content;
+  margin: auto 0;
+  font-size: 24px;
+  justify-content: space-between;
+}
+
+.order-details .item-name {
+  font-family: Roboto Flex, sans-serif;
+  gap: 0;
+  margin: 0 0;
+  max-width: 100%;
+}
+
+.order-details .item-price {
+  font-family: Roboto Flex, sans-serif;
+  font-weight: 400;
+  gap: 0;
+  max-width: 100%;
+}
+
+
+.order-details .item-quantity {
+  display: flex;
+  gap: 18px;
+  font-size: 34px;
+}
+
+
+.order-details .quantity-divider {
+
+  border-left: 8px dotted #e6a4b4;
+  max-height: 100%; 
+}
+
+.order-details .quantity-value {
+  font-family: Roboto Flex, sans-serif;
+  gap: 0;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: auto 0;
+}
+
+.order-details .order-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+    padding-top: 35px;
+}
+
+.order-details .summary-title {
+    margin-top: 0;
     margin-bottom: 0;
-    gap: 0;
-    font: 900 34px/42% Roboto Flex, sans-serif;
-  }
+    margin-left: 5%;
+  align-self: start;
+  gap: 0;
+  font: 900 34px/42% Roboto Flex, sans-serif;
+}
 
-  .order-details .order-items {
-    border-radius: 30px;
-    background-color: #FFECD4;
-    display: flex;
-    margin-top: 20px;
-    width: 850px;
-    max-width: 100%;
-    flex-direction: column;
-    gap: 20px;
-    padding: 30px 0px;
-  }
+.order-details .summary-details {
+  border-radius: 30px;
+  background-color: #FFECD4;
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 30px;
+  min-width: 100%;
+}
 
-  .order-details .order-item {
-    border-radius: 30px;
-    background-color: #fff8e3;
-    display: flex;
-    max-height: 200px;
-    gap: 20px;
-    padding: 0 20px 0 20px;
-    max-width: 95%;
-    max-height: 150px;
-    justify-content: space-between;
-  }
+.order-details .summary-label {
+  font-family: Roboto Flex, sans-serif;
+}
 
-  .order-details .item-details {
-    display: flex;
-    gap: 17px;
-    font-size: 34px;
-    flex-grow: 1;
-    flex-basis: auto;
+.order-details .summary-value {
+  font: 400 24px Roboto Flex, sans-serif;
+}
 
-  }
-
-  .order-details .item-details img{
-    width: 35%;
-    height: 100%;
-    border-radius: 10px;
-  }
-
-  .order-details .item-image {
-    border-radius: 20px;
-    object-fit: auto;
-    object-position: center;
-    width: auto;
-    height: 100%;
-    gap: 0;
-  }
-
-
-  .order-details .item-info {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex-grow: 1;
-    flex-basis: 0;
-    width: fit-content;
-    margin: auto 0;
-    font-size: 24px;
-  }
-
-  .order-details .item-name {
-    font-family: Roboto Flex, sans-serif;
-    gap: 0;
-    margin: 0 0;
-    max-width: 100%;
-  }
-
-  .order-details .item-price {
-    font-family: Roboto Flex, sans-serif;
-    gap: 0;
-    max-width: 100%;
-  }
-
-
-  .order-details .item-quantity {
-    display: flex;
-    gap: 18px;
-    font-size: 34px;
-  }
-
-
-  .order-details .quantity-divider {
-
-    border-left: 8px dotted #e6a4b4;
-    max-height: 100%; 
-  }
-
-  .order-details .quantity-value {
-    font-family: Roboto Flex, sans-serif;
-    gap: 0;
-    flex-grow: 1;
-    flex-basis: auto;
-    margin: auto 0;
-  }
-
-  .order-details .order-summary {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 0 20px;
-      padding-top: 35px;
-  }
-
-  .order-details .summary-title {
-      margin-top: 0;
-      margin-bottom: 0;
-      margin-left: 5%;
-    align-self: start;
-    gap: 0;
-    font: 900 34px/42% Roboto Flex, sans-serif;
-  }
-
-  .order-details .summary-details {
-    border-radius: 30px;
-    background-color: #FFECD4;
-    display: flex;
-    margin-top: 20px;
-    flex-direction: column;
-    align-items: start;
-    gap: 12px;
-    font-size: 24px;
-    font-weight: 700;
-    padding: 30px;
-    min-width: 100%;
-  }
-
-  .order-details .summary-label {
-    font-family: Roboto Flex, sans-serif;
-  }
-
-  .order-details .summary-value {
-    font: 400 24px Roboto Flex, sans-serif;
-  }
-
-  .order-details .summary-label-spacing {
-    font-family: Roboto Flex, sans-serif;
-    margin-top: 10px;
-  }
+.order-details .summary-label-spacing {
+  font-family: Roboto Flex, sans-serif;
+  margin-top: 10px;
+}
