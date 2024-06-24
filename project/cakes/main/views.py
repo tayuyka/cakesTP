@@ -17,10 +17,10 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 import json
 from django.http import JsonResponse
-from .models import Cake
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from collections import Counter
+from django.contrib.auth import get_user_model
 import logging
 logger = logging.getLogger(__name__)
 
@@ -67,6 +67,39 @@ def get_recommendations(user):
         recommended_cakes.update(Cake.objects.all()[:5 - len(recommended_cakes)])
 
     return list(recommended_cakes)
+
+
+def delete_account_form(request):
+    email = request.user.email
+    code = get_random_string(length=6, allowed_chars='1234567890')
+    request.session['delete_account_code'] = code
+    request.session['delete_account_email'] = email
+
+    send_mail(
+        'Удаление аккаунта',
+        f'Ваш код для удаления аккаунта: {code}',
+        'sweetcr3ations@yandex.ru',
+        [email],
+        fail_silently=False,
+    )
+    return redirect('confirm_delete_account_code')
+
+
+def confirm_delete_account_code(request):
+    if request.method == 'POST':
+        input_code = request.POST['code']
+        session_code = request.session.get('delete_account_code')
+
+        if input_code == session_code:
+            user = get_user_model().objects.get(email=request.session.get('delete_account_email'))
+            user.delete()
+            logout(request)
+            messages.success(request, 'Ваш аккаунт успешно удален.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Неверный код.')
+
+    return render(request, 'main/delete_account_confirm_form.html')
 
 
 def recovery_form(request):
@@ -126,6 +159,7 @@ def add_to_cart(request, cake_id):
     request.session['cart'] = cart
     messages.success(request, 'Торт добавлен в корзину.')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
 
 def remove_from_cart(request, cake_id):
     cart = request.session.get('cart', {})
