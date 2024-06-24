@@ -40,5 +40,6 @@ urlpatterns = [
     path('api/cakes/', CakeViewSet.as_view({'get': 'list'}), name='cake-list'),
     path('api/', include(router.urls)),
     path('cart/add/', views.add_to_cart_from_constructor, name='add_to_cart_from_constructor'),
-
+    path('delete_account/', delete_account_form, name='delete_account'),
+    path('delete_account/confirmed/', confirm_delete_account_code, name='confirm_delete_account_code')
 ]
