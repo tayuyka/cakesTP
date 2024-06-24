@@ -135,8 +135,8 @@ createApp({
         cake_shape: 1,
         cake_coverage: 1,
         cake_topping: 1,
-        cake_addition: none,
-        cake_addition_perimeter: None,  // Указываем null для украшений по периметру, если по умолчанию
+        cake_addition: 5, // Исправлено значение
+        cake_addition_perimeter: 6, // Указываем null для украшений по периметру
         layers: [
             {
                 base: 1,
@@ -153,6 +153,8 @@ createApp({
         ]
     };
 
+    console.log("Отправляем тестовый торт в корзину:", testCakeJson); // Отладочное сообщение
+
     axios.post('/cart/add/', testCakeJson, {
         headers: {
             'Content-Type': 'application/json',
@@ -160,13 +162,13 @@ createApp({
         }
     })
     .then(response => {
-        console.log(response.data);
+        console.log("Ответ сервера:", response.data);
         alert('Тестовый торт добавлен в корзину');
     })
     .catch(error => {
-        console.error(error);
+        console.error("Ошибка при добавлении торта в корзину:", error);
         if (error.response) {
-            console.error("Ответ сервера: ", error.response.data);
+            console.error("Ответ сервера:", error.response.data);
         }
         alert('Произошла ошибка при добавлении тестового торта в корзину');
     });
