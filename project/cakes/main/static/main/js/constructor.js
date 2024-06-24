@@ -18,7 +18,7 @@ createApp({
       currentTopping: 'none',
       currentCover: 'none',
       currentShape: 'круглый',
-      currentTrinket: 'none',
+
       currentFont: 'Miama',
       currentSize: 'средний',
       cakeLayers: [],
@@ -52,7 +52,12 @@ createApp({
       cakeWeight: 0,
       cakeCost: 0,
       layerDiameter: 0,
-      cakeJson: ''
+      cakeJson: '',
+      defaultCenterTrinket: 'none',  // Установите значение по умолчанию для центра
+      defaultPerimeterTrinket: 'None',  // Установите значение по умолчанию для периметра
+      currentCenterTrinket: 'none',  // Установите значение по умолчанию для центра
+      currentPerimeterTrinket: 'None'  // Установите значение по умолчанию для периметра
+
     };
   },
 
@@ -69,6 +74,7 @@ createApp({
     nextTick(() => {
       this.fetchCakeData();
       this.sendTestCakeToCart();
+
     });
   },
   beforeUnmount() {
@@ -89,38 +95,40 @@ createApp({
       }
       return cookieValue;
     },
+  initializeDefaultValues() {
+    // Инициализация значений по умолчанию
+    this.currentCenterTrinket = this.centerDecorations.length > 0 ? this.centerDecorations[1].ingridient : 'none';
+    this.currentPerimeterTrinket = this.perimeterDecorations.length > 0 ? this.perimeterDecorations[3].ingridient : 'none';
+  },
 
     async fetchCakeData() {
-      try {
-        const response = await axios.get('/api/cake-components/');
-        const data = response.data;
+  try {
+    const response = await axios.get('/api/cake-components/');
+    const data = response.data;
 
-        if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
-          throw new Error('Invalid data structure received from API.');
-        }
+    this.sizes = data.sizes;
+    this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+    this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+    this.shapes = data.shapes;
+    this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+    this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+    this.decorations = data.trinkets.map(trinket => ({
+      ...trinket,
+      primary_color: this.addSharpIfNeeded(trinket.primary_color),
+      positionOffset: parseFloat(trinket.position_offset) || 0
+    }));
 
-        this.sizes = data.sizes;
-        this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
-        this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
-        this.shapes = data.shapes;
-        this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
-        this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
-        this.decorations = data.trinkets.map(trinket => ({
-          ...trinket,
-          primary_color: this.addSharpIfNeeded(trinket.primary_color),
-          positionOffset: parseFloat(trinket.position_offset) || 0
-        }));
+    this.currentCenterTrinket = this.centerDecorations.length > 0 ? this.centerDecorations[0].cake_addition_id : null;
+    this.currentPerimeterTrinket = this.perimeterDecorations.length > 0 ? this.perimeterDecorations[0].cake_addition_id : null;
 
-        console.log("Данные торта загружены: ", data);
-
-        nextTick(() => {
-          this.initThreeJS();
-          this.startAnimation();
-        });
-      } catch (error) {
-        console.error('There was an error fetching the cake data!', error);
-      }
-    },
+    nextTick(() => {
+      this.initThreeJS();
+      this.startAnimation();
+    });
+  } catch (error) {
+    console.error('There was an error fetching the cake data!', error);
+  }
+},
 
     sendTestCakeToCart() {
     const testCakeJson = {
@@ -173,7 +181,7 @@ createApp({
         alert('Произошла ошибка при добавлении тестового торта в корзину');
     });
 },
-
+/*
     addToCart() {
       const cakeData = JSON.parse(this.cakeJson);
 
@@ -228,7 +236,163 @@ createApp({
         }
         alert('Произошла ошибка при добавлении торта в корзину');
       });
-    },
+    },*/
+/*
+addToCart() {
+  const cakeData = JSON.parse(this.cakeJson);
+
+  const cakeSize = this.sizes.find(size => size.type === cakeData.currentSize);
+  const cakeShape = this.shapes.find(shape => shape.shape === cakeData.currentShape);
+  const cakeCover = this.covers.find(cover => cover.ingridient === cakeData.currentCover);
+  const cakeTopping = this.toppings.find(topping => topping.ingridient === cakeData.currentTopping);
+  const cakeAddition = this.decorations.find(decoration => decoration.ingridient === (cakeData.currentCenterTrinket || this.defaultCenterTrinket));
+  const cakeAdditionPerimeter = this.decorations.find(decoration => decoration.ingridient === (cakeData.currentPerimeterTrinket || this.defaultPerimeterTrinket));
+
+  const layers = cakeData.cakeLayers.map((layer) => {
+    const base = this.bases.find(base => base.primary_color === layer.baseColor);
+    const filling = this.fillings.find(filling => filling.primary_color === layer.fillingColor);
+
+    return {
+      base: base ? base.layer_base_id : null,
+      filling: filling ? filling.layer_filling_id : null
+    };
+  });
+
+  const cake = {
+    weight: this.cakeWeight || 0,
+    cost: this.cakeCost || 0,
+    layers_count: cakeData.numberOfLayers || 1,
+    text: cakeData.textContent || "",
+    name: this.cakeName || "Cake",
+    constructor_image: this.constructorImage || "default_image",
+    preview_image: this.previewImage || "default_image",
+    cake_size: cakeSize ? cakeSize.cake_size_id : null,
+    cake_shape: cakeShape ? cakeShape.cake_shape_id : null,
+    cake_coverage: cakeCover ? cakeCover.cake_coverage_id : null,
+    cake_topping: cakeTopping ? cakeTopping.cake_topping_id : null,
+
+    cake_addition: this.currentCenterTrinket || null,
+    cake_addition_perimeter: this.currentPerimeterTrinket || null,
+    layers: layers
+  };
+
+  console.log("Отправка торта в корзину: ", cake);
+
+  axios.post('/cart/add/', cake, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.getCookie('csrftoken')
+    }
+  })
+  .then(response => {
+    console.log(response.data);
+    alert('Торт добавлен в корзину');
+  })
+  .catch(error => {
+    console.error(error);
+    if (error.response) {
+      console.error("Ответ сервера: ", error.response.data);
+    }
+    alert('Произошла ошибка при добавлении торта в корзину');
+  });
+},*/
+
+/*
+addToCart() {
+    const cakeData = {
+        weight: this.cakeWeight || 0,
+        cost: this.cakeCost || 0,
+        layers_count: this.numberOfLayers || 1,
+        text: this.textContent || "",
+        name: this.cakeName || "Cake",
+        constructor_image: this.constructorImage || "default_image",
+        preview_image: this.previewImage || "default_image",
+        cake_size: this.cakeSizeId || null,
+        cake_shape: this.cakeShapeId || null,
+        cake_coverage: this.cakeCoverageId || null,
+        cake_topping: this.cakeToppingId || null,
+        cake_addition: this.currentCenterTrinket || null,
+        cake_addition_perimeter: this.currentPerimeterTrinket || null,
+        layers: this.layers || []
+    };
+
+    axios.post('/cart/add/', cakeData, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': this.getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        console.log(response.data);
+        alert('Торт добавлен в корзину');
+    })
+    .catch(error => {
+        console.error(error);
+        if (error.response) {
+            console.error("Ответ сервера: ", error.response.data);
+        }
+        alert('Произошла ошибка при добавлении торта в корзину');
+    });
+},*/
+addToCart() {
+  const cakeData = JSON.parse(this.cakeJson);
+
+  const cakeSize = this.sizes.find(size => size.type === cakeData.currentSize);
+  const cakeShape = this.shapes.find(shape => shape.shape === cakeData.currentShape);
+  const cakeCover = this.covers.find(cover => cover.ingridient === cakeData.currentCover);
+  const cakeTopping = this.toppings.find(topping => topping.ingridient === cakeData.currentTopping);
+
+  // Получаем ID украшений
+  const cakeAddition = this.decorations.find(trinket => trinket.ingridient === this.currentCenterTrinket);
+  const cakeAdditionPerimeter = this.decorations.find(trinket => trinket.ingridient === this.currentPerimeterTrinket);
+
+  const layers = cakeData.cakeLayers.map((layer) => {
+    const base = this.bases.find(base => base.primary_color === layer.baseColor);
+    const filling = this.fillings.find(filling => filling.primary_color === layer.fillingColor);
+
+    return {
+      base: base ? base.layer_base_id : null,
+      filling: filling ? filling.layer_filling_id : null
+    };
+  });
+
+  const cake = {
+    weight: this.cakeWeight || 0,
+    cost: this.cakeCost || 0,
+    layers_count: cakeData.numberOfLayers || 1,
+    text: cakeData.textContent || "",
+    name: this.cakeName || "Cake",
+    constructor_image: this.constructorImage || "default_image",
+    preview_image: this.previewImage || "default_image",
+    cake_size: cakeSize ? cakeSize.cake_size_id : null,
+    cake_shape: cakeShape ? cakeShape.cake_shape_id : null,
+    cake_coverage: cakeCover ? cakeCover.cake_coverage_id : null,
+    cake_topping: cakeTopping ? cakeTopping.cake_topping_id : null,
+    cake_addition: cakeAddition ? cakeAddition.cake_addition_id : null,
+    cake_addition_perimeter: cakeAdditionPerimeter ? cakeAdditionPerimeter.cake_addition_id : null,
+    layers: layers
+  };
+
+  console.log("Отправка торта в корзину: ", cake);
+
+  axios.post('/cart/add/', cake, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.getCookie('csrftoken')
+    }
+  })
+  .then(response => {
+    console.log(response.data);
+    alert('Торт добавлен в корзину');
+  })
+  .catch(error => {
+    console.error(error);
+    if (error.response) {
+      console.error("Ответ сервера: ", error.response.data);
+    }
+    alert('Произошла ошибка при добавлении торта в корзину');
+  });
+},
 
     calculateCakeWeightAndCost() {
       const cake_size = this.sizes.find(size => size.name === this.currentSize);
@@ -293,7 +457,7 @@ createApp({
       return { total_weight, total_cost };
     },
 
-    async fetchCakeData() {
+ /*   async fetchCakeData() {
       try {
         const response = await axios.get('/api/cake-components/');
         const data = response.data;
@@ -323,7 +487,77 @@ createApp({
       } catch (error) {
         console.error('There was an error fetching the cake data!', error);
       }
-    },
+    },*/
+
+   /* async fetchCakeData() {
+  try {
+    const response = await axios.get('/api/cake-components/');
+    const data = response.data;
+
+    if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+      throw new Error('Invalid data structure received from API.');
+    }
+
+    this.sizes = data.sizes;
+    this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+    this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+    this.shapes = data.shapes;
+    this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+    this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+    this.decorations = data.trinkets.map(trinket => ({
+      ...trinket,
+      primary_color: this.addSharpIfNeeded(trinket.primary_color),
+      positionOffset: parseFloat(trinket.position_offset) || 0
+    }));
+
+    console.log("Данные торта загружены: ", data);
+
+    // Установите значения по умолчанию
+    this.defaultCenterTrinket = data.trinkets.find(trinket => trinket.ingridient === 'defaultCenter')?.cake_addition_id || 1;
+    this.defaultPerimeterTrinket = data.trinkets.find(trinket => trinket.ingridient === 'defaultPerimeter')?.cake_addition_id || 1;
+
+    nextTick(() => {
+      this.initThreeJS();
+      this.startAnimation();
+    });
+  } catch (error) {
+    console.error('There was an error fetching the cake data!', error);
+  }
+},*/
+
+async fetchCakeData() {
+    try {
+      const response = await axios.get('/api/cake-components/');
+      const data = response.data;
+
+      if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+        throw new Error('Invalid data structure received from API.');
+      }
+
+      this.sizes = data.sizes;
+      this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+      this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+      this.shapes = data.shapes;
+      this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+      this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+      this.decorations = data.trinkets.map(trinket => ({
+        ...trinket,
+        primary_color: this.addSharpIfNeeded(trinket.primary_color),
+        positionOffset: parseFloat(trinket.position_offset) || 0
+      }));
+
+      console.log("Данные торта загружены: ", data);
+
+      this.initializeDefaultValues(); // Инициализация значений по умолчанию
+
+      nextTick(() => {
+        this.initThreeJS();
+        this.startAnimation();
+      });
+    } catch (error) {
+      console.error('There was an error fetching the cake data!', error);
+    }
+  },
 
     async addTrinkets() {
       this.removeCenterTrinket();
@@ -894,13 +1128,28 @@ createApp({
       }
     },
     updateCenterTrinket(event) {
-      this.currentCenterTrinket = event.target.value;
+      this.currentCenterTrinket = event.target.value || 5;
       this.updateCake();
     },
     updatePerimeterTrinket(event) {
-      this.currentPerimeterTrinket = event.target.value;
+      this.currentPerimeterTrinket = event.target.value || 6;
       this.updateCake();
     },
+/*
+  updateCenterTrinket() {
+    const selectedTrinket = this.decorations.find(trinket => trinket.cake_addition_id === this.currentCenterTrinket);
+    this.currentCenterTrinket = selectedTrinket ? selectedTrinket.cake_addition_id : null;
+    this.updateCake();
+  },
+  updatePerimeterTrinket() {
+    const selectedTrinket = this.decorations.find(trinket => trinket.cake_addition_id === this.currentPerimeterTrinket);
+    this.currentPerimeterTrinket = selectedTrinket ? selectedTrinket.cake_addition_id : null;
+    this.updateCake();
+  },*/
+
+
+
+
     async addCenterTrinket() {
       const trinketData = this.centerDecorations.find(t => t.ingridient === this.currentCenterTrinket);
       if (!trinketData) {

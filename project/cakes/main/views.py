@@ -728,6 +728,7 @@ def add_to_cart_from_constructor(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 """
+"""
 @csrf_exempt
 def add_to_cart_from_constructor(request):
     if request.method == 'POST':
@@ -758,6 +759,114 @@ def add_to_cart_from_constructor(request):
                 cake_topping_id=data['cake_topping'],
                 cake_addition_id=data['cake_addition'],
                 cake_addition_perimeter_id=data.get('cake_addition_perimeter')
+            )
+
+            print(f"Created cake ID: {cake.cake_id}")
+
+            cart = request.session.get('cart', {})
+            if str(cake.cake_id) in cart:
+                cart[str(cake.cake_id)] += 1
+            else:
+                cart[str(cake.cake_id)] = 1
+            request.session['cart'] = cart
+
+            messages.success(request, 'Торт добавлен в корзину.')
+            return JsonResponse({'message': 'Торт добавлен в корзину'}, status=200)
+
+        except KeyError as e:
+            return JsonResponse({'error': f'Missing parameter: {e}'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            print(f'Error: {e}')
+            return JsonResponse({'error': 'Internal Server Error'}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+"""
+"""
+@csrf_exempt
+def add_to_cart_from_constructor(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+
+            required_fields = ['weight', 'cost', 'layers_count', 'text', 'name', 'constructor_image', 'preview_image', 'cake_size', 'cake_shape', 'cake_coverage', 'cake_topping', 'cake_addition', 'cake_addition_perimeter']
+            for field in required_fields:
+                if field not in data:
+                    return JsonResponse({'error': f'Missing parameter: {field}'}, status=400)
+
+            print(f"Received cake data: {data}")
+
+            if not all([data['cake_size'], data['cake_shape'], data['cake_coverage'], data['cake_topping']]):
+                return JsonResponse({'error': 'One of the foreign key IDs is missing or invalid'}, status=400)
+
+            cake = Cake.objects.create(
+                weight=data['weight'],
+                cost=data['cost'],
+                layers_count=data['layers_count'],
+                text=data['text'],
+                name=data['name'],
+                constructor_image=data['constructor_image'],
+                preview_image=data['preview_image'],
+                cake_size_id=data['cake_size'],
+                cake_shape_id=data['cake_shape'],
+                cake_coverage_id=data['cake_coverage'],
+                cake_topping_id=data['cake_topping'],
+                cake_addition_id=data['cake_addition'] or None,  # Убедитесь, что None обрабатывается корректно
+                cake_addition_perimeter_id=data['cake_addition_perimeter'] or None  # Убедитесь, что None обрабатывается корректно
+            )
+
+            print(f"Created cake ID: {cake.cake_id}")
+
+            cart = request.session.get('cart', {})
+            if str(cake.cake_id) in cart:
+                cart[str(cake.cake_id)] += 1
+            else:
+                cart[str(cake.cake_id)] = 1
+            request.session['cart'] = cart
+
+            messages.success(request, 'Торт добавлен в корзину.')
+            return JsonResponse({'message': 'Торт добавлен в корзину'}, status=200)
+
+        except KeyError as e:
+            return JsonResponse({'error': f'Missing parameter: {e}'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            print(f'Error: {e}')
+            return JsonResponse({'error': 'Internal Server Error'}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+"""
+def add_to_cart_from_constructor(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+
+            required_fields = ['weight', 'cost', 'layers_count', 'text', 'name', 'constructor_image', 'preview_image', 'cake_size', 'cake_shape', 'cake_coverage', 'cake_topping', 'cake_addition', 'cake_addition_perimeter']
+            for field in required_fields:
+                if field not in data:
+                    return JsonResponse({'error': f'Missing parameter: {field}'}, status=400)
+
+            print(f"Received cake data: {data}")
+
+            if not all([data['cake_size'], data['cake_shape'], data['cake_coverage'], data['cake_topping']]):
+                return JsonResponse({'error': 'One of the foreign key IDs is missing or invalid'}, status=400)
+
+            cake = Cake.objects.create(
+                weight=data['weight'],
+                cost=data['cost'],
+                layers_count=data['layers_count'],
+                text=data['text'],
+                name=data['name'],
+                constructor_image=data['constructor_image'],
+                preview_image=data['preview_image'],
+                cake_size_id=data['cake_size'],
+                cake_shape_id=data['cake_shape'],
+                cake_coverage_id=data['cake_coverage'],
+                cake_topping_id=data['cake_topping'],
+                cake_addition_id=data['cake_addition'] or None,
+                cake_addition_perimeter_id=data['cake_addition_perimeter'] or None
             )
 
             print(f"Created cake ID: {cake.cake_id}")
