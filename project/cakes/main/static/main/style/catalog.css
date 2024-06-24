@@ -50,43 +50,6 @@
     font: 400 18px/42% Roboto Flex, sans-serif;
   }
 
-  .filters .search{
-    display: flex;
-    gap: 5%;
-  }
-
-  .filters .input-field{
-    margin: 0px;
-    padding: 10px;
-    width: 70%;
-    color: #e6a4b4;
-    border: 2px #e6a4b4 solid;
-    border-radius: 5px;
-  }
-
-  .filters .input-field::placeholder{
-    color: #e6a4b4;
-    font-weight: 600;
-  }
-
-  .filters .search button {
-    display: flex;
-    align-items: center;
-    border: none;
-    border-radius: 5px;
-    background-color: #e6a4b4;
-    cursor: pointer;
-    font-size: 1.2em;
-    color: #666;
-    color: #fff8e3;
-    padding: 0.2em;
-    transition: color 0.3s;
-}
-
-.filters .search button:hover {
-    color: #333;
-}
-
   @media (max-width: 991px) {
     .filters {
       font-size: 40px;
@@ -206,9 +169,11 @@
   max-width: 30%;
 
 }
-.additions-catalog{
-  max-width: 20%;
-}
+
+  .parameters,
+  .layers {
+      width: 45%;
+  }
 
   .filter-options {
       margin-bottom: 20px;
@@ -277,7 +242,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 35px;
-    padding: 30px 30px;
+    padding: 73px 76px;
     gap: 40px;
   }
 

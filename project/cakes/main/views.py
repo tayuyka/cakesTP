@@ -216,19 +216,15 @@ def registration_form(request):
         year = request.POST['year']
         phone_number = request.POST['phone_number']
         password = make_password(request.POST['password'])
-        consent = request.POST.get('consent')
 
         date_birth = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
 
-        if consent:
-            with connection.cursor() as cursor:
-                cursor.execute("""INSERT INTO User
-                                (first_name, last_name, email, date_birth, phone_number, password, is_superuser, is_staff)
-                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
-                               [first_name, last_name, email, date_birth, phone_number, password, False, False])
-            return redirect('home')
-        else:
-            return render(request, 'main/registration_form.html', {'error': 'Вы должны дать согласие на обработку персональных данных'})
+        with connection.cursor() as cursor:
+            cursor.execute("""INSERT INTO User 
+            (first_name, last_name, email, date_birth, phone_number, password, is_superuser, is_staff)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
+            [first_name, last_name, email, date_birth, phone_number, password, False, False])
+            return render(request, 'main/home.html')
     return render(request, 'main/registration_form.html')
 
 
@@ -257,7 +253,6 @@ def catalog(request):
     coverage = request.GET.get('coverage')
     layer_count = request.GET.get('layer_count')
     additions = request.GET.getlist('additions')
-    search = request.GET.get('search')
 
     cakes = Cake.objects.all()
 
@@ -274,8 +269,6 @@ def catalog(request):
     if additions:
         for addition in additions:
             cakes = cakes.filter(cake_addition__ingridient=addition)
-    if search:
-        cakes = cakes.filter(name__icontains=search)
 
     rows = [cakes[i:i + 3] for i in range(0, len(cakes), 3)]
     paginator = Paginator(cakes, 9)
@@ -291,9 +284,7 @@ def catalog(request):
         'selected_coverage': coverage,
         'selected_layer_count': layer_count,
         'selected_additions': additions,
-        'search': search,
     })
-
 
 
 def order_form(request):
@@ -303,41 +294,38 @@ def order_form(request):
         email = request.POST['email']
         phone = request.POST['phone']
         address = request.POST['address']
-        consent = request.POST.get('consent')
 
-        if consent:
-            # Save the order
-            order = Order(
-                date=timezone.now(),
-                delivery_date=timezone.now() + timezone.timedelta(days=3),
-                price=0,
-                delivery_address=address,
-                status="принят",
-                user=request.user if request.user.is_authenticated else None
-            )
-            order.save()
+        # Save the order
+        order = Order(
+            date=timezone.now(),
+            delivery_date=timezone.now() + timezone.timedelta(days=3),
+            price=0,  # Will be updated later
+            delivery_address=address,
+            status=1,  # Assuming 1 is the default status
+            user=request.user if request.user.is_authenticated else None
+        )
+        order.save()
 
-            cart = request.session.get('cart', {})
-            total_cost = 0
+        cart = request.session.get('cart', {})
+        total_cost = 0
 
-            for cake_id, quantity in cart.items():
-                cake = get_object_or_404(Cake, pk=cake_id)
-                cost = float(cake.cost.replace(' ₽', '').replace(',', '.'))
-                total_cost += cost * quantity
+        for cake_id, quantity in cart.items():
+            cake = get_object_or_404(Cake, pk=cake_id)
+            cost = float(cake.cost.replace(' ₽', '').replace(',', '.'))
+            total_cost += cost * quantity
 
-                for _ in range(quantity):
-                    OrderContent.objects.create(order=order, cake=cake)
+            # Save the cake to the order the number of times indicated by the quantity
+            for _ in range(quantity):
+                OrderContent.objects.create(order=order, cake=cake)
 
-            # Update the order price
-            order.price = total_cost
-            order.save()
+        # Update the order price
+        order.price = total_cost
+        order.save()
 
-            # Clear the cart
-            request.session['cart'] = {}
+        # Clear the cart
+        request.session['cart'] = {}
 
-            return redirect('order_details', order_id=order.pk)
-        else:
-            return render(request, 'main/order_form.html', {'error': 'Вы должны дать согласие на обработку персональных данных'})
+        return redirect('order_details', order_id=order.pk)
 
     cart = request.session.get('cart', {})
     cakes = Cake.objects.filter(pk__in=cart.keys())
@@ -354,7 +342,6 @@ def order_form(request):
         'total_cost': total_cost,
         'total_items': total_items
     })
-
 
 
 def order_details(request, order_id):
@@ -790,7 +777,8 @@ def add_to_cart_from_constructor(request):
                 cake_shape_id=data['cake_shape'],
                 cake_coverage_id=data['cake_coverage'],
                 cake_topping_id=data['cake_topping'],
-                cake_addition_id=data['cake_addition']
+                cake_addition_id=data['cake_addition'],
+                cake_addition_perimeter_id=data.get('cake_addition_perimeter')
             )
 
             print(f"Created cake ID: {cake.cake_id}")
