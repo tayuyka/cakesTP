@@ -320,6 +320,59 @@
     }
   }
 
+  .consent-field {
+    margin-top: 20px;
+    display: flex;
+    align-items: center; /* выравнивание по вертикали */
+}
+
+.consent-field input[type="checkbox"] {
+    display: none;
+}
+
+.consent-field label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font: 400 16px/42% Roboto Flex, sans-serif;
+    color: #e6a4b4;
+}
+
+.consent-field label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%; 
+    transform: translateY(-50%); 
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e6a4b4;
+    border-radius: 5px;
+    background-color: #fff8e3;
+}
+
+.consent-field input[type="checkbox"]:checked + label::before {
+    background-color: #e6a4b4;
+    border-color: #c8708b;
+}
+
+.consent-field label::after {
+    content: "✔";
+    color: #fff8e3;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%); 
+    width: 10px;
+    height: 5px;
+    opacity: 0;
+}
+
+.consent-field input[type="checkbox"]:checked + label::after {
+    opacity: 1;
+}
+
+
   .continue-button {
     border-radius: 20px;
     background-blend-mode: soft-light;
