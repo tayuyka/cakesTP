@@ -150,7 +150,7 @@ class Order(models.Model):
     delivery_date = models.TextField()
     price = models.FloatField()
     delivery_address = models.TextField()
-    status = models.IntegerField()
+    status = models.TextField()
     user = models.ForeignKey('User', models.DO_NOTHING, db_column='user_ID', null=True, blank=True)
 
     class Meta:
