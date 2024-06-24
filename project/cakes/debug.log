@@ -12414,3 +12414,1050 @@ DEBUG 2024-06-24 23:42:15,980 autoreload File C:\Users\User\Desktop\cakesTP\.ven
 DEBUG 2024-06-24 23:42:15,981 autoreload File C:\Users\User\Desktop\cakesTP\.venv\Lib\site-packages\django\conf\locale\en\formats.py first seen with mtime 1718659992.6075013
 DEBUG 2024-06-24 23:42:15,983 autoreload File C:\Users\User\Desktop\cakesTP\.venv\Lib\site-packages\django\contrib\staticfiles\storage.py first seen with mtime 1718659995.3062477
 DEBUG 2024-06-24 23:42:15,987 autoreload File C:\Users\User\Desktop\cakesTP\.venv\Lib\site-packages\django\contrib\messages\context_processors.py first seen with mtime 1718659994.5691614
+INFO 2024-06-25 00:21:22,569 autoreload Watching for file changes with StatReloader
+DEBUG 2024-06-25 00:21:22,570 autoreload Waiting for apps ready_event.
+DEBUG 2024-06-25 00:21:22,704 autoreload Apps ready_event triggered. Sending autoreload_started signal.
+DEBUG 2024-06-25 00:21:22,733 autoreload Watching dir C:\projectsPY\cakesTP\project\cakes\main\templates with glob **/*.
+DEBUG 2024-06-25 00:21:22,733 autoreload Watching dir C:\projectsPY\cakesTP\project\cakes\locale with glob **/*.mo.
+DEBUG 2024-06-25 00:21:22,734 autoreload Watching dir C:\projectsPY\cakesTP\project\cakes\main\locale with glob **/*.mo.
+DEBUG 2024-06-25 00:21:22,790 utils (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+DEBUG 2024-06-25 00:21:22,794 utils (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\mime\multipart.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\tree.py first seen with mtime 1700627941.3394372
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\transaction.py first seen with mtime 1700627941.0423503
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\operations\special.py first seen with mtime 1700627941.1119423
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\base64.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\formatting.py first seen with mtime 1718795926.7919574
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\exceptions.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,915 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\asgiref\local.py first seen with mtime 1700627937.1024485
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\backends\django.py first seen with mtime 1700627941.2824335
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\mail\__init__.py first seen with mtime 1700627940.9910924
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\related_lookups.py first seen with mtime 1700627941.136472
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\handlers\asgi.py first seen with mtime 1700627940.9870892
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\widgets.py first seen with mtime 1700627937.662966
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\linecache.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\options.py first seen with mtime 1700627937.6598694
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\__init__.py first seen with mtime 1700627937.650879
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\_weakrefset.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\constants.py first seen with mtime 1700627939.894907
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\project\cakes\main\__init__.py first seen with mtime 1714310746.9374223
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\views.py first seen with mtime 1718795926.5429537
+DEBUG 2024-06-25 00:21:22,916 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\serializer_helpers.py first seen with mtime 1718795926.798947
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1251.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\operator.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\http\cookie.py first seen with mtime 1700627941.2584386
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\utils.py first seen with mtime 1700627941.1060903
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\operations.py first seen with mtime 1700627941.0930917
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\validators.py first seen with mtime 1700627938.6204498
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\_header_value_parser.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,917 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\middleware.py first seen with mtime 1700627940.316122
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\state.py first seen with mtime 1700627941.105381
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\reduction.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\urllib\request.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\lookups.py first seen with mtime 1700627941.1220968
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\__init__.py first seen with mtime 1700627938.6034517
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\pathlib.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\models.py first seen with mtime 1700627937.6578689
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\project\cakes\main\models.py first seen with mtime 1719255523.2366118
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\loaders\__init__.py first seen with mtime 1700627941.2844386
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\json.py first seen with mtime 1700627941.1310935
+DEBUG 2024-06-25 00:21:22,918 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\exceptions.py first seen with mtime 1700627937.6558685
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\views\__init__.py first seen with mtime 1700627938.2822459
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\signing.py first seen with mtime 1700627940.9421601
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\tokens.py first seen with mtime 1700627936.7352648
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\features.py first seen with mtime 1700627941.0510912
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\coroutines.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\sql\query.py first seen with mtime 1700627941.149163
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\filters\__init__.py first seen with mtime 1700627936.741388
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\subprocess.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\client.py first seen with mtime 1700627941.0490932
+DEBUG 2024-06-25 00:21:22,919 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\cache.py first seen with mtime 1700627941.3114471
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\zoneinfo\_tzpath.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\http\response.py first seen with mtime 1700627941.2606006
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\deprecation.py first seen with mtime 1700627941.3194382
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\templatetags\cache.py first seen with mtime 1700627941.289436
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\enum.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\handlers\wsgi.py first seen with mtime 1700627940.9900928
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\utils.py first seen with mtime 1700627936.736827
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\handlers\__init__.py first seen with mtime 1700627940.9860916
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\utils.py first seen with mtime 1700627941.162095
+DEBUG 2024-06-25 00:21:22,920 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_uuid.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\apps.py first seen with mtime 1700627937.6528711
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\timesince.py first seen with mtime 1700627941.3374386
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\copy.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\management\color.py first seen with mtime 1700627941.0023623
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\locks.py first seen with mtime 1700627940.9760923
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\helpers.py first seen with mtime 1700627937.6578689
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\warnings.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\serializers\json.py first seen with mtime 1700627941.0340965
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\transports.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\__init__.py first seen with mtime 1700627938.8715577
+DEBUG 2024-06-25 00:21:22,921 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\_virtualenv.py first seen with mtime 1700627696.4859073
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\middleware\cache.py first seen with mtime 1700627941.2634335
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\formatter.py first seen with mtime 1700627936.7302525
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\apps.py first seen with mtime 1700627938.605442
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\encodings\aliases.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\compat.py first seen with mtime 1718795926.5089462
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\loaders\base.py first seen with mtime 1700627941.2854447
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\apps\__init__.py first seen with mtime 1700627937.284375
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\relations.py first seen with mtime 1718795926.5259464
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\encoders.py first seen with mtime 1718795926.7900147
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\struct.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,922 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\urllib\parse.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\queues.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\translation\reloader.py first seen with mtime 1700627941.342434
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\functions\mixins.py first seen with mtime 1700627941.1422956
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\features.py first seen with mtime 1700627941.091091
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\client.py first seen with mtime 1700627941.089092
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\decorators.py first seen with mtime 1718795926.510947
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\backends\__init__.py first seen with mtime 1700627940.320122
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\registry.py first seen with mtime 1700627940.9630966
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\subprocess.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\handlers\base.py first seen with mtime 1700627940.988092
+DEBUG 2024-06-25 00:21:22,923 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\hmac.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admindocs\utils.py first seen with mtime 1700627938.290923
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\loaders\cached.py first seen with mtime 1700627941.286741
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\utils.py first seen with mtime 1700627940.9295866
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\inspect.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\templates.py first seen with mtime 1700627940.9646194
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\metadata.py first seen with mtime 1718795926.5189505
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\__init__.py first seen with mtime 1700627941.0440931
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\glob.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\filters\others.py first seen with mtime 1700627936.7433853
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\apps.py first seen with mtime 1700627938.873562
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\apps.py first seen with mtime 1700627940.9236832
+DEBUG 2024-06-25 00:21:22,924 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\parser.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\handlers.py first seen with mtime 1700627940.926063
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\concurrent\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\utils.py first seen with mtime 1700627941.1270907
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\autoreload.py first seen with mtime 1700627941.2694354
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\topological_sort.py first seen with mtime 1700627941.3394372
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\reverse_related.py first seen with mtime 1700627941.1371775
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\iterators.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\operations\__init__.py first seen with mtime 1700627941.1080947
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\related.py first seen with mtime 1700627941.1332142
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\compatibility\django_4_0.py first seen with mtime 1700627940.9680924
+DEBUG 2024-06-25 00:21:22,925 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\html\parser.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\conf\urls\__init__.py first seen with mtime 1700627937.6468697
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\sql.py first seen with mtime 1700627936.7342522
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\__init__.py first seen with mtime 1700627940.9381843
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\charset.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\fields.py first seen with mtime 1700627938.8759632
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\postgres\lookups.py first seen with mtime 1700627939.9099076
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\asgiref\current_thread_executor.py first seen with mtime 1700627937.1012435
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\urls\resolvers.py first seen with mtime 1700627941.3054366
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\sql\constants.py first seen with mtime 1700627941.1474059
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\autoreload.py first seen with mtime 1700627941.3104458
+DEBUG 2024-06-25 00:21:22,926 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\schemas\generators.py first seen with mtime 1718795926.6529448
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\_parseaddr.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\opcode.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\__init__.py first seen with mtime 1700627937.280615
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\decorators\debug.py first seen with mtime 1700627941.353434
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\string.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\urls\conf.py first seen with mtime 1700627941.302405
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\backends\base.py first seen with mtime 1700627940.3211188
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\bz2.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\fnmatch.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\storage\__init__.py first seen with mtime 1700627940.9810934
+DEBUG 2024-06-25 00:21:22,927 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\tempfile.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\introspection.py first seen with mtime 1700627941.0522218
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\operations\models.py first seen with mtime 1700627941.1110938
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\middleware.py first seen with mtime 1700627938.6134467
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\views.py first seen with mtime 1700627938.8786328
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\mime\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\loader.py first seen with mtime 1700627941.2774389
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\zoneinfo\_common.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\boundfield.py first seen with mtime 1700627941.1562846
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\formats.py first seen with mtime 1700627941.3234386
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\decorators\cache.py first seen with mtime 1700627941.351439
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\postgres\search.py first seen with mtime 1700627939.9119084
+DEBUG 2024-06-25 00:21:22,928 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\_compat_pickle.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\engine\filter_stack.py first seen with mtime 1700627936.7383711
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\urls.py first seen with mtime 1700627940.9662335
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\html.py first seen with mtime 1718795926.7929473
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\log.py first seen with mtime 1700627941.3304374
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\csrf.py first seen with mtime 1700627941.3464367
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\decorators\csrf.py first seen with mtime 1700627941.353434
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\ctypes\wintypes.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\sql\where.py first seen with mtime 1700627941.1512818
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\decorators.py first seen with mtime 1700627937.6548667
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\postgres\validators.py first seen with mtime 1700627939.913908
+DEBUG 2024-06-25 00:21:22,929 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\mime\nonmultipart.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\response.py first seen with mtime 1718795926.5289454
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\manager.py first seen with mtime 1700627941.1232235
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\cache\backends\locmem.py first seen with mtime 1700627940.9522517
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\signals.py first seen with mtime 1700627941.1270907
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\termcolors.py first seen with mtime 1700627941.3354385
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\generic\__init__.py first seen with mtime 1700627941.3574371
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\project\cakes\main\admin.py first seen with mtime 1716644699.6482086
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\streams.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\expressions.py first seen with mtime 1700627941.120104
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\module_loading.py first seen with mtime 1700627941.3324368
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\routers.py first seen with mtime 1718795926.5319493
+DEBUG 2024-06-25 00:21:22,930 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\lexer.py first seen with mtime 1700627936.7334204
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\html\entities.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\schemas\views.py first seen with mtime 1718795926.656947
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\servers\__init__.py first seen with mtime 1700627941.039089
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\logging\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\projectsPY\cakesTP\project\cakes\cakes\urls.py first seen with mtime 1714311056.7391376
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\errors.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\decorators.py first seen with mtime 1700627938.610453
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\__init__.py first seen with mtime 1700627941.306439
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\mime\base.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,931 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\decimal.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\argparse.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\templatetags\__init__.py first seen with mtime 1700627941.2884343
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\lzma.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\types.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\security\csrf.py first seen with mtime 1700627940.9710925
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\admin.py first seen with mtime 1700627938.6044428
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\async_checks.py first seen with mtime 1700627940.9570937
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\serializers\__init__.py first seen with mtime 1700627941.0310917
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\functools.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\utils.py first seen with mtime 1700627941.0430984
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\http.py first seen with mtime 1700627941.3274372
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\dispatch\__init__.py first seen with mtime 1700627941.1520925
+DEBUG 2024-06-25 00:21:22,932 autoreload File C:\projectsPY\cakesTP\project\cakes\main\serializers.py first seen with mtime 1719252081.501043
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\contentmanager.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\__init__.py first seen with mtime 1700627939.89192
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\trsock.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\mixins.py first seen with mtime 1700627941.1320972
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\servers\basehttp.py first seen with mtime 1700627941.0400937
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\cache\__init__.py first seen with mtime 1700627940.9457002
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\move.py first seen with mtime 1700627940.9760923
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\re\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\postgres\forms\array.py first seen with mtime 1700627939.9249077
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\postgres\utils.py first seen with mtime 1700627939.91292
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\base_session.py first seen with mtime 1700627940.314252
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\paginator.py first seen with mtime 1700627940.9411817
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_socket.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\middleware\__init__.py first seen with mtime 1700627941.2624476
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\__init__.py first seen with mtime 1700627940.9560945
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\i18n.py first seen with mtime 1700627941.3485262
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\backends.py first seen with mtime 1700627938.606443
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\engine\grouping.py first seen with mtime 1700627936.7393868
+DEBUG 2024-06-25 00:21:22,933 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\urls\__init__.py first seen with mtime 1700627941.3004346
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\mixins.py first seen with mtime 1718795926.5199525
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\generic\detail.py first seen with mtime 1700627941.3594346
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\locks.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\executor.py first seen with mtime 1700627941.0980892
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\generic\base.py first seen with mtime 1700627941.358437
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\text.py first seen with mtime 1700627941.3364377
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\asgiref\sync.py first seen with mtime 1700627937.1064272
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\finders.py first seen with mtime 1700627940.9250655
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\format_helpers.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\zoneinfo\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templatetags\custom_filters.py first seen with mtime 1718911850.9805808
+DEBUG 2024-06-25 00:21:22,934 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\taskgroups.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,935 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\base.py first seen with mtime 1700627941.0480945
+DEBUG 2024-06-25 00:21:22,935 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\urls\converters.py first seen with mtime 1700627941.303496
+DEBUG 2024-06-25 00:21:22,935 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\admin.py first seen with mtime 1700627938.8725612
+DEBUG 2024-06-25 00:21:22,935 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\creation.py first seen with mtime 1700627941.050093
+DEBUG 2024-06-25 00:21:22,935 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_ssl.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,935 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\__init__.py first seen with mtime 1700627941.0860965
+DEBUG 2024-06-25 00:21:22,936 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_zoneinfo.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,936 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\generic\list.py first seen with mtime 1700627941.3615024
+DEBUG 2024-06-25 00:21:22,936 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\socket.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,936 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\templatetags\l10n.py first seen with mtime 1700627941.2907073
+DEBUG 2024-06-25 00:21:22,936 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,936 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\views\main.py first seen with mtime 1700627938.286459
+DEBUG 2024-06-25 00:21:22,936 autoreload File C:\projectsPY\cakesTP\project\cakes\cakes\__init__.py first seen with mtime 1713953009.896128
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\constants.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_bz2.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\model_meta.py first seen with mtime 1718795926.7969544
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\ast.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\mail\utils.py first seen with mtime 1700627940.9930947
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\management\__init__.py first seen with mtime 1700627941.000053
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\tokenize.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\functions\datetime.py first seen with mtime 1700627941.1400914
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\utils.py first seen with mtime 1700627937.6618805
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\files.py first seen with mtime 1700627940.960345
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\static.py first seen with mtime 1700627941.3494368
+DEBUG 2024-06-25 00:21:22,937 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\migration.py first seen with mtime 1700627941.1000943
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sites\__init__.py first seen with mtime 1700627940.680117
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\mixins.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\query.py first seen with mtime 1700627941.1250937
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\regex_helper.py first seen with mtime 1700627941.333436
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\message.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\numbers.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\http\__init__.py first seen with mtime 1700627941.2566245
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\dateformat.py first seen with mtime 1700627941.3154395
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\project\cakes\main\apps.py first seen with mtime 1714310746.911425
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\timezone.py first seen with mtime 1718795926.8009467
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\handlers\exception.py first seen with mtime 1700627940.9892514
+DEBUG 2024-06-25 00:21:22,938 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\asgiref\__init__.py first seen with mtime 1700627937.0984442
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\__init__.py first seen with mtime 1700627941.1550934
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\tokens.py first seen with mtime 1700627938.618443
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\urllib\response.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\backends\__init__.py first seen with mtime 1700627941.2804348
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\shortcuts.py first seen with mtime 1700627937.2831657
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\proxy.py first seen with mtime 1700627941.1320972
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\__init__.py first seen with mtime 1700627940.9730902
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\schemas\inspectors.py first seen with mtime 1718795926.653952
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\platform.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,939 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\http\client.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\defaults.py first seen with mtime 1700627941.3485262
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\__init__.py first seen with mtime 1700627937.6498735
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\models.py first seen with mtime 1700627941.1600945
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\password_validation.py first seen with mtime 1700627938.6164458
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\management\base.py first seen with mtime 1700627941.0013542
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\functions\text.py first seen with mtime 1700627941.1430938
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\engine.py first seen with mtime 1700627941.274987
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\selectors.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\middleware\common.py first seen with mtime 1700627941.2644384
+DEBUG 2024-06-25 00:21:22,940 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\security\sessions.py first seen with mtime 1700627940.9720943
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\decorators\__init__.py first seen with mtime 1700627941.350448
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\html.py first seen with mtime 1700627941.326441
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\schemas\openapi.py first seen with mtime 1718795926.655176
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\_compression.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\projectsPY\cakesTP\project\cakes\main\views.py first seen with mtime 1719264052.470148
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\conf\__init__.py first seen with mtime 1700627937.2874696
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\html\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\storage\memory.py first seen with mtime 1700627940.9840891
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\gettext.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,941 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\queue.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admindocs\__init__.py first seen with mtime 1700627938.286923
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\loader_tags.py first seen with mtime 1700627941.277979
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\postgresql\__init__.py first seen with mtime 1700627941.0780919
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\functions\comparison.py first seen with mtime 1700627941.1390963
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\backends\base.py first seen with mtime 1700627941.2814343
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\uuid.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\middleware.py first seen with mtime 1700627939.895919
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\sqlite3\dbapi2.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\dateparse.py first seen with mtime 1700627941.3154395
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\constraints.py first seen with mtime 1700627941.11709
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\generics.py first seen with mtime 1718795926.5179472
+DEBUG 2024-06-25 00:21:22,942 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\sql\__init__.py first seen with mtime 1700627941.1453161
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\validators.py first seen with mtime 1700627940.9436386
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\crypto.py first seen with mtime 1700627941.313436
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\wsgi.py first seen with mtime 1700627940.9440894
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\selector_events.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\urllib\error.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\signals.py first seen with mtime 1700627938.617442
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\permissions.py first seen with mtime 1718795926.523947
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\socketserver.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\importlib\_abc.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\cache\backends\__init__.py first seen with mtime 1700627940.947091
+DEBUG 2024-06-25 00:21:22,943 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\asyncio.py first seen with mtime 1700627941.3094482
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\ctypes\_endian.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\utils.py first seen with mtime 1700627941.046095
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\debug.py first seen with mtime 1700627941.347444
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\decorators.py first seen with mtime 1700627941.3184364
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\feedparser.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\context.py first seen with mtime 1700627941.2714334
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\indexes.py first seen with mtime 1700627941.1212595
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\schemas\utils.py first seen with mtime 1718795926.6559486
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\database.py first seen with mtime 1700627940.9594235
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\wsgiref\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,944 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\constants.py first seen with mtime 1700627941.1160915
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\templatetags\tz.py first seen with mtime 1700627941.2914374
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\management\commands\runserver.py first seen with mtime 1700627941.0200906
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\policy.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\numberformat.py first seen with mtime 1700627941.333436
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\sslproto.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\deletion.py first seen with mtime 1700627941.118093
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\exceptions.py first seen with mtime 1700627940.9400787
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\management\commands\__init__.py first seen with mtime 1700627941.0060902
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\management\commands\__init__.py first seen with mtime 1700627940.9321778
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\templatetags\log.py first seen with mtime 1700627938.2809234
+DEBUG 2024-06-25 00:21:22,945 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\_os.py first seen with mtime 1700627941.3074462
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_sqlite3.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\storage\handler.py first seen with mtime 1700627940.9840891
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\_markupbase.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\connection.py first seen with mtime 1700627941.3124402
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\ctypes\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\__init__.py first seen with mtime 1700627940.311118
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\shutil.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\inspect.py first seen with mtime 1700627941.3274372
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sites\requests.py first seen with mtime 1700627940.6881213
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,946 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\base_user.py first seen with mtime 1700627938.606443
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\datetime.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\http\cookies.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\cli.py first seen with mtime 1700627936.728253
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\operations\base.py first seen with mtime 1700627941.109107
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\json.py first seen with mtime 1718795926.7949462
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\textwrap.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\actions.py first seen with mtime 1700627937.6518707
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\__init__.py first seen with mtime 1700627941.1290913
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\decorators\common.py first seen with mtime 1700627941.3524437
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\events.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,947 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\cache\backends\base.py first seen with mtime 1700627940.9480927
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\windows_events.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\dataclasses.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\difflib.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\projectsPY\cakesTP\project\cakes\cakes\settings.py first seen with mtime 1719264052.456002
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\models.py first seen with mtime 1700627940.3171213
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\__init__.py first seen with mtime 1700627941.2684338
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\operations\fields.py first seen with mtime 1700627941.1101658
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\templatetags\__init__.py first seen with mtime 1700627938.276277
+DEBUG 2024-06-25 00:21:22,948 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\__init__.py first seen with mtime 1718795926.504947
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_hashlib.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sites\shortcuts.py first seen with mtime 1700627940.6891203
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\storage\base.py first seen with mtime 1700627940.9820917
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\unicodedata.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\protocols.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\management\__init__.py first seen with mtime 1700627940.931064
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\_policybase.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\random.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\duration.py first seen with mtime 1700627941.320439
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\introspection.py first seen with mtime 1700627941.092092
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\forms.py first seen with mtime 1700627941.1580913
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\breadcrumbs.py first seen with mtime 1718795926.7889452
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\views\decorators.py first seen with mtime 1700627938.2852395
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\mimetypes.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\conf\locale\__init__.py first seen with mtime 1700627937.296376
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\filters\right_margin.py first seen with mtime 1700627936.7465017
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_asyncio.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\timeouts.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\safestring.py first seen with mtime 1700627941.33444
+DEBUG 2024-06-25 00:21:22,949 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_decimal.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\exceptions.py first seen with mtime 1700627941.275434
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\files.py first seen with mtime 1700627941.1300926
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\library.py first seen with mtime 1700627941.2764375
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\images.py first seen with mtime 1700627940.975092
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\caches.py first seen with mtime 1700627940.958096
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\encodings\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\mail\message.py first seen with mtime 1700627940.9921892
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\header.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\http\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,950 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\status.py first seen with mtime 1718795926.535951
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\_functions.py first seen with mtime 1700627941.0870893
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\uploadedfile.py first seen with mtime 1700627940.978189
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\re\_compiler.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\ipaddress.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\engine\statement_splitter.py first seen with mtime 1700627936.7403865
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py first seen with mtime 1700627941.2704341
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\headerregistry.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\authentication.py first seen with mtime 1718795926.5073133
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\templatetags\base.py first seen with mtime 1700627938.2799215
+DEBUG 2024-06-25 00:21:22,951 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\ipv6.py first seen with mtime 1700627941.3284364
+DEBUG 2024-06-25 00:21:22,952 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\collections\abc.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,952 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\sites.py first seen with mtime 1700627937.6598694
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\contextvars.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\cache\backends\filebased.py first seen with mtime 1700627940.9510963
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\uploadhandler.py first seen with mtime 1700627940.9790938
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\__init__.py first seen with mtime 1700627941.0951033
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_lzma.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\token.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\calendar.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\defaulttags.py first seen with mtime 1700627941.274434
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\utils.py first seen with mtime 1700627939.897911
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\re\_casefix.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\compatibility\__init__.py first seen with mtime 1700627940.9670925
+DEBUG 2024-06-25 00:21:22,953 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\fields.py first seen with mtime 1718795926.514947
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\translation\trans_real.py first seen with mtime 1700627941.3454366
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\cache\utils.py first seen with mtime 1700627940.946091
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\serializers\base.py first seen with mtime 1700627941.033418
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\urls\exceptions.py first seen with mtime 1700627941.304441
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\views\autocomplete.py first seen with mtime 1700627938.2839227
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\encoding.py first seen with mtime 1700627941.32145
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\datastructures.py first seen with mtime 1700627941.3144362
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\apps.py first seen with mtime 1700627939.8939185
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\negotiation.py first seen with mtime 1718795926.5209463
+DEBUG 2024-06-25 00:21:22,954 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\urls\utils.py first seen with mtime 1700627941.306439
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\schemas\coreapi.py first seen with mtime 1718795926.651947
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\urlpatterns.py first seen with mtime 1718795926.538955
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\exceptions.py first seen with mtime 1700627941.0970957
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_ctypes.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\functions\__init__.py first seen with mtime 1700627941.1380706
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\http\server.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\__init__.py first seen with mtime 1700627936.7262506
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\widgets.py first seen with mtime 1700627941.1631033
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\urls\base.py first seen with mtime 1700627941.301437
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\http\request.py first seen with mtime 1700627941.259438
+DEBUG 2024-06-25 00:21:22,955 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_overlapped.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\typing.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\sql\subqueries.py first seen with mtime 1700627941.1500926
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\filters\reindent.py first seen with mtime 1700627936.7460802
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\viewsets.py first seen with mtime 1718795926.5439546
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\temp.py first seen with mtime 1700627940.9770932
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\threads.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\schema.py first seen with mtime 1700627941.0540898
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\quoprimime.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\urllib\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\filters\tokens.py first seen with mtime 1700627936.7475188
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\base.py first seen with mtime 1700627941.088091
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\creation.py first seen with mtime 1700627941.0903022
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\filters\output.py first seen with mtime 1700627936.7443845
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\wsgiref\simple_server.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\middleware\security.py first seen with mtime 1700627941.2684338
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\management\__init__.py first seen with mtime 1700627939.0906847
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\exceptions.py first seen with mtime 1700627936.7292533
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\collections\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\query_utils.py first seen with mtime 1700627941.1261683
+DEBUG 2024-06-25 00:21:22,956 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\checks.py first seen with mtime 1700627937.6538723
+DEBUG 2024-06-25 00:21:22,957 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_urls.py first seen with mtime 1700627938.2789228
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\traceback.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\generator.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\locale.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\staggered.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\management\__init__.py first seen with mtime 1700627938.8505588
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\functions\window.py first seen with mtime 1700627941.1440914
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\__init__.py first seen with mtime 1700627941.3454366
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\__init__.py first seen with mtime 1718795926.786948
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\models.py first seen with mtime 1700627938.615445
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\json\scanner.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,958 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\quopri.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\wsgiref\util.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\hashlib.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\renderers.py first seen with mtime 1700627941.1610944
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\checks.py first seen with mtime 1700627938.6074433
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\select.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\utils.py first seen with mtime 1700627940.9802992
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\translation.py first seen with mtime 1700627940.9653924
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\validation.py first seen with mtime 1700627941.0550911
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\__init__.py first seen with mtime 1700627940.9220653
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\filters.py first seen with mtime 1700627937.6558685
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\conf\global_settings.py first seen with mtime 1700627937.288379
+DEBUG 2024-06-25 00:21:22,959 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\representation.py first seen with mtime 1718795926.7979462
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\re\_parser.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\nturl2path.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\sqlite3\schema.py first seen with mtime 1700627941.0940917
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\base.py first seen with mtime 1700627940.9740925
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\loaders\filesystem.py first seen with mtime 1700627941.2874372
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\copyreg.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\signal.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\threading.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\fields.py first seen with mtime 1700627941.1570914
+DEBUG 2024-06-25 00:21:22,960 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py first seen with mtime 1700627938.277924
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\settings.py first seen with mtime 1718795926.534945
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\sysconfig.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\apps\config.py first seen with mtime 1700627937.284375
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\middleware\csrf.py first seen with mtime 1700627941.2654402
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\encoders.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\security\__init__.py first seen with mtime 1700627940.9690917
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\utils.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\options.py first seen with mtime 1700627941.124096
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\sqlite3\__init__.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\__init__.py first seen with mtime 1700627941.1131063
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\smartif.py first seen with mtime 1700627941.2794995
+DEBUG 2024-06-25 00:21:22,961 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\api.py first seen with mtime 1700627939.89291
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\postgres\forms\hstore.py first seen with mtime 1700627939.9259138
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\models.py first seen with mtime 1700627938.8779266
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\encodings\utf_8.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templatetags\__init__.py first seen with mtime 1718911850.9771352
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\loaders\app_directories.py first seen with mtime 1700627941.2854447
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\checks.py first seen with mtime 1700627938.8745584
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\checks.py first seen with mtime 1700627940.9240632
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\functions\math.py first seen with mtime 1700627941.1410897
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\base64mime.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,962 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\filters\aligned_indent.py first seen with mtime 1700627936.743152
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\itercompat.py first seen with mtime 1700627941.329439
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\serializers\python.py first seen with mtime 1700627941.0360942
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\storage\__init__.py first seen with mtime 1700627939.8999195
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\process.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\pprint.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\schemas\__init__.py first seen with mtime 1718795926.6509557
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\management\commands\runserver.py first seen with mtime 1700627940.9350624
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\reverse.py first seen with mtime 1718795926.529945
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\windows_utils.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\humanize_datetime.py first seen with mtime 1718795926.7939496
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\templatetags\i18n.py first seen with mtime 1700627941.289436
+DEBUG 2024-06-25 00:21:22,963 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\mime\message.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\reprlib.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\wsgiref\headers.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\re\_constants.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py first seen with mtime 1700627941.3250933
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\keyword.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\serializers.py first seen with mtime 1718795926.5329452
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\pickle.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\messages.py first seen with mtime 1700627940.9610991
+DEBUG 2024-06-25 00:21:22,964 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\security\base.py first seen with mtime 1700627940.970092
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\ddl_references.py first seen with mtime 1700627941.045094
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\defaultfilters.py first seen with mtime 1700627941.2734416
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\base.py first seen with mtime 1700627941.1150897
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\sql\datastructures.py first seen with mtime 1700627941.1480963
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\bisect.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\validators.py first seen with mtime 1718795926.541184
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\project\cakes\manage.py first seen with mtime 1713955178.2498095
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\weakref.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admindocs\views.py first seen with mtime 1700627938.2929227
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\request.py first seen with mtime 1718795926.5280535
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\exceptions.py first seen with mtime 1700627940.3152616
+DEBUG 2024-06-25 00:21:22,965 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\views.py first seen with mtime 1700627940.930064
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\statistics.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\storage\base.py first seen with mtime 1700627939.900405
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\heapq.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\getpass.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\_encoded_words.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\secrets.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\mediatypes.py first seen with mtime 1718795926.7959576
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\templatetags\static.py first seen with mtime 1700627941.2914374
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\wsgiref\handlers.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\_distutils_hack\__init__.py first seen with mtime 1700627696.9711342
+DEBUG 2024-06-25 00:21:22,966 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\dis.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\forms\formsets.py first seen with mtime 1700627941.1590931
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\generic\dates.py first seen with mtime 1700627941.359203
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\signals.py first seen with mtime 1700627941.046095
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\deconstruct.py first seen with mtime 1700627941.3174374
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\log.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\timezone.py first seen with mtime 1700627941.3385203
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\gzip.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\apps.py first seen with mtime 1700627940.3131194
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\keywords.py first seen with mtime 1700627936.7322521
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_futures.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\projectsPY\cakesTP\project\cakes\main\urls.py first seen with mtime 1718911889.5844264
+DEBUG 2024-06-25 00:21:22,967 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_subprocess.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\__init__.py first seen with mtime 1700627941.0410933
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\forms.py first seen with mtime 1700627938.6114445
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\views\generic\edit.py first seen with mtime 1700627941.3604362
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\response.py first seen with mtime 1700627941.2784386
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\dates.py first seen with mtime 1700627941.3164353
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\exceptions.py first seen with mtime 1718795926.5139475
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\apps\registry.py first seen with mtime 1700627937.2863767
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\ssl.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\hashable.py first seen with mtime 1700627941.32554
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\fractions.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,968 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\utils.py first seen with mtime 1700627941.2804348
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\pkgutil.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\signals.py first seen with mtime 1700627940.9421601
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\storage\mixins.py first seen with mtime 1700627940.9850936
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\email\mime\text.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\files\storage\filesystem.py first seen with mtime 1700627940.9830956
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\lorem_ipsum.py first seen with mtime 1700627941.3314373
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\postgres\__init__.py first seen with mtime 1700627939.9039109
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\translation\__init__.py first seen with mtime 1700627941.342434
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\operations.py first seen with mtime 1700627941.0531535
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\version.py first seen with mtime 1700627941.3404346
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\renderers.py first seen with mtime 1718795926.5269494
+DEBUG 2024-06-25 00:21:22,969 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\context.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\logging\config.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\http\multipartparser.py first seen with mtime 1700627941.2591283
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\backends\base\__init__.py first seen with mtime 1700627941.047361
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_modify.py first seen with mtime 1700627938.277924
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\parsers.py first seen with mtime 1718795926.522949
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\hashers.py first seen with mtime 1700627938.6126502
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\logging\handlers.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\aggregates.py first seen with mtime 1700627941.1140902
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\dispatch\dispatcher.py first seen with mtime 1700627941.1530952
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\DLLs\_queue.pyd first seen with mtime 1680642276.0
+DEBUG 2024-06-25 00:21:22,970 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\enums.py first seen with mtime 1700627941.1190937
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\field_mapping.py first seen with mtime 1718795926.7909548
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_tasks.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\forms.py first seen with mtime 1700627938.876558
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\contextlib.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\sqlparse\engine\__init__.py first seen with mtime 1700627936.7379446
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py first seen with mtime 1700627941.1351037
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\core\checks\model_checks.py first seen with mtime 1700627940.9620926
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\rest_framework\utils\urls.py first seen with mtime 1718795926.8009467
+DEBUG 2024-06-25 00:21:22,971 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main first seen with mtime 1719264052.4691381
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\staff first seen with mtime 1718926657.083351
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\account.html first seen with mtime 1719255523.2473469
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\base.html first seen with mtime 1718929091.1359417
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\cake_info.html first seen with mtime 1716996576.4510708
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\cart.html first seen with mtime 1719255523.2484455
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\catalog.html first seen with mtime 1719255523.2498243
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\constructor.html first seen with mtime 1719252081.5050342
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\home.html first seen with mtime 1718911889.5806527
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\login_form.html first seen with mtime 1716681021.1871579
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\order_details.html first seen with mtime 1719255523.2502823
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\order_form.html first seen with mtime 1719264052.4691381
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\recovery_form.html first seen with mtime 1718911850.9666836
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\recovery_form_confirm_code.html first seen with mtime 1718911850.9678264
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\recovery_form_reset_password.html first seen with mtime 1718911850.9688308
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\main\registration_form.html first seen with mtime 1719255523.2523851
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\staff\add_cake.html first seen with mtime 1718926657.0824003
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\staff\edit_cake.html first seen with mtime 1718925818.371167
+DEBUG 2024-06-25 00:21:22,972 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\staff\edit_order.html first seen with mtime 1718911850.9735126
+DEBUG 2024-06-25 00:21:22,976 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\staff\manage_cakes.html first seen with mtime 1718911850.9748116
+DEBUG 2024-06-25 00:21:22,976 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\staff\manage_orders.html first seen with mtime 1718911850.9748116
+DEBUG 2024-06-25 00:21:22,976 autoreload File C:\projectsPY\cakesTP\project\cakes\main\templates\staff\statistics.html first seen with mtime 1718921985.2420425
+DEBUG 2024-06-25 00:21:24,118 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\migrations\0002_remove_content_type_name.py first seen with mtime 1700627939.094062
+DEBUG 2024-06-25 00:21:24,119 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0007_alter_validators_add_error_messages.py first seen with mtime 1700627938.861558
+DEBUG 2024-06-25 00:21:24,119 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\middleware\clickjacking.py first seen with mtime 1700627941.2634335
+DEBUG 2024-06-25 00:21:24,120 autoreload File C:\projectsPY\cakesTP\project\cakes\main\migrations\0002_user_groups_user_is_staff_user_last_login_and_more.py first seen with mtime 1716645471.2000198
+DEBUG 2024-06-25 00:21:24,121 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\backends\db.py first seen with mtime 1700627940.3263283
+DEBUG 2024-06-25 00:21:24,122 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\migrations\0001_initial.py first seen with mtime 1700627940.6731198
+DEBUG 2024-06-25 00:21:24,123 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\migrations\0001_initial.py first seen with mtime 1700627938.108923
+DEBUG 2024-06-25 00:21:24,123 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\migrations\0001_initial.py first seen with mtime 1700627939.09288
+DEBUG 2024-06-25 00:21:24,123 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0006_require_contenttypes_0002.py first seen with mtime 1700627938.8598518
+DEBUG 2024-06-25 00:21:24,123 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0011_update_proxy_permissions.py first seen with mtime 1700627938.8665638
+DEBUG 2024-06-25 00:21:24,124 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\migrations\__init__.py first seen with mtime 1700627940.6741161
+DEBUG 2024-06-25 00:21:24,124 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\loader.py first seen with mtime 1700627941.1000943
+DEBUG 2024-06-25 00:21:24,125 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\migrations\__init__.py first seen with mtime 1700627938.1111426
+DEBUG 2024-06-25 00:21:24,125 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\contenttypes\migrations\__init__.py first seen with mtime 1700627939.0946853
+DEBUG 2024-06-25 00:21:24,125 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\recorder.py first seen with mtime 1700627941.1035762
+DEBUG 2024-06-25 00:21:24,127 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\__init__.py first seen with mtime 1700627938.8677654
+DEBUG 2024-06-25 00:21:24,127 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\migrations\graph.py first seen with mtime 1700627941.099063
+DEBUG 2024-06-25 00:21:24,127 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\stringprep.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:24,128 autoreload File C:\projectsPY\cakesTP\project\cakes\main\migrations\0001_initial.py first seen with mtime 1716987818.3923635
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0005_alter_user_last_login_null.py first seen with mtime 1700627938.8595557
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\migrations\0002_logentry_remove_auto_add.py first seen with mtime 1700627938.1099324
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\db\models\sql\compiler.py first seen with mtime 1700627941.1460948
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\project\cakes\main\migrations\__init__.py first seen with mtime 1714310746.9394197
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0010_alter_group_name_max_length.py first seen with mtime 1700627938.8645668
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0001_initial.py first seen with mtime 1700627938.855725
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\admin\migrations\0003_logentry_add_action_flag_choices.py first seen with mtime 1700627938.110921
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\project\cakes\cakes\wsgi.py first seen with mtime 1713953009.8951292
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0012_alter_user_first_name_max_length.py first seen with mtime 1700627938.867558
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\Users\ryzhk\AppData\Local\Programs\Python\Python311\Lib\encodings\idna.py first seen with mtime 1680642250.0
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0008_alter_user_username_max_length.py first seen with mtime 1700627938.8625617
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\project\cakes\main\migrations\0003_cake_name_cake_preview_image_alter_order_user.py first seen with mtime 1718911889.2100904
+DEBUG 2024-06-25 00:21:24,129 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0003_alter_user_email_max_length.py first seen with mtime 1700627938.8575666
+DEBUG 2024-06-25 00:21:24,138 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0002_alter_permission_name_max_length.py first seen with mtime 1700627938.8565586
+DEBUG 2024-06-25 00:21:24,138 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0009_alter_user_last_name_max_length.py first seen with mtime 1700627938.863558
+DEBUG 2024-06-25 00:21:24,138 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\migrations\0004_alter_user_username_opts.py first seen with mtime 1700627938.8587174
+DEBUG 2024-06-25 00:21:25,283 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:25.279813' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:25.279813', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:25,285 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" LIMIT 5; args=(); alias=default
+INFO 2024-06-25 00:21:25,328 basehttp "GET / HTTP/1.1" 200 7956
+INFO 2024-06-25 00:21:25,460 basehttp "GET /static/main/style/order_details.css HTTP/1.1" 304 0
+INFO 2024-06-25 00:21:25,470 basehttp "GET /static/main/style/catalog.css HTTP/1.1" 304 0
+INFO 2024-06-25 00:21:25,470 basehttp "GET /static/main/style/register.css HTTP/1.1" 304 0
+INFO 2024-06-25 00:21:25,471 basehttp "GET /static/main/style/cart.css HTTP/1.1" 304 0
+INFO 2024-06-25 00:21:25,471 basehttp "GET /static/main/style/order_form.css HTTP/1.1" 304 0
+INFO 2024-06-25 00:21:25,471 basehttp "GET /static/main/style/account.css HTTP/1.1" 304 0
+INFO 2024-06-25 00:21:25,471 basehttp "GET /static/main/style/constructor.css HTTP/1.1" 304 0
+DEBUG 2024-06-25 00:21:26,378 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\auth\context_processors.py first seen with mtime 1700627938.6094525
+DEBUG 2024-06-25 00:21:26,380 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\storage\cookie.py first seen with mtime 1700627939.9009073
+DEBUG 2024-06-25 00:21:26,384 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\conf\locale\en\__init__.py first seen with mtime 1700627937.3738868
+DEBUG 2024-06-25 00:21:26,386 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\staticfiles\storage.py first seen with mtime 1700627940.9271338
+DEBUG 2024-06-25 00:21:26,386 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\storage\session.py first seen with mtime 1700627939.9029133
+DEBUG 2024-06-25 00:21:26,388 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\storage\fallback.py first seen with mtime 1700627939.90192
+DEBUG 2024-06-25 00:21:26,388 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\sessions\serializers.py first seen with mtime 1700627940.31812
+DEBUG 2024-06-25 00:21:26,389 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\conf\locale\en\formats.py first seen with mtime 1700627937.3753774
+DEBUG 2024-06-25 00:21:26,391 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\context_processors.py first seen with mtime 1700627941.2719183
+DEBUG 2024-06-25 00:21:26,392 autoreload File C:\projectsPY\cakesTP\venv\Lib\site-packages\django\contrib\messages\context_processors.py first seen with mtime 1700627939.895919
+DEBUG 2024-06-25 00:21:27,405 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:27.404056' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:27.404056', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:27,407 basehttp "GET /constructor/ HTTP/1.1" 200 8882
+INFO 2024-06-25 00:21:27,477 basehttp "GET /static/main/js/constructor.js HTTP/1.1" 304 0
+DEBUG 2024-06-25 00:21:27,526 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:27.524008' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:27.524008', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:27,527 utils (0.000) SELECT "Layer_base"."layer_base_ID", "Layer_base"."ingridient", "Layer_base"."cost_per_gram", "Layer_base"."density", "Layer_base"."primary_color", "Layer_base"."secondary_color" FROM "Layer_base"; args=(); alias=default
+DEBUG 2024-06-25 00:21:27,529 utils (0.000) SELECT "Layer_filling"."layer_filling_ID", "Layer_filling"."ingridient", "Layer_filling"."cost_per_gram", "Layer_filling"."density", "Layer_filling"."primary_color", "Layer_filling"."secondary_color" FROM "Layer_filling"; args=(); alias=default
+DEBUG 2024-06-25 00:21:27,531 utils (0.000) SELECT "Cake_size"."cake_size_ID", "Cake_size"."type", "Cake_size"."base_area" FROM "Cake_size"; args=(); alias=default
+DEBUG 2024-06-25 00:21:27,534 utils (0.000) SELECT "Cake_shape"."cake_shape_ID", "Cake_shape"."shape", "Cake_shape"."cost", "Cake_shape"."texture_path" FROM "Cake_shape"; args=(); alias=default
+DEBUG 2024-06-25 00:21:27,537 utils (0.000) SELECT "Cake_topping"."Cake_topping_ID", "Cake_topping"."ingridient", "Cake_topping"."cost_per_gram", "Cake_topping"."density", "Cake_topping"."primary_color", "Cake_topping"."texture_path" FROM "Cake_topping"; args=(); alias=default
+DEBUG 2024-06-25 00:21:27,540 utils (0.000) INSERT INTO "Cake" ("weight", "cost", "layers_count", "text", "name", "constructor_image", "preview_image", "cake_size_ID", "cake_shape_ID", "cake_coverage_ID", "cake_topping_ID", "cake_addition_ID", "cake_addition_ID_perimeter") VALUES (1500, '500', 3, 'Happy Birthday!', 'Test Cake', 'test_image.png', 'test_preview.png', 1, 1, 1, 1, 5, 6) RETURNING "Cake"."cake_ID"; args=(1500, '500', 3, 'Happy Birthday!', 'Test Cake', 'test_image.png', 'test_preview.png', 1, 1, 1, 1, 5, 6); alias=default
+DEBUG 2024-06-25 00:21:27,540 utils (0.000) SELECT "Cake_addition"."cake_addition_ID", "Cake_addition"."ingridient", "Cake_addition"."cost_per_gram", "Cake_addition"."primary_color", "Cake_addition"."secondary_color", "Cake_addition"."texture_side_path", "Cake_addition"."texture_top_path", "Cake_addition"."amount" FROM "Cake_addition"; args=(); alias=default
+DEBUG 2024-06-25 00:21:27,559 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:27.558209' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:27.558209', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:27,561 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:21:27,562 utils (0.000) UPDATE "django_session" SET "session_data" = 'eyJjYXJ0Ijp7IjMxIjoxLCIzMiI6MX19:1sLr7v:N2X34Adwcagxq1mGt3wK6hEyv_r9knApaHANhchvwHE', "expire_date" = '2024-07-08 21:21:27.561203' WHERE "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp'; args=('eyJjYXJ0Ijp7IjMxIjoxLCIzMiI6MX19:1sLr7v:N2X34Adwcagxq1mGt3wK6hEyv_r9knApaHANhchvwHE', '2024-07-08 21:21:27.561203', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:27,566 utils (0.000) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:21:27,568 basehttp "POST /cart/add/ HTTP/1.1" 200 138
+DEBUG 2024-06-25 00:21:27,582 utils (0.031) SELECT "Cake_coverage"."Cake_coverage_ID", "Cake_coverage"."ingridient", "Cake_coverage"."cost_per_gram", "Cake_coverage"."density", "Cake_coverage"."primary_color", "Cake_coverage"."secondary_color" FROM "Cake_coverage"; args=(); alias=default
+INFO 2024-06-25 00:21:27,583 basehttp "GET /api/cake-components/ HTTP/1.1" 200 3838
+DEBUG 2024-06-25 00:21:29,426 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:29.424151' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:29.424151', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:29,428 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" WHERE "Cake"."cake_ID" IN (31, 32); args=(31, 32); alias=default
+INFO 2024-06-25 00:21:29,432 basehttp "GET /cart/ HTTP/1.1" 200 5971
+WARNING 2024-06-25 00:21:29,482 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+WARNING 2024-06-25 00:21:29,515 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+DEBUG 2024-06-25 00:21:31,161 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:31.158859' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:31.158859', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:31,162 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:21:31,164 utils (0.000) UPDATE "django_session" SET "session_data" = 'eyJjYXJ0Ijp7IjMyIjoxfX0:1sLr7z:rLvQFIFM1QJd8kt52iLan1zJ3beCnN6NdxCtw5THVy8', "expire_date" = '2024-07-08 21:21:31.162613' WHERE "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp'; args=('eyJjYXJ0Ijp7IjMyIjoxfX0:1sLr7z:rLvQFIFM1QJd8kt52iLan1zJ3beCnN6NdxCtw5THVy8', '2024-07-08 21:21:31.162613', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:31,169 utils (0.016) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:21:31,169 basehttp "GET /remove_from_cart/31/?action=remove HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:21:31,182 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:31.179213' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:31.179213', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:31,183 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" WHERE "Cake"."cake_ID" IN (32); args=(32,); alias=default
+INFO 2024-06-25 00:21:31,185 basehttp "GET /cart/ HTTP/1.1" 200 4741
+WARNING 2024-06-25 00:21:31,210 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+DEBUG 2024-06-25 00:21:31,631 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:31.629908' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:31.629908', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:31,633 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:21:31,635 utils (0.000) UPDATE "django_session" SET "session_data" = 'eyJjYXJ0Ijp7fX0:1sLr7z:XLTI7Ywgmrv9TM6gQTEMLNaHNqAfLpuSDRfnh6AMq7g', "expire_date" = '2024-07-08 21:21:31.633246' WHERE "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp'; args=('eyJjYXJ0Ijp7fX0:1sLr7z:XLTI7Ywgmrv9TM6gQTEMLNaHNqAfLpuSDRfnh6AMq7g', '2024-07-08 21:21:31.633246', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:31,639 utils (0.000) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:21:31,640 basehttp "GET /remove_from_cart/32/?action=remove HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:21:31,653 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:31.650190' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:31.650190', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:31,655 basehttp "GET /cart/ HTTP/1.1" 200 3586
+DEBUG 2024-06-25 00:21:32,694 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:32.692336' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:32.692336', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:32,695 basehttp "GET /constructor/ HTTP/1.1" 200 8882
+DEBUG 2024-06-25 00:21:32,762 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:32.759478' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:32.759478', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:32,764 utils (0.000) SELECT "Layer_base"."layer_base_ID", "Layer_base"."ingridient", "Layer_base"."cost_per_gram", "Layer_base"."density", "Layer_base"."primary_color", "Layer_base"."secondary_color" FROM "Layer_base"; args=(); alias=default
+DEBUG 2024-06-25 00:21:32,765 utils (0.000) SELECT "Layer_filling"."layer_filling_ID", "Layer_filling"."ingridient", "Layer_filling"."cost_per_gram", "Layer_filling"."density", "Layer_filling"."primary_color", "Layer_filling"."secondary_color" FROM "Layer_filling"; args=(); alias=default
+DEBUG 2024-06-25 00:21:32,768 utils (0.000) INSERT INTO "Cake" ("weight", "cost", "layers_count", "text", "name", "constructor_image", "preview_image", "cake_size_ID", "cake_shape_ID", "cake_coverage_ID", "cake_topping_ID", "cake_addition_ID", "cake_addition_ID_perimeter") VALUES (1500, '500', 3, 'Happy Birthday!', 'Test Cake', 'test_image.png', 'test_preview.png', 1, 1, 1, 1, 5, 6) RETURNING "Cake"."cake_ID"; args=(1500, '500', 3, 'Happy Birthday!', 'Test Cake', 'test_image.png', 'test_preview.png', 1, 1, 1, 1, 5, 6); alias=default
+DEBUG 2024-06-25 00:21:32,768 utils (0.000) SELECT "Cake_size"."cake_size_ID", "Cake_size"."type", "Cake_size"."base_area" FROM "Cake_size"; args=(); alias=default
+DEBUG 2024-06-25 00:21:32,779 utils (0.016) SELECT "Cake_shape"."cake_shape_ID", "Cake_shape"."shape", "Cake_shape"."cost", "Cake_shape"."texture_path" FROM "Cake_shape"; args=(); alias=default
+DEBUG 2024-06-25 00:21:32,779 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:32.777473' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:32.777473', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:32,781 utils (0.000) SELECT "Cake_topping"."Cake_topping_ID", "Cake_topping"."ingridient", "Cake_topping"."cost_per_gram", "Cake_topping"."density", "Cake_topping"."primary_color", "Cake_topping"."texture_path" FROM "Cake_topping"; args=(); alias=default
+DEBUG 2024-06-25 00:21:32,781 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:21:32,783 utils (0.000) SELECT "Cake_addition"."cake_addition_ID", "Cake_addition"."ingridient", "Cake_addition"."cost_per_gram", "Cake_addition"."primary_color", "Cake_addition"."secondary_color", "Cake_addition"."texture_side_path", "Cake_addition"."texture_top_path", "Cake_addition"."amount" FROM "Cake_addition"; args=(); alias=default
+DEBUG 2024-06-25 00:21:32,786 utils (0.000) UPDATE "django_session" SET "session_data" = 'eyJjYXJ0Ijp7IjMzIjoxfX0:1sLr80:5T9kAsCAXol1fO2pAISiL04H9IW_ca_NaN-gfD6Tlgo', "expire_date" = '2024-07-08 21:21:32.781776' WHERE "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp'; args=('eyJjYXJ0Ijp7IjMzIjoxfX0:1sLr80:5T9kAsCAXol1fO2pAISiL04H9IW_ca_NaN-gfD6Tlgo', '2024-07-08 21:21:32.781776', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:32,786 utils (0.000) SELECT "Cake_coverage"."Cake_coverage_ID", "Cake_coverage"."ingridient", "Cake_coverage"."cost_per_gram", "Cake_coverage"."density", "Cake_coverage"."primary_color", "Cake_coverage"."secondary_color" FROM "Cake_coverage"; args=(); alias=default
+INFO 2024-06-25 00:21:32,788 basehttp "GET /api/cake-components/ HTTP/1.1" 200 3838
+DEBUG 2024-06-25 00:21:32,797 utils (0.016) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:21:32,798 basehttp "POST /cart/add/ HTTP/1.1" 200 138
+DEBUG 2024-06-25 00:21:36,106 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:36.104169' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:36.104169', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:36,110 basehttp "GET /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:21:37,665 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:37.663979' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:37.663979', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:37,666 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" WHERE "Cake"."cake_ID" IN (33); args=(33,); alias=default
+INFO 2024-06-25 00:21:37,667 basehttp "GET /cart/ HTTP/1.1" 200 4741
+WARNING 2024-06-25 00:21:37,706 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+DEBUG 2024-06-25 00:21:38,496 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:38.494111' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:38.494111', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:38,497 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:21:38,499 utils (0.000) UPDATE "django_session" SET "session_data" = 'eyJjYXJ0Ijp7fX0:1sLr86:uX6gJ4fme6MmWpoQnLrkuJpAf_p1Kmy97EdF1VvzUHk', "expire_date" = '2024-07-08 21:21:38.497306' WHERE "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp'; args=('eyJjYXJ0Ijp7fX0:1sLr86:uX6gJ4fme6MmWpoQnLrkuJpAf_p1Kmy97EdF1VvzUHk', '2024-07-08 21:21:38.497306', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:38,502 utils (0.000) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:21:38,504 basehttp "GET /remove_from_cart/33/?action=remove HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:21:38,514 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:38.512442' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:38.512442', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:38,517 basehttp "GET /cart/ HTTP/1.1" 200 3586
+DEBUG 2024-06-25 00:21:39,428 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:39.426004' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:39.426004', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:39,430 base Exception while resolving variable 'first_name' in template 'main/order_form.html'.
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'AnonymousUser' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'first_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+                      ^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'first_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [first_name] in <SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x000001D5EE51A2D0>>
+DEBUG 2024-06-25 00:21:39,432 base Exception while resolving variable 'last_name' in template 'main/order_form.html'.
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'AnonymousUser' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'last_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+                      ^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'last_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [last_name] in <SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x000001D5EE51A2D0>>
+DEBUG 2024-06-25 00:21:39,433 base Exception while resolving variable 'email' in template 'main/order_form.html'.
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'AnonymousUser' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+                      ^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [email] in <SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x000001D5EE51A2D0>>
+DEBUG 2024-06-25 00:21:39,433 base Exception while resolving variable 'phone_number' in template 'main/order_form.html'.
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'AnonymousUser' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'phone_number'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+                      ^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'phone_number'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projectsPY\cakesTP\venv\Lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [phone_number] in <SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x000001D5EE51A2D0>>
+INFO 2024-06-25 00:21:39,435 basehttp "GET /order_form/ HTTP/1.1" 200 4946
+DEBUG 2024-06-25 00:21:41,465 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:41.464071' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:41.464071', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:41,467 basehttp "GET /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:21:42,716 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:42.715886' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:42.715886', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:42,716 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'popckov.deniz@yandex.ru' LIMIT 21; args=('popckov.deniz@yandex.ru',); alias=default
+INFO 2024-06-25 00:21:43,005 basehttp "POST /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:21:45,400 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:45.398961' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:45.398961', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:45,401 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'popckov.deniz@yandex.ru' LIMIT 21; args=('popckov.deniz@yandex.ru',); alias=default
+INFO 2024-06-25 00:21:45,664 basehttp "POST /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:21:48,999 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:48.997131' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:48.997131', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:49,000 basehttp "GET /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:21:50,487 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake"; args=(); alias=default
+DEBUG 2024-06-25 00:21:50,495 utils (0.016) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:50.494248' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:50.494248', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:50,502 basehttp "GET /catalog/ HTTP/1.1" 200 36994
+WARNING 2024-06-25 00:21:50,544 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+WARNING 2024-06-25 00:21:50,558 basehttp "GET /static/default_image HTTP/1.1" 404 1798
+WARNING 2024-06-25 00:21:50,566 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+DEBUG 2024-06-25 00:21:55,446 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:55.443918' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:55.443918', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+INFO 2024-06-25 00:21:55,447 basehttp "GET /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:21:56,737 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:21:56.735393' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:21:56.735393', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:21:56,738 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'popckov.deniz@yandex.ru' LIMIT 21; args=('popckov.deniz@yandex.ru',); alias=default
+INFO 2024-06-25 00:21:57,006 basehttp "POST /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:22:00,484 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:00.483891' AND "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp') LIMIT 21; args=('2024-06-24 21:22:00.483891', '8cxk7ef91nlhf08hauoasiuopee3uzfp'); alias=default
+DEBUG 2024-06-25 00:22:00,485 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'lol@gmail.com' LIMIT 21; args=('lol@gmail.com',); alias=default
+DEBUG 2024-06-25 00:22:00,743 utils (0.000) SELECT 1 AS "a" FROM "django_session" WHERE "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z' LIMIT 1; args=(1, 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:00,743 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:22:00,751 utils (0.016) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") VALUES ('w7s1f3biqeh3zxcx488whc2zcpsvwf7z', 'eyJjYXJ0Ijp7fX0:1sLr8S:PsJrTKxhUQGSJom14rUjwMazZ16G4PXzaZmT1nfjrjw', '2024-07-08 21:22:00.743746'); args=('w7s1f3biqeh3zxcx488whc2zcpsvwf7z', 'eyJjYXJ0Ijp7fX0:1sLr8S:PsJrTKxhUQGSJom14rUjwMazZ16G4PXzaZmT1nfjrjw', '2024-07-08 21:22:00.743746'); alias=default
+DEBUG 2024-06-25 00:22:00,754 utils (0.000) COMMIT; args=None; alias=default
+DEBUG 2024-06-25 00:22:00,754 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = '8cxk7ef91nlhf08hauoasiuopee3uzfp' LIMIT 21; args=('8cxk7ef91nlhf08hauoasiuopee3uzfp',); alias=default
+DEBUG 2024-06-25 00:22:00,761 utils (0.015) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('8cxk7ef91nlhf08hauoasiuopee3uzfp'); args=('8cxk7ef91nlhf08hauoasiuopee3uzfp',); alias=default
+DEBUG 2024-06-25 00:22:00,766 utils (0.000) UPDATE "User" SET "last_login" = '2024-06-24 21:22:00.761747' WHERE "User"."user_ID" = 1; args=('2024-06-24 21:22:00.761747', 1); alias=default
+DEBUG 2024-06-25 00:22:00,766 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:22:00,767 utils (0.000) UPDATE "django_session" SET "session_data" = '.eJxVjDkKwzAQAP-ydRC6V7hMnzeI1UqOnQQJfFTGf3cMbtzODLMB07RAt-0PiLQuQ1znMsUxQwcKbiwRf0s9Rf5QfTfBrS7TmMSZiMvO4tVy-T2v9jYYaB7OrdZSFfTOZcNoEmOwRgXlep-pGHTog5cJe-fDP2QmRcrKjJ61dlbCfgD67Tnw:1sLr8S:6xhAlkDVnTHikMu2k8vR92mUo7aaSRT18nvO4uvoC3w', "expire_date" = '2024-07-08 21:22:00.766205' WHERE "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'; args=('.eJxVjDkKwzAQAP-ydRC6V7hMnzeI1UqOnQQJfFTGf3cMbtzODLMB07RAt-0PiLQuQ1znMsUxQwcKbiwRf0s9Rf5QfTfBrS7TmMSZiMvO4tVy-T2v9jYYaB7OrdZSFfTOZcNoEmOwRgXlep-pGHTog5cJe-fDP2QmRcrKjJ61dlbCfgD67Tnw:1sLr8S:6xhAlkDVnTHikMu2k8vR92mUo7aaSRT18nvO4uvoC3w', '2024-07-08 21:22:00.766205', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:00,771 utils (0.000) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:22:00,771 basehttp "POST /account/ HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:22:00,780 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:00.777858' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:00.777858', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:00,780 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2024-06-25 00:22:00,785 utils (0.000) SELECT "Order"."order_ID", "Order"."date", "Order"."delivery_date", "Order"."price", "Order"."delivery_address", "Order"."status", "Order"."user_ID" FROM "Order" WHERE "Order"."user_ID" = 1; args=(1,); alias=default
+INFO 2024-06-25 00:22:00,786 basehttp "GET /account/ HTTP/1.1" 200 3898
+DEBUG 2024-06-25 00:22:03,613 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:03.610767' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:03.610767', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:03,614 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+INFO 2024-06-25 00:22:03,614 basehttp "GET /cart/ HTTP/1.1" 200 3679
+DEBUG 2024-06-25 00:22:04,618 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake"; args=(); alias=default
+DEBUG 2024-06-25 00:22:04,620 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:04.619975' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:04.619975', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:04,622 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+INFO 2024-06-25 00:22:04,630 basehttp "GET /catalog/ HTTP/1.1" 200 37087
+WARNING 2024-06-25 00:22:04,669 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+WARNING 2024-06-25 00:22:04,672 basehttp "GET /static/default_image HTTP/1.1" 404 1798
+WARNING 2024-06-25 00:22:04,696 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+WARNING 2024-06-25 00:22:04,697 basehttp "GET /static/default_image HTTP/1.1" 404 1798
+DEBUG 2024-06-25 00:22:05,936 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:05.934060' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:05.934060', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:05,937 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:22:05,939 utils (0.000) UPDATE "django_session" SET "session_data" = '.eJxVjMsOgyAQAP9lzw1hQVjCsfd-g1kWLLaNJj5Oxn-3Jl68zkxmA-FpgbiBhYj7A1pel9quc5naPkMEhBtLLN8ynCJ_eHiPSsZhmfqkzkRddlavMZff82pvg8pzPbfGaCzknctWyCah0FgM6DqfuVhy5IPXiTrnwz8UYWRsdCYvxrhGw34ApPA60g:1sLr8X:804gPUHO1cIFswloHnj9uFogkJVlUw24iGNDrmI60YM', "expire_date" = '2024-07-08 21:22:05.937053' WHERE "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'; args=('.eJxVjMsOgyAQAP9lzw1hQVjCsfd-g1kWLLaNJj5Oxn-3Jl68zkxmA-FpgbiBhYj7A1pel9quc5naPkMEhBtLLN8ynCJ_eHiPSsZhmfqkzkRddlavMZff82pvg8pzPbfGaCzknctWyCah0FgM6DqfuVhy5IPXiTrnwz8UYWRsdCYvxrhGw34ApPA60g:1sLr8X:804gPUHO1cIFswloHnj9uFogkJVlUw24iGNDrmI60YM', '2024-07-08 21:22:05.937053', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:05,943 utils (0.000) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:22:05,943 basehttp "GET /add_to_cart/3/ HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:22:05,957 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake"; args=(); alias=default
+DEBUG 2024-06-25 00:22:05,959 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:05.958312' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:05.958312', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:05,959 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+INFO 2024-06-25 00:22:05,966 basehttp "GET /catalog/ HTTP/1.1" 200 37087
+WARNING 2024-06-25 00:22:06,004 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+WARNING 2024-06-25 00:22:06,005 basehttp "GET /static/default_image HTTP/1.1" 404 1798
+WARNING 2024-06-25 00:22:06,044 basehttp "GET /static/test_preview.png HTTP/1.1" 404 1807
+WARNING 2024-06-25 00:22:06,046 basehttp "GET /static/default_image HTTP/1.1" 404 1798
+DEBUG 2024-06-25 00:22:09,066 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:09.064063' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:09.064063', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:09,067 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" WHERE "Cake"."cake_ID" IN (3); args=(3,); alias=default
+DEBUG 2024-06-25 00:22:09,068 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+INFO 2024-06-25 00:22:09,069 basehttp "GET /cart/ HTTP/1.1" 200 4866
+DEBUG 2024-06-25 00:22:09,716 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:09.715245' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:09.715245', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:09,718 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" WHERE "Cake"."cake_ID" IN (3); args=(3,); alias=default
+DEBUG 2024-06-25 00:22:09,719 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+INFO 2024-06-25 00:22:09,721 basehttp "GET /order_form/ HTTP/1.1" 200 5066
+DEBUG 2024-06-25 00:22:16,629 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:16.626964' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:16.626964', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:16,630 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2024-06-25 00:22:16,633 utils (0.000) SELECT "Order"."order_ID", "Order"."date", "Order"."delivery_date", "Order"."price", "Order"."delivery_address", "Order"."status", "Order"."user_ID" FROM "Order" WHERE "Order"."user_ID" = 1; args=(1,); alias=default
+INFO 2024-06-25 00:22:16,633 basehttp "GET /account/ HTTP/1.1" 200 3898
+DEBUG 2024-06-25 00:22:17,793 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:22:17.790795' AND "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z') LIMIT 21; args=('2024-06-24 21:22:17.790795', 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); alias=default
+DEBUG 2024-06-25 00:22:17,793 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2024-06-25 00:22:17,795 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = 'w7s1f3biqeh3zxcx488whc2zcpsvwf7z' LIMIT 21; args=('w7s1f3biqeh3zxcx488whc2zcpsvwf7z',); alias=default
+DEBUG 2024-06-25 00:22:17,805 utils (0.000) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('w7s1f3biqeh3zxcx488whc2zcpsvwf7z'); args=('w7s1f3biqeh3zxcx488whc2zcpsvwf7z',); alias=default
+INFO 2024-06-25 00:22:17,806 basehttp "GET /logout/ HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:22:17,818 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" LIMIT 5; args=(); alias=default
+INFO 2024-06-25 00:22:17,820 basehttp "GET / HTTP/1.1" 200 7956
+INFO 2024-06-25 00:22:19,006 basehttp "GET /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:22:21,568 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'popckov.deniz@yandex.ru' LIMIT 21; args=('popckov.deniz@yandex.ru',); alias=default
+INFO 2024-06-25 00:22:21,825 basehttp "POST /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:23:42,744 utils (0.016) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'popckov.deniz@yandex.ru' LIMIT 21; args=('popckov.deniz@yandex.ru',); alias=default
+INFO 2024-06-25 00:23:43,013 basehttp "POST /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:23:43,792 utils (0.016) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'lol@gmail.com' LIMIT 21; args=('lol@gmail.com',); alias=default
+DEBUG 2024-06-25 00:23:44,030 utils (0.000) SELECT 1 AS "a" FROM "django_session" WHERE "django_session"."session_key" = '7lxxskl6awf3c78a5xk75134o3d8shx4' LIMIT 1; args=(1, '7lxxskl6awf3c78a5xk75134o3d8shx4'); alias=default
+DEBUG 2024-06-25 00:23:44,030 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:23:44,036 utils (0.000) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") VALUES ('7lxxskl6awf3c78a5xk75134o3d8shx4', 'e30:1sLrA8:PmAl32FO3zclYMQh5l6KKPH2Bk8PBh9iTERi-6ZneHg', '2024-07-08 21:23:44.030748'); args=('7lxxskl6awf3c78a5xk75134o3d8shx4', 'e30:1sLrA8:PmAl32FO3zclYMQh5l6KKPH2Bk8PBh9iTERi-6ZneHg', '2024-07-08 21:23:44.030748'); alias=default
+DEBUG 2024-06-25 00:23:44,039 utils (0.000) COMMIT; args=None; alias=default
+DEBUG 2024-06-25 00:23:44,044 utils (0.016) UPDATE "User" SET "last_login" = '2024-06-24 21:23:44.040748' WHERE "User"."user_ID" = 1; args=('2024-06-24 21:23:44.040748', 1); alias=default
+DEBUG 2024-06-25 00:23:44,045 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2024-06-25 00:23:44,046 utils (0.000) UPDATE "django_session" SET "session_data" = '.eJxVjMsOwiAQAP-FsyEsryUevfsNZFmoVA1NSnsy_ruS9KDXmcm8RKR9q3HvZY1zFmcB4vTLEvGjtCHyndptkby0bZ2THIk8bJfXJZfn5Wj_BpV6HVutFRT0zmXDaBJjsAYCuMlnKgYd-uBVwsn58A2ZCQisyuhZa2eVeH8As6k2pA:1sLrA8:S54aqvn0_bmUWpD3T6VUDGkUwhrvQHHbGu5YBfPS3X8', "expire_date" = '2024-07-08 21:23:44.045682' WHERE "django_session"."session_key" = '7lxxskl6awf3c78a5xk75134o3d8shx4'; args=('.eJxVjMsOwiAQAP-FsyEsryUevfsNZFmoVA1NSnsy_ruS9KDXmcm8RKR9q3HvZY1zFmcB4vTLEvGjtCHyndptkby0bZ2THIk8bJfXJZfn5Wj_BpV6HVutFRT0zmXDaBJjsAYCuMlnKgYd-uBVwsn58A2ZCQisyuhZa2eVeH8As6k2pA:1sLrA8:S54aqvn0_bmUWpD3T6VUDGkUwhrvQHHbGu5YBfPS3X8', '2024-07-08 21:23:44.045682', '7lxxskl6awf3c78a5xk75134o3d8shx4'); alias=default
+DEBUG 2024-06-25 00:23:44,049 utils (0.000) COMMIT; args=None; alias=default
+INFO 2024-06-25 00:23:44,050 basehttp "POST /account/ HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:23:44,058 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:23:44.055686' AND "django_session"."session_key" = '7lxxskl6awf3c78a5xk75134o3d8shx4') LIMIT 21; args=('2024-06-24 21:23:44.055686', '7lxxskl6awf3c78a5xk75134o3d8shx4'); alias=default
+DEBUG 2024-06-25 00:23:44,059 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2024-06-25 00:23:44,060 utils (0.000) SELECT "Order"."order_ID", "Order"."date", "Order"."delivery_date", "Order"."price", "Order"."delivery_address", "Order"."status", "Order"."user_ID" FROM "Order" WHERE "Order"."user_ID" = 1; args=(1,); alias=default
+INFO 2024-06-25 00:23:44,061 basehttp "GET /account/ HTTP/1.1" 200 3898
+DEBUG 2024-06-25 00:23:46,740 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:23:46.738539' AND "django_session"."session_key" = '7lxxskl6awf3c78a5xk75134o3d8shx4') LIMIT 21; args=('2024-06-24 21:23:46.738539', '7lxxskl6awf3c78a5xk75134o3d8shx4'); alias=default
+DEBUG 2024-06-25 00:23:46,740 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2024-06-25 00:23:46,741 utils (0.000) SELECT "Order"."order_ID", "Order"."date", "Order"."delivery_date", "Order"."price", "Order"."delivery_address", "Order"."status", "Order"."user_ID" FROM "Order" WHERE "Order"."user_ID" = 1; args=(1,); alias=default
+INFO 2024-06-25 00:23:46,741 basehttp "GET /account/ HTTP/1.1" 200 3898
+DEBUG 2024-06-25 00:23:49,398 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2024-06-24 21:23:49.396817' AND "django_session"."session_key" = '7lxxskl6awf3c78a5xk75134o3d8shx4') LIMIT 21; args=('2024-06-24 21:23:49.396817', '7lxxskl6awf3c78a5xk75134o3d8shx4'); alias=default
+DEBUG 2024-06-25 00:23:49,399 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."user_ID" = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2024-06-25 00:23:49,400 utils (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = '7lxxskl6awf3c78a5xk75134o3d8shx4' LIMIT 21; args=('7lxxskl6awf3c78a5xk75134o3d8shx4',); alias=default
+DEBUG 2024-06-25 00:23:49,404 utils (0.016) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('7lxxskl6awf3c78a5xk75134o3d8shx4'); args=('7lxxskl6awf3c78a5xk75134o3d8shx4',); alias=default
+INFO 2024-06-25 00:23:49,404 basehttp "GET /logout/ HTTP/1.1" 302 0
+DEBUG 2024-06-25 00:23:49,414 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" LIMIT 5; args=(); alias=default
+INFO 2024-06-25 00:23:49,415 basehttp "GET / HTTP/1.1" 200 7956
+INFO 2024-06-25 00:23:50,250 basehttp "GET /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:23:53,935 utils (0.000) SELECT "User"."last_login", "User"."user_ID", "User"."first_name", "User"."password", "User"."email", "User"."last_name", "User"."date_birth", "User"."phone_number", "User"."is_superuser", "User"."is_staff" FROM "User" WHERE "User"."email" = 'popckov.deniz@yandex.ru' LIMIT 21; args=('popckov.deniz@yandex.ru',); alias=default
+INFO 2024-06-25 00:23:54,186 basehttp "POST /account/ HTTP/1.1" 200 4010
+DEBUG 2024-06-25 00:24:20,505 utils (0.000) SELECT "Cake"."cake_ID", "Cake"."weight", "Cake"."cost", "Cake"."layers_count", "Cake"."text", "Cake"."name", "Cake"."constructor_image", "Cake"."preview_image", "Cake"."cake_size_ID", "Cake"."cake_shape_ID", "Cake"."cake_coverage_ID", "Cake"."cake_topping_ID", "Cake"."cake_addition_ID", "Cake"."cake_addition_ID_perimeter" FROM "Cake" LIMIT 5; args=(); alias=default
+INFO 2024-06-25 00:24:20,508 basehttp "GET / HTTP/1.1" 200 7956
