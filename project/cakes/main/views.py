@@ -120,36 +120,15 @@ def add_to_cart(request, cake_id):
     return redirect(request.META.get('HTTP_REFERER', '/'))
 """
 
-def add_to_cart(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            print("Полученные данные:", data)
-
-            # Здесь нужно обработать данные и создать торт в базе данных, если требуется
-            # Например, можно создать объект Cake и сохранить его в базе данных
-            # Но в данном примере мы предполагаем, что торт уже существует и у нас есть cake_id
-
-            cake_id = data.get('cake_id')  # Предполагаем, что cake_id отправляется в данных
-
-            if not cake_id:
-                return JsonResponse({'error': 'Отсутствует cake_id'}, status=400)
-
-            # Добавляем торт в корзину
-            cart = request.session.get('cart', {})
-            if str(cake_id) in cart:
-                cart[str(cake_id)] += 1
-            else:
-                cart[str(cake_id)] = 1
-            request.session['cart'] = cart
-
-            messages.success(request, 'Торт добавлен в корзину.')
-            return JsonResponse({'message': 'Торт успешно добавлен в корзину'}, status=200)
-        except Exception as e:
-            print("Ошибка при обработке запроса:", e)
-            return JsonResponse({'error': 'Ошибка при обработке запроса', 'details': str(e)}, status=500)
+def add_to_cart(request, cake_id):
+    cart = request.session.get('cart', {})
+    if str(cake_id) in cart:
+        cart[str(cake_id)] += 1
     else:
-        return JsonResponse({'error': 'Неверный метод запроса'}, status=405)
+        cart[str(cake_id)] = 1
+    request.session['cart'] = cart
+    messages.success(request, 'Торт добавлен в корзину.')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def remove_from_cart(request, cake_id):
     cart = request.session.get('cart', {})
