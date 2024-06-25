@@ -12,13 +12,6 @@
   margin-top: 80px;
 }
 
-@media (max-width: 991px) {
-  .registration-form {
-    margin-top: 40px;
-    padding: 0 20px;
-  }
-}
-
 .name-fields {
   display: flex;
   gap: 47%;
@@ -26,23 +19,10 @@
   white-space: nowrap;
 }
 
-@media (max-width: 991px) {
-  .name-fields {
-    max-width: 100%;
-    flex-wrap: wrap;
-    white-space: initial;
-  }
-}
 
 .first-name-label {
   align-self: end;
   font: 600 14px Roboto Flex, sans-serif;
-}
-
-@media (max-width: 991px) {
-  .first-name-label {
-    margin-top: 40px;
-  }
 }
 
 .registration-title {
@@ -53,24 +33,11 @@
   width: fit-content;
 }
 
-@media (max-width: 991px) {
-  .registration-title {
-    max-width: 100%;
-    white-space: initial;
-  }
-}
 
 .registration-heading {
   font: 900 34px Roboto Flex, sans-serif;
   margin: 0px;
   margin-bottom: 20px;
-}
-
-@media (max-width: 991px) {
-  .registration-heading {
-    max-width: 100%;
-    font-size: 40px;
-  }
 }
 
 .last-name-label {
@@ -88,13 +55,6 @@
   white-space: nowrap;
 }
 
-@media (max-width: 991px) {
-  .name-inputs {
-    max-width: 100%;
-    flex-wrap: wrap;
-    white-space: initial;
-  }
-}
 
 .first-name-input,
 .last-name-input {
@@ -110,25 +70,12 @@
   padding: 10px 21px;
 }
 
-@media (max-width: 991px) {
-  .first-name-input,
-  .last-name-input {
-    white-space: initial;
-    padding: 0 20px;
-  }
-}
-
 .regist-email-label {
   color: #e6a4b4;
   margin-top: 20px;
   font: 600 14px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .regist-email-label {
-    max-width: 100%;
-  }
-}
 
 .regist-email-input {
   border-radius: 10px;
@@ -144,11 +91,6 @@
   font: 400 14px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .regist-email-input {
-    padding: 0 20px;
-  }
-}
 
 .birthdate-label {
   color: #e6a4b4;
@@ -156,11 +98,6 @@
   font: 600 14px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .birthdate-label {
-    max-width: 100%;
-  }
-}
 
 .birthdate-inputs {
   display: flex;
@@ -170,15 +107,6 @@
   color: #e6a4b4;
   font-weight: 400;
   white-space: nowrap;
-}
-
-@media (max-width: 991px) {
-  .birthdate-inputs {
-    max-width: 100%;
-    flex-wrap: wrap;
-    padding-right: 20px;
-    white-space: initial;
-  }
 }
 
 .day-input,
@@ -195,14 +123,6 @@
   color: #e6a4b4;
 }
 
-@media (max-width: 991px) {
-  .day-input,
-  .month-input,
-  .year-input {
-    padding-right: 20px;
-    white-space: initial;
-  }
-}
 
 .phone-label {
   color: #e6a4b4;
@@ -210,11 +130,6 @@
   font: 600 14px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .phone-label {
-    max-width: 100%;
-  }
-}
 
 input{
     border: 0px solid rgba(0, 0, 0, 1);
@@ -235,11 +150,6 @@ input{
   border: 0px solid rgba(0, 0, 0, 1);
 }
 
-@media (max-width: 991px) {
-  .phone-input {
-    padding-right: 20px;
-  }
-}
 
 .password-fields {
   display: flex;
@@ -249,13 +159,6 @@ input{
   justify-content: space-between;
 }
 
-@media (max-width: 991px) {
-  .password-fields {
-    max-width: 100%;
-    flex-wrap: wrap;
-    margin-top: 40px;
-  }
-}
 
 .password-field {
   display: flex;
@@ -266,11 +169,6 @@ input{
   flex-basis: 0;
 }
 
-@media (max-width: 991px) {
-  .password-field {
-    white-space: initial;
-  }
-}
 
 .password-label {
   color: #e6a4b4;
@@ -291,12 +189,6 @@ input{
   padding: 10px  21px;
 }
 
-@media (max-width: 991px) {
-  .password-input {
-    white-space: initial;
-    padding: 0 20px;
-  }
-}
 
 .confirm-password-input {
   font-family: Roboto Flex, sans-serif;
@@ -314,16 +206,11 @@ input{
   padding: 10px  21px;
 }
 
-@media (max-width: 991px) {
-  .confirm-password-input {
-    padding: 0 20px;
-  }
-}
 
 .consent-field {
   margin-top: 20px;
   display: flex;
-  align-items: center; /* выравнивание по вертикали */
+  align-items: center;
 }
 
 .consent-field input[type="checkbox"] {
@@ -391,11 +278,3 @@ input{
   .continue-button:hover{
     transform: scale(1.05);
   }
-
-
-
-@media (max-width: 991px) {
-  .continue-button {
-    white-space: initial;
-  }
-}
