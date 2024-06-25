@@ -1075,6 +1075,13 @@ calculateCakeWeightAndCost() {
     const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
     const layers_count = this.numberOfLayers;
 
+    console.log('Input Data:', {
+        cake_size,
+        cake_coverage,
+        cake_topping,
+        layers_count
+    });
+
     if (!cake_size || !cake_coverage || !cake_topping || layers_count <= 0) {
         console.error('Некоторые данные торта отсутствуют или некорректны');
         return;
@@ -1088,8 +1095,12 @@ calculateCakeWeightAndCost() {
     const pc = parseFloat(cake_coverage.density || 0) / 1000;
     const pt = parseFloat(cake_topping.density || 0) / 1000;
 
+    console.log('Volume and Density:', { Vc, Vt, Vl, Vb, pc, pt });
+
     const Mc = pc * Vc;
     const Mt = pt * Vt;
+
+    console.log('Initial Weight:', { Mc, Mt });
 
     let Ml = 0;
     let Sl = 0;
@@ -1109,26 +1120,35 @@ calculateCakeWeightAndCost() {
         const pf = parseFloat(filling.density) / 1000;
         const pb = parseFloat(base.density) / 1000;
 
+        console.log(`Layer ${i} Data:`, { base, filling, pf, pb });
+
         Ml += (pf * Vl + pb * Vb);
         Sl += (pf * Vl * filling.cost_per_gram + pb * Vb * base.cost_per_gram);
     }
 
     Ml *= layers_count;
 
-    const M_add = this.decorations.reduce((sum, addition) => {
-        return sum + parseFloat(addition.cost_per_gram) / 100;
-    }, 0);
+    const selectedDecorations = [this.currentCenterTrinket, this.currentPerimeterTrinket];
+    let decoration_cost = 0;
 
-    const total_weight = Mc + Mt + Ml + M_add;
+    selectedDecorations.forEach(decorationName => {
+        const decoration = this.decorations.find(deco => deco.ingridient === decorationName);
+        if (decoration) {
+            console.log('Selected Decoration:', decoration);
+            decoration_cost += 25 * parseFloat(decoration.cost_per_gram);
+        }
+    });
+
+    console.log('Selected Decorations Cost:', decoration_cost);
+
+    const total_weight = Mc + Mt + Ml;
 
     const dc = parseFloat(cake_coverage.cost_per_gram);
     const dt = parseFloat(cake_topping.cost_per_gram);
 
-    const d_add = this.decorations.reduce((sum, addition) => {
-        return sum + parseFloat(addition.cost_per_gram);
-    }, 0) / this.decorations.length;
+    console.log('Cost per gram:', { dc, dt });
 
-    const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+    const S = Mc * dc + Mt * dt + Sl + decoration_cost;
 
     const total_cost = S;
 
@@ -1136,10 +1156,11 @@ calculateCakeWeightAndCost() {
     this.cakeWeight = total_weight.toFixed(2);
     this.cakeCost = total_cost.toFixed(2);
 
+    console.log('Calculated Weight and Cost:', { total_weight, total_cost });
+
     // Возвращаем объект с результатами, если это необходимо
     return { total_weight, total_cost };
 },
-
 
    /* async fetchCakeData() {
   try {
