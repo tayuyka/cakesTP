@@ -17,6 +17,7 @@ class Cake(models.Model):
     cake_topping = models.ForeignKey('CakeTopping', models.DO_NOTHING, db_column='cake_topping_ID', default=4)
     cake_addition = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID', default=5)
     cake_addition_perimeter = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID_perimeter', related_name='cake_addition_perimeter', null=True, blank=True)
+    is_users = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Cake'
