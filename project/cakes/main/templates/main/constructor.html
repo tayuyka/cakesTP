@@ -51,7 +51,7 @@ function range() {
                     <select id="size" v-model="currentSize" @change="updateSize">
                         <option disabled selected>Размер...</option>
                         <option v-for="size in sizes" :key="size.cake_size_id" :value="size.cake_size_id">
-                            [[ size.description ]] ([[ size.base_area ]])
+                            [[ size.type]] ([[ size.base_area ]] кв. см)
                         </option>
                     </select>
                 </div>
@@ -122,7 +122,6 @@ function range() {
 
         <div class="cake-info">
             <div class="params-title">О торте</div>
-            <p>Диаметр слоев (см): </p>
             <p>Масса (г): [[ cakeWeight ]]</p>
             <p>Цена (₽): [[ cakeCost ]]</p>
         </div>

@@ -73,7 +73,7 @@ createApp({
   mounted() {
     nextTick(() => {
       this.fetchCakeData();
-      this.sendTestCakeToCart();
+//      this.sendTestCakeToCart();
 
     });
   },
