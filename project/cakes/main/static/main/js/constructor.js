@@ -396,7 +396,7 @@ addToCart() {
     alert('Произошла ошибка при добавлении торта в корзину');
   });
 },*/
-
+/*
 addToCart() {
     const cakeData = JSON.parse(this.cakeJson);
 
@@ -454,8 +454,64 @@ addToCart() {
         }
         alert('Произошла ошибка при добавлении торта в корзину');
     });
-},
+},*/
 
+addToCart() {
+    const cakeData = JSON.parse(this.cakeJson);
+
+    const cakeSize = this.sizes.find(size => size.type === cakeData.currentSize);
+    const cakeShape = this.shapes.find(shape => shape.shape === cakeData.currentShape);
+    const cakeCover = this.covers.find(cover => cover.ingridient === cakeData.currentCover);
+    const cakeTopping = this.toppings.find(topping => topping.ingridient === cakeData.currentTopping);
+    const cakeTrinket = this.decorations.find(trinket => trinket.ingridient === (cakeData.currentCenterTrinket || cakeData.currentPerimeterTrinket));
+
+    const layers = cakeData.cakeLayers.map((layer) => {
+        const base = this.bases.find(base => base.primary_color === layer.baseColor);
+        const filling = this.fillings.find(filling => filling.primary_color === layer.fillingColor);
+
+        return {
+            base: base ? base.layer_base_id : null,
+            filling: filling ? filling.layer_filling_id : null
+        };
+    });
+
+    const cake = {
+        weight: parseFloat(this.cakeWeight) || 0,  // Убедитесь, что weight передается как число
+        cost: parseFloat(this.cakeCost) || 0,  // Убедитесь, что cost передается как число
+        layers_count: cakeData.numberOfLayers || 1,
+        text: cakeData.textContent || "",
+        name: this.cakeName || "Cake",
+        constructor_image: this.constructorImage || "default_image",
+        preview_image: this.previewImage || "default_image",
+        cake_size: cakeSize ? cakeSize.cake_size_id : null,
+        cake_shape: cakeShape ? cakeShape.cake_shape_id : null,
+        cake_coverage: cakeCover ? cakeCover.cake_coverage_id : null,
+        cake_topping: cakeTopping ? cakeTopping.cake_topping_id : null,
+        cake_addition: cakeTrinket ? cakeTrinket.cake_addition_id : null,
+        cake_addition_perimeter: this.currentPerimeterTrinket ? this.decorations.find(trinket => trinket.ingridient === this.currentPerimeterTrinket).cake_addition_id : null,
+        layers: layers
+    };
+
+    console.log("Отправка торта в корзину: ", cake);
+
+    axios.post('/cart/add/', cake, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': this.getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        console.log(response.data);
+        alert('Торт добавлен в корзину');
+    })
+    .catch(error => {
+        console.error(error);
+        if (error.response) {
+            console.error("Ответ сервера: ", error.response.data);
+        }
+        alert('Произошла ошибка при добавлении торта в корзину');
+    });
+},
 
 /*
     calculateCakeWeightAndCost() {
