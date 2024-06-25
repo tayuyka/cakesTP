@@ -876,6 +876,7 @@ addToCart() {
         console.error('Error loading OBJ model:', error);
       });
     },
+    /*
     adjustModelScaleAndPosition(model, isSingle, positionOffset = 0) {
       const boundingBox = new THREE.Box3().setFromObject(model);
       const size = boundingBox.getSize(new THREE.Vector3());
@@ -894,7 +895,31 @@ addToCart() {
       model.position.y += modelHeight / 2 + positionOffset;
 
       return group;
-    },
+    },*/
+
+    adjustModelScaleAndPosition(model, isSingle, textureSidePath) {
+    const boundingBox = new THREE.Box3().setFromObject(model);
+    const size = boundingBox.getSize(new THREE.Vector3());
+    const maxDimension = Math.max(size.x, size.y, size.z);
+    const scaleFactor = 1 / maxDimension;
+    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+    const desiredSize = isSingle ? 1.25 : 0.75;
+    model.scale.multiplyScalar(desiredSize);
+
+    // Извлечение смещения из textureSidePath
+    const positionOffset = parseFloat(textureSidePath) || 0;
+
+    boundingBox.setFromObject(model);
+    const modelHeight = boundingBox.getSize(new THREE.Vector3()).y;
+
+    const group = new THREE.Group();
+    group.add(model);
+
+    model.position.y += modelHeight / 2 + positionOffset;
+
+    return group;
+  },
+
     createLayer(shape, radius, height, baseColor, fillingColor) {
       const group = new THREE.Group();
       const segmentHeight = height / 5;
@@ -1240,6 +1265,7 @@ addToCart() {
         }
       }
     },
+    /*
     addPerimeterTrinkets() {
       const trinketData = this.perimeterDecorations.find(t => t.ingridient === this.currentPerimeterTrinket);
       if (!trinketData) {
@@ -1292,7 +1318,61 @@ addToCart() {
       } else {
         console.error('Unsupported model format');
       }
-    },
+    },*/
+
+    async addPerimeterTrinkets() {
+    const trinketData = this.perimeterDecorations.find(t => t.ingridient === this.currentPerimeterTrinket);
+    if (!trinketData) {
+      console.error('Decoration not found');
+      return;
+    }
+
+    const textureLoader = new THREE.TextureLoader();
+    const modelPath = `${CDN_BASE_URL}${trinketData.texture_top_path}`;
+    const isGLTF = modelPath.endsWith('.gltf') || modelPath.endsWith('.glb');
+    const isOBJ = modelPath.endsWith('.obj');
+
+    const loadModelCallback = (model) => {
+      this.trinketModel = model;
+      this.initialTrinketScale = null;
+
+      const trinketQuantity = trinketData.amount === 1 ? 'single' : 'multiple';
+      const trinketQuantities = trinketQuantity === 'single' ? [1, 1, 1] : [10, 8, 6];
+
+      this.cakeLayers.forEach((layer, index) => {
+        const quantity = trinketQuantities[index];
+        const radius = this.getShapeRadius(layer) * (trinketQuantity === 'single' ? 1 : this.currentShape === 'сердце' ? 0.85 : 0.85);
+
+        if (this.currentShape === 'звезда') {
+          this.addStarTrinkets(layer, radius, quantity, trinketData.texture_side_path);
+        } else if (this.currentShape === 'сердце') {
+          this.addHeartTrinkets(layer, radius, quantity, trinketData.texture_side_path);
+        } else if (this.currentShape === 'прямоугольный') {
+          this.addRectangularTrinkets(layer, radius, quantity, trinketData.texture_side_path, index);
+        } else {
+          this.addCircularTrinkets(layer, radius, quantity, trinketData.texture_side_path);
+        }
+      });
+    };
+    if (isGLTF) {
+      this.loadGLTFModel(modelPath, loadModelCallback);
+    } else if (isOBJ) {
+      this.loadOBJModel(modelPath, (obj) => {
+        textureLoader.load(trinketData.texture_side_path, (texture) => {
+          obj.traverse((child) => {
+            if (child.isMesh) {
+              child.material.map = texture;
+              child.material.needsUpdate = true;
+            }
+          });
+          loadModelCallback(obj);
+        });
+      });
+    } else {
+      console.error('Unsupported model format');
+    }
+  },
+
     updateCenterTrinket(event) {
       this.currentCenterTrinket = event.target.value || 5;
       this.updateCake();
@@ -1315,7 +1395,7 @@ addToCart() {
 
 
 
-
+/*
     async addCenterTrinket() {
       const trinketData = this.centerDecorations.find(t => t.ingridient === this.currentCenterTrinket);
       if (!trinketData) {
@@ -1363,7 +1443,58 @@ addToCart() {
       } else {
         console.error('Unsupported model format');
       }
-    },
+    },*/
+
+    async addCenterTrinket() {
+    const trinketData = this.centerDecorations.find(t => t.ingridient === this.currentCenterTrinket);
+    if (!trinketData) {
+      console.error('Decoration not found');
+      return;
+    }
+
+    const textureLoader = new THREE.TextureLoader();
+    const modelPath = `${CDN_BASE_URL}${trinketData.texture_top_path}`;
+    const isGLTF = modelPath.endsWith('.gltf') || modelPath.endsWith('.glb');
+    const isOBJ = modelPath.endsWith('.obj');
+
+    const loadModelCallback = (model) => {
+      this.trinketModel = model;
+      this.initialTrinketScale = null;
+
+      const trinketGroup = this.adjustModelScaleAndPosition(model, true, trinketData.texture_side_path);
+      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+
+      if (this.currentShape === 'звезда') {
+        trinketGroup.position.set(-0.25, topLayer.position.y + 0.5, 0);
+        trinketGroup.rotation.y = Math.PI / 2.5;
+      } else {
+        trinketGroup.position.set(0, topLayer.position.y + 0.5, 0);
+      }
+
+      this.scene.add(trinketGroup);
+      this.trinkets.push(trinketGroup);
+    };
+
+    if (isGLTF) {
+      this.loadGLTFModel(modelPath, loadModelCallback);
+    } else if (isOBJ) {
+      this.loadOBJModel(modelPath, (obj) => {
+        textureLoader.load(trinketData.texture_side_path, (texture) => {
+          obj.traverse((child) => {
+            if (child.isMesh) {
+              child.material.map = texture;
+              child.material.needsUpdate = true;
+            }
+          });
+          loadModelCallback(obj);
+        });
+      });
+    } else {
+      console.error('Unsupported model format');
+    }
+  },
+
+
     addStarTrinkets(layer, radius, quantity, positionOffset) {
       if (quantity === 1) {
         const trinketClone = this.trinketModel.clone();
