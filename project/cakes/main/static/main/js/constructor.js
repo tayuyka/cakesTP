@@ -18,7 +18,7 @@ createApp({
       currentTopping: 'none',
       currentCover: 'none',
       currentShape: 'круглый',
-      currentTrinket: 'none',
+
       currentFont: 'Miama',
       currentSize: 'средний',
       cakeLayers: [],
@@ -52,7 +52,12 @@ createApp({
       cakeWeight: 0,
       cakeCost: 0,
       layerDiameter: 0,
-      cakeJson: ''
+      cakeJson: '',
+      defaultCenterTrinket: 'none',  // Установите значение по умолчанию для центра
+      defaultPerimeterTrinket: 'None',  // Установите значение по умолчанию для периметра
+      currentCenterTrinket: 'none',  // Установите значение по умолчанию для центра
+      currentPerimeterTrinket: 'None'  // Установите значение по умолчанию для периметра
+
     };
   },
 
@@ -68,7 +73,7 @@ createApp({
   mounted() {
     nextTick(() => {
       this.fetchCakeData();
-      this.sendTestCakeToCart();
+      //this.sendTestCakeToCart();
     });
   },
   beforeUnmount() {
@@ -89,38 +94,42 @@ createApp({
       }
       return cookieValue;
     },
+  initializeDefaultValues() {
+    // Инициализация значений по умолчанию
+    this.currentCenterTrinket = this.centerDecorations.length > 0 ? this.centerDecorations[1].ingridient : 'none';
+    this.currentPerimeterTrinket = this.perimeterDecorations.length > 0 ? this.perimeterDecorations[3].ingridient : 'none';
+  },
 
     async fetchCakeData() {
-      try {
-        const response = await axios.get('/api/cake-components/');
-        const data = response.data;
+  try {
+    const response = await axios.get('/api/cake-components/');
+    const data = response.data;
 
-        if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
-          throw new Error('Invalid data structure received from API.');
-        }
+    this.sizes = data.sizes;
+    this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+    this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+    this.shapes = data.shapes;
+    this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+    this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+    this.decorations = data.trinkets.map(trinket => ({
+      ...trinket,
+      primary_color: this.addSharpIfNeeded(trinket.primary_color),
+      positionOffset: parseFloat(trinket.position_offset) || 0
+    }));
 
-        this.sizes = data.sizes;
-        this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
-        this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
-        this.shapes = data.shapes;
-        this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
-        this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
-        this.decorations = data.trinkets.map(trinket => ({
-          ...trinket,
-          primary_color: this.addSharpIfNeeded(trinket.primary_color),
-          positionOffset: parseFloat(trinket.position_offset) || 0
-        }));
+    this.currentCenterTrinket = this.centerDecorations.length > 0 ? this.centerDecorations[0].cake_addition_id : null;
+    this.currentPerimeterTrinket = this.perimeterDecorations.length > 0 ? this.perimeterDecorations[0].cake_addition_id : null;
 
-        console.log("Данные торта загружены: ", data);
+    nextTick(() => {
+      this.initThreeJS();
+      this.startAnimation();
+    });
+  } catch (error) {
+    console.error('There was an error fetching the cake data!', error);
+  }
+},
 
-        nextTick(() => {
-          this.initThreeJS();
-          this.startAnimation();
-        });
-      } catch (error) {
-        console.error('There was an error fetching the cake data!', error);
-      }
-    },
+
 
     sendTestCakeToCart() {
     const testCakeJson = {
@@ -173,7 +182,7 @@ createApp({
         alert('Произошла ошибка при добавлении тестового торта в корзину');
     });
 },
-
+/*
     addToCart() {
       const cakeData = JSON.parse(this.cakeJson);
 
@@ -228,8 +237,282 @@ createApp({
         }
         alert('Произошла ошибка при добавлении торта в корзину');
       });
-    },
+    },*/
+/*
+addToCart() {
+  const cakeData = JSON.parse(this.cakeJson);
 
+  const cakeSize = this.sizes.find(size => size.type === cakeData.currentSize);
+  const cakeShape = this.shapes.find(shape => shape.shape === cakeData.currentShape);
+  const cakeCover = this.covers.find(cover => cover.ingridient === cakeData.currentCover);
+  const cakeTopping = this.toppings.find(topping => topping.ingridient === cakeData.currentTopping);
+  const cakeAddition = this.decorations.find(decoration => decoration.ingridient === (cakeData.currentCenterTrinket || this.defaultCenterTrinket));
+  const cakeAdditionPerimeter = this.decorations.find(decoration => decoration.ingridient === (cakeData.currentPerimeterTrinket || this.defaultPerimeterTrinket));
+
+  const layers = cakeData.cakeLayers.map((layer) => {
+    const base = this.bases.find(base => base.primary_color === layer.baseColor);
+    const filling = this.fillings.find(filling => filling.primary_color === layer.fillingColor);
+
+    return {
+      base: base ? base.layer_base_id : null,
+      filling: filling ? filling.layer_filling_id : null
+    };
+  });
+
+  const cake = {
+    weight: this.cakeWeight || 0,
+    cost: this.cakeCost || 0,
+    layers_count: cakeData.numberOfLayers || 1,
+    text: cakeData.textContent || "",
+    name: this.cakeName || "Cake",
+    constructor_image: this.constructorImage || "default_image",
+    preview_image: this.previewImage || "default_image",
+    cake_size: cakeSize ? cakeSize.cake_size_id : null,
+    cake_shape: cakeShape ? cakeShape.cake_shape_id : null,
+    cake_coverage: cakeCover ? cakeCover.cake_coverage_id : null,
+    cake_topping: cakeTopping ? cakeTopping.cake_topping_id : null,
+
+    cake_addition: this.currentCenterTrinket || null,
+    cake_addition_perimeter: this.currentPerimeterTrinket || null,
+    layers: layers
+  };
+
+  console.log("Отправка торта в корзину: ", cake);
+
+  axios.post('/cart/add/', cake, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.getCookie('csrftoken')
+    }
+  })
+  .then(response => {
+    console.log(response.data);
+    alert('Торт добавлен в корзину');
+  })
+  .catch(error => {
+    console.error(error);
+    if (error.response) {
+      console.error("Ответ сервера: ", error.response.data);
+    }
+    alert('Произошла ошибка при добавлении торта в корзину');
+  });
+},*/
+
+/*
+addToCart() {
+    const cakeData = {
+        weight: this.cakeWeight || 0,
+        cost: this.cakeCost || 0,
+        layers_count: this.numberOfLayers || 1,
+        text: this.textContent || "",
+        name: this.cakeName || "Cake",
+        constructor_image: this.constructorImage || "default_image",
+        preview_image: this.previewImage || "default_image",
+        cake_size: this.cakeSizeId || null,
+        cake_shape: this.cakeShapeId || null,
+        cake_coverage: this.cakeCoverageId || null,
+        cake_topping: this.cakeToppingId || null,
+        cake_addition: this.currentCenterTrinket || null,
+        cake_addition_perimeter: this.currentPerimeterTrinket || null,
+        layers: this.layers || []
+    };
+
+    axios.post('/cart/add/', cakeData, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': this.getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        console.log(response.data);
+        alert('Торт добавлен в корзину');
+    })
+    .catch(error => {
+        console.error(error);
+        if (error.response) {
+            console.error("Ответ сервера: ", error.response.data);
+        }
+        alert('Произошла ошибка при добавлении торта в корзину');
+    });
+},*/
+/*
+addToCart() {
+  const cakeData = JSON.parse(this.cakeJson);
+
+  const cakeSize = this.sizes.find(size => size.type === cakeData.currentSize);
+  const cakeShape = this.shapes.find(shape => shape.shape === cakeData.currentShape);
+  const cakeCover = this.covers.find(cover => cover.ingridient === cakeData.currentCover);
+  const cakeTopping = this.toppings.find(topping => topping.ingridient === cakeData.currentTopping);
+
+  // Получаем ID украшений
+  const cakeAddition = this.decorations.find(trinket => trinket.ingridient === this.currentCenterTrinket);
+  const cakeAdditionPerimeter = this.decorations.find(trinket => trinket.ingridient === this.currentPerimeterTrinket);
+
+  const layers = cakeData.cakeLayers.map((layer) => {
+    const base = this.bases.find(base => base.primary_color === layer.baseColor);
+    const filling = this.fillings.find(filling => filling.primary_color === layer.fillingColor);
+
+    return {
+      base: base ? base.layer_base_id : null,
+      filling: filling ? filling.layer_filling_id : null
+    };
+  });
+
+  const cake = {
+    weight: this.cakeWeight || 0,
+    cost: this.cakeCost || 0,
+    layers_count: cakeData.numberOfLayers || 1,
+    text: cakeData.textContent || "",
+    name: this.cakeName || "Cake",
+    constructor_image: this.constructorImage || "default_image",
+    preview_image: this.previewImage || "default_image",
+    cake_size: cakeSize ? cakeSize.cake_size_id : null,
+    cake_shape: cakeShape ? cakeShape.cake_shape_id : null,
+    cake_coverage: cakeCover ? cakeCover.cake_coverage_id : null,
+    cake_topping: cakeTopping ? cakeTopping.cake_topping_id : null,
+    cake_addition: cakeAddition ? cakeAddition.cake_addition_id : null,
+    cake_addition_perimeter: cakeAdditionPerimeter ? cakeAdditionPerimeter.cake_addition_id : null,
+    layers: layers
+  };
+
+  console.log("Отправка торта в корзину: ", cake);
+
+  axios.post('/cart/add/', cake, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.getCookie('csrftoken')
+    }
+  })
+  .then(response => {
+    console.log(response.data);
+    alert('Торт добавлен в корзину');
+  })
+  .catch(error => {
+    console.error(error);
+    if (error.response) {
+      console.error("Ответ сервера: ", error.response.data);
+    }
+    alert('Произошла ошибка при добавлении торта в корзину');
+  });
+},*/
+/*
+addToCart() {
+    const cakeData = JSON.parse(this.cakeJson);
+
+    const cakeSize = this.sizes.find(size => size.type === cakeData.currentSize);
+    const cakeShape = this.shapes.find(shape => shape.shape === cakeData.currentShape);
+    const cakeCover = this.covers.find(cover => cover.ingridient === cakeData.currentCover);
+    const cakeTopping = this.toppings.find(topping => topping.ingridient === cakeData.currentTopping);
+    const cakeTrinketCenter = this.decorations.find(trinket => trinket.ingridient === cakeData.currentCenterTrinket);
+    const cakeTrinketPerimeter = this.decorations.find(trinket => trinket.ingridient === cakeData.currentPerimeterTrinket);
+
+    const layers = cakeData.cakeLayers.map((layer) => {
+        const base = this.bases.find(base => base.primary_color === layer.baseColor);
+        const filling = this.fillings.find(filling => filling.primary_color === layer.fillingColor);
+
+        return {
+            base: base ? base.layer_base_id : null,
+            filling: filling ? filling.layer_filling_id : null
+        };
+    });
+
+    const cake = {
+        weight: this.cakeWeight || 0,
+        cost: parseFloat(this.cakeCost) || 0,
+        layers_count: cakeData.numberOfLayers || 1,
+        text: cakeData.textContent || "",
+        name: this.cakeName || "Cake",
+        constructor_image: this.constructorImage || "default_image",
+        preview_image: this.previewImage || "default_image",
+        cake_size: cakeSize ? cakeSize.cake_size_id : null,
+        cake_shape: cakeShape ? cakeShape.cake_shape_id : null,
+        cake_coverage: cakeCover ? cakeCover.cake_coverage_id : null,
+        cake_topping: cakeTopping ? cakeTopping.cake_topping_id : null,
+        cake_addition: cakeTrinketCenter ? cakeTrinketCenter.cake_addition_id : null,
+        cake_addition_perimeter: cakeTrinketPerimeter ? cakeTrinketPerimeter.cake_addition_id : null,
+        layers: layers
+    };
+
+    // Логируем данные перед отправкой
+    console.log("Отправка торта в корзину: ", cake);
+
+    axios.post('/cart/add/', cake, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': this.getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        console.log(response.data);
+        alert('Торт добавлен в корзину');
+    })
+    .catch(error => {
+        console.error(error);
+        if (error.response) {
+            console.error("Ответ сервера: ", error.response.data);
+        }
+        alert('Произошла ошибка при добавлении торта в корзину');
+    });
+},*/
+
+addToCart() {
+    const cakeData = JSON.parse(this.cakeJson);
+
+    const cakeSize = this.sizes.find(size => size.type === cakeData.currentSize);
+    const cakeShape = this.shapes.find(shape => shape.shape === cakeData.currentShape);
+    const cakeCover = this.covers.find(cover => cover.ingridient === cakeData.currentCover);
+    const cakeTopping = this.toppings.find(topping => topping.ingridient === cakeData.currentTopping);
+    const cakeTrinket = this.decorations.find(trinket => trinket.ingridient === (cakeData.currentCenterTrinket || cakeData.currentPerimeterTrinket));
+
+    const layers = cakeData.cakeLayers.map((layer) => {
+        const base = this.bases.find(base => base.primary_color === layer.baseColor);
+        const filling = this.fillings.find(filling => filling.primary_color === layer.fillingColor);
+
+        return {
+            base: base ? base.layer_base_id : null,
+            filling: filling ? filling.layer_filling_id : null
+        };
+    });
+
+    const cake = {
+        weight: parseFloat(this.cakeWeight) || 0,  // Убедитесь, что weight передается как число
+        cost: parseFloat(this.cakeCost) || 0,  // Убедитесь, что cost передается как число
+        layers_count: cakeData.numberOfLayers || 1,
+        text: cakeData.textContent || "",
+        name: this.cakeName || "Cake",
+        constructor_image: this.constructorImage || "default_image",
+        preview_image: this.previewImage || "default_image",
+        cake_size: cakeSize ? cakeSize.cake_size_id : null,
+        cake_shape: cakeShape ? cakeShape.cake_shape_id : null,
+        cake_coverage: cakeCover ? cakeCover.cake_coverage_id : null,
+        cake_topping: cakeTopping ? cakeTopping.cake_topping_id : null,
+        cake_addition: cakeTrinket ? cakeTrinket.cake_addition_id : null,
+        cake_addition_perimeter: this.currentPerimeterTrinket ? this.decorations.find(trinket => trinket.ingridient === this.currentPerimeterTrinket).cake_addition_id : null,
+        layers: layers
+    };
+
+    console.log("Отправка торта в корзину: ", cake);
+
+    axios.post('/cart/add/', cake, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': this.getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        console.log(response.data);
+        alert('Торт добавлен в корзину');
+    })
+    .catch(error => {
+        console.error(error);
+        if (error.response) {
+            console.error("Ответ сервера: ", error.response.data);
+        }
+        alert('Произошла ошибка при добавлении торта в корзину');
+    });
+},
+
+/*
     calculateCakeWeightAndCost() {
       const cake_size = this.sizes.find(size => size.name === this.currentSize);
       const cake_coverage = this.covers.find(cover => cover.name === this.currentCover);
@@ -291,9 +574,163 @@ createApp({
 
       // Возвращаем объект с результатами, если это необходимо
       return { total_weight, total_cost };
-    },
+    },*/
+/*
+calculateCakeWeightAndCost() {
+  // Найдем параметры текущего торта
+  const cake_size = this.sizes.find(size => size.type === this.currentSize);
+  const cake_coverage = this.covers.find(cover => cover.ingridient === this.currentCover);
+  const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
+  const cake_layers = this.cakeLayers;
+  const layers_count = this.numberOfLayers;
 
-    async fetchCakeData() {
+  // Проверим, что все объекты существуют перед их использованием
+  if (!cake_size || !cake_coverage || !cake_topping || !cake_layers || layers_count <= 0) {
+    console.error('Некоторые данные торта отсутствуют или некорректны');
+    return;
+  }
+
+  const Vc = cake_size.base_area || 0;
+  const Vt = Vc * 0.1;
+  const Vl = Vc * 0.5;
+  const Vb = Vc * 0.05;
+
+  const pc = parseFloat(cake_coverage.density || 0) / 1000;
+  const pt = parseFloat(cake_topping.density || 0) / 1000;
+
+  const Mc = pc * Vc;
+  const Mt = pt * Vt;
+
+  let Ml = 0;
+  for (let layer of cake_layers) {
+    const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+    const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+    const pf = parseFloat(filling.density || 0) / 1000;
+    const pb = parseFloat(base.density || 0) / 1000;
+    Ml += (pf * Vl + pb * Vb);
+  }
+
+  Ml *= layers_count;
+
+  // Рассчитаем массу добавок
+  const cake_additions = this.decorations || [];
+  const M_add = cake_additions.reduce((sum, addition) => {
+    return sum + (parseFloat(addition.cost_per_gram || 0) / 100);
+  }, 0);
+
+  const total_weight = Mc + Mt + Ml + M_add;
+
+  const dc = parseFloat(cake_coverage.cost_per_gram || 0);
+  const dt = parseFloat(cake_topping.cost_per_gram || 0);
+  const df = parseFloat(cake_layers[0]?.filling?.cost_per_gram || 0);
+  const db = parseFloat(cake_layers[0]?.base?.cost_per_gram || 0);
+  const d_add = cake_additions.reduce((sum, addition) => {
+    return sum + parseFloat(addition.cost_per_gram || 0);
+  }, 0) / (cake_additions.length || 1);
+
+  let Sl = 0;
+  for (let layer of cake_layers) {
+    const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+    const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+    const pf = parseFloat(filling.density || 0) / 1000;
+    const pb = parseFloat(base.density || 0) / 1000;
+    Sl += (pf * Vl * df + pb * Vb * db);
+  }
+
+  Sl *= layers_count;
+
+  const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+
+  const total_cost = S;
+
+  // Обновляем значения cakeWeight и cakeCost
+  this.cakeWeight = total_weight.toFixed(2);
+  this.cakeCost = total_cost.toFixed(2);
+
+  // Возвращаем объект с результатами, если это необходимо
+  return { total_weight, total_cost };
+},*/
+/*
+calculateCakeWeightAndCost() {
+  // Найдем параметры текущего торта
+  const cake_size = this.sizes.find(size => size.type === this.currentSize);
+  const cake_coverage = this.covers.find(cover => cover.ingridient === this.currentCover);
+  const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
+  const cake_layers = this.cakeLayers;
+  const layers_count = this.numberOfLayers;
+
+  // Проверим, что все объекты существуют перед их использованием
+  if (!cake_size || !cake_coverage || !cake_topping || !cake_layers || layers_count <= 0) {
+    console.error('Некоторые данные торта отсутствуют или некорректны');
+    return;
+  }
+
+  const Vc = cake_size.base_area || 0;
+  const Vt = Vc * 0.1;
+  const Vl = Vc * 0.5;
+  const Vb = Vc * 0.05;
+
+  const pc = parseFloat(cake_coverage.density || 0) / 1000;
+  const pt = parseFloat(cake_topping.density || 0) / 1000;
+
+  const Mc = pc * Vc;
+  const Mt = pt * Vt;
+
+  let Ml = 0;
+  for (let layer of cake_layers) {
+    const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+    const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+    const pf = parseFloat(filling.density || 0) / 1000;
+    const pb = parseFloat(base.density || 0) / 1000;
+    Ml += (pf * Vl + pb * Vb);
+  }
+
+  Ml *= layers_count;
+
+  // Рассчитаем массу добавок
+  const cake_additions = this.decorations || [];
+  const M_add = cake_additions.reduce((sum, addition) => {
+    return sum + (parseFloat(addition.cost_per_gram || 0) / 100);
+  }, 0);
+
+  const total_weight = Mc + Mt + Ml + M_add;
+
+  const dc = parseFloat(cake_coverage.cost_per_gram || 0);
+  const dt = parseFloat(cake_topping.cost_per_gram || 0);
+  const df = parseFloat(cake_layers[0]?.filling?.cost_per_gram || 0);
+  const db = parseFloat(cake_layers[0]?.base?.cost_per_gram || 0);
+  const d_add = cake_additions.reduce((sum, addition) => {
+    return sum + parseFloat(addition.cost_per_gram || 0);
+  }, 0) / (cake_additions.length || 1);
+
+  let Sl = 0;
+  for (let layer of cake_layers) {
+    const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+    const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+    const pf = parseFloat(filling.density || 0) / 1000;
+    const pb = parseFloat(base.density || 0) / 1000;
+    Sl += (pf * Vl * df + pb * Vb * db);
+  }
+
+  Sl *= layers_count;
+
+  const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+
+  const total_cost = S;
+
+  // Обновляем значения cakeWeight и cakeCost
+  this.cakeWeight = total_weight.toFixed(2);
+  this.cakeCost = total_cost.toFixed(2);
+
+  // Возвращаем объект с результатами, если это необходимо
+  return { total_weight, total_cost };
+},*/
+
+ /*   async fetchCakeData() {
       try {
         const response = await axios.get('/api/cake-components/');
         const data = response.data;
@@ -323,7 +760,505 @@ createApp({
       } catch (error) {
         console.error('There was an error fetching the cake data!', error);
       }
-    },
+    },*/
+/*
+calculateCakeWeightAndCost() {
+    // Найдем параметры текущего торта
+    const cake_size = this.sizes.find(size => size.type === this.currentSize);
+    const cake_coverage = this.covers.find(cover => cover.ingridient === this.currentCover);
+    const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
+    const cake_layers = this.cakeLayers;
+    const cake_additions = this.decorations;
+    const layers_count = this.numberOfLayers;
+
+    // Проверим, что все объекты существуют перед их использованием
+    if (!cake_size || !cake_coverage || !cake_topping || !cake_layers || layers_count <= 0) {
+        console.error('Некоторые данные торта отсутствуют или некорректны');
+        return;
+    }
+
+    const Vc = cake_size.base_area || 0;  // Объем покрытия торта
+    const Vt = Vc * 0.1;  // Объем топпинга
+    const Vl = Vc * 0.5;  // Объем начинки
+    const Vb = Vc * 0.5;  // Объем основы
+
+    const pc = parseFloat(cake_coverage.density || 0) / 1000;  // Плотность покрытия
+    const pt = parseFloat(cake_topping.density || 0) / 1000;  // Плотность топпинга
+
+    const Mc = pc * Vc;  // Масса покрытия
+    const Mt = pt * Vt;  // Масса топпинга
+
+    let Ml = 0;  // Масса начинки и основы
+    let Sl = 0;  // Стоимость начинки и основы
+
+    for (let layer of cake_layers) {
+        const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+        const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+        const pf = parseFloat(filling.density || 0) / 1000;  // Плотность начинки
+        const pb = parseFloat(base.density || 0) / 1000;  // Плотность основы
+
+        const df = parseFloat(filling.cost_per_gram || 0);  // Стоимость начинки
+        const db = parseFloat(base.cost_per_gram || 0);  // Стоимость основы
+
+        Ml += layers_count * (pf * Vl + pb * Vb);  // Умножаем массу начинки и основы на количество слоев
+        Sl += layers_count * (pf * Vl * df + pb * Vb * db);  // Умножаем стоимость начинки и основы на количество слоев
+    }
+
+    const M_add = cake_additions.reduce((sum, addition) => {
+        const pa = parseFloat(addition.density || 0) / 1000;
+        return sum + pa * Vc;
+    }, 0);  // Масса добавок
+
+    const d_add = cake_additions.reduce((sum, addition) => {
+        return sum + parseFloat(addition.cost_per_gram || 0);
+    }, 0) / (cake_additions.length || 1);  // Средняя стоимость добавок
+
+    const total_weight = Mc + Mt + Ml + M_add;  // Общая масса торта
+
+    const dc = parseFloat(cake_coverage.cost_per_gram || 0);  // Стоимость покрытия
+    const dt = parseFloat(cake_topping.cost_per_gram || 0);  // Стоимость топпинга
+
+    const S = Mc * dc + Mt * dt + Sl + M_add * d_add;  // Общая стоимость торта
+
+    const total_cost = S;
+
+    // Обновляем значения cakeWeight и cakeCost
+    this.cakeWeight = total_weight.toFixed(2);
+    this.cakeCost = total_cost.toFixed(2);
+
+    // Возвращаем объект с результатами, если это необходимо
+    return { total_weight, total_cost };
+},*/
+/*
+calculateCakeWeightAndCost() {
+    const cake_size = this.sizes.find(size => size.type === this.currentSize);
+    const cake_coverage = this.covers.find(cover => cover.ingridient === this.currentCover);
+    const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
+    const cake_layers = this.cakeLayers;
+    const cake_additions = this.decorations;
+    const layers_count = this.numberOfLayers;
+
+    if (!cake_size || !cake_coverage || !cake_topping || !cake_layers || layers_count <= 0) {
+        console.error('Некоторые данные торта отсутствуют или некорректны');
+        return;
+    }
+
+    const Vc = cake_size.base_area || 0;
+    const Vt = Vc * 0.1;
+    const Vl = Vc * 0.5;
+    const Vb = Vc * 0.05;
+
+    const pc = parseFloat(cake_coverage.density || 0) / 1000;
+    const pt = parseFloat(cake_topping.density || 0) / 1000;
+
+    const Mc = pc * Vc;
+    const Mt = pt * Vt;
+
+    let Ml = 0;
+    let Sl = 0;
+
+    for (let layer of cake_layers) {
+        const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+        const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+        const pf = parseFloat(filling.density || 0) / 1000;
+        const pb = parseFloat(base.density || 0) / 1000;
+
+        const df = parseFloat(filling.cost_per_gram || 0);
+        const db = parseFloat(base.cost_per_gram || 0);
+
+        Ml += layers_count * (pf * Vl + pb * Vb);
+        Sl += layers_count * (pf * Vl * df + pb * Vb * db);
+    }
+
+    const M_add = cake_additions.reduce((sum, addition) => {
+        const pa = parseFloat(addition.density || 0) / 1000;
+        return sum + pa * Vc;
+    }, 0);
+
+    const d_add = cake_additions.reduce((sum, addition) => {
+        return sum + parseFloat(addition.cost_per_gram || 0);
+    }, 0) / (cake_additions.length || 1);
+
+    const total_weight = Mc + Mt + Ml + M_add;
+
+    const dc = parseFloat(cake_coverage.cost_per_gram || 0);
+    const dt = parseFloat(cake_topping.cost_per_gram || 0);
+
+    const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+
+    const total_cost = S;
+
+    // Преобразуем вес и стоимость к числовому типу перед сохранением
+    this.cakeWeight = Math.round(total_weight);
+    this.cakeCost = total_cost.toFixed(2);
+
+    return { total_weight, total_cost };
+},*/
+/*
+calculateCakeWeightAndCost() {
+    const cake_size = this.sizes.find(size => size.type === this.currentSize);
+    const cake_coverage = this.covers.find(cover => cover.ingridient === this.currentCover);
+    const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
+    const cake_layers = this.cakeLayers;
+    const cake_additions = this.decorations;
+    const layers_count = this.numberOfLayers;
+
+    console.log('Input Data:', {
+        cake_size,
+        cake_coverage,
+        cake_topping,
+        cake_layers,
+        cake_additions,
+        layers_count
+    });
+
+    if (!cake_size || !cake_coverage || !cake_topping || !cake_layers || layers_count <= 0) {
+        console.error('Некоторые данные торта отсутствуют или некорректны');
+        return;
+    }
+
+    const Vc = cake_size.base_area || 0;
+    const Vt = Vc * 0.1;
+    const Vl = Vc * 0.5;
+    const Vb = Vc * 0.05;
+
+    const pc = parseFloat(cake_coverage.density || 0) / 1000;
+    const pt = parseFloat(cake_topping.density || 0) / 1000;
+
+    console.log('Volume and Density:', { Vc, Vt, Vl, Vb, pc, pt });
+
+    const Mc = pc * Vc;
+    const Mt = pt * Vt;
+
+    console.log('Initial Weight:', { Mc, Mt });
+
+    let Ml = 0;
+    let Sl = 0;
+
+    for (let layer of cake_layers) {
+        const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+        const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+        const pf = parseFloat(filling.density || 0) / 1000;
+        const pb = parseFloat(base.density || 0) / 1000;
+
+        const df = parseFloat(filling.cost_per_gram || 0);
+        const db = parseFloat(base.cost_per_gram || 0);
+
+        console.log('Layer Data:', { base, filling, pf, pb, df, db });
+
+        Ml += layers_count * (pf * Vl + pb * Vb);
+        Sl += layers_count * (pf * Vl * df + pb * Vb * db);
+    }
+
+    const M_add = cake_additions.reduce((sum, addition) => {
+        const pa = parseFloat(addition.density || 0) / 1000;
+        return sum + pa * Vc;
+    }, 0);
+
+    const d_add = cake_additions.reduce((sum, addition) => {
+        return sum + parseFloat(addition.cost_per_gram || 0);
+    }, 0) / (cake_additions.length || 1);
+
+    console.log('Additional Weight and Cost:', { M_add, d_add });
+
+    const total_weight = Mc + Mt + Ml + M_add;
+
+    const dc = parseFloat(cake_coverage.cost_per_gram || 0);
+    const dt = parseFloat(cake_topping.cost_per_gram || 0);
+
+    const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+
+    const total_cost = S;
+
+    // Преобразуем вес и стоимость к числовому типу перед сохранением
+    this.cakeWeight = Math.round(total_weight);
+    this.cakeCost = total_cost.toFixed(2);
+
+    console.log('Calculated Weight and Cost:', { total_weight, total_cost });
+
+    return { total_weight, total_cost };
+},*/
+/*
+calculateCakeWeightAndCost() {
+    const cake_size = this.sizes.find(size => size.type === this.currentSize);
+    const cake_coverage = this.covers.find(cover => cover.ingridient === this.currentCover);
+    const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
+    const cake_layers = this.cakeLayers;
+    const cake_additions = this.decorations;
+    const layers_count = this.numberOfLayers;
+
+    console.log('Input Data:', {
+        cake_size,
+        cake_coverage,
+        cake_topping,
+        cake_layers,
+        cake_additions,
+        layers_count
+    });
+
+    if (!cake_size || !cake_coverage || !cake_topping || !cake_layers || layers_count <= 0) {
+        console.error('Некоторые данные торта отсутствуют или некорректны');
+        return;
+    }
+
+    const Vc = cake_size.base_area || 0;
+    const Vt = Vc * 0.1;
+    const Vl = Vc * 0.5;
+    const Vb = Vc * 0.05;
+
+
+
+    const pc = parseFloat(cake_coverage.density || 0) ;
+    const pt = parseFloat(cake_topping.density || 0) ;
+
+    console.log('Volume and Density:', { Vc, Vt, Vl, Vb, pc, pt });
+
+    const Mc = pc * Vc;
+    const Mt = pt * Vt;
+
+    console.log('Initial Weight:', { Mc, Mt });
+
+    let Ml = 0;
+    let Sl = 0;
+
+    for (let layer of cake_layers) {
+        const base = this.bases.find(b => b.primary_color === layer.baseColor) || {};
+        const filling = this.fillings.find(f => f.primary_color === layer.fillingColor) || {};
+
+        const pf = parseFloat(filling.density || 0) / 1000;
+        const pb = parseFloat(base.density || 0) / 1000;
+
+        const df = parseFloat(filling.cost_per_gram || 0);
+        const db = parseFloat(base.cost_per_gram || 0);
+
+        console.log('Layer Data:', { base, filling, pf, pb, df, db });
+
+        Ml += layers_count * (pf * Vl + pb * Vb);
+        Sl += layers_count * (pf * Vl * df + pb * Vb * db);
+    }
+
+    const M_add = cake_additions.reduce((sum, addition) => {
+        const pa = parseFloat(addition.density || 0) / 1000;
+        return sum + pa * Vc;
+    }, 0);
+
+    const d_add = cake_additions.reduce((sum, addition) => {
+        return sum + parseFloat(addition.cost_per_gram || 0);
+    }, 0) / (cake_additions.length || 1);
+
+    console.log('Additional Weight and Cost:', { M_add, d_add });
+
+    const total_weight = Mc + Mt + Ml + M_add;
+
+    const dc = parseFloat(cake_coverage.cost_per_gram || 0);
+    const dt = parseFloat(cake_topping.cost_per_gram || 0);
+
+    const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+
+    const total_cost = S;
+
+    // Преобразуем вес и стоимость к числовому типу перед сохранением
+    this.cakeWeight = Math.round(total_weight);
+    this.cakeCost = total_cost.toFixed(2);
+
+    console.log('Calculated Weight and Cost:', { total_weight, total_cost });
+
+    return { total_weight, total_cost };
+},*/
+calculateCakeWeightAndCost() {
+    const cake_size = this.sizes.find(size => size.type === this.currentSize);
+    const cake_coverage = this.covers.find(cover => cover.ingridient === this.currentCover);
+    const cake_topping = this.toppings.find(topping => topping.ingridient === this.currentTopping);
+    const layers_count = this.numberOfLayers;
+
+    if (!cake_size || !cake_coverage || !cake_topping || layers_count <= 0) {
+        console.error('Некоторые данные торта отсутствуют или некорректны');
+        return;
+    }
+
+    const Vc = cake_size.base_area || 0;
+    const Vt = Vc * 0.1;
+    const Vl = Vc * 0.5;
+    const Vb = Vc * 0.05;
+
+    const pc = parseFloat(cake_coverage.density || 0) / 1000;
+    const pt = parseFloat(cake_topping.density || 0) / 1000;
+
+    const Mc = pc * Vc;
+    const Mt = pt * Vt;
+
+    let Ml = 0;
+    let Sl = 0;
+
+    for (let i = 1; i <= layers_count; i++) {
+        const baseColor = document.getElementById(`base${i}`).value;
+        const fillingColor = document.getElementById(`filling${i}`).value;
+
+        const base = this.bases.find(b => b.primary_color === baseColor);
+        const filling = this.fillings.find(f => f.primary_color === fillingColor);
+
+        if (!base || !filling) {
+            console.error(`Ошибка: база или начинка не найдены для слоя ${i}`);
+            continue;
+        }
+
+        const pf = parseFloat(filling.density) / 1000;
+        const pb = parseFloat(base.density) / 1000;
+
+        Ml += (pf * Vl + pb * Vb);
+        Sl += (pf * Vl * filling.cost_per_gram + pb * Vb * base.cost_per_gram);
+    }
+
+    Ml *= layers_count;
+
+    const M_add = this.decorations.reduce((sum, addition) => {
+        return sum + parseFloat(addition.cost_per_gram) / 100;
+    }, 0);
+
+    const total_weight = Mc + Mt + Ml + M_add;
+
+    const dc = parseFloat(cake_coverage.cost_per_gram);
+    const dt = parseFloat(cake_topping.cost_per_gram);
+
+    const d_add = this.decorations.reduce((sum, addition) => {
+        return sum + parseFloat(addition.cost_per_gram);
+    }, 0) / this.decorations.length;
+
+    const S = Mc * dc + Mt * dt + Sl + M_add * d_add;
+
+    const total_cost = S;
+
+    // Обновляем значения cakeWeight и cakeCost
+    this.cakeWeight = total_weight.toFixed(2);
+    this.cakeCost = total_cost.toFixed(2);
+
+    // Возвращаем объект с результатами, если это необходимо
+    return { total_weight, total_cost };
+},
+
+
+   /* async fetchCakeData() {
+  try {
+    const response = await axios.get('/api/cake-components/');
+    const data = response.data;
+
+    if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+      throw new Error('Invalid data structure received from API.');
+    }
+
+    this.sizes = data.sizes;
+    this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+    this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+    this.shapes = data.shapes;
+    this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+    this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+    this.decorations = data.trinkets.map(trinket => ({
+      ...trinket,
+      primary_color: this.addSharpIfNeeded(trinket.primary_color),
+      positionOffset: parseFloat(trinket.position_offset) || 0
+    }));
+
+    console.log("Данные торта загружены: ", data);
+
+    // Установите значения по умолчанию
+    this.defaultCenterTrinket = data.trinkets.find(trinket => trinket.ingridient === 'defaultCenter')?.cake_addition_id || 1;
+    this.defaultPerimeterTrinket = data.trinkets.find(trinket => trinket.ingridient === 'defaultPerimeter')?.cake_addition_id || 1;
+
+    nextTick(() => {
+      this.initThreeJS();
+      this.startAnimation();
+    });
+  } catch (error) {
+    console.error('There was an error fetching the cake data!', error);
+  }
+},*/
+/*
+async fetchCakeData() {
+    try {
+      const response = await axios.get('/api/cake-components/');
+      const data = response.data;
+
+      if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+        throw new Error('Invalid data structure received from API.');
+      }
+
+      this.sizes = data.sizes;
+      this.bases = data.bases.map(base => ({ ...base, primary_color: this.addSharpIfNeeded(base.primary_color) }));
+      this.fillings = data.fillings.map(filling => ({ ...filling, primary_color: this.addSharpIfNeeded(filling.primary_color) }));
+      this.shapes = data.shapes;
+      this.toppings = data.toppings.map(topping => ({ ...topping, primary_color: this.addSharpIfNeeded(topping.primary_color) }));
+      this.covers = data.covers.map(cover => ({ ...cover, primary_color: this.addSharpIfNeeded(cover.primary_color) }));
+      this.decorations = data.trinkets.map(trinket => ({
+        ...trinket,
+        primary_color: this.addSharpIfNeeded(trinket.primary_color),
+        positionOffset: parseFloat(trinket.position_offset) || 0
+      }));
+
+      console.log("Данные торта загружены: ", data);
+
+      this.initializeDefaultValues(); // Инициализация значений по умолчанию
+
+      nextTick(() => {
+        this.initThreeJS();
+        this.startAnimation();
+      });
+    } catch (error) {
+      console.error('There was an error fetching the cake data!', error);
+    }
+  },*/
+
+
+  async fetchCakeData() {
+    try {
+        const response = await axios.get('/api/cake-components/');
+        const data = response.data;
+
+        if (!data.bases || !data.fillings || !data.shapes || !data.toppings || !data.covers || !data.trinkets) {
+            throw new Error('Invalid data structure received from API.');
+        }
+
+        this.sizes = data.sizes;
+        this.bases = data.bases.map(base => ({
+            ...base,
+            primary_color: this.addSharpIfNeeded(base.primary_color)
+        }));
+        this.fillings = data.fillings.map(filling => ({
+            ...filling,
+            primary_color: this.addSharpIfNeeded(filling.primary_color)
+        }));
+        this.shapes = data.shapes;
+        this.toppings = data.toppings.map(topping => ({
+            ...topping,
+            primary_color: this.addSharpIfNeeded(topping.primary_color)
+        }));
+        this.covers = data.covers.map(cover => ({
+            ...cover,
+            primary_color: this.addSharpIfNeeded(cover.primary_color)
+        }));
+        this.decorations = data.trinkets.map(trinket => ({
+            ...trinket,
+            primary_color: this.addSharpIfNeeded(trinket.primary_color),
+            positionOffset: parseFloat(trinket.position_offset) || 0
+        }));
+
+        console.log("Bases:", this.bases);
+        console.log("Fillings:", this.fillings);
+        console.log("Shapes:", this.shapes);
+        console.log("Toppings:", this.toppings);
+        console.log("Covers:", this.covers);
+        console.log("Decorations:", this.decorations);
+
+        nextTick(() => {
+            this.initThreeJS();
+            this.startAnimation();
+        });
+    } catch (error) {
+        console.error('There was an error fetching the cake data!', error);
+    }
+},
 
     async addTrinkets() {
       this.removeCenterTrinket();
@@ -894,13 +1829,28 @@ createApp({
       }
     },
     updateCenterTrinket(event) {
-      this.currentCenterTrinket = event.target.value;
+      this.currentCenterTrinket = event.target.value || 5;
       this.updateCake();
     },
     updatePerimeterTrinket(event) {
-      this.currentPerimeterTrinket = event.target.value;
+      this.currentPerimeterTrinket = event.target.value || 6;
       this.updateCake();
     },
+/*
+  updateCenterTrinket() {
+    const selectedTrinket = this.decorations.find(trinket => trinket.cake_addition_id === this.currentCenterTrinket);
+    this.currentCenterTrinket = selectedTrinket ? selectedTrinket.cake_addition_id : null;
+    this.updateCake();
+  },
+  updatePerimeterTrinket() {
+    const selectedTrinket = this.decorations.find(trinket => trinket.cake_addition_id === this.currentPerimeterTrinket);
+    this.currentPerimeterTrinket = selectedTrinket ? selectedTrinket.cake_addition_id : null;
+    this.updateCake();
+  },*/
+
+
+
+
     async addCenterTrinket() {
       const trinketData = this.centerDecorations.find(t => t.ingridient === this.currentCenterTrinket);
       if (!trinketData) {
@@ -1362,6 +2312,11 @@ createApp({
       this.updateCake();
     },
 
+
+
+
+
+/*
     async updateCake() {
       const layers = parseInt(this.numberOfLayers);
 
@@ -1392,7 +2347,46 @@ createApp({
       console.log(this.cakeJson);
 
       await this.loadDecoration();
+    },*/
+
+    async updateCake() {
+      const layers = parseInt(this.numberOfLayers);
+
+      const bases = [];
+      const fillings = [];
+
+      for (let i = 1; i <= layers; i++) {
+        const base = document.getElementById(`base${i}`).value;
+        const filling = document.getElementById(`filling${i}`).value;
+        bases.push(base);
+        fillings.push(filling);
+      }
+
+      this.createCake(layers, this.currentShape, bases, fillings);
+
+      const cakeLayers = this.cakeLayers.map((layer, index) => {
+        console.log(`Layer ${index + 1}: Shape: ${this.currentShape}, Radius: ${this.getShapeRadius(layer)}, Base Color: ${bases[index]}, Filling Color: ${fillings[index]}`);
+        return {
+          shape: this.currentShape,
+          radius: this.getShapeRadius(layer),
+          height: 1,
+          baseColor: bases[index],
+          fillingColor: fillings[index]
+        };
+      });
+
+      this.cakeJson = this.serializeCake(cakeLayers, bases, fillings);
+      console.log(this.cakeJson);
+
+      await this.loadDecoration();
+
+      // Вызываем функцию для расчета веса и стоимости после обновления торта
+      this.calculateCakeWeightAndCost();
     },
+
+
+
+
 
     async loadDecoration() {
       this.removeCenterTrinket();

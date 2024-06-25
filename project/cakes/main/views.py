@@ -799,20 +799,21 @@ def add_to_cart_from_constructor(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 """
-@csrf_exempt
+
+
 def add_to_cart_from_constructor(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
 
-            required_fields = ['weight', 'cost', 'layers_count', 'text', 'name', 'constructor_image', 'preview_image', 'cake_size', 'cake_shape', 'cake_coverage', 'cake_topping', 'cake_addition']
+            required_fields = ['weight', 'cost', 'layers_count', 'text', 'name', 'constructor_image', 'preview_image', 'cake_size', 'cake_shape', 'cake_coverage', 'cake_topping', 'cake_addition', 'cake_addition_perimeter']
             for field in required_fields:
                 if field not in data:
                     return JsonResponse({'error': f'Missing parameter: {field}'}, status=400)
 
             print(f"Received cake data: {data}")
 
-            if not all([data['cake_size'], data['cake_shape'], data['cake_coverage'], data['cake_topping'], data['cake_addition']]):
+            if not all([data['cake_size'], data['cake_shape'], data['cake_coverage'], data['cake_topping']]):
                 return JsonResponse({'error': 'One of the foreign key IDs is missing or invalid'}, status=400)
 
             cake = Cake.objects.create(
@@ -827,8 +828,8 @@ def add_to_cart_from_constructor(request):
                 cake_shape_id=data['cake_shape'],
                 cake_coverage_id=data['cake_coverage'],
                 cake_topping_id=data['cake_topping'],
-                cake_addition_id=data['cake_addition'],
-                cake_addition_perimeter_id=data.get('cake_addition_perimeter')
+                cake_addition_id=data['cake_addition'] or None,
+                cake_addition_perimeter_id=data['cake_addition_perimeter'] or None
             )
 
             print(f"Created cake ID: {cake.cake_id}")
@@ -852,4 +853,3 @@ def add_to_cart_from_constructor(request):
             return JsonResponse({'error': 'Internal Server Error'}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
-
