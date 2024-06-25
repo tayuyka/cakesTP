@@ -266,7 +266,6 @@ async saveScreenshotToServer() {
           });
 
           const filePath = await response.text();
-          alert('kjkjk' + filePath);
 
           return filePath;
         },
@@ -604,7 +603,7 @@ addToCart() {
     })
     .then(response => {
       console.log(response.data);
-//      alert('Торт добавлен в корзину');
+      alert('Торт добавлен в корзину');
     })
     .catch(error => {
       console.error(error);
