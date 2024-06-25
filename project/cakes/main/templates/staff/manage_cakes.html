@@ -28,5 +28,9 @@
     {% endfor %}
 </table>
 </div>
-<a class="add-new-button" href="{% url 'add_cake' %}">Добавить</a>
+<h2 class="manage-title2">Добавить</h2>
+<div class="manage-button-container">
+    <a class="add-new-button" href="{% url 'add_cake' %}">Форма</a>
+    <a class="add-new-button" href="{% url 'add_cake' %}">Конструктор</a>
+</div>
 {% endblock %}

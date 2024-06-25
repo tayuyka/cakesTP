@@ -12,12 +12,6 @@
   padding: 34px 45px;
 }
 
-@media (max-width: 991px) {
-  .order-form {
-    margin-top: 40px;
-    padding: 0 20px;
-  }
-}
 
 .order-form .order-form-title {
   color: #e6a4b4;
@@ -27,12 +21,6 @@
   font: 900 34px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .order-form-title {
-    max-width: 100%;
-    font-size: 40px;
-  }
-}
 
 .order-form .name-fields {
   display: flex;
@@ -42,12 +30,6 @@
   gap: 47%;
 }
 
-@media (max-width: 991px) {
-  .order-form .name-fields {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-}
 
 .order-form .first-name-label {
   align-self: end;
@@ -55,22 +37,11 @@
   font: 600 16px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .first-name-label {
-    margin-top: 40px;
-  }
-}
 
 .order-form .last-name-title {
   font: 900 64px/42% Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .last-name-title {
-    max-width: 100%;
-    font-size: 40px;
-  }
-}
 
 .order-form .last-name-label {
   align-self: center;
@@ -87,12 +58,6 @@
   font-weight: 400;
 }
 
-@media (max-width: 991px) {
-  .order-form .name-inputs {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-}
 
 .order-form .first-name-input,
 .last-name-input {
@@ -109,12 +74,6 @@
   color:#e6a4b4;
 }
 
-@media (max-width: 991px) {
-  .order-form .first-name-input,
-  .last-name-input {
-    padding: 0 20px;
-  }
-}
 
 .order-form .email-label {
   color: #e6a4b4;
@@ -122,11 +81,6 @@
   font: 600 16px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .email-label {
-    max-width: 100%;
-  }
-}
 
 .order-form .email-input {
   border-radius: 13px;
@@ -143,11 +97,6 @@
   font: 400 16px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .email-input {
-    padding: 0 20px;
-  }
-}
 
 .order-form .phone-label {
   color: #e6a4b4;
@@ -155,11 +104,6 @@
   font: 600 16px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .phone-label {
-    max-width: 100%;
-  }
-}
 
 .order-form .phone-input {
   border-radius: 13px;
@@ -175,11 +119,6 @@
   font: 400 16px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .phone-input {
-    padding-right: 20px;
-  }
-}
 
 .order-form .address-label {
   color: #e6a4b4;
@@ -187,11 +126,6 @@
   font: 600 16px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .address-label {
-    max-width: 100%;
-  }
-}
 
 .order-form .address-input {
   border-radius: 13px;
@@ -205,12 +139,6 @@
   font: 400 16px Roboto Flex, sans-serif;
 }
 
-@media (max-width: 991px) {
-  .order-form .address-input {
-    max-width: 100%;
-    padding-right: 20px;
-  }
-}
 
 .order-form .delivery-info {
   color: #e6a4b4;
@@ -219,11 +147,6 @@
   
 }
 
-@media (max-width: 991px) {
-  .order-form .delivery-info {
-    max-width: 100%;
-  }
-}
 
 .order-form .order-summary {
   display: flex;
@@ -233,12 +156,6 @@
   font-weight: 900;
 }
 
-@media (max-width: 991px) {
-  .order-form .order-summary {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-}
 
 .order-form .total-container {
   display: flex;
@@ -250,11 +167,6 @@
   margin: auto 0;
 }
 
-@media (max-width: 991px) {
-  .order-form .total-container {
-    font-size: 40px;
-  }
-}
 
 .order-form .total-label,
 .total-amount {
@@ -263,12 +175,6 @@
   flex-basis: auto;
 }
 
-@media (max-width: 991px) {
-  .order-form .total-label,
-  .order-form .total-amount {
-    font-size: 40px;
-  }
-}
 
 .order-form .order-button {
   border-radius: 30px;
@@ -288,8 +194,3 @@
   transform: scale(1.05);
 }
 
-@media (max-width: 991px) {
-  .order-form .order-button {
-    padding: 0 20px;
-  }
-}

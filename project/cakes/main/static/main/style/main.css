@@ -57,13 +57,6 @@ body {
       z-index: 1000;
     }
 
-    @media (max-width: 991px) {
-      .header {
-        flex-wrap: wrap;
-        padding-left: 20px;
-        white-space: initial;
-      }
-    }
 
     .nav-button {
       font-family: Roboto Flex, sans-serif;
@@ -93,13 +86,6 @@ body {
       background-color: black;
     }
 
-    @media (max-width: 991px) {
-      .nav-item {
-        white-space: initial;
-        padding: 0 20px;
-      }
-    }
-
     .logo {
       aspect-ratio: 1;
       object-fit: contain;
@@ -108,11 +94,6 @@ body {
       margin-right: 15px;
       color: #fff8e3;
     }
-    /* .logo:hover{
-      background-color: #fff8e3;
-      color: #e6a4b4;
-    } */
-
 
     .main-logo{
       display: flex;

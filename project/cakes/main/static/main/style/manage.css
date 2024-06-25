@@ -6,6 +6,14 @@
     margin-left: 4%;
   }
 
+  .manage-title2{
+    color: #e6a4b4;
+    font: 900 24px/42% Roboto Flex, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 4%;
+  }
+
   .table-container {
     background-color: #FFECD4;
     border-radius: 20px;
@@ -46,6 +54,15 @@
     color: #fff8e3;  
 }
 
+  .manage-button-container{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    align-self: flex-start;
+    justify-self: flex-start;
+    justify-content: space-between;
+    margin-left: 4%;
+  }
 
 
   .manage-table tr:nth-child(even) {background-color: #FFECD4;}
@@ -74,8 +91,7 @@
     font: 900 18px Roboto Flex, sans-serif;
     transition: transform 0.3s ease, background-color 0.3s ease;
     text-decoration: none;
-    max-width: 10%;
-    margin-left: 4%;
+    min-width: 40%;
   }
 
   .add-new-button:hover{
