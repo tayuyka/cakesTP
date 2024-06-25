@@ -1,33 +1,40 @@
+import random
+import csv
+from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.db import connection
+import time
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Count, Avg
 from django.core.serializers.json import DjangoJSONEncoder
-import json
+import os
 from django.utils import timezone
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 import json
 from django.http import JsonResponse
-
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from collections import Counter
+from django.contrib.auth import get_user_model
+import logging
+logger = logging.getLogger(__name__)
 
 
 def get_recommendations(user):
+    recommended_cakes = set()
+
     if user.is_authenticated:
         user_orders = Order.objects.filter(user=user)
         if user_orders.exists():
-            # Получаем все торты, которые пользователь заказывал
             ordered_cakes = OrderContent.objects.filter(order__in=user_orders).values_list('cake', flat=True)
-            cakes = Cake.objects.filter(pk__in=ordered_cakes)
+            cakes = Cake.objects.filter(pk__in=ordered_cakes, is_users=False)
 
             # Собираем параметры заказанных тортов
             layer_counts = cakes.values_list('layers_count', flat=True)
@@ -35,27 +42,68 @@ def get_recommendations(user):
             shapes = cakes.values_list('cake_shape__shape', flat=True)
             toppings = cakes.values_list('cake_topping__ingridient', flat=True)
             coverages = cakes.values_list('cake_coverage__ingridient', flat=True)
+            additions = cakes.values_list('cake_addition__ingridient', flat=True)
 
             # Считаем наиболее часто встречающиеся параметры
             most_common_layer_count = Counter(layer_counts).most_common(1)[0][0]
-            most_common_size = Counter(sizes).most_common(1)[0][0]
             most_common_shape = Counter(shapes).most_common(1)[0][0]
             most_common_topping = Counter(toppings).most_common(1)[0][0]
             most_common_coverage = Counter(coverages).most_common(1)[0][0]
+            most_common_addition = Counter(additions).most_common(1)[0][0]
 
             # Получаем рекомендации на основе наиболее часто встречающихся параметров
-            recommended_cakes = set()
-            recommended_cakes.update(Cake.objects.filter(layers_count=most_common_layer_count)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_size__type=most_common_size)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_shape__shape=most_common_shape)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_topping__ingridient=most_common_topping)[:5])
-            recommended_cakes.update(Cake.objects.filter(cake_coverage__ingridient=most_common_coverage)[:5])
+            recommended_cakes.update(Cake.objects.filter(cake_topping__ingridient=most_common_topping)[:1])
+            recommended_cakes.update(Cake.objects.filter(cake_shape__shape=most_common_shape)[:1])
+            recommended_cakes.update(Cake.objects.filter(cake_coverage__ingridient=most_common_coverage)[:1])
+            recommended_cakes.update(Cake.objects.filter(cake_addition__ingridient=most_common_addition)[:1])
+            recommended_cakes.update(Cake.objects.filter(layers_count=most_common_layer_count)[:1])
+            recommended_cakes.update(Cake.objects.filter(is_users=False)[:1])
 
-            # Ограничиваем количество рекомендаций до 5 и удаляем дубликаты
-            return list(recommended_cakes)[:5]
+            # Дополняем до 5 тортов, если есть повторения
+            if len(recommended_cakes) < 5:
+                remaining_cakes = Cake.objects.exclude(pk__in=[cake.pk for cake in recommended_cakes], is_users=False)
+                additional_cakes = random.sample(list(remaining_cakes), 5 - len(recommended_cakes))
+                recommended_cakes.update(additional_cakes)
+                recommended_cakes = set(filter(lambda cake: not cake.is_users, recommended_cakes))
 
     # Если пользователь не авторизован или у него нет заказов, возвращаем любые 5 тортов
-    return list(Cake.objects.all()[:5])
+    if len(recommended_cakes) < 5:
+        recommended_cakes.update(Cake.objects.filter(is_users=False)[:5 - len(recommended_cakes)])
+
+    return list(recommended_cakes)
+
+
+def delete_account_form(request):
+    email = request.user.email
+    code = get_random_string(length=6, allowed_chars='1234567890')
+    request.session['delete_account_code'] = code
+    request.session['delete_account_email'] = email
+
+    send_mail(
+        'Удаление аккаунта',
+        f'Ваш код для удаления аккаунта: {code}',
+        'sweetcr3ations@yandex.ru',
+        [email],
+        fail_silently=False,
+    )
+    return redirect('confirm_delete_account_code')
+
+
+def confirm_delete_account_code(request):
+    if request.method == 'POST':
+        input_code = request.POST['code']
+        session_code = request.session.get('delete_account_code')
+
+        if input_code == session_code:
+            user = get_user_model().objects.get(email=request.session.get('delete_account_email'))
+            user.delete()
+            logout(request)
+            messages.success(request, 'Ваш аккаунт успешно удален.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Неверный код.')
+
+    return render(request, 'main/delete_account_confirm_form.html')
 
 
 def recovery_form(request):
@@ -104,7 +152,6 @@ def reset_password(request):
         else:
             messages.error(request, 'Пароли не совпадают.')
     return render(request, 'main/recovery_form_reset_password.html')
-
 
 
 def add_to_cart(request, cake_id):
@@ -183,17 +230,20 @@ def registration_form(request):
         year = request.POST['year']
         phone_number = request.POST['phone_number']
         password = make_password(request.POST['password'])
+        consent = request.POST.get('consent')
 
         date_birth = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
 
-        with connection.cursor() as cursor:
-            cursor.execute("""INSERT INTO User 
-            (first_name, last_name, email, date_birth, phone_number, password, is_superuser, is_staff)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
-            [first_name, last_name, email, date_birth, phone_number, password, False, False])
-            return render(request, 'main/home.html')
+        if consent:
+            with connection.cursor() as cursor:
+                cursor.execute("""INSERT INTO User
+                                (first_name, last_name, email, date_birth, phone_number, password, is_superuser, is_staff)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
+                               [first_name, last_name, email, date_birth, phone_number, password, False, False])
+            return redirect('home')
+        else:
+            return render(request, 'main/registration_form.html', {'error': 'Вы должны дать согласие на обработку персональных данных'})
     return render(request, 'main/registration_form.html')
-
 
 def login_form(request):
     if request.method == 'POST':
@@ -220,8 +270,9 @@ def catalog(request):
     coverage = request.GET.get('coverage')
     layer_count = request.GET.get('layer_count')
     additions = request.GET.getlist('additions')
+    search = request.GET.get('search')
 
-    cakes = Cake.objects.all()
+    cakes = Cake.objects.filter(is_users=False)
 
     if size:
         cakes = cakes.filter(cake_size__type=size)
@@ -236,6 +287,8 @@ def catalog(request):
     if additions:
         for addition in additions:
             cakes = cakes.filter(cake_addition__ingridient=addition)
+    if search:
+        cakes = cakes.filter(name__icontains=search)
 
     rows = [cakes[i:i + 3] for i in range(0, len(cakes), 3)]
     paginator = Paginator(cakes, 9)
@@ -251,48 +304,55 @@ def catalog(request):
         'selected_coverage': coverage,
         'selected_layer_count': layer_count,
         'selected_additions': additions,
+        'search': search,
     })
 
 
 def order_form(request):
     if request.method == 'POST':
-        first_name = request.POST['firstName']
-        last_name = request.POST['lastName']
         email = request.POST['email']
-        phone = request.POST['phone']
         address = request.POST['address']
+        consent = request.POST.get('consent')
 
-        # Save the order
-        order = Order(
-            date=timezone.now(),
-            delivery_date=timezone.now() + timezone.timedelta(days=3),
-            price=0,  # Will be updated later
-            delivery_address=address,
-            status=1,  # Assuming 1 is the default status
-            user=request.user if request.user.is_authenticated else None
-        )
-        order.save()
+        if consent:
+            order = Order(
+                date=timezone.now(),
+                delivery_date=timezone.now() + timezone.timedelta(days=3),
+                price=0,
+                delivery_address=address,
+                status="принят",
+                user=request.user if request.user.is_authenticated else None
+            )
+            order.save()
 
-        cart = request.session.get('cart', {})
-        total_cost = 0
+            cart = request.session.get('cart', {})
+            total_cost = 0
 
-        for cake_id, quantity in cart.items():
-            cake = get_object_or_404(Cake, pk=cake_id)
-            cost = float(cake.cost.replace(' ₽', '').replace(',', '.'))
-            total_cost += cost * quantity
+            for cake_id, quantity in cart.items():
+                cake = get_object_or_404(Cake, pk=cake_id)
+                cost = float(cake.cost.replace(' ₽', '').replace(',', '.'))
+                total_cost += cost * quantity
 
-            # Save the cake to the order the number of times indicated by the quantity
-            for _ in range(quantity):
-                OrderContent.objects.create(order=order, cake=cake)
+                for _ in range(quantity):
+                    OrderContent.objects.create(order=order, cake=cake)
 
-        # Update the order price
-        order.price = total_cost
-        order.save()
+            order.price = total_cost
+            order.save()
 
-        # Clear the cart
-        request.session['cart'] = {}
+            send_mail(
+                'Оформление заказа',
+                f'Благодарим Вас за сделанный заказ!\nПо всем вопросам просим Вас связаться с нами и уточнить номер заказа: {order.pk}',
+                'sweetcr3ations@yandex.ru',
+                [email],
+                fail_silently=False,
+            )
 
-        return redirect('order_details', order_id=order.pk)
+            request.session['cart'] = {}
+
+            return redirect('order_details', order_id=order.pk)
+        else:
+            return render(request, 'main/order_form.html',
+                          {'error': 'Вы должны дать согласие на обработку персональных данных'})
 
     cart = request.session.get('cart', {})
     cakes = Cake.objects.filter(pk__in=cart.keys())
@@ -305,12 +365,16 @@ def order_form(request):
         total_cost += cost * quantity
         total_items += quantity
 
-    return render(request, 'main/order_form.html', {
+    context = {
         'total_cost': total_cost,
-        'total_items': total_items
-    })
+        'total_items': total_items,
+        'user': request.user
+    }
+
+    return render(request, 'main/order_form.html', context)
 
 
+@login_required
 def order_details(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     order_contents = OrderContent.objects.filter(order=order)
@@ -334,7 +398,6 @@ def order_details(request, order_id):
 
 def constructor(request):
     return render(request, 'main/constructor.html')
-
 
 
 def staff_required(user):
@@ -373,7 +436,29 @@ def edit_order(request, order_id):
     return render(request, 'staff/edit_order.html', {'order': order})
 
 
-def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_coverage, cake_topping, cake_additions, cake_layers):
+def export_order_to_txt(request, order_id):
+    order = get_object_or_404(Order, order_id=order_id)
+    User = get_user_model()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="order_{order.order_id}.txt"'
+
+    writer = csv.writer(response, delimiter='\t')
+
+    writer.writerow(['Order ID', 'Status', 'Delivery Address', 'Delivery Date', 'User Email', 'User Phone'])
+    writer.writerow([order.order_id, order.status, order.delivery_address, order.delivery_date, order.user.email if order.user else '', order.user.phone_number if order.user else ''])
+
+    writer.writerow([])
+    writer.writerow(['Cake ID', 'Weight', 'Cost', 'Layers Count', 'Text', 'Name', 'Size', 'Shape', 'Coverage', 'Topping', 'Addition', 'Addition Perimeter'])
+
+    for order_content in order.ordercontent_set.all():
+        cake = order_content.cake
+        writer.writerow([cake.cake_id, cake.weight, cake.cost, cake.layers_count, cake.text, cake.name, cake.cake_size.type, cake.cake_shape.shape, cake.cake_coverage.ingridient, cake.cake_topping.ingridient, cake.cake_addition.ingridient, cake.cake_addition_perimeter.ingridient if cake.cake_addition_perimeter else ''])
+
+    return response
+
+
+def calculate_cake_weight_and_cost(layers_count, cake_size, cake_coverage, cake_topping, cake_additions, cake_layers):
 
     Vc = cake_size.base_area
     Vt = Vc * 0.1
@@ -396,16 +481,13 @@ def calculate_cake_weight_and_cost(layers_count, cake_size, cake_shape, cake_cov
 
     M_add = sum(float(addition.cost_per_gram) / 100 for addition in cake_additions)
 
-
     total_weight = Mc + Mt + Ml + M_add
-
 
     dc = float(cake_coverage.cost_per_gram)
     dt = float(cake_topping.cost_per_gram)
     df = float(cake_layers[0].layer_filling.cost_per_gram)
     db = float(cake_layers[0].layer_base.cost_per_gram)
     d_add = sum(float(addition.cost_per_gram) for addition in cake_additions) / len(cake_additions)
-
 
     Sl = 0
     for layer in cake_layers:
@@ -588,8 +670,10 @@ def statistics_view(request):
 
     return render(request, 'staff/statistics.html', context)
 
+
 from .models import LayerBase, LayerFilling, CakeSize, CakeShape, CakeTopping, CakeAddition, CakeCoverage, Cake
 from .serializers import LayerBaseSerializer, LayerFillingSerializer, CakeSizeSerializer, CakeShapeSerializer, CakeToppingSerializer, CakeAdditionSerializer, CakeCoverageSerializer, CakeSerializer
+
 
 class CakeViewSet(viewsets.ViewSet):
     def list(self, request):
@@ -604,16 +688,28 @@ class CakeViewSet(viewsets.ViewSet):
         }
         return Response(data)
 
+
 class CakeDetailView(generics.RetrieveAPIView):
     queryset = Cake.objects.all()
     serializer_class = CakeSerializer
 
 
-@csrf_exempt
+# @csrf_exempt
 def add_to_cart_from_constructor(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
+
+            required_fields = ['weight', 'cost', 'layers_count', 'text', 'name', 'constructor_image', 'preview_image', 'cake_size', 'cake_shape', 'cake_coverage', 'cake_topping', 'cake_addition', 'cake_addition_perimeter']
+            for field in required_fields:
+                if field not in data:
+                    return JsonResponse({'error': f'Missing parameter: {field}'}, status=400)
+
+            print(f"Received cake data: {data}")
+
+            if not all([data['cake_size'], data['cake_shape'], data['cake_coverage'], data['cake_topping']]):
+                return JsonResponse({'error': 'One of the foreign key IDs is missing or invalid'}, status=400)
+
             cake = Cake.objects.create(
                 weight=data['weight'],
                 cost=data['cost'],
@@ -621,19 +717,23 @@ def add_to_cart_from_constructor(request):
                 text=data['text'],
                 name=data['name'],
                 constructor_image=data['constructor_image'],
-                preview_image=data['preview_image'],
+                preview_image="main\img\home_cake11.png",
                 cake_size_id=data['cake_size'],
                 cake_shape_id=data['cake_shape'],
                 cake_coverage_id=data['cake_coverage'],
                 cake_topping_id=data['cake_topping'],
-                cake_addition_id=data['cake_addition']
+                cake_addition_id=data['cake_addition'] or None,
+                cake_addition_perimeter_id=data['cake_addition_perimeter'] or None,
+                is_users=True
             )
 
+            print(f"Created cake ID: {cake.cake_id}")
+
             cart = request.session.get('cart', {})
-            if str(cake.id) in cart:
-                cart[str(cake.id)] += 1
+            if str(cake.cake_id) in cart:
+                cart[str(cake.cake_id)] += 1
             else:
-                cart[str(cake.id)] = 1
+                cart[str(cake.cake_id)] = 1
             request.session['cart'] = cart
 
             messages.success(request, 'Торт добавлен в корзину.')
@@ -644,9 +744,21 @@ def add_to_cart_from_constructor(request):
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
         except Exception as e:
-            # Логирование ошибки и возврат общего сообщения об ошибке
             print(f'Error: {e}')
             return JsonResponse({'error': 'Internal Server Error'}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def save_screenshot(request):
+    if request.method == 'POST' and request.FILES.get('file'):
+        file = request.FILES['file']
+        timestamp = int(time.time() * 1000)
+        file_name = f"screenshot_{timestamp}.png"
+        file_path = os.path.join('static/main/users_imgs', file_name)
+        with open(file_path, 'wb+') as f:
+            for chunk in file.chunks():
+                f.write(chunk)
+        return HttpResponse(file_path)
+    else:
+        return HttpResponse(status=400)
 

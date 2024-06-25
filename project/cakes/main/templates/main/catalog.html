@@ -88,8 +88,16 @@
                     </div>
                 </div>
                 <div class="layer-options">
-                    <!-- Layer options will be added dynamically -->
                 </div>
+            </div>
+            <div class="layers">
+                <h2 class="filter-title">Поиск</h2>
+                <form method="GET" action="">
+                    <div class="search">
+                        <input type="text" name="search" placeholder="Название..." value="{{ request.GET.search }}" class="input-field">
+                        <button type="submit"><box-icon name='search-alt-2' color='#fff8e3' ></box-icon></button>
+                    </div>
+                </form>
             </div>
         </div>
     </form>
@@ -98,6 +106,7 @@
         {% for row in rows %}
         <div class="catalog-product-row">
             {% for cake in row %}
+            {% if cake.is_users != 1 %}
             <a href="{% url 'cake_info' cake.pk %}" class="product-link">
                 <article class="product-card">
                     <img src="{% static cake.preview_image %}" alt="" class="product-preview" />
@@ -113,6 +122,7 @@
                     </div>
                 </article>
             </a>
+            {% endif %}
             {% endfor %}
         </div>
         {% endfor %}

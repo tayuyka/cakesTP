@@ -13,9 +13,11 @@ class Cake(models.Model):
     preview_image = models.TextField(blank=True, null=True)
     cake_size = models.ForeignKey('CakeSize', models.DO_NOTHING, db_column='cake_size_ID')
     cake_shape = models.ForeignKey('CakeShape', models.DO_NOTHING, db_column='cake_shape_ID')
-    cake_coverage = models.ForeignKey('CakeCoverage', models.DO_NOTHING, db_column='cake_coverage_ID')
-    cake_topping = models.ForeignKey('CakeTopping', models.DO_NOTHING, db_column='cake_topping_ID')
-    cake_addition = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID')
+    cake_coverage = models.ForeignKey('CakeCoverage', models.DO_NOTHING, db_column='cake_coverage_ID', default=4)
+    cake_topping = models.ForeignKey('CakeTopping', models.DO_NOTHING, db_column='cake_topping_ID', default=4)
+    cake_addition = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID', default=5)
+    cake_addition_perimeter = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID_perimeter', related_name='cake_addition_perimeter', null=True, blank=True)
+    is_users = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Cake'
@@ -27,7 +29,7 @@ class Cake(models.Model):
 class CakeAddition(models.Model):
     cake_addition_id = models.AutoField(db_column='cake_addition_ID', primary_key=True)
     ingridient = models.TextField(unique=True)
-    cost_per_gram = models.IntegerField()
+    cost_per_gram = models.FloatField()
     primary_color = models.TextField()
     secondary_color = models.TextField()
     texture_side_path = models.CharField(max_length=255, blank=True, null=True)
@@ -44,7 +46,7 @@ class CakeAddition(models.Model):
 class CakeCoverage(models.Model):
     cake_coverage_id = models.AutoField(db_column='Cake_coverage_ID', primary_key=True)
     ingridient = models.TextField(unique=True)
-    cost_per_gram = models.IntegerField()
+    cost_per_gram = models.FloatField()
     density = models.IntegerField()
     primary_color = models.TextField()
     secondary_color = models.TextField()
@@ -93,7 +95,7 @@ class CakeStructure(models.Model):
 class CakeTopping(models.Model):
     cake_topping_id = models.AutoField(db_column='Cake_topping_ID', primary_key=True)
     ingridient = models.TextField(unique=True)
-    cost_per_gram = models.IntegerField()
+    cost_per_gram = models.FloatField()
     density = models.IntegerField()
     primary_color = models.TextField()
     texture_path = models.CharField(max_length=255, blank=True, null=True)
@@ -117,7 +119,7 @@ class Layer(models.Model):
 class LayerBase(models.Model):
     layer_base_id = models.AutoField(db_column='layer_base_ID', primary_key=True)
     ingridient = models.TextField(unique=True)
-    cost_per_gram = models.IntegerField()
+    cost_per_gram = models.FloatField()
     density = models.IntegerField()
     primary_color = models.TextField()
     secondary_color = models.TextField()
@@ -132,7 +134,7 @@ class LayerBase(models.Model):
 class LayerFilling(models.Model):
     layer_filling_id = models.AutoField(db_column='layer_filling_ID', primary_key=True)
     ingridient = models.TextField(unique=True)
-    cost_per_gram = models.IntegerField()
+    cost_per_gram = models.FloatField()
     density = models.IntegerField()
     primary_color = models.TextField()
     secondary_color = models.TextField()
@@ -150,7 +152,7 @@ class Order(models.Model):
     delivery_date = models.TextField()
     price = models.FloatField()
     delivery_address = models.TextField()
-    status = models.IntegerField()
+    status = models.TextField()
     user = models.ForeignKey('User', models.DO_NOTHING, db_column='user_ID', null=True, blank=True)
 
     class Meta:

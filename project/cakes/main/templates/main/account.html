@@ -16,10 +16,13 @@
           <div class="profile-detail">Имя: {{ user.first_name }} {{ user.last_name }}</div>
           <div class="profile-detail">Дата рождения: {{ user.date_birth }}</div>
           <div class="profile-detail">Номер телефона: {{ user.phone_number }}</div>
-          <div class="profile-detail">Email: {{ user.email }}</div> <!-- Добавьте эту строку -->
+          <div class="profile-detail">Email: {{ user.email }}</div>
         </div>
       </div>
-      <a href="{% url 'logout' %}" class="logout-button">Выйти</a>
+      <div class="acc-buttons-container">
+        <a href="{% url 'logout' %}" class="logout-button">Выйти</a>
+        <a href="{% url 'delete_account' %}" class="delete-acc-button">Удалить аккаунт</a>
+      </div>
     </div>
   </section>
 

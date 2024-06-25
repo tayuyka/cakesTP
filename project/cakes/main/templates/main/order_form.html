@@ -27,6 +27,11 @@
 
       <p class="delivery-info">{{ total_items }} торт(ов) доставят 3 июня</p>
 
+  <div class="consent-field">
+        <input type="checkbox" id="consent" name="consent" required />
+        <label for="consent">Соглашаюсь на обработку персональных данных</label>
+    </div>
+
       <div class="order-summary">
         <div class="total-container">
           <span class="total-label">Сумма:</span>
@@ -34,15 +39,9 @@
         </div>
         <button type="submit" class="order-button" @click="showPopup">Заказать</button>
       </div>
+  {% if error %}
+    <p class="error-message">{{ error }}</p>
+  {% endif %}
     </form>
-  <div class="popup-overlay" :class="[[ isPopupVisible ? 'show' : '' ]]" @click="hidePopup"></div>
-
-<!--        <div class="popup" :class="[[ isPopupVisible ? 'show' : '' ]]">-->
-<!--            <p>Ваш заказ принят</p>-->
-<!--            <div class="popup-buttons">-->
-<!--                <button class="popup-button" @click="handleOk">OK</button>-->
-<!--                <button class="popup-button" @click="handleCancel">Отмена</button>-->
-<!--            </div>-->
-<!--        </div>-->
   </main>
 {% endblock %}

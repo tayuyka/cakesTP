@@ -53,9 +53,10 @@ class CakeStructureSerializer(serializers.ModelSerializer):
 
 class CakeSerializer(serializers.ModelSerializer):
     cake_shape = CakeShapeSerializer()
-    cake_topping = CakeToppingSerializer()
-    cake_coverage = CakeCoverageSerializer()
-    cake_addition = CakeAdditionSerializer()
+    cake_topping = CakeToppingSerializer(default=4)
+    cake_coverage = CakeCoverageSerializer(default=4)
+    cake_addition = CakeAdditionSerializer(default=5)
+    cake_addition_perimeter = CakeAdditionSerializer(default=6)
     cake_structure = CakeStructureSerializer(many=True, source='cakestructure_set')
 
     class Meta:

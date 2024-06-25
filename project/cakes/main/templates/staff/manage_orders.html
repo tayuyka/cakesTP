@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
     <h2 class="manage-title">Управление заказами</h2>
@@ -18,11 +19,12 @@
             <td>{{ order.order_id }}</td>
             <td>{{ order.user.get_full_name }}</td>
             <td>{{ order.price }}</td>
-            <td>{{ order.date }}</td>
+            <td>{{ order.date|format_date }}</td>
             <td>{{ order.status }}</td>
             <td class="action-td">
                 <a class="manage-action-button" href="{% url 'edit_order' order.order_id %}">Изменить</a>
                 <a class="manage-action-button" href="{% url 'delete_order' order.order_id %}">Удалить</a>
+                <a class="manage-action-button" href="{% url 'export_order_to_txt' order.order_id %}">Экспорт</a>
             </td>
         </tr>
         {% empty %}
