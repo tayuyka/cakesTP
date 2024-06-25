@@ -69,7 +69,35 @@
     padding: 20px 30px;
     max-width: 40%;
     margin-top: 60px;
+    color: #e6a4b4;
+    font: 600 18px Roboto Flex, sans-serif;
 }
+
+.cancel-button{
+    margin-top: 20px;
+    justify-self: flex-end;
+    align-self: flex-end;
+}
+
+.confirm-delete-button {
+    display: flex;
+    border-radius: 20px;
+    background-blend-mode: soft-light;
+    background-color: #e11220;
+    border: 0px solid rgba(0, 0, 0, 1);
+    align-self: end;
+    margin-top: 10px;
+    color: #fff8e3;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 10px 10px;
+    font: 900 24px Roboto Flex, sans-serif;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.confirm-delete-button:hover{
+    transform: scale(1.05);
+  }
 
 .edit-cake-form .input-field {
     font-family: Roboto Flex, sans-serif;
