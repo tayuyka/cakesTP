@@ -7,12 +7,13 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.db import connection
+import time
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Count, Avg
 from django.core.serializers.json import DjangoJSONEncoder
-import json
+import os
 from django.utils import timezone
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
@@ -33,7 +34,7 @@ def get_recommendations(user):
         user_orders = Order.objects.filter(user=user)
         if user_orders.exists():
             ordered_cakes = OrderContent.objects.filter(order__in=user_orders).values_list('cake', flat=True)
-            cakes = Cake.objects.filter(pk__in=ordered_cakes, is_users=0)
+            cakes = Cake.objects.filter(pk__in=ordered_cakes, is_users=False)
 
             # Собираем параметры заказанных тортов
             layer_counts = cakes.values_list('layers_count', flat=True)
@@ -56,16 +57,18 @@ def get_recommendations(user):
             recommended_cakes.update(Cake.objects.filter(cake_coverage__ingridient=most_common_coverage)[:1])
             recommended_cakes.update(Cake.objects.filter(cake_addition__ingridient=most_common_addition)[:1])
             recommended_cakes.update(Cake.objects.filter(layers_count=most_common_layer_count)[:1])
+            recommended_cakes.update(Cake.objects.filter(is_users=False)[:1])
 
             # Дополняем до 5 тортов, если есть повторения
             if len(recommended_cakes) < 5:
-                remaining_cakes = Cake.objects.exclude(pk__in=[cake.pk for cake in recommended_cakes])
+                remaining_cakes = Cake.objects.exclude(pk__in=[cake.pk for cake in recommended_cakes], is_users=False)
                 additional_cakes = random.sample(list(remaining_cakes), 5 - len(recommended_cakes))
                 recommended_cakes.update(additional_cakes)
+                recommended_cakes = set(filter(lambda cake: not cake.is_users, recommended_cakes))
 
     # Если пользователь не авторизован или у него нет заказов, возвращаем любые 5 тортов
     if len(recommended_cakes) < 5:
-        recommended_cakes.update(Cake.objects.all()[:5 - len(recommended_cakes)])
+        recommended_cakes.update(Cake.objects.filter(is_users=False)[:5 - len(recommended_cakes)])
 
     return list(recommended_cakes)
 
@@ -269,7 +272,7 @@ def catalog(request):
     additions = request.GET.getlist('additions')
     search = request.GET.get('search')
 
-    cakes = Cake.objects.all()
+    cakes = Cake.objects.filter(is_users=False)
 
     if size:
         cakes = cakes.filter(cake_size__type=size)
@@ -317,7 +320,7 @@ def order_form(request):
                 delivery_date=timezone.now() + timezone.timedelta(days=3),
                 price=0,
                 delivery_address=address,
-                status=1,
+                status="принят",
                 user=request.user if request.user.is_authenticated else None
             )
             order.save()
@@ -745,4 +748,17 @@ def add_to_cart_from_constructor(request):
             return JsonResponse({'error': 'Internal Server Error'}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def save_screenshot(request):
+    if request.method == 'POST' and request.FILES.get('file'):
+        file = request.FILES['file']
+        timestamp = int(time.time() * 1000)
+        file_name = f"screenshot_{timestamp}.png"
+        file_path = os.path.join('static/main/users_imgs', file_name)
+        with open(file_path, 'wb+') as f:
+            for chunk in file.chunks():
+                f.write(chunk)
+        return HttpResponse(file_path)
+    else:
+        return HttpResponse(status=400)
 

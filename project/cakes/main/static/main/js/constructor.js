@@ -231,6 +231,57 @@ createApp({
         alert('Произошла ошибка при добавлении тестового торта в корзину');
     });
 },
+async saveScreenshotToServer() {
+          const tempScene = new THREE.Scene();
+
+          if (this.imageObject) tempScene.add(this.imageObject.clone());
+          if (this.textObject) tempScene.add(this.textObject.clone());
+
+          const originalCameraPosition = this.camera.position.clone();
+          const originalCameraRotation = this.camera.rotation.clone();
+
+          const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+          this.camera.position.set(0, topLayer.position.y + 10, 0);
+          this.camera.lookAt(0, topLayer.position.y, 0);
+
+          this.camera.updateProjectionMatrix();
+
+          this.renderer.render(tempScene, this.camera);
+          const dataURL = this.renderer.domElement.toDataURL('image/png');
+
+          this.camera.position.copy(originalCameraPosition);
+          this.camera.rotation.copy(originalCameraRotation);
+          this.camera.updateProjectionMatrix();
+
+          const fileName = `screenshot_${Date.now()}.png`;
+
+          const blob = this.dataURLtoBlob(dataURL);
+
+          const formData = new FormData();
+          formData.append('file', blob, fileName);
+
+          const response = await fetch('/save-screenshot/', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const filePath = await response.text();
+          alert('kjkjk' + filePath);
+
+          return filePath;
+        },
+
+        dataURLtoBlob(dataURL) {
+          const arr = dataURL.split(',');
+          const mime = arr[0].match(/:(.*?);/)[1];
+          const bstr = atob(arr[1]);
+          let n = bstr.length;
+          const u8arr = new Uint8Array(n);
+          while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+          }
+          return new Blob([u8arr], { type: mime });
+        },
 /*
     addToCart() {
       const cakeData = JSON.parse(this.cakeJson);
@@ -523,6 +574,7 @@ addToCart() {
         filling: filling ? filling.layer_filling_id : null
       };
     });
+    this.constructorImage = this.saveScreenshotToServer();
 
     const cake = {
       weight: parseFloat(this.cakeWeight) || 0,
@@ -552,7 +604,7 @@ addToCart() {
     })
     .then(response => {
       console.log(response.data);
-      alert('Торт добавлен в корзину');
+//      alert('Торт добавлен в корзину');
     })
     .catch(error => {
       console.error(error);
@@ -583,12 +635,13 @@ addToCart() {
     const Vc = cake_size.base_area || 0;
     const Vt = Vc * 0.1;
     const Vl = Vc * 0.5;
-    const Vb = Vc * 0.05;
+    const Vb = Vc * 0.1;
+    const Vcov = Vc * 0.1;
 
     const pc = parseFloat(cake_coverage.density || 0) / 1000;
     const pt = parseFloat(cake_topping.density || 0) / 1000;
 
-    const Mc = pc * Vc;
+    const Mc = pc * Vcov;
     const Mt = pt * Vt;
 
     console.log('Объем и плотность:', { Vc, Vt, Vl, Vb, pc, pt });
@@ -667,8 +720,8 @@ addToCart() {
       sizeMultiplier = 1.25;
     }
 
-    this.cakeWeight = (total_weight * sizeMultiplier).toFixed(2);
-    this.cakeCost = (total_cost * sizeMultiplier).toFixed(2);
+    this.cakeWeight = Math.round(total_weight * sizeMultiplier);
+    this.cakeCost = Math.round(total_cost * sizeMultiplier);
 
     console.log('Итоговые вес и стоимость торта:', { cakeWeight: this.cakeWeight, cakeCost: this.cakeCost });
   },
@@ -1826,35 +1879,37 @@ addToCart() {
       }
     },
 
-    saveScreenshot() {
-      const tempScene = new THREE.Scene();
+//    saveScreenshot() {
+//      const tempScene = new THREE.Scene();
+//
+//      if (this.imageObject) tempScene.add(this.imageObject.clone());
+//      if (this.textObject) tempScene.add(this.textObject.clone());
+//
+//      const originalCameraPosition = this.camera.position.clone();
+//      const originalCameraRotation = this.camera.rotation.clone();
+//
+//      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
+//      this.camera.position.set(0, topLayer.position.y + 10, 0);
+//      this.camera.lookAt(0, topLayer.position.y, 0);
+//
+//      this.camera.updateProjectionMatrix();
+//
+//      this.renderer.render(tempScene, this.camera);
+//      const dataURL = this.renderer.domElement.toDataURL('image/png');
+//
+//      this.camera.position.copy(originalCameraPosition);
+//      this.camera.rotation.copy(originalCameraRotation);
+//      this.camera.updateProjectionMatrix();
+//
+//      const link = document.createElement('a');
+//      link.href = dataURL;
+//      link.download = 'screenshot.png';
+//      document.body.appendChild(link);
+//      link.click();
+//      document.body.removeChild(link);
+//    },
 
-      if (this.imageObject) tempScene.add(this.imageObject.clone());
-      if (this.textObject) tempScene.add(this.textObject.clone());
 
-      const originalCameraPosition = this.camera.position.clone();
-      const originalCameraRotation = this.camera.rotation.clone();
-
-      const topLayer = this.cakeLayers[this.cakeLayers.length - 1];
-      this.camera.position.set(0, topLayer.position.y + 10, 0);
-      this.camera.lookAt(0, topLayer.position.y, 0);
-
-      this.camera.updateProjectionMatrix();
-
-      this.renderer.render(tempScene, this.camera);
-      const dataURL = this.renderer.domElement.toDataURL('image/png');
-
-      this.camera.position.copy(originalCameraPosition);
-      this.camera.rotation.copy(originalCameraRotation);
-      this.camera.updateProjectionMatrix();
-
-      const link = document.createElement('a');
-      link.href = dataURL;
-      link.download = 'screenshot.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    },
     adjustStarUVs(geometry) {
       const uvAttribute = geometry.attributes.uv;
       for (let i = 0; i < uvAttribute.count; i++) {
