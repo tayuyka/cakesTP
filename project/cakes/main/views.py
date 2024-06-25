@@ -33,7 +33,7 @@ def get_recommendations(user):
         user_orders = Order.objects.filter(user=user)
         if user_orders.exists():
             ordered_cakes = OrderContent.objects.filter(order__in=user_orders).values_list('cake', flat=True)
-            cakes = Cake.objects.filter(pk__in=ordered_cakes)
+            cakes = Cake.objects.filter(pk__in=ordered_cakes, is_users=0)
 
             # Собираем параметры заказанных тортов
             layer_counts = cakes.values_list('layers_count', flat=True)
