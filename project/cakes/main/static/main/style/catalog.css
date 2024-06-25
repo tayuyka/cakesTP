@@ -281,22 +281,45 @@
   }
 
   .catalog-pagination {
+    text-decoration: none;
     background-color: #FFECD4;
     border-radius: 20px;
     display: flex;
     gap: 10px;
     color: #e6a4b4;
-    font: 34px Roboto Flex, sans-serif;
+    font: 24px Roboto Flex, sans-serif;
     font-weight: 600;
   }
 
   .catalog-pagination span {
+    text-decoration: none;
     cursor: pointer;
     padding: 10px 15px;
     border-radius: 20px;
+    background-color: #e6a4b4;
+    color: #fff8e3;
   }
 
-  .catalog-pagination span:hover {
+  .catalog-pagination a:hover {
+    background-color: #e6a4b4;
+    color: #fff8e3;
+  }
+
+  .catalog-pagination a {
+    padding: 10px 15px;
+    text-decoration: none;
+    background-color: #FFECD4;
+    border-radius: 20px;
+    display: flex;
+    gap: 10px;
+    color: #e6a4b4;
+    font: 24px Roboto Flex, sans-serif;
+    font-weight: 600;
+    align-items: center;
+  }
+  
+  .catalog-pagination .page-item.active .page-link {
+    text-decoration: none;
     background-color: #e6a4b4;
     color: #fff8e3;
   }

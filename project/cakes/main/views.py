@@ -714,7 +714,7 @@ def add_to_cart_from_constructor(request):
                 text=data['text'],
                 name=data['name'],
                 constructor_image=data['constructor_image'],
-                preview_image=data['preview_image'],
+                preview_image="main\img\home_cake11.png",
                 cake_size_id=data['cake_size'],
                 cake_shape_id=data['cake_shape'],
                 cake_coverage_id=data['cake_coverage'],
