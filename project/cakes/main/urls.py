@@ -31,6 +31,7 @@ urlpatterns = [
     path('staff/cakes/', manage_cakes, name='manage_cakes'),
     path('staff/orders/', manage_orders, name='manage_orders'),
     path('staff/orders/edit/<int:order_id>/', edit_order, name='edit_order'),
+    path('staff/order/edit/<int:order_id>/export/', export_order_to_txt, name='export_order_to_txt'),
     path('staff/orders/delete/<int:order_id>/', views.delete_order, name='delete_order'),
     path('staff/cakes/add/', add_cake, name='add_cake'),
     path('staff/cakes/edit/<int:cake_id>/', edit_cake, name='edit_cake'),

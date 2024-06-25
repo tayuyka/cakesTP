@@ -23,6 +23,7 @@
             <td class="action-td">
                 <a class="manage-action-button" href="{% url 'edit_order' order.order_id %}">Изменить</a>
                 <a class="manage-action-button" href="{% url 'delete_order' order.order_id %}">Удалить</a>
+                <a class="manage-action-button" href="{% url 'export_order_to_txt' order.order_id %}">Экспорт</a>
             </td>
         </tr>
         {% empty %}

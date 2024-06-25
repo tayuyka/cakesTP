@@ -1,5 +1,6 @@
 import random
-
+import csv
+from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
@@ -430,6 +431,28 @@ def edit_order(request, order_id):
         order.save()
         return redirect('manage_orders')
     return render(request, 'staff/edit_order.html', {'order': order})
+
+
+def export_order_to_txt(request, order_id):
+    order = get_object_or_404(Order, order_id=order_id)
+    User = get_user_model()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="order_{order.order_id}.txt"'
+
+    writer = csv.writer(response, delimiter='\t')
+
+    writer.writerow(['Order ID', 'Status', 'Delivery Address', 'Delivery Date', 'User Email', 'User Phone'])
+    writer.writerow([order.order_id, order.status, order.delivery_address, order.delivery_date, order.user.email if order.user else '', order.user.phone_number if order.user else ''])
+
+    writer.writerow([])
+    writer.writerow(['Cake ID', 'Weight', 'Cost', 'Layers Count', 'Text', 'Name', 'Size', 'Shape', 'Coverage', 'Topping', 'Addition', 'Addition Perimeter'])
+
+    for order_content in order.ordercontent_set.all():
+        cake = order_content.cake
+        writer.writerow([cake.cake_id, cake.weight, cake.cost, cake.layers_count, cake.text, cake.name, cake.cake_size.type, cake.cake_shape.shape, cake.cake_coverage.ingridient, cake.cake_topping.ingridient, cake.cake_addition.ingridient, cake.cake_addition_perimeter.ingridient if cake.cake_addition_perimeter else ''])
+
+    return response
 
 
 def calculate_cake_weight_and_cost(layers_count, cake_size, cake_coverage, cake_topping, cake_additions, cake_layers):

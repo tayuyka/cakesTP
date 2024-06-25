@@ -53,8 +53,7 @@
   .manage-table .action-td{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    gap: 10%;
+    justify-content: space-around
   }
 
   .manage-table{
