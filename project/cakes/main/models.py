@@ -13,9 +13,9 @@ class Cake(models.Model):
     preview_image = models.TextField(blank=True, null=True)
     cake_size = models.ForeignKey('CakeSize', models.DO_NOTHING, db_column='cake_size_ID')
     cake_shape = models.ForeignKey('CakeShape', models.DO_NOTHING, db_column='cake_shape_ID')
-    cake_coverage = models.ForeignKey('CakeCoverage', models.DO_NOTHING, db_column='cake_coverage_ID', default=1)
-    cake_topping = models.ForeignKey('CakeTopping', models.DO_NOTHING, db_column='cake_topping_ID', default=1)
-    cake_addition = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID', default=1)
+    cake_coverage = models.ForeignKey('CakeCoverage', models.DO_NOTHING, db_column='cake_coverage_ID', default=4)
+    cake_topping = models.ForeignKey('CakeTopping', models.DO_NOTHING, db_column='cake_topping_ID', default=4)
+    cake_addition = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID', default=5)
     cake_addition_perimeter = models.ForeignKey('CakeAddition', models.DO_NOTHING, db_column='cake_addition_ID_perimeter', related_name='cake_addition_perimeter', null=True, blank=True)
 
     class Meta:
